@@ -1,0 +1,167 @@
+{
+  "title": "Foundations of Medicine Practice Quiz Directory",
+  "quizzes": [
+    {
+      "title": "Epithelial Tissue and Plasma Proteins",
+      "file": "quizzes/epithelial_plasma_40.html",
+      "questions": 40,
+      "category": "Histology / Plasma Proteins",
+      "week": 3,
+      "week_title": "Foundations of Metabolism"
+    },
+    {
+      "title": "Comprehensive Metabolism",
+      "file": "quizzes/metabolism_150.html",
+      "questions": 150,
+      "category": "Biochemistry",
+      "week": 3,
+      "week_title": "Foundations of Metabolism"
+    },
+    {
+      "title": "Lecture 4: Fundamentals of Histology & Pathology",
+      "file": "quizzes/lecture4_histology_pathology_40.html",
+      "questions": 40,
+      "category": "Histology / Pathology",
+      "week": 4,
+      "week_title": "Foundations of Genetics"
+    },
+    {
+      "title": "Week 4 Comprehensive: Foundations of Genetics",
+      "file": "quizzes/week4_foundations_genetics_150.html",
+      "questions": 150,
+      "category": "Genetics",
+      "week": 4,
+      "week_title": "Foundations of Genetics"
+    },
+    {
+      "title": "Clinical Epithelial Histology Image Challenge",
+      "file": "quizzes/clinical_epithelial_histology_images_25.html",
+      "questions": 25,
+      "category": "Histology / Pathology",
+      "week": 4,
+      "week_title": "Foundations of Genetics",
+      "requires_internet_for_images": true
+    },
+    {
+      "title": "Week 5 Prequiz: Foundations of Cancer",
+      "file": "quizzes/week5_foundations_cancer_prequiz_40.html",
+      "questions": 40,
+      "category": "Oncology / Cancer Biology",
+      "week": 5,
+      "week_title": "Foundations of Cancer",
+      "grading_modes": [
+        "practice",
+        "exam"
+      ]
+    },
+    {
+      "title": "Week 5 Comprehensive: Foundations of Cancer",
+      "file": "quizzes/week5_foundations_cancer_comprehensive_150.html",
+      "questions": 150,
+      "category": "Oncology / Cancer Biology",
+      "week": 5,
+      "week_title": "Foundations of Cancer",
+      "grading_modes": [
+        "practice",
+        "exam"
+      ]
+    },
+    {
+      "title": "Week 5 Structured Active Learning: Foundations of Cancer",
+      "file": "quizzes/week5_structured_active_learning_cancer_40.html",
+      "questions": 40,
+      "category": "Oncology / Cancer Biology",
+      "week": 5,
+      "week_title": "Foundations of Cancer",
+      "grading_modes": [
+        "practice",
+        "exam"
+      ]
+    },
+    {
+      "title": "Week 6 Prequiz: Foundations of Immunology",
+      "file": "quizzes/week6_foundations_immunology_prequiz_50.html",
+      "questions": 50,
+      "category": "Immunology",
+      "week": 6,
+      "week_title": "Foundations of Immunology",
+      "grading_modes": [
+        "practice",
+        "exam",
+        "advanced_review"
+      ],
+      "review_bank": true
+    },
+    {
+      "title": "Monday Daily Quiz",
+      "file": "quizzes/week6_monday_daily_25.html",
+      "questions": 25,
+      "category": "Immunology \u2014 Daily",
+      "week": 6,
+      "week_title": "Foundations of Immunology",
+      "grading_modes": [
+        "practice",
+        "exam",
+        "advanced_review"
+      ],
+      "review_bank": true
+    },
+    {
+      "title": "Tuesday Daily Quiz",
+      "file": "quizzes/week6_tuesday_daily_25.html",
+      "questions": 25,
+      "category": "Immunology / Pathology \u2014 Daily",
+      "week": 6,
+      "week_title": "Foundations of Immunology",
+      "grading_modes": [
+        "practice",
+        "exam",
+        "advanced_review"
+      ],
+      "review_bank": true
+    },
+    {
+      "title": "Wednesday Daily Quiz",
+      "file": "quizzes/week6_wednesday_daily_25.html",
+      "questions": 25,
+      "category": "Immunology / Pharmacology / Pathology \u2014 Daily",
+      "week": 6,
+      "week_title": "Foundations of Immunology",
+      "grading_modes": [
+        "practice",
+        "exam",
+        "advanced_review"
+      ],
+      "review_bank": true
+    },
+    {
+      "title": "Week 6 Comprehensive: Foundations of Immunology",
+      "file": "quizzes/week6_foundations_immunology_comprehensive_150.html",
+      "questions": 150,
+      "category": "Immunology",
+      "week": 6,
+      "week_title": "Foundations of Immunology",
+      "grading_modes": [
+        "practice",
+        "exam",
+        "advanced_review"
+      ],
+      "review_bank": true
+    },
+    {
+      "title": "Week 6 SAL: Foundation of Diagnostic Imaging",
+      "file": "quizzes/week6_sal_diagnostic_imaging_50.html",
+      "questions": 50,
+      "category": "Structured Active Learning / Diagnostic Imaging",
+      "week": 6,
+      "week_title": "Foundations of Immunology",
+      "grading_modes": [
+        "practice",
+        "exam",
+        "advanced_review"
+      ],
+      "review_bank": true,
+      "embedded_image_questions": 9
+    }
+  ]
+}

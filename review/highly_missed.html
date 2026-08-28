@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Highly Missed & Filed for Review</title>
+<style>
+:root{--bg:#f3ece3;--paper:#fffaf4;--ink:#3e3028;--muted:#75685e;--line:#dccfc3;--brown:#694a39;--sage:#dcebdc;--sage2:#edf4ec;--rose:#f3dddd;--rose2:#fbefef}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+header{max-width:920px;margin:28px auto 0;padding:0 18px}.back{color:var(--brown);font-weight:750;text-decoration:none}
+main{max-width:920px;margin:16px auto 60px;padding:0 18px}
+.hero,.card{background:var(--paper);border:1px solid var(--line);border-radius:18px;box-shadow:0 8px 24px rgba(61,42,31,.05)}
+.hero{padding:24px;margin-bottom:18px}h1{font-size:30px;margin:0 0 8px}.hero p{color:var(--muted);line-height:1.5;margin:0}
+.stats{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}.pill{background:#eee5dc;border-radius:999px;padding:6px 9px;font-size:12px;font-weight:800}
+.card{padding:22px}.meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.tag{font-size:11px;background:#eee5dc;border-radius:999px;padding:5px 8px}
+.stem{font-size:17px;font-weight:700;line-height:1.45;margin:8px 0 15px}.choice{display:block;width:100%;text-align:left;border:1px solid var(--line);background:#fff;border-radius:12px;padding:12px 13px;margin:8px 0;color:var(--ink);font:inherit;cursor:pointer}
+.choice:hover{border-color:#b89b87}.choice.correct{background:var(--sage);border-color:#aac4aa}.choice.wrong{background:var(--rose);border-color:#d6aaaa}.choice:disabled{cursor:default}
+.feedback{display:none;margin-top:15px;padding:13px 14px;border-radius:12px;line-height:1.5}.feedback.show{display:block}.feedback.good{background:var(--sage2)}.feedback.bad{background:var(--rose2)}
+.transfer{border-top:1px solid var(--line);margin-top:20px;padding-top:18px}.transfer h3{margin:0 0 8px}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+button.action{border:0;border-radius:11px;padding:10px 14px;font-weight:800;cursor:pointer}.primary{background:var(--brown);color:white}.secondary{background:#eee5dc;color:var(--ink)}
+.empty{text-align:center;padding:48px 20px}.empty h2{margin:0 0 8px}.empty p{color:var(--muted)}.empty a{color:var(--brown);font-weight:800}
+.progress{font-size:12px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.08em;margin-bottom:9px}
+</style>
+</head>
+<body>
+<header><a class="back" href="../index.html">← Foundations of Medicine Hub</a></header>
+<main>
+<section class="hero">
+<h1>Highly Missed &amp; Filed for Review</h1>
+<p>Active concepts come from manual filing or repeated misses. Three consecutive complete mastery demonstrations remove a concept from the active bank.</p>
+<div class="stats"><span class="pill" id="activeStat">Active: 0</span><span class="pill" id="manualStat">Manual: 0</span><span class="pill" id="autoStat">Auto: 0</span><span class="pill" id="masteredStat">Mastered: 0</span></div>
+</section>
+<section class="card" id="stage"></section>
+</main>
+<script src="../shared/review-bank.js"></script>
+<script>
+let items=ReviewBank.getActive(),idx=0,primary=null,transfer=null;
+const stage=document.getElementById('stage');
+function letter(i){return String.fromCharCode(65+i)}
+function refreshStats(){
+ const s=ReviewBank.stats();
+ activeStat.textContent=`Active: ${s.active}`;
+ manualStat.textContent=`Manual: ${s.manual}`;
+ autoStat.textContent=`Auto: ${s.automatic}`;
+ masteredStat.textContent=`Mastered: ${s.mastered}`;
+}
+function empty(){
+ stage.innerHTML=`<div class="empty"><h2>No active review concepts</h2><p>Concepts will appear here after they are manually filed or missed repeatedly.</p><a href="../index.html">Return to the Foundations of Medicine hub</a></div>`;
+ refreshStats();
+}
+function render(){
+ refreshStats();
+ items=ReviewBank.getActive();
+ if(!items.length){empty();return}
+ if(idx>=items.length)idx=0;
+ const q=items[idx]; primary=null;transfer=null;
+ const choices=(q.choices||[]).map((x,i)=>`<button class="choice" data-p="${letter(i)}"><strong>${letter(i)}.</strong> ${x}</button>`).join('');
+ stage.innerHTML=`<div class="progress">Concept ${idx+1} of ${items.length}</div>
+ <div class="meta"><span class="tag">${q.lecture}</span><span class="tag">${q.topic}</span><span class="tag">${q.difficulty}</span><span class="tag">Misses: ${q.misses||0}</span><span class="tag">Mastery: ${q.masteryStreak||0}/${ReviewBank.MASTERY_TARGET}</span></div>
+ <div class="stem">${q.questionStem}</div><div id="primaryChoices">${choices}</div>
+ <div class="feedback" id="primaryFeedback"></div><div id="transferArea"></div>`;
+ stage.querySelectorAll('[data-p]').forEach(b=>b.addEventListener('click',()=>answerPrimary(q,b.dataset.p)));
+}
+function answerPrimary(q,L){
+ if(primary)return;primary=L;
+ stage.querySelectorAll('[data-p]').forEach(b=>{b.disabled=true;if(b.dataset.p===q.answer)b.classList.add('correct');if(b.dataset.p===L&&L!==q.answer)b.classList.add('wrong')});
+ const ok=L===q.answer,fb=document.getElementById('primaryFeedback');fb.className='feedback show '+(ok?'good':'bad');fb.innerHTML=`<strong>${ok?'Correct.':'Primary answer missed.'}</strong> ${q.explanation}`;
+ const rc=q.transferCheck;
+ if(!rc){transferArea.innerHTML=`<div class="actions"><button class="action primary" id="understand">I understand</button><button class="action secondary" id="keep">Keep for review</button></div>`;wireDecision(q,true);return}
+ const ch=(rc.options||[]).map((x,i)=>`<button class="choice" data-t="${letter(i)}"><strong>${letter(i)}.</strong> ${x}</button>`).join('');
+ transferArea.innerHTML=`<div class="transfer"><h3>Transfer Check</h3><div class="stem">${rc.stem}</div>${ch}<div class="feedback" id="transferFeedback"></div><div class="actions" id="decisionArea" style="display:none"><button class="action primary" id="understand">I understand</button><button class="action secondary" id="keep">Keep for review</button></div></div>`;
+ stage.querySelectorAll('[data-t]').forEach(b=>b.addEventListener('click',()=>answerTransfer(q,rc,b.dataset.t)));
+}
+function answerTransfer(q,rc,L){
+ if(transfer)return;transfer=L;
+ stage.querySelectorAll('[data-t]').forEach(b=>{b.disabled=true;if(b.dataset.t===rc.answer)b.classList.add('correct');if(b.dataset.t===L&&L!==rc.answer)b.classList.add('wrong')});
+ const ok=L===rc.answer,fb=document.getElementById('transferFeedback');fb.className='feedback show '+(ok?'good':'bad');fb.innerHTML=`<strong>${ok?'Transfer check correct.':'Transfer check missed.'}</strong> ${rc.explanation}`;
+ decisionArea.style.display='flex';wireDecision(q,ok);
+}
+function wireDecision(q,transferCorrect){
+ understand.onclick=()=>finish(q,primary===q.answer&&transferCorrect,true);
+ keep.onclick=()=>finish(q,false,false);
+}
+function finish(q,success,understood){
+ if(understood)ReviewBank.recordMastery(q,success);
+ else{ReviewBank.recordMastery(q,false);ReviewBank.fileItem(q)}
+ const remaining=ReviewBank.getActive();
+ if(remaining.length){idx=(idx+1)%remaining.length;render()}else empty();
+}
+refreshStats();render();
+</script>
+</body></html>
