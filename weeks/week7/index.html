@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Week 7 · Hematology</title><style>
+:root{
+  --bg:#f3ece3;--paper:#fffaf4;--paper-2:#fbf5ee;--ink:#3e3028;--muted:#78695f;
+  --line:#dccfc3;--brown:#694a39;--brown-dark:#4a3428;--brown-soft:#8a654f;
+  --tan:#eee5dc;--tan-2:#e8ddd1;--sage:#70806a;--shadow:0 14px 34px rgba(65,43,31,.08)
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(circle at top left,rgba(255,255,255,.55),transparent 30%),var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+a{text-decoration:none;color:inherit}
+.site-header{background:linear-gradient(135deg,var(--brown-dark),var(--brown),var(--brown-soft));color:#fff;padding:22px 22px 36px}
+.header-inner,main{max-width:1120px;margin:0 auto}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:28px}
+.back-link{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:750;color:rgba(255,255,255,.85);padding:8px 11px;border:1px solid rgba(255,255,255,.16);border-radius:999px;background:rgba(255,255,255,.08)}
+.back-link:hover{background:rgba(255,255,255,.12)}
+.course-mark{font-size:12px;font-weight:750;opacity:.72;letter-spacing:.03em}
+.hero{display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:center}
+.hero-icon{width:86px;height:86px;border-radius:24px;display:grid;place-items:center;background:radial-gradient(circle at 32% 24%,rgba(255,255,255,.95),rgba(244,229,218,.9) 48%,rgba(223,204,190,.92));border:1px solid rgba(255,255,255,.26);box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 12px 26px rgba(35,22,15,.16)}
+.hero-icon svg{width:60px;height:60px}
+.eyebrow{margin:0 0 7px;font-size:11px;text-transform:uppercase;letter-spacing:.12em;font-weight:850;opacity:.72}
+h1{margin:0;font-size:clamp(34px,5vw,54px);line-height:1.03;letter-spacing:-.035em}
+.subtitle{margin:11px 0 0;max-width:760px;color:rgba(255,255,255,.82);font-size:15px;line-height:1.6}
+main{padding:28px 22px 64px}
+.nav-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:28px}
+.nav-card{padding:16px 17px;background:rgba(255,250,244,.82);border:1px solid var(--line);border-radius:16px;box-shadow:0 6px 18px rgba(65,43,31,.05);transition:.16s ease}
+.nav-card:hover{transform:translateY(-2px);border-color:#cdbdad}
+.nav-card span{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.08em;font-weight:850;color:var(--brown-soft);margin-bottom:4px}
+.nav-card strong{font-size:15px}
+.section{margin-top:30px}
+.section-heading{display:flex;align-items:end;justify-content:space-between;gap:16px;margin-bottom:14px}
+.section-kicker{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.11em;font-weight:850;color:var(--brown-soft);margin-bottom:4px}
+.section-heading h2{margin:0;font-size:24px;letter-spacing:-.02em}.section-heading p{margin:0;color:var(--muted);font-size:12px}
+.panel,.quiz-group,.review-card{background:linear-gradient(180deg,var(--paper),var(--paper-2));border:1px solid var(--line);box-shadow:var(--shadow)}
+.panel{border-radius:22px;overflow:hidden}
+.empty-library{padding:28px 24px;display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center}
+.empty-icon{width:48px;height:48px;border-radius:15px;display:grid;place-items:center;background:var(--tan);border:1px solid var(--tan-2);color:var(--brown);font-size:20px;font-weight:800}
+.empty-library strong{display:block;font-size:15px;margin-bottom:4px}.empty-library p{margin:0;color:var(--muted);font-size:12px;line-height:1.5}
+.topic-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;padding:0 24px 24px}
+.topic-chip{padding:11px 12px;border-radius:14px;background:#f3ebe4;border:1px solid #e4d8ce;color:#6a5649;font-size:11px;font-weight:760;text-align:center}
+.lecture-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+.lecture{display:flex;align-items:center;gap:13px;padding:15px 17px;border-bottom:1px solid #eadfd6}
+.lecture:nth-child(odd){border-right:1px solid #eadfd6}
+.num{width:30px;height:30px;flex:0 0 30px;border-radius:10px;display:grid;place-items:center;background:var(--tan);border:1px solid var(--tan-2);color:var(--brown);font-size:11px;font-weight:850}
+.lecture strong{display:block;font-size:12px}.lecture span{display:block;color:var(--muted);font-size:10px;margin-top:2px}
+.quiz-groups{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.quiz-group{padding:18px;border-radius:20px}.quiz-group h3{margin:0 0 5px;font-size:17px}.quiz-group .group-desc{margin:0 0 14px;color:var(--muted);font-size:12px;line-height:1.45}
+.quiz-link{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 0;border-top:1px solid #eadfd6;transition:.13s ease}
+.quiz-link:hover{padding-left:4px}.quiz-link strong{font-size:13px}
+.quiz-meta{display:flex;align-items:center;gap:7px;flex-wrap:wrap;justify-content:flex-end}
+.pill{padding:5px 7px;border-radius:999px;background:#f2eae3;border:1px solid #e2d6cb;color:#6c5b50;font-size:10px;font-weight:800}
+.pill.complete{background:#e6eee3;border-color:#cfddca;color:#56674f}.pill.best{background:#eee6de}
+.arrow{font-size:15px;color:var(--brown)}
+.review-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:14px}
+.review-card{padding:19px;border-radius:20px}.review-card h3{margin:0 0 7px;font-size:17px}.review-card p{margin:0;color:var(--muted);font-size:12px;line-height:1.5}
+.review-action{display:inline-flex;align-items:center;gap:8px;margin-top:15px;padding:9px 11px;border-radius:12px;background:var(--brown);color:#fff;font-size:12px;font-weight:800}
+.stat-row{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:13px}.stat{padding:12px;border-radius:14px;background:#f3ebe4;border:1px solid #e4d8ce}
+.stat strong{display:block;font-size:18px}.stat span{font-size:10px;color:var(--muted);font-weight:750}
+.pending{color:var(--muted);font-size:12px;padding:11px 0;border-top:1px solid #eadfd6}
+@media(max-width:820px){.hero{grid-template-columns:1fr}.nav-strip,.quiz-groups,.review-grid,.topic-row,.lecture-grid{grid-template-columns:1fr}.lecture{border-right:0!important}}
+</style></head>
+<body>
+<header class="site-header"><div class="header-inner">
+  <div class="topbar"><a class="back-link" href="../../index.html">← All Weeks</a><div class="course-mark">FOUNDATIONS OF MEDICINE</div></div>
+  <div class="hero"><div class="hero-icon" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M24 8.5c8.9 0 16.1 6.7 16.1 15S32.9 38.5 24 38.5 7.9 31.8 7.9 23.5 15.1 8.5 24 8.5Z" fill="#ead3cc" stroke="#654735" stroke-width="1.8"/><ellipse cx="24" cy="23.5" rx="9.2" ry="5.1" fill="#c58e82"/><ellipse cx="24" cy="23.5" rx="4.7" ry="2.2" fill="#e5c7c0"/></svg></div><div><p class="eyebrow">Week 7</p><h1>Hematology</h1><p class="subtitle">Blood cell development and function, hematologic physiology and pathology, and the mechanisms underlying disorders of red cells, white cells, platelets, and hemostasis.</p></div></div>
+</div></header>
+<main>
+<nav class="nav-strip">
+ <a class="nav-card" href="#notes"><span>01</span><strong>Lecture Notes</strong></a>
+ <a class="nav-card" href="#quizzes"><span>02</span><strong>Practice Quizzes</strong></a>
+ <a class="nav-card" href="#review"><span>03</span><strong>Review & Mastery</strong></a>
+</nav>
+
+<section class="section" id="notes"><div class="section-heading"><div><span class="section-kicker">Notes</span><h2>Lecture Library</h2></div><p>Ready to populate</p></div><div class="panel"><div class="empty-library"><div class="empty-icon">+</div><div><strong>Lecture notes will live here.</strong><p>The note library stays in the layout so it can be connected later without redesigning the week page.</p></div></div><div class="topic-row"><div class="topic-chip">Red Cells</div><div class="topic-chip">White Cells</div><div class="topic-chip">Platelets</div><div class="topic-chip">Hemostasis</div></div></div></section>
+
+<section class="section" id="quizzes"><div class="section-heading"><div><span class="section-kicker">Quizzes</span><h2>Practice & Assessment</h2></div><p>0 linked quizzes</p></div>
+<div class="quiz-groups"><div class="quiz-group"><h3>Practice</h3><p class="group-desc">Week 7 quiz sets will appear here as they are built.</p><div class="pending">No quiz file linked yet.</div></div><div class="quiz-group"><h3>Coming Next</h3><p class="group-desc">This space is ready for another quiz set.</p><div class="pending">Nothing linked yet.</div></div><div class="quiz-group"><h3>Coming Next</h3><p class="group-desc">This space is ready for another quiz set.</p><div class="pending">Nothing linked yet.</div></div></div></section>
+
+<section class="section" id="review"><div class="section-heading"><div><span class="section-kicker">Review</span><h2>Review & Mastery</h2></div><p>Shared across the course</p></div>
+<div class="review-grid">
+ <div class="review-card"><h3>Highly Missed & Filed for Review</h3><p>Concepts you manually file or repeatedly miss collect in the shared review bank for targeted practice.</p><a class="review-action" href="../../review/highly_missed.html">Open Review Bank →</a></div>
+ <div class="review-card"><h3>Week 7 Progress</h3><p>Completion updates automatically from the linked quizzes on this device.</p><div class="stat-row"><div class="stat"><strong id="completedCount">0/0</strong><span>Quiz completion</span></div><div class="stat"><strong id="bestScore">—</strong><span>Best score</span></div></div></div>
+</div></section>
+</main>
+<script>
+(function(){
+ const links=[...document.querySelectorAll('[data-quiz-key]')];
+ let completed=0,bests=[];
+ links.forEach(link=>{
+   const key=link.dataset.quizKey;
+   let p=null;
+   try{p=JSON.parse(localStorage.getItem('quiz-progress:'+key)||localStorage.getItem('med-quiz-folder:'+key)||'null')}catch(e){}
+   const bestRaw=localStorage.getItem('quiz-best:'+key);
+   let best=bestRaw!==null?Number(bestRaw):null;
+   if((best===null||Number.isNaN(best))&&p&&p.completed&&typeof p.percent==='number')best=p.percent;
+   const status=link.querySelector('.quiz-status');
+   if(p&&p.completed){completed++;status.textContent='Complete';status.classList.add('complete')}
+   else if(p&&p.answered){status.textContent=p.answered+' answered'}
+   if(best!==null&&!Number.isNaN(best)){bests.push(best);const b=document.createElement('span');b.className='pill best';b.textContent='Best '+best+'%';link.querySelector('.quiz-meta').insertBefore(b,status)}
+ });
+ document.getElementById('completedCount').textContent=completed+'/'+links.length;
+ document.getElementById('bestScore').textContent=bests.length?Math.max(...bests)+'%':'—';
+})();
+</script>
+</body></html>

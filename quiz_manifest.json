@@ -1,0 +1,296 @@
+{
+  "site": "Foundations of Medicine",
+  "version": "updated-megahub-v3-html-week5-week6-notes",
+  "weeks": [
+    {
+      "week": 2,
+      "title": "Foundations of Cell Biology",
+      "hub": "weeks/week2/index.html",
+      "quizzes": []
+    },
+    {
+      "week": 3,
+      "title": "Foundations of Metabolism",
+      "hub": "weeks/week3/index.html",
+      "quizzes": [
+        {
+          "title": "Epithelial Tissue & Plasma Proteins",
+          "count": 40,
+          "key": "epithelial-plasma-40",
+          "path": "quizzes/week3_epithelial_plasma_40_redesigned.html"
+        },
+        {
+          "title": "Comprehensive Metabolism",
+          "count": 150,
+          "key": "metabolism-150",
+          "path": "quizzes/week3_comprehensive_metabolism_150_redesigned.html"
+        }
+      ]
+    },
+    {
+      "week": 4,
+      "title": "Foundations of Genetics",
+      "hub": "weeks/week4/index.html",
+      "quizzes": [
+        {
+          "title": "Fundamentals of Histology & Pathology",
+          "count": 40,
+          "key": "lecture4-histology-pathology-40",
+          "path": "quizzes/week4_histology_pathology_40_redesigned.html"
+        },
+        {
+          "title": "Comprehensive: Foundations of Genetics",
+          "count": 150,
+          "key": "week4-foundations-genetics-150",
+          "path": "quizzes/week4_foundations_genetics_150_redesigned.html"
+        },
+        {
+          "title": "Clinical Epithelial Histology Image Challenge",
+          "count": 25,
+          "key": "clinical-epithelial-image-25",
+          "path": "quizzes/week4_clinical_epithelial_histology_images_25_redesigned.html"
+        }
+      ]
+    },
+    {
+      "week": 5,
+      "title": "Foundations of Cancer",
+      "hub": "weeks/week5/index.html",
+      "quizzes": [
+        {
+          "title": "Prequiz: Foundations of Cancer",
+          "count": 40,
+          "key": "week5-cancer-prequiz-40",
+          "path": "quizzes/week5_foundations_cancer_prequiz_40_redesigned.html"
+        },
+        {
+          "title": "Comprehensive: Foundations of Cancer",
+          "count": 150,
+          "key": "week5-cancer-comprehensive-150",
+          "path": "quizzes/week5_foundations_cancer_comprehensive_150_redesigned.html"
+        },
+        {
+          "title": "Structured Active Learning",
+          "count": 40,
+          "key": "week5-cancer-structured-active-learning-40",
+          "path": "quizzes/week5_structured_active_learning_cancer_40_redesigned.html"
+        }
+      ],
+      "notes": [
+        {
+          "title": "Introduction to Neoplasia",
+          "label": "Monday \u2022 1",
+          "path": "notes/week5/01_introduction_to_neoplasia.html",
+          "format": "html"
+        },
+        {
+          "title": "Genetic Testing for Familial Cancer Syndromes",
+          "label": "Monday \u2022 2",
+          "path": "notes/week5/02_genetic_testing_familial_cancer.html",
+          "format": "html"
+        },
+        {
+          "title": "Molecular Diagnostics",
+          "label": "Monday \u2022 3",
+          "path": "notes/week5/03_molecular_diagnostics.html",
+          "format": "html"
+        },
+        {
+          "title": "Molecular Cytogenetics",
+          "label": "Monday \u2022 4",
+          "path": "notes/week5/04_molecular_cytogenetics.html",
+          "format": "html"
+        },
+        {
+          "title": "Carcinogenesis and Epidemiology",
+          "label": "Tuesday \u2022 1",
+          "path": "notes/week5/05_carcinogenesis_epidemiology.html",
+          "format": "html"
+        },
+        {
+          "title": "Nucleotide Metabolism",
+          "label": "Tuesday \u2022 2",
+          "path": "notes/week5/06_nucleotide_metabolism.html",
+          "format": "html"
+        },
+        {
+          "title": "Molecular Cytogenetics of Cancer",
+          "label": "Tuesday \u2022 3",
+          "path": "notes/week5/07_molecular_cytogenetics_of_cancer.html",
+          "format": "html"
+        },
+        {
+          "title": "Cancer Survival Mechanisms",
+          "label": "Tuesday \u2022 4",
+          "path": "notes/week5/08_cancer_survival_mechanisms.html",
+          "format": "html"
+        },
+        {
+          "title": "Foundations of Cancer Screening & Diagnosis",
+          "label": "Wednesday \u2022 1",
+          "path": "notes/week5/09_cancer_screening_diagnosis.html",
+          "format": "html"
+        },
+        {
+          "title": "Foundations of Cancer Treatment",
+          "label": "Wednesday \u2022 2",
+          "path": "notes/week5/10_cancer_treatment.html",
+          "format": "html"
+        },
+        {
+          "title": "Individualizing Care of the Cancer Patient",
+          "label": "Wednesday \u2022 3",
+          "path": "notes/week5/11_individualizing_cancer_care.html",
+          "format": "html"
+        },
+        {
+          "title": "Genetic Counseling for Familial Cancers",
+          "label": "Wednesday \u2022 4",
+          "path": "notes/week5/12_genetic_counseling_familial_cancers.html",
+          "format": "html"
+        },
+        {
+          "title": "Palliative Care in Cancer Care",
+          "label": "Thursday \u2022 1",
+          "path": "notes/week5/13_palliative_care_in_cancer.html",
+          "format": "html"
+        },
+        {
+          "title": "Introduction to Developmental-Behavioral Pediatrics",
+          "label": "Thursday \u2022 2",
+          "path": "notes/week5/14_developmental_behavioral_pediatrics.html",
+          "format": "html"
+        }
+      ]
+    },
+    {
+      "week": 6,
+      "title": "Foundations of Immunology",
+      "hub": "weeks/week6/index.html",
+      "quizzes": [
+        {
+          "title": "Monday Daily",
+          "count": 25,
+          "key": "week6-daily-monday-25",
+          "path": "quizzes/week6_monday_daily_25_redesigned.html"
+        },
+        {
+          "title": "Tuesday Daily",
+          "count": 25,
+          "key": "week6-daily-tuesday-25",
+          "path": "quizzes/week6_tuesday_daily_25_redesigned.html"
+        },
+        {
+          "title": "Wednesday Daily",
+          "count": 25,
+          "key": "week6-daily-wednesday-25",
+          "path": "quizzes/week6_wednesday_daily_25_redesigned.html"
+        },
+        {
+          "title": "Week 6 Prequiz",
+          "count": 50,
+          "key": "week6-foundations-immunology-prequiz-50",
+          "path": "quizzes/week6_foundations_immunology_prequiz_50_redesigned.html"
+        },
+        {
+          "title": "Comprehensive",
+          "count": 150,
+          "key": "week6-foundations-immunology-comprehensive-150",
+          "path": "quizzes/week6_foundations_immunology_comprehensive_150_redesigned.html"
+        },
+        {
+          "title": "Diagnostic Imaging SAL",
+          "count": 50,
+          "key": "week6-sal-foundation-diagnostic-imaging-50",
+          "path": "quizzes/week6_sal_diagnostic_imaging_50_redesigned.html"
+        }
+      ],
+      "notes": [
+        {
+          "title": "Overview of the Immune System",
+          "label": "Core \u2022 1",
+          "path": "notes/week6/01_overview_immune_system.html",
+          "format": "html"
+        },
+        {
+          "title": "Basics of Innate Immunity I",
+          "label": "Core \u2022 2",
+          "path": "notes/week6/02_innate_immunity_i.html",
+          "format": "html"
+        },
+        {
+          "title": "Basics of Innate Immunity II",
+          "label": "Core \u2022 3",
+          "path": "notes/week6/03_innate_immunity_ii.html",
+          "format": "html"
+        },
+        {
+          "title": "Overview of the Adaptive Immune System",
+          "label": "Core \u2022 4",
+          "path": "notes/week6/04_adaptive_immune_system.html",
+          "format": "html"
+        },
+        {
+          "title": "B and T Cell Receptors and Their Antigens",
+          "label": "Core \u2022 5",
+          "path": "notes/week6/05_b_t_cell_receptors_antigens.html",
+          "format": "html"
+        },
+        {
+          "title": "Antibody Function",
+          "label": "Core \u2022 6",
+          "path": "notes/week6/06_antibody_function.html",
+          "format": "html"
+        },
+        {
+          "title": "Cell Injury and Death",
+          "label": "Core \u2022 7",
+          "path": "notes/week6/07_cell_injury_death.html",
+          "format": "html"
+        },
+        {
+          "title": "T Cell Receptors and the MHC",
+          "label": "Core \u2022 8",
+          "path": "notes/week6/08_t_cell_receptors_mhc.html",
+          "format": "html"
+        },
+        {
+          "title": "B Cell and T Cell Activation",
+          "label": "Core \u2022 9",
+          "path": "notes/week6/09_b_t_cell_activation.html",
+          "format": "html"
+        },
+        {
+          "title": "Immunosuppressants",
+          "label": "Core \u2022 10",
+          "path": "notes/week6/10_immunosuppressants.html",
+          "format": "html"
+        },
+        {
+          "title": "Inflammation and Repair",
+          "label": "Core \u2022 11",
+          "path": "notes/week6/11_inflammation_repair.html",
+          "format": "html"
+        },
+        {
+          "title": "Foundation of Diagnostic Imaging",
+          "label": "Structured Active Learning",
+          "path": "notes/week6/12_sal_diagnostic_imaging.html",
+          "format": "html"
+        },
+        {
+          "title": "Holistic Patient Care in Cancer",
+          "label": "Holistic Patient Care",
+          "path": "notes/week6/13_hpc_cancer_care.html",
+          "format": "html"
+        }
+      ]
+    },
+    {
+      "week": 7,
+      "title": "Hematology",
+      "hub": "weeks/week7/index.html",
+      "quizzes": []
+    }
+  ]
+}

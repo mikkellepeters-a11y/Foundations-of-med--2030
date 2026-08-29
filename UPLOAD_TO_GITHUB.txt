@@ -1,0 +1,39 @@
+FOUNDATIONS OF MEDICINE — UPDATED MEGAHUB v1
+
+WHAT IS LINKED
+- Main index -> Week 2 through Week 7 hubs
+- Week 3 -> 2 redesigned quizzes
+- Week 4 -> 3 redesigned quizzes
+- Week 5 -> 3 redesigned quizzes
+- Week 6 -> 6 redesigned quizzes
+- Every weekly hub -> shared Highly Missed & Filed for Review bank
+- Week 2 and Week 7 remain scaffolded for future content
+- Lecture Notes sections remain in place for future note-page linking
+
+GITHUB WEB UPLOAD
+REPLACE / ADD:
+- index.html
+- quiz_manifest.json
+- weeks/   (entire folder)
+- notes/   (NEW: Week 5 + Week 6 lecture resources)
+- quizzes/ (entire folder)
+- review/  (entire folder)
+- shared/  (entire folder)
+
+LEAVE ALONE:
+- Anything else in the repository that is not part of the old study-hub structure.
+
+NOTE
+The Week 4 image challenge still uses externally hosted open-license micrographs and therefore needs internet access for those images.
+
+
+V2 NOTES UPDATE
+- Week 5 Lecture Library now links 14 resources from the Notes project.
+- Week 6 Lecture Library now links 13 resources: 11 core lectures + Diagnostic Imaging SAL + Holistic Patient Care.
+- The main week cards now display 14 Notes for Week 5 and 13 Notes for Week 6.
+
+
+V3 HTML NOTES CORRECTION
+- Week 5 Lecture Library links the actual 14 HTML lecture guides from the Notes project.
+- Week 6 Lecture Library links the actual 11 core HTML lecture guides + HTML Diagnostic Imaging SAL + HTML Holistic Patient Care guide.
+- The earlier PDF-linked note files were removed from notes/week5 and notes/week6.
