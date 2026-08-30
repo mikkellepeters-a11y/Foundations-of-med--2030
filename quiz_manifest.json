@@ -1,6 +1,6 @@
 {
   "site": "Foundations of Medicine",
-  "version": "updated-megahub-v3-html-week5-week6-notes",
+  "version": "week7-launch-megahub",
   "weeks": [
     {
       "week": 2,
@@ -284,13 +284,140 @@
           "path": "notes/week6/13_hpc_cancer_care.html",
           "format": "html"
         }
-      ]
+      ],
+      "lecture_hub": "lecture-hubs/week6/index.html"
     },
     {
       "week": 7,
       "title": "Hematology",
       "hub": "weeks/week7/index.html",
-      "quizzes": []
+      "quizzes": [
+        {
+          "title": "Monday Daily",
+          "count": 35,
+          "key": "week7-daily-monday-35",
+          "path": "quizzes/week7_monday_daily_35.html"
+        },
+        {
+          "title": "Tuesday Daily",
+          "count": 40,
+          "key": "week7-daily-tuesday-40",
+          "path": "quizzes/week7_tuesday_daily_40.html"
+        },
+        {
+          "title": "Wednesday Daily",
+          "count": 35,
+          "key": "week7-daily-wednesday-35",
+          "path": "quizzes/week7_wednesday_daily_35.html"
+        },
+        {
+          "title": "Thursday Daily",
+          "count": 30,
+          "key": "week7-daily-thursday-30",
+          "path": "quizzes/week7_thursday_daily_30.html"
+        },
+        {
+          "title": "Week 7 Prequiz",
+          "count": 50,
+          "key": "week7-foundations-hematology-prequiz-50",
+          "path": "quizzes/week7_prequiz_50.html"
+        },
+        {
+          "title": "SAL Histopathology",
+          "count": 40,
+          "key": "week7-sal-histopathology-40",
+          "path": "quizzes/week7_sal_histopathology_40.html"
+        },
+        {
+          "title": "Week 7 Comprehensive",
+          "count": 150,
+          "key": "week7-foundations-hematology-comprehensive-150",
+          "path": "quizzes/week7_comprehensive_150.html",
+          "sal_included": false
+        },
+        {
+          "title": "Up to This Point Review",
+          "count": 50,
+          "key": "week7-up-to-this-point-review-50",
+          "path": "quizzes/up_to_this_point_review_weeks2-7_50.html",
+          "coverage": "Weeks 2\u20137"
+        }
+      ],
+      "lecture_hub": "lecture-hubs/week7/index.html",
+      "notes": [
+        {
+          "title": "Heme Synthesis & Porphyrias",
+          "label": "Monday \u00b7 Core",
+          "path": "lecture-hubs/week7/01_Browning_Heme_Synthesis_and_Porphyrias.html",
+          "format": "html"
+        },
+        {
+          "title": "Hemoglobinopathies & Thalassemias",
+          "label": "Monday \u00b7 Core",
+          "path": "lecture-hubs/week7/02_Raval_Hemoglobinopathies_and_Thalassemias.html",
+          "format": "html"
+        },
+        {
+          "title": "Hematopoiesis & Lymphoid System",
+          "label": "Monday \u00b7 Core",
+          "path": "lecture-hubs/week7/03_Adroja_Hematopoiesis_and_Lymphoid_System.html",
+          "format": "html"
+        },
+        {
+          "title": "Approach to Anemia",
+          "label": "Tuesday \u00b7 Core",
+          "path": "lecture-hubs/week7/04_Dalgetty_Anemia.html",
+          "format": "html"
+        },
+        {
+          "title": "Hemolytic Anemias",
+          "label": "Tuesday \u00b7 Core",
+          "path": "lecture-hubs/week7/05_Dalgetty_Hemolytic_Anemias.html",
+          "format": "html"
+        },
+        {
+          "title": "Hemostasis, Thrombosis, & Bleeding Disorders",
+          "label": "Tuesday \u00b7 Core",
+          "path": "lecture-hubs/week7/06_Savage_Hemostasis_Thrombosis_and_Bleeding_Disorders.html",
+          "format": "html"
+        },
+        {
+          "title": "Lymphoid Neoplasms",
+          "label": "Wednesday \u00b7 Core",
+          "path": "lecture-hubs/week7/07_Savage_Lymphoid_Neoplasms.html",
+          "format": "html"
+        },
+        {
+          "title": "Myeloid Neoplasms",
+          "label": "Wednesday \u00b7 Core",
+          "path": "lecture-hubs/week7/08_Savage_Myeloid_Neoplasms.html",
+          "format": "html"
+        },
+        {
+          "title": "Protozoan Parasites of Blood & Lymphoid Systems",
+          "label": "Thursday \u00b7 Core",
+          "path": "lecture-hubs/week7/09_Fisher_Protozoan_Parasites_of_Blood_and_Lymphoid_Systems.html",
+          "format": "html"
+        },
+        {
+          "title": "Caring for Children with Medical Complexity",
+          "label": "Thursday \u00b7 HPC",
+          "path": "lecture-hubs/week7/Supplemental/HPC_Kapoor_Children_with_Medical_Complexity.html",
+          "format": "html"
+        },
+        {
+          "title": "Blood & Bone Marrow Histopathology",
+          "label": "PRE-SAL \u00b7 Histopathology",
+          "path": "lecture-hubs/week7/Supplemental/SAL_Blood_and_Bone_Marrow_Histopathology_PRE_SAL.html",
+          "format": "html"
+        },
+        {
+          "title": "Lymphoid Tissue Histopathology",
+          "label": "PRE-SAL \u00b7 Histopathology",
+          "path": "lecture-hubs/week7/Supplemental/SAL_Lymphoid_Tissue_Histopathology_PRE_SAL.html",
+          "format": "html"
+        }
+      ]
     }
   ]
 }
