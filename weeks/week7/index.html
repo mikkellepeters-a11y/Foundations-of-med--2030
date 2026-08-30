@@ -1,5 +1,6 @@
-<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/>
 <title>Week 7 · Hematology</title><style>
 :root{
   --bg:#f3ece3;--paper:#fffaf4;--paper-2:#fbf5ee;--ink:#3e3028;--muted:#78695f;
@@ -43,7 +44,7 @@ main{padding:28px 22px 64px}
 .lecture:nth-child(odd){border-right:1px solid #eadfd6}
 .num{width:30px;height:30px;flex:0 0 30px;border-radius:10px;display:grid;place-items:center;background:var(--tan);border:1px solid var(--tan-2);color:var(--brown);font-size:11px;font-weight:850}
 .lecture strong{display:block;font-size:12px}.lecture span{display:block;color:var(--muted);font-size:10px;margin-top:2px}
-.quiz-groups{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.quiz-groups{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
 .quiz-group{padding:18px;border-radius:20px}.quiz-group h3{margin:0 0 5px;font-size:17px}.quiz-group .group-desc{margin:0 0 14px;color:var(--muted);font-size:12px;line-height:1.45}
 .quiz-link{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 0;border-top:1px solid #eadfd6;transition:.13s ease}
 .quiz-link:hover{padding-left:4px}.quiz-link strong{font-size:13px}
@@ -58,28 +59,65 @@ main{padding:28px 22px 64px}
 .stat strong{display:block;font-size:18px}.stat span{font-size:10px;color:var(--muted);font-weight:750}
 .pending{color:var(--muted);font-size:12px;padding:11px 0;border-top:1px solid #eadfd6}
 @media(max-width:820px){.hero{grid-template-columns:1fr}.nav-strip,.quiz-groups,.review-grid,.topic-row,.lecture-grid{grid-template-columns:1fr}.lecture{border-right:0!important}}
+
+.note-link{position:relative;text-decoration:none;color:inherit;transition:.14s ease}
+.note-link:hover{background:#f7efe7}
+.note-link:hover .num{background:#e4d5c8}
+.note-arrow{margin-left:auto;color:var(--brown);font-size:16px;font-weight:850}
+.note-link span{line-height:1.4}
+
+.lecture-heading-tools{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+.lecture-count{font-size:11px;color:var(--muted);font-weight:750}
+.lecture-hub-btn{display:inline-flex;align-items:center;justify-content:center;padding:9px 12px;border-radius:12px;background:var(--brown);color:#fff;font-size:11px;font-weight:850;box-shadow:0 5px 12px rgba(72,48,35,.12);transition:.15s ease}
+.lecture-hub-btn:hover{background:var(--brown-dark);transform:translateY(-1px)}
+@media(max-width:640px){.section-heading{align-items:flex-start}.lecture-heading-tools{justify-content:flex-start}}
 </style></head>
 <body>
 <header class="site-header"><div class="header-inner">
-  <div class="topbar"><a class="back-link" href="../../index.html">← All Weeks</a><div class="course-mark">FOUNDATIONS OF MEDICINE</div></div>
-  <div class="hero"><div class="hero-icon" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M24 8.5c8.9 0 16.1 6.7 16.1 15S32.9 38.5 24 38.5 7.9 31.8 7.9 23.5 15.1 8.5 24 8.5Z" fill="#ead3cc" stroke="#654735" stroke-width="1.8"/><ellipse cx="24" cy="23.5" rx="9.2" ry="5.1" fill="#c58e82"/><ellipse cx="24" cy="23.5" rx="4.7" ry="2.2" fill="#e5c7c0"/></svg></div><div><p class="eyebrow">Week 7</p><h1>Hematology</h1><p class="subtitle">Blood cell development and function, hematologic physiology and pathology, and the mechanisms underlying disorders of red cells, white cells, platelets, and hemostasis.</p></div></div>
+<div class="topbar"><a class="back-link" href="../../index.html">← All Weeks</a><div class="course-mark">FOUNDATIONS OF MEDICINE</div></div>
+<div class="hero"><div aria-hidden="true" class="hero-icon">
+<svg viewBox="0 0 48 48">
+<ellipse cx="24" cy="24" fill="#d9bda8" rx="16.4" ry="12.1" stroke="#654735" stroke-width="1.8"></ellipse>
+<ellipse cx="24" cy="24" fill="#f2e5da" rx="8.1" ry="5.1" stroke="#9a735a" stroke-width="1.35"></ellipse>
+<path d="M10.2 19c3.6-4.1 8.3-6.1 13.8-6.1S34.2 14.9 37.8 19M10.2 29c3.6 4.1 8.3 6.1 13.8 6.1s10.2-2 13.8-6.1" fill="none" stroke="#b48a6d" stroke-linecap="round" stroke-width="1.4"></path>
+</svg>
+</div><div><p class="eyebrow">Week 7</p><h1>Hematology</h1><p class="subtitle">Blood cell development and function, hematologic physiology and pathology, and the mechanisms underlying disorders of red cells, white cells, platelets, and hemostasis.</p></div></div>
 </div></header>
 <main>
 <nav class="nav-strip">
- <a class="nav-card" href="#notes"><span>01</span><strong>Lecture Notes</strong></a>
- <a class="nav-card" href="#quizzes"><span>02</span><strong>Practice Quizzes</strong></a>
- <a class="nav-card" href="#review"><span>03</span><strong>Review & Mastery</strong></a>
+<a class="nav-card" href="#notes"><span>01</span><strong>Lecture Notes</strong></a>
+<a class="nav-card" href="#quizzes"><span>02</span><strong>Practice Quizzes</strong></a>
+<a class="nav-card" href="#review"><span>03</span><strong>Review &amp; Mastery</strong></a>
 </nav>
+<section class="section" id="notes">
+<div class="section-heading"><div><span class="section-kicker">Notes</span><h2>Lecture Library</h2></div>
+<div class="lecture-heading-tools"><span class="lecture-count">12 HTML lecture resources</span><a class="lecture-hub-btn" href="../../lecture-hubs/week7/index.html">Visit the Lecture Hub →</a></div></div>
+<div class="panel"><div class="lecture-grid"><a class="lecture note-link" href="../../lecture-hubs/week7/01_Browning_Heme_Synthesis_and_Porphyrias.html"><div class="num">01</div><div><strong>Heme Synthesis & Porphyrias</strong><span>Monday · Core</span></div></a><a class="lecture note-link" href="../../lecture-hubs/week7/02_Raval_Hemoglobinopathies_and_Thalassemias.html"><div class="num">02</div><div><strong>Hemoglobinopathies & Thalassemias</strong><span>Monday · Core</span></div></a><a class="lecture note-link" href="../../lecture-hubs/week7/03_Adroja_Hematopoiesis_and_Lymphoid_System.html"><div class="num">03</div><div><strong>Hematopoiesis & Lymphoid System</strong><span>Monday · Core</span></div></a><a class="lecture note-link" href="../../lecture-hubs/week7/04_Dalgetty_Anemia.html"><div class="num">04</div><div><strong>Approach to Anemia</strong><span>Tuesday · Core</span></div></a><a class="lecture note-link" href="../../lecture-hubs/week7/05_Dalgetty_Hemolytic_Anemias.html"><div class="num">05</div><div><strong>Hemolytic Anemias</strong><span>Tuesday · Core</span></div></a><a class="lecture note-link" href="../../lecture-hubs/week7/06_Savage_Hemostasis_Thrombosis_and_Bleeding_Disorders.html"><div class="num">06</div><div><strong>Hemostasis, Thrombosis, & Bleeding Disorders</strong><span>Tuesday · Core</span></div></a><a class="lecture note-link" href="../../lecture-hubs/week7/07_Savage_Lymphoid_Neoplasms.html"><div class="num">07</div><div><strong>Lymphoid Neoplasms</strong><span>Wednesday · Core</span></div></a><a class="lecture note-link" href="../../lecture-hubs/week7/08_Savage_Myeloid_Neoplasms.html"><div class="num">08</div><div><strong>Myeloid Neoplasms</strong><span>Wednesday · Core</span></div></a><a class="lecture note-link" href="../../lecture-hubs/week7/09_Fisher_Protozoan_Parasites_of_Blood_and_Lymphoid_Systems.html"><div class="num">09</div><div><strong>Protozoan Parasites of Blood & Lymphoid Systems</strong><span>Thursday · Core</span></div></a><a class="lecture note-link" href="../../lecture-hubs/week7/Supplemental/HPC_Kapoor_Children_with_Medical_Complexity.html"><div class="num">HPC</div><div><strong>Caring for Children with Medical Complexity</strong><span>Thursday · HPC</span></div></a><a class="lecture note-link" href="../../lecture-hubs/week7/Supplemental/SAL_Blood_and_Bone_Marrow_Histopathology_PRE_SAL.html"><div class="num">SAL</div><div><strong>Blood & Bone Marrow Histopathology</strong><span>PRE-SAL · Histopathology</span></div></a><a class="lecture note-link" href="../../lecture-hubs/week7/Supplemental/SAL_Lymphoid_Tissue_Histopathology_PRE_SAL.html"><div class="num">SAL</div><div><strong>Lymphoid Tissue Histopathology</strong><span>PRE-SAL · Histopathology</span></div></a></div></div>
+</section>
 
-<section class="section" id="notes"><div class="section-heading"><div><span class="section-kicker">Notes</span><h2>Lecture Library</h2></div><p>Ready to populate</p></div><div class="panel"><div class="empty-library"><div class="empty-icon">+</div><div><strong>Lecture notes will live here.</strong><p>The note library stays in the layout so it can be connected later without redesigning the week page.</p></div></div><div class="topic-row"><div class="topic-chip">Red Cells</div><div class="topic-chip">White Cells</div><div class="topic-chip">Platelets</div><div class="topic-chip">Hemostasis</div></div></div></section>
-
-<section class="section" id="quizzes"><div class="section-heading"><div><span class="section-kicker">Quizzes</span><h2>Practice & Assessment</h2></div><p>0 linked quizzes</p></div>
-<div class="quiz-groups"><div class="quiz-group"><h3>Practice</h3><p class="group-desc">Week 7 quiz sets will appear here as they are built.</p><div class="pending">No quiz file linked yet.</div></div><div class="quiz-group"><h3>Coming Next</h3><p class="group-desc">This space is ready for another quiz set.</p><div class="pending">Nothing linked yet.</div></div><div class="quiz-group"><h3>Coming Next</h3><p class="group-desc">This space is ready for another quiz set.</p><div class="pending">Nothing linked yet.</div></div></div></section>
-
-<section class="section" id="review"><div class="section-heading"><div><span class="section-kicker">Review</span><h2>Review & Mastery</h2></div><p>Shared across the course</p></div>
+<section class="section" id="quizzes"><div class="section-heading"><div><span class="section-kicker">Quizzes</span><h2>Practice &amp; Assessment</h2></div><p>8 linked quizzes</p></div>
+<div class="quiz-groups">
+<div class="quiz-group"><h3>Daily Practice</h3><p class="group-desc">Dynamic daily quizzes sized to the amount of content covered that day.</p>
+<a class="quiz-link" data-quiz-key="week7-daily-monday-35" href="../../quizzes/week7_monday_daily_35.html"><strong>Monday Daily</strong><div class="quiz-meta"><span class="pill">35 Q</span><span class="arrow">→</span></div></a>
+<a class="quiz-link" data-quiz-key="week7-daily-tuesday-40" href="../../quizzes/week7_tuesday_daily_40.html"><strong>Tuesday Daily</strong><div class="quiz-meta"><span class="pill">40 Q</span><span class="arrow">→</span></div></a>
+<a class="quiz-link" data-quiz-key="week7-daily-wednesday-35" href="../../quizzes/week7_wednesday_daily_35.html"><strong>Wednesday Daily</strong><div class="quiz-meta"><span class="pill">35 Q</span><span class="arrow">→</span></div></a>
+<a class="quiz-link" data-quiz-key="week7-daily-thursday-30" href="../../quizzes/week7_thursday_daily_30.html"><strong>Thursday Daily</strong><div class="quiz-meta"><span class="pill">30 Q</span><span class="arrow">→</span></div></a>
+</div>
+<div class="quiz-group"><h3>Core Assessments</h3><p class="group-desc">Whole-week hematology practice. The comprehensive intentionally excludes SAL.</p>
+<a class="quiz-link" data-quiz-key="week7-foundations-hematology-prequiz-50" href="../../quizzes/week7_prequiz_50.html"><strong>Week 7 Prequiz</strong><div class="quiz-meta"><span class="pill">50 Q</span><span class="arrow">→</span></div></a>
+<a class="quiz-link" data-quiz-key="week7-foundations-hematology-comprehensive-150" href="../../quizzes/week7_comprehensive_150.html"><strong>Comprehensive</strong><div class="quiz-meta"><span class="pill">150 Q</span><span class="pill">No SAL</span><span class="arrow">→</span></div></a>
+</div>
+<div class="quiz-group"><h3>Structured Active Learning</h3><p class="group-desc">Combined practice from both Week 7 histopathology SAL sessions.</p>
+<a class="quiz-link" data-quiz-key="week7-sal-histopathology-40" href="../../quizzes/week7_sal_histopathology_40.html"><strong>SAL Histopathology</strong><div class="quiz-meta"><span class="pill">40 Q</span><span class="pill">Both SALs</span><span class="arrow">→</span></div></a>
+</div>
+<div class="quiz-group"><h3>Cumulative Module Review</h3><p class="group-desc">Interleaved review from Week 2 through Week 7. Week 1 orientation is excluded.</p>
+<a class="quiz-link" data-quiz-key="week7-up-to-this-point-review-50" href="../../quizzes/up_to_this_point_review_weeks2-7_50.html"><strong>Up to This Point Review</strong><div class="quiz-meta"><span class="pill">50 Q</span><span class="pill">Weeks 2–7</span><span class="arrow">→</span></div></a>
+</div>
+</div></section>
+<section class="section" id="review"><div class="section-heading"><div><span class="section-kicker">Review</span><h2>Review &amp; Mastery</h2></div><p>Shared across the course</p></div>
 <div class="review-grid">
- <div class="review-card"><h3>Highly Missed & Filed for Review</h3><p>Concepts you manually file or repeatedly miss collect in the shared review bank for targeted practice.</p><a class="review-action" href="../../review/highly_missed.html">Open Review Bank →</a></div>
- <div class="review-card"><h3>Week 7 Progress</h3><p>Completion updates automatically from the linked quizzes on this device.</p><div class="stat-row"><div class="stat"><strong id="completedCount">0/0</strong><span>Quiz completion</span></div><div class="stat"><strong id="bestScore">—</strong><span>Best score</span></div></div></div>
+<div class="review-card"><h3>Highly Missed &amp; Filed for Review</h3><p>Concepts you manually file or repeatedly miss collect in the shared review bank for targeted practice.</p><a class="review-action" href="../../review/highly_missed.html">Open Review Bank →</a></div>
+<div class="review-card"><h3>Week 7 Progress</h3><p>Completion updates automatically from the linked quizzes on this device.</p><div class="stat-row"><div class="stat"><strong id="completedCount">0/8</strong><span>Quiz completion</span></div><div class="stat"><strong id="bestScore">—</strong><span>Best score</span></div></div></div>
 </div></section>
 </main>
 <script>
