@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Week 6 · Foundations of Immunology</title><style>
+:root{
+  --bg:#f3ece3;--paper:#fffaf4;--paper-2:#fbf5ee;--ink:#3e3028;--muted:#78695f;
+  --line:#dccfc3;--brown:#694a39;--brown-dark:#4a3428;--brown-soft:#8a654f;
+  --tan:#eee5dc;--tan-2:#e8ddd1;--sage:#70806a;--shadow:0 14px 34px rgba(65,43,31,.08)
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(circle at top left,rgba(255,255,255,.55),transparent 30%),var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+a{text-decoration:none;color:inherit}
+.site-header{background:linear-gradient(135deg,var(--brown-dark),var(--brown),var(--brown-soft));color:#fff;padding:22px 22px 36px}
+.header-inner,main{max-width:1120px;margin:0 auto}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:28px}
+.back-link{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:750;color:rgba(255,255,255,.85);padding:8px 11px;border:1px solid rgba(255,255,255,.16);border-radius:999px;background:rgba(255,255,255,.08)}
+.back-link:hover{background:rgba(255,255,255,.12)}
+.course-mark{font-size:12px;font-weight:750;opacity:.72;letter-spacing:.03em}
+.hero{display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:center}
+.hero-icon{width:86px;height:86px;border-radius:24px;display:grid;place-items:center;background:radial-gradient(circle at 32% 24%,rgba(255,255,255,.95),rgba(244,229,218,.9) 48%,rgba(223,204,190,.92));border:1px solid rgba(255,255,255,.26);box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 12px 26px rgba(35,22,15,.16)}
+.hero-icon svg{width:60px;height:60px}
+.eyebrow{margin:0 0 7px;font-size:11px;text-transform:uppercase;letter-spacing:.12em;font-weight:850;opacity:.72}
+h1{margin:0;font-size:clamp(34px,5vw,54px);line-height:1.03;letter-spacing:-.035em}
+.subtitle{margin:11px 0 0;max-width:760px;color:rgba(255,255,255,.82);font-size:15px;line-height:1.6}
+main{padding:28px 22px 64px}
+.nav-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:28px}
+.nav-card{padding:16px 17px;background:rgba(255,250,244,.82);border:1px solid var(--line);border-radius:16px;box-shadow:0 6px 18px rgba(65,43,31,.05);transition:.16s ease}
+.nav-card:hover{transform:translateY(-2px);border-color:#cdbdad}
+.nav-card span{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.08em;font-weight:850;color:var(--brown-soft);margin-bottom:4px}
+.nav-card strong{font-size:15px}
+.section{margin-top:30px}
+.section-heading{display:flex;align-items:end;justify-content:space-between;gap:16px;margin-bottom:14px}
+.section-kicker{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.11em;font-weight:850;color:var(--brown-soft);margin-bottom:4px}
+.section-heading h2{margin:0;font-size:24px;letter-spacing:-.02em}.section-heading p{margin:0;color:var(--muted);font-size:12px}
+.panel,.quiz-group,.review-card{background:linear-gradient(180deg,var(--paper),var(--paper-2));border:1px solid var(--line);box-shadow:var(--shadow)}
+.panel{border-radius:22px;overflow:hidden}
+.empty-library{padding:28px 24px;display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center}
+.empty-icon{width:48px;height:48px;border-radius:15px;display:grid;place-items:center;background:var(--tan);border:1px solid var(--tan-2);color:var(--brown);font-size:20px;font-weight:800}
+.empty-library strong{display:block;font-size:15px;margin-bottom:4px}.empty-library p{margin:0;color:var(--muted);font-size:12px;line-height:1.5}
+.topic-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;padding:0 24px 24px}
+.topic-chip{padding:11px 12px;border-radius:14px;background:#f3ebe4;border:1px solid #e4d8ce;color:#6a5649;font-size:11px;font-weight:760;text-align:center}
+.lecture-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+.lecture{display:flex;align-items:center;gap:13px;padding:15px 17px;border-bottom:1px solid #eadfd6}
+.lecture:nth-child(odd){border-right:1px solid #eadfd6}
+.num{width:30px;height:30px;flex:0 0 30px;border-radius:10px;display:grid;place-items:center;background:var(--tan);border:1px solid var(--tan-2);color:var(--brown);font-size:11px;font-weight:850}
+.lecture strong{display:block;font-size:12px}.lecture span{display:block;color:var(--muted);font-size:10px;margin-top:2px}
+.quiz-groups{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.quiz-group{padding:18px;border-radius:20px}.quiz-group h3{margin:0 0 5px;font-size:17px}.quiz-group .group-desc{margin:0 0 14px;color:var(--muted);font-size:12px;line-height:1.45}
+.quiz-link{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 0;border-top:1px solid #eadfd6;transition:.13s ease}
+.quiz-link:hover{padding-left:4px}.quiz-link strong{font-size:13px}
+.quiz-meta{display:flex;align-items:center;gap:7px;flex-wrap:wrap;justify-content:flex-end}
+.pill{padding:5px 7px;border-radius:999px;background:#f2eae3;border:1px solid #e2d6cb;color:#6c5b50;font-size:10px;font-weight:800}
+.pill.complete{background:#e6eee3;border-color:#cfddca;color:#56674f}.pill.best{background:#eee6de}
+.arrow{font-size:15px;color:var(--brown)}
+.review-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:14px}
+.review-card{padding:19px;border-radius:20px}.review-card h3{margin:0 0 7px;font-size:17px}.review-card p{margin:0;color:var(--muted);font-size:12px;line-height:1.5}
+.review-action{display:inline-flex;align-items:center;gap:8px;margin-top:15px;padding:9px 11px;border-radius:12px;background:var(--brown);color:#fff;font-size:12px;font-weight:800}
+.stat-row{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:13px}.stat{padding:12px;border-radius:14px;background:#f3ebe4;border:1px solid #e4d8ce}
+.stat strong{display:block;font-size:18px}.stat span{font-size:10px;color:var(--muted);font-weight:750}
+.pending{color:var(--muted);font-size:12px;padding:11px 0;border-top:1px solid #eadfd6}
+@media(max-width:820px){.hero{grid-template-columns:1fr}.nav-strip,.quiz-groups,.review-grid,.topic-row,.lecture-grid{grid-template-columns:1fr}.lecture{border-right:0!important}}
+
+.note-link{position:relative;text-decoration:none;color:inherit;transition:.14s ease}
+.note-link:hover{background:#f7efe7}
+.note-link:hover .num{background:#e4d5c8}
+.note-arrow{margin-left:auto;color:var(--brown);font-size:16px;font-weight:850}
+.note-link span{line-height:1.4}
+
+.lecture-heading-tools{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+.lecture-count{font-size:11px;color:var(--muted);font-weight:750}
+.lecture-hub-btn{display:inline-flex;align-items:center;justify-content:center;padding:9px 12px;border-radius:12px;background:var(--brown);color:#fff;font-size:11px;font-weight:850;box-shadow:0 5px 12px rgba(72,48,35,.12);transition:.15s ease}
+.lecture-hub-btn:hover{background:var(--brown-dark);transform:translateY(-1px)}
+@media(max-width:640px){.section-heading{align-items:flex-start}.lecture-heading-tools{justify-content:flex-start}}
+</style></head>
+<body>
+<header class="site-header"><div class="header-inner">
+<div class="topbar"><a class="back-link" href="../../index.html">← All Weeks</a><div class="course-mark">FOUNDATIONS OF MEDICINE</div></div>
+<div class="hero"><div aria-hidden="true" class="hero-icon">
+<svg viewbox="0 0 48 48">
+<path d="M24 6.8c6.4 4.6 11.8 5.8 15 6v8.9c0 8.3-5.6 14.5-15 18.8-9.4-4.3-15-10.5-15-18.8v-8.9c3.2-.2 8.6-1.4 15-6Z" fill="#e8d5c7" stroke="#654735" stroke-width="1.8"></path>
+<path d="M16.6 15.7 24 24l7.4-8.3M24 24v9.5" fill="none" stroke="#76523e" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.7"></path>
+<circle cx="16.6" cy="15.7" fill="#b98f72" r="1.7"></circle>
+<circle cx="31.4" cy="15.7" fill="#b98f72" r="1.7"></circle>
+<path d="M12.8 26.5c2.4 5.1 6.1 8.7 11.2 11.2" fill="none" stroke="#b99478" stroke-linecap="round" stroke-width="1.3"></path>
+</svg>
+</div><div><p class="eyebrow">Week 6</p><h1>Foundations of Immunology</h1><p class="subtitle">Innate and adaptive immunity, B- and T-cell biology, antibodies, inflammation, tissue injury and repair, and immunosuppressive therapy.</p></div></div>
+</div></header>
+<main>
+<nav class="nav-strip">
+<a class="nav-card" href="#notes"><span>01</span><strong>Lecture Notes</strong></a>
+<a class="nav-card" href="#quizzes"><span>02</span><strong>Practice Quizzes</strong></a>
+<a class="nav-card" href="#review"><span>03</span><strong>Review &amp; Mastery</strong></a>
+</nav>
+<section class="section" id="notes"><div class="section-heading"><div><span class="section-kicker">Notes</span><h2>Lecture Library</h2></div><div class="lecture-heading-tools"><span class="lecture-count">13 HTML lecture resources</span><a class="lecture-hub-btn" href="../../lecture-hubs/week6/index.html">Visit the Lecture Hub →</a></div></div><div class="panel"><div class="lecture-grid"><a class="lecture note-link" href="../../notes/week6/01_overview_immune_system.html">
+<div class="num">01</div>
+<div><strong>Overview of the Immune System</strong><span>Core • 1 · Danger sensing, immune-system purpose, innate vs adaptive immunity, inflammation, resolution, and core clinical correlations.</span></div>
+<div class="note-arrow">→</div>
+</a><a class="lecture note-link" href="../../notes/week6/02_innate_immunity_i.html">
+<div class="num">02</div>
+<div><strong>Basics of Innate Immunity I</strong><span>Core • 2 · Innate immune cells, pattern-recognition receptors, cytokines, complement, MAC, PNH, and angioedema.</span></div>
+<div class="note-arrow">→</div>
+</a><a class="lecture note-link" href="../../notes/week6/03_innate_immunity_ii.html">
+<div class="num">03</div>
+<div><strong>Basics of Innate Immunity II</strong><span>Core • 3 · TLRs, inflammasomes, neutrophil trafficking and killing, phagocyte disorders, and the IL-12/IFN-γ axis.</span></div>
+<div class="note-arrow">→</div>
+</a><a class="lecture note-link" href="../../notes/week6/04_adaptive_immune_system.html">
+<div class="num">04</div>
+<div><strong>Overview of the Adaptive Immune System</strong><span>Core • 4 · B- and T-cell origins, development, receptor generation, selection, tolerance, and adaptive immune organization.</span></div>
+<div class="note-arrow">→</div>
+</a><a class="lecture note-link" href="../../notes/week6/05_b_t_cell_receptors_antigens.html">
+<div class="num">05</div>
+<div><strong>B and T Cell Receptors and Their Antigens</strong><span>Core • 5 · Antibody/TCR structure, V(D)J recombination, immunoglobulin classes, class switching, monoclonal antibodies, and antigen binding.</span></div>
+<div class="note-arrow">→</div>
+</a><a class="lecture note-link" href="../../notes/week6/06_antibody_function.html">
+<div class="num">06</div>
+<div><strong>Antibody Function</strong><span>Core • 6 · Antibody effector mechanisms, isotypes, neutralization, opsonization, complement activation, and Fc-receptor biology.</span></div>
+<div class="note-arrow">→</div>
+</a><a class="lecture note-link" href="../../notes/week6/07_cell_injury_death.html">
+<div class="num">07</div>
+<div><strong>Cell Injury and Death</strong><span>Core • 7 · Cellular adaptations, reversible and irreversible injury, necrosis patterns, apoptosis, and pathologic correlations.</span></div>
+<div class="note-arrow">→</div>
+</a><a class="lecture note-link" href="../../notes/week6/08_t_cell_receptors_mhc.html">
+<div class="num">08</div>
+<div><strong>T Cell Receptors and the MHC</strong><span>Core • 8 · MHC I/II, antigen processing and presentation, T-cell recognition, restriction, and clinically important HLA concepts.</span></div>
+<div class="note-arrow">→</div>
+</a><a class="lecture note-link" href="../../notes/week6/09_b_t_cell_activation.html">
+<div class="num">09</div>
+<div><strong>B Cell and T Cell Activation</strong><span>Core • 9 · Lymphocyte activation, co-stimulation, helper T-cell signaling, B-cell responses, and effector differentiation.</span></div>
+<div class="note-arrow">→</div>
+</a><a class="lecture note-link" href="../../notes/week6/10_immunosuppressants.html">
+<div class="num">10</div>
+<div><strong>Immunosuppressants</strong><span>Core • 10 · Major immunosuppressive drug classes, mechanisms, clinical use, and important toxicities.</span></div>
+<div class="note-arrow">→</div>
+</a><a class="lecture note-link" href="../../notes/week6/11_inflammation_repair.html">
+<div class="num">11</div>
+<div><strong>Inflammation and Repair</strong><span>Core • 11 · Acute/chronic inflammation, leukocyte recruitment, granulomas, systemic effects, regeneration, wound healing, and abnormal repair.</span></div>
+<div class="note-arrow">→</div>
+</a><a class="lecture note-link" href="../../notes/week6/12_sal_diagnostic_imaging.html">
+<div class="num">12</div>
+<div><strong>Foundation of Diagnostic Imaging</strong><span>Structured Active Learning · Imaging orientation, x-ray, ultrasound, CT, MRI, nuclear medicine, contrast, safety, and modality selection.</span></div>
+<div class="note-arrow">→</div>
+</a><a class="lecture note-link" href="../../notes/week6/13_hpc_cancer_care.html">
+<div class="num">13</div>
+<div><strong>Holistic Patient Care in Cancer</strong><span>Holistic Patient Care · Cancer-related distress, screening, interdisciplinary care, psycho-oncology, CBT, Elicit-Provide-Elicit, and referral logic.</span></div>
+<div class="note-arrow">→</div>
+</a></div></div></section>
+<section class="section" id="quizzes"><div class="section-heading"><div><span class="section-kicker">Quizzes</span><h2>Practice &amp; Assessment</h2></div><p>6 linked quizzes</p></div>
+<div class="quiz-groups"><div class="quiz-group"><h3>Daily Practice</h3><p class="group-desc">Shorter mixed practice organized by lecture day.</p><a class="quiz-link" data-quiz-key="week6-daily-monday-25" href="../../quizzes/week6_monday_daily_25_redesigned.html">
+<strong>Monday Daily</strong>
+<div class="quiz-meta"><span class="pill">25 Q</span><span class="pill quiz-status">Ready</span><span class="arrow">→</span></div>
+</a><a class="quiz-link" data-quiz-key="week6-daily-tuesday-25" href="../../quizzes/week6_tuesday_daily_25_redesigned.html">
+<strong>Tuesday Daily</strong>
+<div class="quiz-meta"><span class="pill">25 Q</span><span class="pill quiz-status">Ready</span><span class="arrow">→</span></div>
+</a><a class="quiz-link" data-quiz-key="week6-daily-wednesday-25" href="../../quizzes/week6_wednesday_daily_25_redesigned.html">
+<strong>Wednesday Daily</strong>
+<div class="quiz-meta"><span class="pill">25 Q</span><span class="pill quiz-status">Ready</span><span class="arrow">→</span></div>
+</a></div><div class="quiz-group"><h3>Core Assessments</h3><p class="group-desc">Broader mixed practice across the full immunology week.</p><a class="quiz-link" data-quiz-key="week6-foundations-immunology-prequiz-50" href="../../quizzes/week6_foundations_immunology_prequiz_50_redesigned.html">
+<strong>Week 6 Prequiz</strong>
+<div class="quiz-meta"><span class="pill">50 Q</span><span class="pill quiz-status">Ready</span><span class="arrow">→</span></div>
+</a><a class="quiz-link" data-quiz-key="week6-foundations-immunology-comprehensive-150" href="../../quizzes/week6_foundations_immunology_comprehensive_150_redesigned.html">
+<strong>Comprehensive</strong>
+<div class="quiz-meta"><span class="pill">150 Q</span><span class="pill quiz-status">Ready</span><span class="arrow">→</span></div>
+</a></div><div class="quiz-group"><h3>Structured Active Learning</h3><p class="group-desc">Targeted practice from the diagnostic imaging SAL session.</p><a class="quiz-link" data-quiz-key="week6-sal-foundation-diagnostic-imaging-50" href="../../quizzes/week6_sal_diagnostic_imaging_50_redesigned.html">
+<strong>Diagnostic Imaging SAL</strong>
+<div class="quiz-meta"><span class="pill">50 Q</span><span class="pill quiz-status">Ready</span><span class="arrow">→</span></div>
+</a></div></div></section>
+<section class="section" id="review"><div class="section-heading"><div><span class="section-kicker">Review</span><h2>Review &amp; Mastery</h2></div><p>Shared across the course</p></div>
+<div class="review-grid">
+<div class="review-card"><h3>Highly Missed &amp; Filed for Review</h3><p>Concepts you manually file or repeatedly miss collect in the shared review bank for targeted practice.</p><a class="review-action" href="../../review/highly_missed.html">Open Review Bank →</a></div>
+<div class="review-card"><h3>Week 6 Progress</h3><p>Completion updates automatically from the linked quizzes on this device.</p><div class="stat-row"><div class="stat"><strong id="completedCount">0/6</strong><span>Quiz completion</span></div><div class="stat"><strong id="bestScore">—</strong><span>Best score</span></div></div></div>
+</div></section>
+</main>
+<script>
+(function(){
+ const links=[...document.querySelectorAll('[data-quiz-key]')];
+ let completed=0,bests=[];
+ links.forEach(link=>{
+   const key=link.dataset.quizKey;
+   let p=null;
+   try{p=JSON.parse(localStorage.getItem('quiz-progress:'+key)||localStorage.getItem('med-quiz-folder:'+key)||'null')}catch(e){}
+   const bestRaw=localStorage.getItem('quiz-best:'+key);
+   let best=bestRaw!==null?Number(bestRaw):null;
+   if((best===null||Number.isNaN(best))&&p&&p.completed&&typeof p.percent==='number')best=p.percent;
+   const status=link.querySelector('.quiz-status');
+   if(p&&p.completed){completed++;status.textContent='Complete';status.classList.add('complete')}
+   else if(p&&p.answered){status.textContent=p.answered+' answered'}
+   if(best!==null&&!Number.isNaN(best)){bests.push(best);const b=document.createElement('span');b.className='pill best';b.textContent='Best '+best+'%';link.querySelector('.quiz-meta').insertBefore(b,status)}
+ });
+ document.getElementById('completedCount').textContent=completed+'/'+links.length;
+ document.getElementById('bestScore').textContent=bests.length?Math.max(...bests)+'%':'—';
+})();
+</script>
+</body></html>
