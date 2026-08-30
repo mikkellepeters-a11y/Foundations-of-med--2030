@@ -1,39 +1,28 @@
-FOUNDATIONS OF MEDICINE — UPDATED MEGAHUB v1
+FOUNDATIONS OF MEDICINE MEGAHUB — WEEK 7 LAUNCH
 
-WHAT IS LINKED
-- Main index -> Week 2 through Week 7 hubs
-- Week 3 -> 2 redesigned quizzes
-- Week 4 -> 3 redesigned quizzes
-- Week 5 -> 3 redesigned quizzes
-- Week 6 -> 6 redesigned quizzes
-- Every weekly hub -> shared Highly Missed & Filed for Review bank
-- Week 2 and Week 7 remain scaffolded for future content
-- Lecture Notes sections remain in place for future note-page linking
+UPLOAD THIS BUILD TO GITHUB PAGES
+1. Open your repository in the GitHub website.
+2. Upload the CONTENTS of this folder to the repository root.
+3. Preserve the folders exactly.
+4. Replace files with matching paths.
+5. Commit. GitHub Pages will redeploy.
 
-GITHUB WEB UPLOAD
-REPLACE / ADD:
-- index.html
-- quiz_manifest.json
-- weeks/   (entire folder)
-- notes/   (NEW: Week 5 + Week 6 lecture resources)
-- quizzes/ (entire folder)
-- review/  (entire folder)
-- shared/  (entire folder)
+WHAT IS NEW
+• Week 7 main hub fully populated
+• 12 direct Week 7 lecture resources
+• Separate Week 7 Lecture Hub with ScholarRx bricks + Factoid Sheets
+• Week 6 now has the separate Week-7-style Lecture Hub while keeping direct lecture links
+• Monday Daily — 35 Q
+• Tuesday Daily — 40 Q
+• Wednesday Daily — 35 Q
+• Thursday Daily — 30 Q
+• Week 7 Prequiz — 50 Q
+• SAL Histopathology — 40 Q using both SAL sessions
+• Week 7 Comprehensive — 150 Q with SAL excluded
+• Up to This Point Review — 50 Q covering Weeks 2–7
+• Flag for Review is included throughout the new Week 7 quiz engine
+• Shared review bank remains fom:review-bank:v1
 
-LEAVE ALONE:
-- Anything else in the repository that is not part of the old study-hub structure.
-
-NOTE
-The Week 4 image challenge still uses externally hosted open-license micrographs and therefore needs internet access for those images.
-
-
-V2 NOTES UPDATE
-- Week 5 Lecture Library now links 14 resources from the Notes project.
-- Week 6 Lecture Library now links 13 resources: 11 core lectures + Diagnostic Imaging SAL + Holistic Patient Care.
-- The main week cards now display 14 Notes for Week 5 and 13 Notes for Week 6.
-
-
-V3 HTML NOTES CORRECTION
-- Week 5 Lecture Library links the actual 14 HTML lecture guides from the Notes project.
-- Week 6 Lecture Library links the actual 11 core HTML lecture guides + HTML Diagnostic Imaging SAL + HTML Holistic Patient Care guide.
-- The earlier PDF-linked note files were removed from notes/week5 and notes/week6.
+IMPORTANT
+Upload the files and folders INSIDE Foundations_of_Medicine_MegaHub_LAUNCH_Week7.
+Do not create an extra outer folder in the GitHub repository.
