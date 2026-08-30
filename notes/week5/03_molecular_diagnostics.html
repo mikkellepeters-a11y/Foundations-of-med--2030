@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Molecular Diagnostics - Lecture Summary</title>
+<style>
+  :root {
+    --ink:#3f342d;
+    --muted:#786b61;
+    --navy:#5f4636;
+    --blue:#f3eee8;
+    --blue-border:#8a6f5a;
+    --yellow:#f7f0df;
+    --yellow-border:#b08a57;
+    --red:#f5e9e5;
+    --red-border:#a66b5b;
+    --green:#edf1e8;
+    --green-border:#7b8568;
+    --purple:#eee8e2;
+    --purple-border:#8c7260;
+    --gray:#f4f1ed;
+    --border:#ddd4cc;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family:Arial, Helvetica, sans-serif;
+    color:var(--ink);
+    line-height:1.55;
+    background:#f3f0ec;
+  }
+  .page{
+    max-width:1050px;
+    margin:0 auto;
+    background:#fffdf9;
+    min-height:100vh;
+    padding:42px 50px 70px;
+    box-shadow:0 0 24px rgba(0,0,0,.06);
+  }
+  h1{font-size:2.25rem;margin:0;color:var(--navy);letter-spacing:-.02em}
+  .subtitle{font-size:1.05rem;color:var(--muted);margin:6px 0 26px}
+  h2{
+    color:var(--navy);
+    border-bottom:2px solid #d8e1ed;
+    padding-bottom:8px;
+    margin-top:38px;
+    font-size:1.55rem;
+  }
+  h3{color:#6c503e;margin-top:28px;margin-bottom:8px;font-size:1.18rem}
+  h4{margin-bottom:4px;color:#374151}
+  p{margin:8px 0 12px}
+  ul,ol{margin-top:7px;margin-bottom:12px;padding-left:26px}
+  li{margin:5px 0}
+  table{width:100%;border-collapse:collapse;margin:14px 0 20px;font-size:.96rem}
+  th,td{border:1px solid var(--border);padding:10px 11px;vertical-align:top}
+  th{background:#eee8e2;color:#5b4638;text-align:left}
+  tr:nth-child(even) td{background:#faf7f3}
+  code{background:#eee8e2;border-radius:4px;padding:1px 4px}
+  .toc{
+    background:var(--gray);
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:18px 22px;
+    margin:24px 0 28px;
+  }
+  .toc a{color:#76543f;text-decoration:none}
+  .toc a:hover{text-decoration:underline}
+  .box{
+    border-left:6px solid var(--blue-border);
+    background:var(--blue);
+    padding:14px 17px;
+    margin:16px 0;
+    border-radius:6px;
+  }
+  .hy{background:var(--yellow);border-left-color:var(--yellow-border)}
+  .pitfall{background:var(--red);border-left-color:var(--red-border)}
+  .clinical{background:var(--green);border-left-color:var(--green-border)}
+  .prof{background:var(--purple);border-left-color:var(--purple-border)}
+  .label{font-weight:700;letter-spacing:.02em;margin-bottom:5px}
+  .objective{
+    background:#f7f3ef;
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:13px 16px;
+    margin:12px 0 18px;
+  }
+  .objective strong{color:#604735}
+  .arrow{font-weight:700;color:#2f4969}
+  .small{font-size:.9rem;color:var(--muted)}
+  .source{font-size:.88rem;color:#6b7280;font-style:italic;margin-top:4px}
+  .keyline{font-weight:700;color:#604735}
+  .tag{display:inline-block;padding:2px 7px;border-radius:999px;background:#eee6de;color:#604a3a;font-size:.82rem;font-weight:700;margin-right:4px}
+  .summary-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:18px 0}
+  .summary-card{border:1px solid var(--border);border-radius:8px;padding:14px;background:#fff}
+  .summary-card h3{margin-top:0}
+  @media(max-width:760px){
+    .page{padding:25px 20px 50px}
+    .summary-grid{grid-template-columns:1fr}
+    table{font-size:.9rem}
+  }
+  @media print{
+    body{background:white}
+    .page{box-shadow:none;max-width:none;padding:20px 28px}
+    a{color:inherit;text-decoration:none}
+    .box,.objective,.summary-card{break-inside:avoid}
+    table{break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+<h1>Molecular Diagnostics</h1>
+<div class="subtitle">Learning-objective–based lecture summary with clearly separated USMLE Step 1 enrichment</div>
+
+<div class="box prof">
+  <div class="label">How to use this summary</div>
+  <p><strong>Lecture content is the priority.</strong> The five learning objectives structure the summary. Material marked <strong>⭐ STEP 1 HIGH YIELD</strong> is supplemental board-style enrichment that helps connect the lecture to common Step 1 concepts. Material marked <strong>⚠️ COMMONLY CONFUSED</strong> highlights distinctions that are easy to mix up.</p>
+</div>
+
+<h2 id="objectives">Learning Objectives</h2>
+<ol>
+  <li>Explain the principles of DNA amplification and the utility of genomic DNA, cDNA cloning, PCR, and RT-PCR.</li>
+  <li>Explain Southern, Northern, Western, and South-Western blotting and their applications.</li>
+  <li>Explain chain-termination DNA sequencing and sequencing of methylated regions of the genome.</li>
+  <li>Explain RFLP, VNTR, and STR analyses and their use in disease diagnosis, paternity, and forensic analysis.</li>
+  <li>Explain the basic theory of gene therapy and summarize the major vector types.</li>
+</ol>
+<div class="source">Lecture p. 2</div>
+
+<div class="toc">
+  <strong>Contents</strong>
+  <ol>
+    <li><a href="#foundation">Foundational molecular techniques</a></li>
+    <li><a href="#lo1">LO1: DNA amplification, cloning, PCR, RT-PCR</a></li>
+    <li><a href="#lo2">LO2: Hybridization and blotting</a></li>
+    <li><a href="#lo3">LO3: DNA sequencing and methylation</a></li>
+    <li><a href="#lo4">LO4: RFLP, VNTR, STR, and forensic genetics</a></li>
+    <li><a href="#lo5">LO5: Gene therapy and vectors</a></li>
+    <li><a href="#rapid">Rapid Step 1 review sheet</a></li>
+  </ol>
+</div>
+
+<h2 id="foundation">Foundational Molecular Techniques</h2>
+<p>The lecture begins with several core laboratory processes that underlie nearly every technique that follows.</p>
+
+<h3>Nucleic acid isolation</h3>
+<ul>
+  <li>DNA and RNA normally interact with proteins inside cells.</li>
+  <li>Isolation involves <strong>cell disruption</strong>, separation of nucleic acids from proteins using denaturing/chaotropic conditions, extraction of proteins into an organic phase such as chloroform, and <strong>alcohol precipitation</strong> of nucleic acids from the aqueous phase.</li>
+  <li>Nucleic acids can be quantified by absorbance at <strong>260 nm</strong>.</li>
+</ul>
+<div class="source">Lecture p. 3</div>
+
+<h3>Restriction endonucleases</h3>
+<ul>
+  <li>Restriction enzymes recognize short DNA sequences, typically about <strong>4–6 nucleotides</strong> long.</li>
+  <li>Recognition sites are often <strong>palindromic</strong>.</li>
+  <li>They cleave phosphodiester bonds in both DNA strands and can generate:
+    <ul>
+      <li><strong>Blunt ends</strong> – straight cuts.</li>
+      <li><strong>Sticky ends</strong> – staggered cuts producing 3′ or 5′ overhangs.</li>
+    </ul>
+  </li>
+  <li>Complementary sticky ends from DNA fragments cut with the same enzyme can base-pair, allowing recombinant DNA formation.</li>
+</ul>
+<div class="source">Lecture p. 3</div>
+
+<div class="box hy">
+  <div class="label">⭐ STEP 1 HIGH YIELD — Restriction enzymes</div>
+  <p>Restriction sites are useful because a sequence change can <strong>create or destroy a restriction site</strong>. That principle is the basis of <strong>RFLP analysis</strong>. Also remember: restriction enzymes cut DNA, whereas <strong>DNA ligase seals the phosphodiester backbone</strong> after compatible fragments base-pair.</p>
+</div>
+
+<h3>Gel electrophoresis</h3>
+<ul>
+  <li>Nucleic acids are separated mainly by <strong>size/length</strong> in an electric field.</li>
+  <li><strong>Shorter fragments migrate faster</strong> through the gel than longer fragments.</li>
+  <li><strong>Agarose</strong> is used routinely for larger DNA fragments and RNA.</li>
+  <li><strong>Polyacrylamide</strong> can resolve fragments differing by as little as a single nucleotide, which is useful for sequencing.</li>
+  <li>DNA bands can be visualized with intercalating dyes such as <strong>ethidium bromide</strong> under UV light.</li>
+</ul>
+<div class="source">Lecture p. 4</div>
+
+<div class="box pitfall">
+  <div class="label">⚠️ COMMONLY CONFUSED</div>
+  <p><strong>Agarose = routine separation of larger nucleic-acid fragments.</strong> <strong>Polyacrylamide = much higher resolution</strong>, including one-nucleotide differences.</p>
+</div>
+
+<h3>Reverse transcription, transfection, and transduction</h3>
+<ul>
+  <li><strong>Reverse transcriptase</strong> is an RNA-dependent DNA polymerase that copies RNA into DNA, producing <strong>cDNA</strong>.</li>
+  <li>cDNA made from mature mRNA <strong>does not contain introns</strong> and also lacks genomic regulatory regions such as promoters and enhancers.</li>
+  <li>Reverse transcriptase requires a primer. A <strong>poly(dT) primer</strong> can anneal to the poly(A) tail of many mRNAs.</li>
+  <li><strong>Transfection</strong> = deliberate introduction of purified/recombinant “naked” DNA into eukaryotic cells.</li>
+  <li><strong>Transduction</strong> = viral delivery of nucleic acid into cells. The lecture emphasizes that this is generally more efficient and can permit tissue-specific delivery.</li>
+</ul>
+<div class="source">Lecture p. 4</div>
+
+<div class="box hy">
+  <div class="label">⭐ STEP 1 HIGH YIELD — Why cDNA matters</div>
+  <p>Bacteria cannot perform normal eukaryotic intron splicing. Therefore, if the goal is to express a human protein in bacteria, the preferred template is usually <strong>cDNA made from mature mRNA</strong>, not genomic DNA.</p>
+</div>
+
+<h2 id="lo1">LO1 — DNA Amplification, Genomic DNA, cDNA, PCR, and RT-PCR</h2>
+<div class="objective"><strong>Objective:</strong> Understand the principle of DNA amplification and know when genomic DNA versus cDNA is useful.</div>
+
+<h3>Choosing genomic DNA vs cDNA</h3>
+<table>
+  <tr><th>Starting material</th><th>Contains</th><th>Best use emphasized in lecture</th></tr>
+  <tr><td><strong>Genomic DNA</strong></td><td>Exons, introns, and regulatory regions</td><td>Mutation analysis involving genomic sequence; studying promoters/regulatory elements</td></tr>
+  <tr><td><strong>cDNA</strong></td><td>Sequence copied from mature RNA; no introns; no promoter/enhancer regions</td><td>Recombinant protein production and analysis of expressed transcripts</td></tr>
+</table>
+<div class="source">Lecture pp. 4–6</div>
+
+<h3>Molecular cloning</h3>
+<p>Molecular cloning amplifies a DNA sequence by placing the desired DNA into a replicating vector and allowing a host cell, usually a bacterium, to copy it.</p>
+<ol>
+  <li>Obtain the foreign DNA: either a genomic DNA fragment or cDNA.</li>
+  <li>Cut the foreign DNA and vector with the <strong>same restriction enzyme</strong>.</li>
+  <li>Complementary sticky ends base-pair.</li>
+  <li><strong>DNA ligase</strong> covalently joins the fragments to produce recombinant DNA.</li>
+  <li>Introduce the vector into a host cell.</li>
+  <li>As the host replicates, the vector and inserted DNA are amplified.</li>
+</ol>
+<div class="source">Lecture p. 6</div>
+
+<h3>Polymerase chain reaction (PCR)</h3>
+<p>PCR is an <strong>in vitro</strong> method for amplifying a specific DNA segment. The nucleotide sequence at the two ends of the target region must be known so that primers can be designed.</p>
+
+<table>
+  <tr><th>Step</th><th>What happens</th><th>Lecture temperature range</th></tr>
+  <tr><td><strong>1. Denaturation</strong></td><td>Double-stranded DNA separates into single strands.</td><td>High temperature</td></tr>
+  <tr><td><strong>2. Annealing</strong></td><td>Short primers hybridize to complementary sequences flanking the target.</td><td>~45–72°C</td></tr>
+  <tr><td><strong>3. Extension</strong></td><td>Thermostable DNA polymerase extends primers to synthesize new DNA.</td><td>~68–72°C</td></tr>
+</table>
+
+<ul>
+  <li>The two primers must flank the sequence with their <strong>3′ ends directed toward each other</strong>.</li>
+  <li>A thermostable polymerase from a thermophilic bacterium is used because the reaction repeatedly reaches high temperatures.</li>
+  <li>Very small quantities of starting DNA are sufficient, making PCR useful in <strong>clinical and forensic samples</strong>.</li>
+  <li>PCR products can be used for sequencing, cloning, RFLP analysis, STR analysis, and other downstream tests.</li>
+</ul>
+<div class="source">Lecture p. 7</div>
+
+<div class="box hy">
+  <div class="label">⭐ STEP 1 HIGH YIELD — PCR essentials</div>
+  <ul>
+    <li>DNA polymerase synthesizes DNA <strong>5′ → 3′</strong> and therefore extends from the primer’s free <strong>3′-OH</strong>.</li>
+    <li>Classic PCR uses a thermostable polymerase such as <strong>Taq polymerase</strong>.</li>
+    <li>Under ideal conditions, the target amount approximately doubles each cycle, giving <strong>exponential amplification</strong>.</li>
+    <li>If primers face away from each other, they will not amplify the intended intervening segment.</li>
+  </ul>
+</div>
+
+<h3>RT-PCR</h3>
+<p><strong>Reverse transcription PCR (RT-PCR)</strong> begins with RNA. The RNA is first reverse transcribed into cDNA, and that cDNA is then amplified by PCR. The lecture emphasizes its use in detecting or measuring gene expression.</p>
+<p class="arrow">mRNA → reverse transcriptase → cDNA → PCR amplification</p>
+<div class="source">Lecture p. 7</div>
+
+<div class="box pitfall">
+  <div class="label">⚠️ COMMONLY CONFUSED — RT-PCR vs qPCR</div>
+  <p><strong>RT-PCR</strong> refers to reverse-transcription PCR: RNA is converted to cDNA first. <strong>qPCR</strong> refers to real-time quantitative PCR, which monitors amplification during cycling. A test can combine both approaches and be called <strong>RT-qPCR</strong>.</p>
+</div>
+
+<h3>Reporter gene assay</h3>
+<ul>
+  <li>Used to study <strong>cis- and trans-acting regulatory elements</strong> and the effect of regulatory mutations on gene expression.</li>
+  <li>A fusion gene is created by combining the regulatory region of the test gene with the coding region of a <strong>reporter gene</strong>.</li>
+  <li>Reporter expression is measured visually or by an enzyme assay.</li>
+</ul>
+<div class="source">Lecture p. 8</div>
+
+<h2 id="lo2">LO2 — Hybridization and Blotting Techniques</h2>
+<div class="objective"><strong>Objective:</strong> Understand how complementary base pairing and labeled probes are used to detect specific nucleic acids or proteins.</div>
+
+<h3>Hybridization principle</h3>
+<ul>
+  <li><strong>Hybridization</strong> = complementary nucleic-acid strands base-pair with each other.</li>
+  <li>A probe is a labeled nucleic-acid strand that can identify its complementary target.</li>
+  <li>Probes can be labeled with radioactivity such as <sup>32</sup>P or with fluorescent dyes.</li>
+  <li>Probes may be cDNA, genomic DNA fragments, or synthetic oligonucleotides.</li>
+</ul>
+<div class="source">Lecture p. 10</div>
+
+<h3>Hybridization stringency</h3>
+<table>
+  <tr><th>Condition</th><th>Temperature</th><th>Salt</th><th>What can bind?</th></tr>
+  <tr><td><strong>High stringency</strong></td><td>Higher</td><td>Lower</td><td>Mostly fully complementary sequences</td></tr>
+  <tr><td><strong>Low stringency</strong></td><td>Lower</td><td>Higher</td><td>Partially complementary sequences; mismatches tolerated</td></tr>
+</table>
+<div class="source">Lecture p. 10</div>
+
+<div class="box hy">
+  <div class="label">⭐ STEP 1 HIGH YIELD — Stringency rule</div>
+  <p><strong>High temperature + low salt = high stringency.</strong> This favors highly specific, nearly perfect complementarity. <strong>Low temperature + high salt = low stringency</strong>, allowing more mismatches.</p>
+</div>
+
+<h3>Blot comparison</h3>
+<table>
+  <tr><th>Technique</th><th>Target</th><th>Probe / detector</th><th>Main use in this lecture</th></tr>
+  <tr><td><strong>Southern</strong></td><td>DNA</td><td>Labeled DNA probe</td><td>Detect a specific gene/gene fragment; RFLP and VNTR analysis</td></tr>
+  <tr><td><strong>Northern</strong></td><td>RNA, usually mRNA</td><td>Labeled DNA probe</td><td>Detect/compare gene expression; identify transcript sizes</td></tr>
+  <tr><td><strong>Western</strong></td><td>Protein</td><td>Antibody</td><td>Detect or estimate a specific protein</td></tr>
+  <tr><td><strong>South-Western</strong></td><td>Protein</td><td>Labeled DNA</td><td>Detect DNA-binding proteins such as transcription factors</td></tr>
+</table>
+<div class="source">Lecture p. 11; the page 11 diagram directly contrasts DNA, RNA, and protein targets.</div>
+
+<div class="box hy">
+  <div class="label">⭐ STEP 1 HIGH YIELD — SNoW DRoP</div>
+  <p>A classic mnemonic: <strong>S</strong>outhern = <strong>D</strong>NA, <strong>N</strong>orthern = <strong>R</strong>NA, <strong>W</strong>estern = <strong>P</strong>rotein.</p>
+</div>
+
+<div class="box clinical">
+  <div class="label">Clinical integration from the lecture</div>
+  <p>The lecture uses allele-specific oligonucleotide probes in a cystic fibrosis family. One probe recognizes the normal CFTR sequence and another recognizes the common ΔF508 mutant sequence. A person binding only the normal probe is normal for that tested allele, a person binding both probes is heterozygous/carrier, and a person binding only the mutant probe is homozygous for the tested mutation.</p>
+</div>
+
+<div class="box hy">
+  <div class="label">⭐ STEP 1 HIGH YIELD — Northern blot and alternative splicing</div>
+  <p>Different mRNA band sizes from the same gene can reflect <strong>alternative splicing</strong>. That is why one gene may produce multiple transcripts and protein isoforms.</p>
+</div>
+
+<h2 id="lo3">LO3 — Sanger Sequencing and Methylation Analysis</h2>
+<div class="objective"><strong>Objective:</strong> Understand chain termination and how bisulfite treatment distinguishes methylated from unmethylated cytosine.</div>
+
+<h3>Sanger chain-termination sequencing</h3>
+<p>The lecture describes classic Sanger sequencing using DNA polymerase, a primer, normal dNTPs, and labeled <strong>2′,3′-dideoxynucleotides (ddNTPs)</strong>.</p>
+<ol>
+  <li>DNA polymerase begins extending a primer on the template.</li>
+  <li>A ddNTP occasionally competes with the corresponding normal dNTP and is incorporated.</li>
+  <li>Once a ddNTP is incorporated, <strong>elongation stops</strong>.</li>
+  <li>This generates DNA fragments of many lengths, each ending at a particular base.</li>
+  <li>Fragments are separated by high-resolution polyacrylamide gel electrophoresis.</li>
+  <li>For the classic four-lane gel, read the bands <strong>from bottom to top</strong> to obtain the newly synthesized strand in the <strong>5′ → 3′</strong> direction.</li>
+</ol>
+<div class="source">Lecture p. 14</div>
+
+<div class="box hy">
+  <div class="label">⭐ STEP 1 HIGH YIELD — Why ddNTPs terminate DNA synthesis</div>
+  <p>A ddNTP lacks the <strong>3′-OH</strong> needed to form the next phosphodiester bond. No 3′-OH means no further nucleotide can be added, so the chain terminates.</p>
+</div>
+
+<div class="box pitfall">
+  <div class="label">⚠️ COMMONLY CONFUSED — Which strand are you reading?</div>
+  <p>The bands directly give the sequence of the <strong>newly synthesized strand</strong> in the 5′ → 3′ direction. If the question asks for the template strand, take the <strong>reverse complement</strong>.</p>
+</div>
+
+<h3>Whole-genome vs whole-exome sequencing</h3>
+<table>
+  <tr><th>Method</th><th>What is sequenced?</th><th>Key implication</th></tr>
+  <tr><td><strong>Whole-genome sequencing</strong></td><td>The entire genome</td><td>Can detect variants in coding and noncoding regions</td></tr>
+  <tr><td><strong>Whole-exome sequencing</strong></td><td>Protein-coding exons (~2% of genome, as emphasized in lecture)</td><td>Efficient for coding mutations but may miss pathogenic regulatory/noncoding variants</td></tr>
+</table>
+<p>The lecture also notes that exome sequencing can identify <strong>actionable mutations</strong> in cancer that may be targeted therapeutically.</p>
+<div class="source">Lecture p. 14</div>
+
+<h3>Bisulfite sequencing for DNA methylation</h3>
+<p>Standard Sanger sequencing does not inherently distinguish methylated from unmethylated cytosine. Bisulfite treatment creates a chemical difference that can be detected by sequencing.</p>
+<p class="arrow">Unmethylated C → bisulfite treatment → U → read as T during sequencing</p>
+<p class="arrow">Methylated C (5-methylcytosine) → resistant to conversion → remains C</p>
+<p>Comparing treated and untreated DNA reveals methylation patterns.</p>
+<div class="source">Lecture p. 15</div>
+
+<div class="box hy">
+  <div class="label">⭐ STEP 1 HIGH YIELD — DNA methylation</div>
+  <ul>
+    <li>Promoter-region <strong>CpG methylation generally decreases gene transcription</strong>.</li>
+    <li>Methylation is central to <strong>genomic imprinting</strong>, in which expression depends on whether an allele was inherited from the mother or father.</li>
+    <li>A methylated cytosine remains read as <strong>C</strong> after bisulfite treatment; an unmethylated cytosine becomes read as <strong>T</strong>.</li>
+  </ul>
+</div>
+
+<h2 id="lo4">LO4 — RFLP, VNTR, STR, Disease Diagnosis, Paternity, and Forensics</h2>
+<div class="objective"><strong>Objective:</strong> Understand how inherited DNA sequence variation changes fragment sizes or repeat lengths and how those differences can identify alleles or individuals.</div>
+
+<h3>Polymorphisms, SNPs, and INDELs</h3>
+<ul>
+  <li>A <strong>polymorphism</strong> is one of multiple DNA-sequence variants at a locus.</li>
+  <li>A <strong>SNP</strong> is a single-base variation.</li>
+  <li><strong>INDELs</strong> are insertions or deletions.</li>
+  <li>Some sequence variants create or destroy a restriction enzyme recognition site; these are detectable by RFLP.</li>
+</ul>
+<div class="source">Lecture p. 16</div>
+
+<h3>Restriction fragment length polymorphism (RFLP)</h3>
+<p>RFLP detects sequence changes that alter a restriction site, producing different-sized restriction fragments.</p>
+<ol>
+  <li>Isolate or PCR-amplify genomic DNA.</li>
+  <li>Digest with the relevant restriction enzyme.</li>
+  <li>Separate fragments by gel electrophoresis.</li>
+  <li>Perform <strong>Southern blotting</strong> with a gene-specific probe.</li>
+  <li>Interpret the fragment-size pattern.</li>
+</ol>
+<p>The lecture uses <strong>sickle-cell allele genotyping</strong> as an example.</p>
+<div class="source">Lecture p. 16</div>
+
+<div class="box hy">
+  <div class="label">⭐ STEP 1 HIGH YIELD — RFLP limitation</div>
+  <p>RFLP only works directly when the sequence change <strong>creates or abolishes a restriction site</strong>. Not every SNP or INDEL does this.</p>
+</div>
+
+<h3>VNTR vs STR</h3>
+<table>
+  <tr><th>Feature</th><th>VNTR</th><th>STR</th></tr>
+  <tr><td>Full name</td><td>Variable number tandem repeat</td><td>Short tandem repeat</td></tr>
+  <tr><td>Repeat class</td><td>Minisatellite</td><td>Microsatellite</td></tr>
+  <tr><td>Repeat unit size in lecture</td><td><strong>10–60 bp</strong></td><td><strong>2–6 bp</strong></td></tr>
+  <tr><td>Why individuals differ</td><td colspan="2">The number of repeat units varies between chromosomes and between individuals.</td></tr>
+  <tr><td>Typical analysis in lecture</td><td>Restriction digestion + Southern blot with VNTR probe</td><td>PCR with STR-specific primers + electrophoresis</td></tr>
+  <tr><td>Main use</td><td colspan="2">Paternity, personal identification, and forensic analysis</td></tr>
+</table>
+<div class="source">Lecture p. 17</div>
+
+<h3>Detection-method comparison from the lecture figure</h3>
+<table>
+  <tr><th>Variation</th><th>Detection approach emphasized in the page 18 figure</th></tr>
+  <tr><td><strong>RFLP</strong></td><td>Restriction digestion → Southern blot → hybridization</td></tr>
+  <tr><td><strong>VNTR</strong></td><td>Restriction digestion → Southern blot → hybridization</td></tr>
+  <tr><td><strong>STR</strong></td><td>PCR → electrophoresis</td></tr>
+  <tr><td><strong>SNP</strong></td><td>PCR → sequencing</td></tr>
+</table>
+<div class="source">Lecture p. 18. The diagram explicitly places restriction-enzyme sites above RFLP/VNTR and PCR primers around STR loci.</div>
+
+<div class="box hy">
+  <div class="label">⭐ STEP 1 HIGH YIELD — Paternity logic</div>
+  <p>At each autosomal STR locus, an individual inherits <strong>one allele from each parent</strong>. A candidate parent must be able to account for the child’s allele that did not come from the known parent. Multiple independent STR loci are combined to make the identification highly specific.</p>
+</div>
+
+<div class="box clinical">
+  <div class="label">Forensic application in the lecture</div>
+  <p>The lecture uses STR analysis of the Romanov family remains as an example of how inherited repeat-length patterns can be used to establish biological relationships and identity.</p>
+</div>
+
+<h2 id="lo5">LO5 — Gene Therapy and Vectors</h2>
+<div class="objective"><strong>Objective:</strong> Have an overall understanding of how gene therapy works and know the major vector categories. The lecturer specifically states not to memorize minute details for this objective.</div>
+
+<h3>Basic concept of gene therapy</h3>
+<p>Gene therapy introduces or manipulates genetic material in a patient’s cells to treat or prevent disease. Approaches described in the lecture include:</p>
+<ul>
+  <li><strong>Replacing</strong> a defective gene with a functional copy.</li>
+  <li><strong>Inactivating/knocking out</strong> a harmful mutant gene.</li>
+  <li><strong>Adding</strong> a new functional copy of a defective gene.</li>
+  <li><strong>Exon-skipping therapy</strong> to alter RNA splicing.</li>
+</ul>
+<div class="source">Lecture p. 20</div>
+
+<h3>Germline vs somatic therapy</h3>
+<table>
+  <tr><th>Type</th><th>Key concept</th></tr>
+  <tr><td><strong>Germline</strong></td><td>Genetic change would be heritable and passed to future generations. The lecture notes that this is not performed.</td></tr>
+  <tr><td><strong>Somatic</strong></td><td>Affects the treated patient’s cells only and is not inherited by offspring.</td></tr>
+</table>
+<div class="source">Lecture p. 28</div>
+
+<h3>Ex vivo vs in vivo</h3>
+<table>
+  <tr><th>Type</th><th>Process</th><th>Examples given in lecture</th></tr>
+  <tr><td><strong>Ex vivo</strong></td><td>Remove cells → genetically modify them in the laboratory → return them to the patient</td><td>CAR-T; ADA-SCID</td></tr>
+  <tr><td><strong>In vivo</strong></td><td>Deliver the genetic material directly to cells inside the patient</td><td>Examples discussed include hemophilia and Huntington-related approaches</td></tr>
+</table>
+<div class="source">Lecture pp. 20, 28</div>
+
+<h3>Exon-skipping therapy</h3>
+<p>Splice-site mutations can cause abnormal exon recognition and disrupt the reading frame. Exon-skipping therapy uses <strong>antisense oligonucleotides (AONs)</strong> to bind specific pre-mRNA sequences and alter splice-site recognition.</p>
+<p class="arrow">Frame-disrupting transcript → AON masks selected splice region → extra exon is skipped → reading frame restored → shorter but potentially functional protein</p>
+<ul>
+  <li>AONs are short, single-stranded nucleic-acid sequences that bind complementary RNA.</li>
+  <li>The goal is not necessarily to restore the full-length protein. It is to create an <strong>in-frame truncated transcript</strong> that retains important functional domains.</li>
+</ul>
+<div class="source">Lecture pp. 21–23</div>
+
+<div class="box clinical">
+  <div class="label">Duchenne muscular dystrophy example</div>
+  <p>The lecture’s page 26 diagram shows how exon skipping can convert an out-of-frame dystrophin transcript into an in-frame transcript. This permits production of a <strong>shorter, partially functional dystrophin</strong>, producing a phenotype conceptually more like <strong>Becker muscular dystrophy</strong> than classic Duchenne.</p>
+</div>
+
+<div class="box hy">
+  <div class="label">⭐ STEP 1 HIGH YIELD — Duchenne vs Becker mechanism</div>
+  <p><strong>Duchenne:</strong> typically out-of-frame or severe loss-of-function dystrophin mutation → little/absent functional dystrophin. <strong>Becker:</strong> often in-frame mutation → shortened but partially functional dystrophin. Exon-skipping therapy exploits this reading-frame principle.</p>
+</div>
+
+<div class="box prof">
+  <div class="label">Professor emphasis — low priority</div>
+  <p>The lecture explicitly states that the detailed newer splicing regulatory elements on p. 27 are <strong>not required for the quiz or Step I</strong>. Know the basic exon-skipping concept rather than memorizing ESE/ESS/ISE/ISS details.</p>
+</div>
+
+<h3>Vectors for gene therapy</h3>
+<p>A therapeutic gene generally requires a <strong>vector</strong> for efficient delivery. The lecture divides vectors into nonviral and viral types.</p>
+<ul>
+  <li><strong>Nonviral vectors:</strong> lower transfection efficiency.</li>
+  <li><strong>Viral vectors:</strong> high delivery efficiency and sometimes tissue specificity.</li>
+  <li>Viral vectors are engineered to remove virulence/replication functions while retaining the ability to deliver the therapeutic sequence.</li>
+</ul>
+<div class="source">Lecture p. 29</div>
+
+<table>
+  <tr><th>Vector</th><th>Genome / integration</th><th>Cell types</th><th>Expression / major issue</th><th>Approx. cargo emphasized in lecture</th></tr>
+  <tr><td><strong>Retroviral</strong></td><td>RNA → reverse transcription → integrates into host genome</td><td>Dividing cells</td><td>Stable, long-term expression; insertional mutagenesis risk</td><td>~8 kb</td></tr>
+  <tr><td><strong>Lentiviral</strong></td><td>Retroviral RNA; integrates</td><td>Dividing and nondividing cells</td><td>Can be used in vivo; lecture calls it a major vector for genetic disorders</td><td>~8 kb</td></tr>
+  <tr><td><strong>Adenoviral</strong></td><td>dsDNA; remains extrachromosomal</td><td>Dividing and nondividing cells</td><td>High expression but immunogenic; therefore more transient</td><td>~37 kb</td></tr>
+  <tr><td><strong>Adeno-associated virus (AAV)</strong></td><td>ssDNA → dsDNA; maintained extrachromosomally in lecture</td><td>Dividing and nondividing cells</td><td>Low immunogenicity; can persist for years; small cargo capacity</td><td>~4.5 kb</td></tr>
+</table>
+<div class="source">Lecture pp. 29–30</div>
+
+<div class="box hy">
+  <div class="label">⭐ STEP 1 HIGH YIELD — Vector pattern recognition</div>
+  <ul>
+    <li><strong>Integrating retroviral/lentiviral vectors</strong> can provide durable expression but raise concern for <strong>insertional mutagenesis</strong>.</li>
+    <li><strong>Adenovirus</strong> is strongly immunogenic and typically gives more transient expression because it remains episomal/extrachromosomal.</li>
+    <li><strong>AAV</strong> is less immunogenic and useful for long-term expression but has a <strong>small packaging capacity</strong>.</li>
+  </ul>
+</div>
+
+<h3>Risks of viral gene therapy</h3>
+<ul>
+  <li>Difficulty restricting the vector to the desired tissue.</li>
+  <li><strong>Insertional mutagenesis</strong> if integration occurs in a harmful location.</li>
+  <li>Potential oncogenesis.</li>
+  <li>Excessive expression of the therapeutic gene.</li>
+  <li>Host immune response against the vector or transduced cells.</li>
+</ul>
+<p>The lecture gives the historical example of <strong>X-linked SCID</strong> patients who developed T-cell leukemia after retroviral insertional mutagenesis.</p>
+<div class="source">Lecture p. 30</div>
+
+<div class="box prof">
+  <div class="label">Professor emphasis — overall understanding only</div>
+  <p>The lecture explicitly says: do <strong>not</strong> spend time memorizing minute details for the final learning objective. Know the overall logic of gene therapy, the major vector differences, and the major risks.</p>
+</div>
+
+<h3>CRISPR/Cas9 — supplemental lecture material</h3>
+<p>The lecture labels CRISPR/Cas9 as <strong>additional information that is not tested</strong>. The basic concept is that guide RNA directs Cas9 to a complementary DNA sequence, where Cas9 creates a double-strand break. Repair by NHEJ can create insertions/deletions, whereas a supplied homologous template can support homology-directed repair.</p>
+<div class="source">Lecture p. 31</div>
+
+<div class="box pitfall">
+  <div class="label">⚠️ LOW PRIORITY FOR THIS LECTURE</div>
+  <p>Do not let CRISPR details distract from the five stated objectives. The lecture itself says this material is not tested.</p>
+</div>
+
+<h2 id="rapid">Rapid Step 1 Review Sheet</h2>
+<div class="summary-grid">
+  <div class="summary-card">
+    <h3>PCR</h3>
+    <p><strong>Denature → anneal → extend.</strong><br>Thermostable polymerase; primers face inward; amplifies DNA exponentially.</p>
+  </div>
+  <div class="summary-card">
+    <h3>cDNA</h3>
+    <p>Made from mature mRNA by reverse transcriptase. <strong>No introns, no promoter/enhancer regions.</strong></p>
+  </div>
+  <div class="summary-card">
+    <h3>Blots</h3>
+    <p><strong>Southern DNA, Northern RNA, Western protein.</strong> South-Western identifies DNA-binding proteins.</p>
+  </div>
+  <div class="summary-card">
+    <h3>Sanger</h3>
+    <p><strong>ddNTP lacks 3′-OH → chain termination.</strong> Classic gel is read bottom → top for the new 5′ → 3′ strand.</p>
+  </div>
+  <div class="summary-card">
+    <h3>Bisulfite</h3>
+    <p><strong>Unmethylated C → U → T.</strong><br><strong>Methylated C stays C.</strong></p>
+  </div>
+  <div class="summary-card">
+    <h3>RFLP</h3>
+    <p>Variant creates/destroys a restriction site → different fragment lengths → restriction digest + Southern blot.</p>
+  </div>
+  <div class="summary-card">
+    <h3>VNTR / STR</h3>
+    <p>VNTR = minisatellite, 10–60 bp repeat unit. STR = microsatellite, 2–6 bp repeat unit. STR is commonly analyzed by PCR + electrophoresis.</p>
+  </div>
+  <div class="summary-card">
+    <h3>Gene therapy</h3>
+    <p>Somatic vs germline; ex vivo vs in vivo. Retro/lenti integrate; adenovirus is immunogenic and transient; AAV has small cargo capacity.</p>
+  </div>
+</div>
+
+<div class="box hy">
+  <div class="label">⭐ Highest-yield connections to be able to explain without notes</div>
+  <ol>
+    <li>Why cDNA is preferred over genomic DNA for bacterial expression of a human protein.</li>
+    <li>Why PCR primers must face toward the target sequence and why a thermostable polymerase is needed.</li>
+    <li>Southern vs Northern vs Western, including what the target and probe are.</li>
+    <li>Why ddNTP incorporation terminates Sanger sequencing.</li>
+    <li>Why bisulfite sequencing distinguishes methylated from unmethylated cytosines.</li>
+    <li>Why an RFLP exists only if a sequence variant changes a restriction site.</li>
+    <li>Why STRs are useful in paternity and forensic analysis.</li>
+    <li>How exon skipping restores a reading frame in selected DMD mutations.</li>
+    <li>Why integrating viral vectors can cause insertional mutagenesis.</li>
+  </ol>
+</div>
+
+<hr style="border:none;border-top:1px solid #d7dde6;margin-top:38px">
+<p class="small"><strong>Source:</strong> Prasad, “Molecular Diagnostics” lecture PDF (32 pages). Supplemental Step 1 notes are clearly marked and are intended to reinforce commonly tested molecular-genetics principles rather than replace the lecture.</p>
+
+</div>
+</body>
+</html>

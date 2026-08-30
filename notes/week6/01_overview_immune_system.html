@@ -1,0 +1,594 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>William Dolen - Overview of the Immune System</title>
+<style>
+@page { size: Letter; margin: 0.5in; }
+:root{
+  --espresso:#46362d; --brown:#654c3d; --brown2:#7c604c; --taupe:#a88f7c;
+  --paper:#fffdf9; --ink:#3e342e; --muted:#786b62; --border:#ddd1c5;
+  --soft:#f3eee8; --gold:#b18b55; --rose:#f2e4df; --rose-border:#a66555;
+  --sage:#edf0e7; --sage-border:#7c8568; --prof:#eee6df; --prof-border:#886d5b;
+  --blue:#e8eef2; --blue-border:#718694; --purple:#f0ebf4; --purple-border:#8a7397;
+  --teal:#e9f1ef; --teal-border:#6f8f88;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--ink);line-height:1.56;background:#f1ede8}
+.page{max-width:1080px;margin:0 auto;padding:44px 54px 74px;background:var(--paper);min-height:100vh;box-shadow:0 0 24px rgba(65,45,30,.08)}
+h1{font-size:2.3rem;margin:0;color:var(--espresso);letter-spacing:-.025em}
+.subtitle{color:var(--muted);font-size:1.04rem;margin:7px 0 25px}
+h2{color:var(--brown);margin-top:38px;padding-bottom:8px;border-bottom:2px solid #dfd3c8;font-size:1.54rem}
+h3{color:#6c513f;margin:25px 0 8px;font-size:1.18rem}
+h4{color:#695244;margin:17px 0 6px}
+p{margin:8px 0 11px}
+ul,ol{padding-left:25px;margin:7px 0 11px}
+li{margin:5px 0}
+strong{color:#4b382d}
+table{width:100%;border-collapse:collapse;margin:13px 0 20px;font-size:.92rem}
+th,td{border:1px solid var(--border);padding:9px 10px;vertical-align:top}
+th{background:#eee7e0;color:#503d31;text-align:left}
+tr:nth-child(even) td{background:#fcfaf7}
+.priority{border:2px solid #9b7053;background:#f8efe7;border-radius:10px;padding:17px 19px;margin:20px 0}
+.priority h3{margin-top:0;color:#684934}
+.box{border-left:6px solid var(--taupe);background:#f5f0eb;padding:13px 16px;margin:14px 0;border-radius:6px}
+.hy{background:#f7efdf;border-left-color:var(--gold)}
+.pitfall{background:var(--rose);border-left-color:var(--rose-border)}
+.clinical{background:var(--sage);border-left-color:var(--sage-border)}
+.prof{background:var(--prof);border-left-color:var(--prof-border)}
+.enrich{background:var(--blue);border-left-color:var(--blue-border)}
+.fun{background:var(--purple);border-left-color:var(--purple-border)}
+.source{background:var(--teal);border-left-color:var(--teal-border)}
+.low{background:#f2f0ed;border-left-color:#a9a198;color:#655f5a}
+.label{font-weight:800;letter-spacing:.02em;margin-bottom:4px;color:#523d31}
+.definition{background:#fbf7f1;border:1px solid var(--border);border-radius:8px;padding:11px 14px;margin:11px 0}
+.definition b{color:var(--brown)}
+.memory{border:2px solid #b18b55;background:#fff7e8;border-radius:10px;padding:14px 16px;margin:16px 0}
+.memory .title{font-weight:900;color:#6b4d22;text-transform:uppercase;letter-spacing:.045em;margin-bottom:6px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:14px 0}
+.card{border:1px solid var(--border);border-radius:8px;padding:12px 13px;background:#fffdfa;break-inside:avoid}
+.card h3{margin-top:0;font-size:1.06rem}
+.figure{margin:18px auto 22px;text-align:center;max-width:760px;background:#faf7f3;border:1px solid var(--border);border-radius:10px;padding:13px}
+.figure img{max-width:100%;height:auto;border-radius:4px}
+.caption{font-size:.84rem;color:var(--muted);margin:7px 3px 0}
+.toc{background:var(--soft);border:1px solid var(--border);border-radius:10px;padding:16px 19px;margin:20px 0}
+.small{font-size:.86rem;color:var(--muted)}
+.tag{display:inline-block;background:#eee6de;color:#614838;padding:3px 8px;border-radius:999px;font-size:.74rem;font-weight:800;margin-right:5px}
+.flow{display:flex;gap:8px;align-items:stretch;flex-wrap:wrap;margin:15px 0}
+.step{flex:1 1 145px;border:1px solid var(--border);border-radius:9px;padding:11px;background:#fffdfa;position:relative}
+.step .n{font-weight:900;color:var(--brown2);font-size:.78rem;text-transform:uppercase;letter-spacing:.05em}
+.step b{display:block;margin:2px 0 4px}
+.arrow{align-self:center;color:#967a66;font-weight:900;font-size:1.25rem}
+.mini-table td:first-child{font-weight:800;width:28%}
+
+/* Ozzy lives INSIDE the notes in HTML; he is omitted from PDF/print */
+.ozzy-host{position:relative}
+#ozzyContainer{display:none}
+#ozzyEasterEgg{
+  display:inline-flex;align-items:center;justify-content:center;float:right;
+  width:46px;height:46px;margin:2px 0 6px 10px;border:none;padding:0;
+  background:transparent;cursor:pointer;opacity:.42;transition:.18s ease;
+  filter:drop-shadow(0 2px 3px rgba(0,0,0,.18));
+}
+#ozzyEasterEgg:hover,#ozzyEasterEgg:focus{opacity:1;transform:scale(1.12);outline:none}
+#ozzyEasterEgg img{width:46px;height:46px;object-fit:cover;border-radius:50%;border:2px solid #fff}
+#ozzyInlineMessage{
+  display:none;clear:both;margin:10px 0 2px;background:#fffdf9;color:#3e342e;
+  border:1px solid #9a806d;border-radius:9px;padding:10px 12px;font-size:.9rem;
+  box-shadow:0 4px 12px rgba(70,54,45,.08)
+}
+#ozzyInlineMessage.show{display:block}
+#ozzyInlineMessage .oz-title{font-weight:900;color:#654c3d;margin-bottom:3px}
+#ozzyInlineMessage button{float:right;border:0;background:transparent;color:#786b62;font-size:16px;cursor:pointer;margin-left:8px}
+
+@media(max-width:760px){
+  .page{padding:27px 20px 52px}.grid{grid-template-columns:1fr}table{font-size:.86rem}
+  .flow{display:block}.arrow{display:none}.step{margin:7px 0}
+}
+@media print{
+  body{background:white}.page{max-width:none;padding:0;box-shadow:none}
+  .box,.priority,.memory,.definition,.card,.figure,table,.step{break-inside:avoid}
+  h2,h3{break-after:avoid}
+  #ozzyContainer,#ozzyEasterEgg,#ozzyInlineMessage{display:none!important}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<h1>Overview of the Immune System</h1>
+<div class="subtitle">William K. Dolen, MD • Week 6: Foundations of Immunology • Lecture 1 • Enriched Study Guide</div>
+
+<div class="priority">
+<h3>What this lecture is really trying to give you</h3>
+<p>This is the <strong>map of immunology</strong>. Before learning individual cytokines, complement pathways, hypersensitivity types, immunodeficiencies, or lymphocyte signaling, you need to know what problem the immune system is solving and how its two major branches cooperate.</p>
+<ul>
+<li>The immune system behaves like a <strong>sensory-response network</strong>: detect danger -> choose an appropriate response -> eliminate the threat -> shut the response down.</li>
+<li>Disease occurs when the response is <strong>too weak, misdirected, excessive, or fails to resolve</strong>.</li>
+<li><strong>Innate immunity</strong> is fast, preprogrammed, pattern-based, and lacks classic antigen-specific memory.</li>
+<li><strong>Adaptive immunity</strong> uses rearranged antigen receptors, is highly specific, and creates immunologic memory.</li>
+<li>The two systems are not separate armies. Innate responses often <strong>initiate and shape</strong> adaptive responses, and adaptive effectors can then recruit innate mechanisms.</li>
+</ul>
+</div>
+
+<div class="box prof"><div class="label">🔥 PROFESSOR STUDY STRATEGY</div>
+<p>Dolen explicitly tells you not to try to master every detail on the first pass. His stated strategy is to focus on the <strong>big picture, pathways, and networks rather than word lists</strong>. He also states that his exam questions are based on principles contained in the MCG bricks and lectures, and the lecture objectives are keyed to the USMLE content outline.</p></div>
+
+<div class="memory">
+<div class="title">Need to memorize - master list</div>
+<ol>
+<li><strong>5 lecture objectives</strong> and the major concept attached to each.</li>
+<li><strong>3 core immune jobs from the supplemental handout:</strong> defense, homeostasis/cleanup, surveillance.</li>
+<li><strong>PRR -> PAMP/DAMP</strong> as the core innate danger-sensing logic.</li>
+<li><strong>External defenses:</strong> skin + mucosa; SALT, MALT, GALT, BALT.</li>
+<li><strong>Primary lymphoid organs:</strong> bone marrow and thymus. <strong>Secondary:</strong> lymph nodes, spleen, mucosal lymphoid tissues, lymphatic vessels/lymph.</li>
+<li><strong>B cells develop in bone marrow; T cells develop in thymus.</strong></li>
+<li><strong>Innate components:</strong> neutrophils, monocytes/macrophages, dendritic cells, ILCs including NK cells, mast cells, PRRs, cytokines, complement.</li>
+<li><strong>Adaptive components:</strong> T cells, B cells, plasma cells, rearranged antigen receptors, cytokines, antibodies.</li>
+<li><strong>Innate:</strong> seconds-hours, stereotyped, no classic memory. <strong>Adaptive:</strong> primary days-weeks, antigen-specific, memory, faster secondary response.</li>
+<li><strong>Innate mechanisms:</strong> phagocytosis, inflammation, cytotoxicity. <strong>Adaptive mechanisms:</strong> humoral and cell-mediated immunity.</li>
+<li><strong>Inflammation:</strong> rubor, tumor, calor, dolor, functio laesa.</li>
+<li><strong>Resolution:</strong> cytokines/chemotaxis fall, cleanup/repair begins, most effectors contract by apoptosis, long-lived/memory cells remain.</li>
+</ol>
+</div>
+
+<div class="toc">
+<strong>Guide map</strong>
+<ol>
+<li>LO 1.1 - Purpose of immunity and what happens when it goes wrong</li>
+<li>LO 1.2 - Danger signals: PAMPs, DAMPs, PRRs, tolerance, microbiome, privilege</li>
+<li>LO 1.3 - Components: barriers, lymphoid organs, cells, molecules</li>
+<li>LO 1.4 - Innate vs adaptive: receptors, timing, mechanisms, memory, cooperation</li>
+<li>LO 1.5 - Resolution: contraction, repair, pus/abscess/sepsis, memory</li>
+<li>Clinical correlations and vignette logic</li>
+<li>What to memorize vs understand vs deprioritize</li>
+</ol>
+</div>
+
+<h2>Official Lecture Objectives</h2>
+<ol>
+<li><strong>1.1</strong> Describe the main purposes of the immune system and how clinical disease results when immune responses are inappropriate.</li>
+<li><strong>1.2</strong> Explain how the immune system detects and responds to danger signals.</li>
+<li><strong>1.3</strong> List the main components of the innate and adaptive immune systems.</li>
+<li><strong>1.4</strong> Compare and contrast the innate and adaptive immune systems.</li>
+<li><strong>1.5</strong> Describe what happens as an immune response subsides.</li>
+</ol>
+
+<div class="box source"><div class="label">SOURCE MAP</div>
+<p><strong>Primary source:</strong> Dolen's 44-page lecture deck. <strong>Second source:</strong> the 10-page companion handout, which adds explanatory framing, cell-function summaries, an infection-to-resolution walkthrough, and practice-question explanations. Where the handout adds detail that is not explicit in the slide deck, this guide identifies it as supplemental rather than silently treating the two sources as identical.</p></div>
+
+<h2>LO 1.1 - What Is the Immune System For?</h2>
+
+<div class="definition"><b>Immunity:</b> the lecture opens with the historical idea of protection after exposure. The term comes from Latin <em>immunus</em>, and Dolen uses Thucydides' observation during the Plague of Athens to introduce the idea that prior exposure can protect against a later encounter.</div>
+
+<div class="box fun"><div class="label">FUN PROFESSOR BIT</div>
+<p>Thucydides observed that the plague generally did not strike the same person a second time, or at least not fatally. That is an ancient clinical observation of what we would now connect to <strong>immunologic memory</strong>.</p></div>
+
+<h3>The immune system as a "sense organ"</h3>
+<p>Dolen's framing is unusually useful: think of the immune system as a <strong>sense organ that detects and responds to danger signals</strong>. This immediately gives you a four-step mental model:</p>
+
+<div class="flow">
+<div class="step"><div class="n">Step 1</div><b>Detect</b>Recognize a danger-associated signal.</div>
+<div class="arrow">→</div>
+<div class="step"><div class="n">Step 2</div><b>Respond</b>Recruit cells/molecules suited to the threat.</div>
+<div class="arrow">→</div>
+<div class="step"><div class="n">Step 3</div><b>Eliminate</b>Remove pathogen, damaged cell, or abnormal cell.</div>
+<div class="arrow">→</div>
+<div class="step"><div class="n">Step 4</div><b>Resolve</b>Turn inflammation off, repair tissue, preserve memory.</div>
+</div>
+
+<h3>Three core jobs - supplemental handout framing</h3>
+<table class="mini-table">
+<tr><th>Job</th><th>Meaning</th><th>Failure mode</th></tr>
+<tr><td>Defense</td><td>Protect against pathogens such as bacteria, viruses, fungi, and parasites.</td><td>Immunodeficiency -> recurrent, severe, or unusual infections.</td></tr>
+<tr><td>Homeostasis</td><td>Clear old, dead, or damaged cells and maintain tissue health.</td><td>Accumulation of damage/debris or abnormal inflammatory consequences.</td></tr>
+<tr><td>Surveillance</td><td>Monitor for abnormal host cells, including malignant cells.</td><td>Failure can permit tumor cells to persist and expand.</td></tr>
+</table>
+
+<div class="memory">
+<div class="title">Need to memorize - LO 1.1</div>
+<p><strong>Defense - Homeostasis - Surveillance.</strong> Then connect the two major disease directions: <strong>too little response = immunodeficiency</strong>; <strong>inappropriate/excess response = immunopathology</strong> such as allergy or autoimmune disease.</p>
+</div>
+
+<h3>How immune responses cause disease</h3>
+<table>
+<tr><th>Problem</th><th>Mechanism</th><th>Examples in the provided sources</th></tr>
+<tr><td>Too little response</td><td>Failure to mount an effective immune response.</td><td>Common variable immunodeficiency, HIV-1 disease; handout also cites SCID.</td></tr>
+<tr><td>Response against harmless material</td><td>Immune activation despite no dangerous pathogen.</td><td>Allergy; bee-venom anaphylaxis in the handout practice set.</td></tr>
+<tr><td>Response against self</td><td>Adaptive immunity targets normal self antigens, or cross-reacts with self after infection.</td><td>Autoimmune disease; molecular mimicry/cross-reactivity.</td></tr>
+<tr><td>Failure to shut down</td><td>Continued inflammatory/effector activity after threat control.</td><td>Tissue damage; the lecture's "what goes up must come down" principle.</td></tr>
+</table>
+
+<div class="definition"><b>Autoimmunity:</b> an adaptive immune response directed against self. The lecture gives two routes: direct recognition of self antigens, or an initially appropriate anti-microbial response that also recognizes self through molecular mimicry/cross-reactivity.</div>
+
+<div class="definition"><b>Molecular mimicry / cross-reactivity:</b> an immune receptor generated against one antigen also binds a structurally similar self antigen.</div>
+
+<div class="box pitfall"><div class="label">⚠️ COMMONLY CONFUSED</div>
+<p><strong>Immunodeficiency</strong> is failure of immune protection. <strong>Autoimmunity</strong> is immune attack on self. <strong>Allergy</strong> is an inappropriate immune response to a generally harmless external antigen. These are all immune dysfunction, but the direction of failure is different.</p></div>
+
+<h2>LO 1.2 - How the Immune System Detects Danger</h2>
+
+<div class="box prof"><div class="label">🔥 PROFESSOR EMPHASIS</div>
+<p>Dolen explicitly says the <strong>"danger signal" concept has largely replaced a simple self-versus-non-self model</strong>. The reason: the immune system must tolerate many non-self commensals, attack some altered self cells such as cancer, and sometimes mistakenly attack normal self.</p></div>
+
+<h3>Why "self vs non-self" is too simple</h3>
+<table>
+<tr><th>Situation</th><th>Why the old model fails</th></tr>
+<tr><td>Tumor immunosurveillance</td><td>The target is derived from self, but may still need to be eliminated.</td></tr>
+<tr><td>Autoimmunity</td><td>Normal self can be misidentified as dangerous.</td></tr>
+<tr><td>Microbiome</td><td>Many non-self organisms are tolerated and may contribute to health.</td></tr>
+</table>
+
+<div class="definition"><b>Pathogen:</b> a microorganism capable of causing disease.</div>
+<div class="definition"><b>Commensal organism:</b> a microorganism that lives in or on the body without normally causing disease; many are part of the normal microbiome.</div>
+<div class="definition"><b>Microbiome:</b> the community of microorganisms living in and on the body. The lecture emphasizes that immunity must control pathogens without unnecessarily damaging beneficial commensals.</div>
+
+<h3>PRRs, PAMPs, and DAMPs</h3>
+<div class="definition"><b>Pattern-recognition receptor (PRR):</b> a germline-encoded receptor used by innate immunity to recognize recurring molecular patterns associated with danger.</div>
+<div class="definition"><b>PAMP:</b> pathogen-associated molecular pattern - a recurring microbial molecular feature recognized by innate PRRs.</div>
+<div class="definition"><b>DAMP:</b> damage-associated molecular pattern - a danger-associated molecular signal arising from damaged host tissue or other injurious material.</div>
+
+<div class="memory">
+<div class="title">Need to memorize - danger sensing</div>
+<p><strong>PRR recognizes PAMP/DAMP.</strong> PRRs are <strong>germline encoded</strong> and belong to innate immunity. The supplemental handout gives classic PAMP examples: <strong>LPS, peptidoglycan, flagellin</strong>, and identifies <strong>Toll-like receptors (TLRs)</strong> as a major PRR family.</p>
+</div>
+
+<div class="box enrich"><div class="label">SUPPLEMENTAL HANDOUT HIGH YIELD</div>
+<p>The handout specifically uses <strong>LPS -> TLR4</strong> as a practice-question example. It also frames DAMP-driven inflammation without infection as <strong>sterile inflammation</strong>.</p></div>
+
+<h3>Tolerance and immune privilege</h3>
+<div class="definition"><b>Immune tolerance:</b> the lecture uses this term broadly for situations in which antigens are present without a damaging immune response. It notes that tolerance can be beneficial for the microbiome, while some pathogens exploit mechanisms that avoid immune activation.</div>
+
+<div class="box enrich"><div class="label">PRECISION NOTE</div>
+<p>For future immunology lectures, it is useful to keep the broader textbook meaning in mind: <strong>immune tolerance is a state of specific nonresponsiveness to an antigen</strong>. Dolen's slide is using the idea functionally to emphasize that "not responding" can be either protective or exploitable.</p></div>
+
+<div class="definition"><b>Immune privilege:</b> local suppressive mechanisms that reduce inflammatory immune responses in tissues where inflammation could cause disproportionate harm.</div>
+
+<div class="memory">
+<div class="title">Need to memorize - immune privilege examples from lecture</div>
+<p><strong>Brain, parts of the eye, pregnant uterus, testicles.</strong></p>
+</div>
+
+<div class="box fun"><div class="label">MEMORY HOOK</div>
+<p>Danger-signal thinking asks: <strong>"Should this be here, and is it harmful?"</strong> rather than simply <strong>"Is it self?"</strong></p></div>
+
+<h2>LO 1.3 - Main Components of the Immune System</h2>
+
+<h3>First layer: physical/external defense</h3>
+<table>
+<tr><th>Site</th><th>Functions emphasized in lecture</th><th>Lymphoid tissue term</th></tr>
+<tr><td>Skin</td><td>Mechanical barrier + antimicrobial substances + immune surveillance.</td><td>SALT - skin-associated lymphoid tissue</td></tr>
+<tr><td>Mucosa: respiratory, GI, GU</td><td>Mechanical barrier + antimicrobial substances + mucosal immune tissue.</td><td>MALT - mucosa-associated lymphoid tissue</td></tr>
+<tr><td>Gut</td><td>Mucosal immune tissue.</td><td>GALT</td></tr>
+<tr><td>Bronchus</td><td>Mucosal immune tissue.</td><td>BALT</td></tr>
+</table>
+
+<div class="memory">
+<div class="title">Need to memorize - barrier acronyms</div>
+<p><strong>SALT = skin.</strong> <strong>MALT = mucosa.</strong> <strong>GALT = gut.</strong> <strong>BALT = bronchus.</strong></p>
+</div>
+
+<h3>Primary vs secondary lymphoid organs</h3>
+<div class="definition"><b>Primary lymphoid organ:</b> site where lymphocytes develop/mature.</div>
+<div class="definition"><b>Secondary lymphoid organ:</b> site where mature immune cells encounter antigen and coordinate immune responses.</div>
+
+<table>
+<tr><th>Primary</th><th>What happens there</th><th>Secondary</th></tr>
+<tr><td><strong>Bone marrow</strong></td><td>Lymphocytes and neutrophils originate here; B cells develop here.</td><td>Lymph nodes, spleen, mucosal-associated lymphatics (tonsils, Waldeyer ring, Peyer patches), lymphatic vessels and lymph.</td></tr>
+<tr><td><strong>Thymus</strong></td><td>T cells originate from marrow precursors but develop in the thymus.</td><td>These sites organize antigen encounter and adaptive responses.</td></tr>
+</table>
+
+<div class="memory">
+<div class="title">Need to memorize - lymphoid organs</div>
+<p><strong>B = Bone marrow.</strong> <strong>T = Thymus.</strong> Primary organs develop lymphocytes; secondary organs are major meeting/activation sites.</p>
+</div>
+
+<div class="box clinical"><div class="label">🩺 LECTURE CLINICAL CORRELATION - DiGeorge syndrome</div>
+<p>The lecture connects <strong>22q11.2 deletion</strong> with abnormal embryologic development and thymic absence/hypoplasia. Because <strong>T cells develop in the thymus</strong>, severe thymic absence causes major T-cell immune deficiency. This clinical vignette is really testing the organ-cell relationship.</p></div>
+
+<h3>Main innate components</h3>
+<table>
+<tr><th>Component</th><th>Core role in this lecture/handout</th></tr>
+<tr><td>Neutrophils</td><td>Fast phagocytic responders; especially emphasized in bacterial infection; dead neutrophils contribute to pus.</td></tr>
+<tr><td>Monocytes/macrophages</td><td>Phagocytosis, cytokine production, debris clearance, tissue repair signaling; can present antigen.</td></tr>
+<tr><td>Dendritic cells</td><td>Innate antigen-sensing cells and the major bridge to activation of naive T cells.</td></tr>
+<tr><td>Innate lymphoid cells / NK cells</td><td>Innate cytotoxic function; NK cells can kill infected or malignant cells without prior sensitization.</td></tr>
+<tr><td>Mast cells</td><td>Innate tissue effector cells; the handout later links IgE-coated mast cells to anaphylaxis.</td></tr>
+<tr><td>PRRs</td><td>Germline-encoded innate danger-pattern receptors.</td></tr>
+<tr><td>Cytokines</td><td>Cell-to-cell signaling molecules produced after immune activation.</td></tr>
+<tr><td>Complement</td><td>Soluble innate effector system; the handout emphasizes opsonization and direct lysis.</td></tr>
+</table>
+
+<h3>Main adaptive components</h3>
+<table>
+<tr><th>Component</th><th>Core role</th></tr>
+<tr><td>T cells</td><td>Antigen-specific cellular responses and regulation.</td></tr>
+<tr><td>B cells</td><td>Antigen-specific humoral cells that can differentiate into plasma cells.</td></tr>
+<tr><td>Plasma cells</td><td>Antibody-secreting cells produced after B-cell activation.</td></tr>
+<tr><td>Rearranged antigen receptors</td><td>Generated by rearrangement of germline DNA, producing enormous antigen specificity.</td></tr>
+<tr><td>Antibody</td><td>Secreted immunoglobulin made by plasma cells.</td></tr>
+<tr><td>Cytokines</td><td>Adaptive cells also communicate through cytokines.</td></tr>
+</table>
+
+<div class="box prof"><div class="label">🔥 PROFESSOR QUESTION CLUE</div>
+<p>Dolen's short in-class question asks what is <strong>unique to adaptive immunity</strong>. The key answer is <strong>receptors produced by rearrangement of germline genes</strong>. Pattern recognition, danger sensing, and cell-associated receptors can belong to innate immunity; antigen-receptor gene rearrangement is the adaptive signature.</p></div>
+
+<h2>LO 1.4 - Innate vs Adaptive Immunity</h2>
+
+
+
+<table>
+<tr><th>Feature</th><th>Innate</th><th>Adaptive</th></tr>
+<tr><td>Receptors</td><td>PRRs that recognize recurring PAMP/DAMP patterns.</td><td>T-cell/B-cell receptors and secreted antibody recognize specific antigen.</td></tr>
+<tr><td>Genetics</td><td>Receptors encoded directly in germline DNA.</td><td>Specificity generated by gene rearrangement/recombination; lecture summary also mentions hypermutation.</td></tr>
+<tr><td>Timing</td><td>Seconds to hours.</td><td>Primary response: days to weeks. Secondary response: much faster due to memory.</td></tr>
+<tr><td>Specificity</td><td>Preprogrammed, stereotyped pattern recognition.</td><td>Highly antigen specific.</td></tr>
+<tr><td>Memory</td><td>No classic antigen-specific immunologic memory in the lecture framework.</td><td>Present; response improves with re-exposure.</td></tr>
+<tr><td>Main mechanisms</td><td>Phagocytosis, inflammation, cytotoxicity.</td><td>Humoral immunity and cell-mediated immunity.</td></tr>
+</table>
+
+<div class="memory">
+<div class="title">Need to memorize - innate vs adaptive</div>
+<p><strong>Innate = FAST / FIXED / PATTERNS / NO classic MEMORY.</strong><br>
+<strong>Adaptive = SLOWER FIRST TIME / SPECIFIC / REARRANGED RECEPTORS / MEMORY.</strong></p>
+</div>
+
+<div class="definition"><b>Humoral immunity:</b> adaptive protection mediated by B cells and antibody, with T-cell help emphasized in the lecture.</div>
+<div class="definition"><b>Cell-mediated immunity:</b> adaptive immunity mediated by T cells, with cytotoxic T cells as the lecture's major example.</div>
+
+<h3>The systems "bounce" information back and forth</h3>
+<p>Dolen stresses that the two systems are separated for teaching, not because they work independently. The supplemental handout makes the bridge concrete:</p>
+
+<div class="flow">
+<div class="step"><div class="n">Tissue</div><b>Innate recognition</b>Dendritic cell encounters pathogen/danger.</div>
+<div class="arrow">→</div>
+<div class="step"><div class="n">Travel</div><b>Antigen transport</b>Dendritic cell migrates to lymph node.</div>
+<div class="arrow">→</div>
+<div class="step"><div class="n">Node</div><b>T-cell activation</b>Processed antigen is presented to a matching naive T cell.</div>
+<div class="arrow">→</div>
+<div class="step"><div class="n">Effector</div><b>Adaptive amplification</b>T cells, B cells, plasma cells and antibody expand.</div>
+<div class="arrow">→</div>
+<div class="step"><div class="n">Return</div><b>Innate help again</b>Antibody/complement/phagocytes cooperate to clear the threat.</div>
+</div>
+
+<div class="box enrich"><div class="label">SUPPLEMENTAL HANDOUT - DENDRITIC CELL ANCHOR</div>
+<p>The handout repeatedly calls dendritic cells the key <strong>bridge between innate and adaptive immunity</strong> because they carry antigen from a peripheral site to a lymph node and are especially important for activating naive T cells.</p></div>
+
+<h3>CD4 vs CD8 - enough for this overview</h3>
+<table>
+<tr><th>Cell</th><th>Provided-source role</th><th>Provided-source antigen-presentation clue</th></tr>
+<tr><td>CD4+ helper T cell</td><td>Coordinates/"helps" activation of other immune cells.</td><td>Handout explanation pairs CD4 with antigen presented on MHC II by professional APCs.</td></tr>
+<tr><td>CD8+ cytotoxic T cell</td><td>Directly kills infected host cells and tumor cells.</td><td>Handout explanation pairs CD8 with viral/endogenous peptides on MHC I.</td></tr>
+</table>
+
+<div class="box pitfall"><div class="label">⚠️ EXAM TRAP</div>
+<p><strong>NK cell and CD8 T cell can both kill abnormal host cells, but they are not interchangeable.</strong> The handout practice explanation emphasizes that a viral peptide presented on <strong>MHC I</strong> specifically points to <strong>CD8 cytotoxic T cells</strong>; NK cells are innate and do not require the same antigen-specific recognition.</p></div>
+
+<h3>Inflammation: the innate response you can see</h3>
+<div class="definition"><b>Inflammation:</b> a coordinated response that recruits cells and soluble mediators to injured or infected tissue.</div>
+
+<div class="memory">
+<div class="title">Need to memorize - five cardinal signs</div>
+<p><strong>Rubor = redness • Tumor = swelling • Calor = heat • Dolor = pain • Functio laesa = loss of function.</strong></p>
+</div>
+
+<div class="box source"><div class="label">SUPPLEMENTAL HANDOUT MECHANISM</div>
+<p>In its bacterial-cut walkthrough, the handout links PAMP recognition to macrophage release of <strong>TNF-alpha, IL-1, and IL-6</strong>, causing vasodilation and vascular leak, followed by neutrophil recruitment/chemotaxis. Treat these cytokines as useful orientation points here; later lectures will give them more detailed roles.</p></div>
+
+<div class="definition"><b>Chemotaxis:</b> directed movement of cells along a chemical gradient toward a signal source.</div>
+<div class="definition"><b>Opsonization:</b> coating a target so phagocytes can bind and ingest it more efficiently. The handout highlights antibody/Fc-receptor interactions and C3b as two opsonization routes.</div>
+
+<h2>LO 1.5 - What Happens When the Response Subsides?</h2>
+
+<div class="box prof"><div class="label">🔥 PROFESSOR PHRASE</div>
+<p><strong>"What goes up must come down or the immune system will run amok."</strong> Resolution is not passive. The body must actively reduce inflammatory signaling, remove spent cells/debris, repair tissue, and preserve the useful memory of the encounter.</p></div>
+
+<h3>Local outcomes while the response is active</h3>
+<div class="definition"><b>Pus:</b> in acute infection, accumulated dead neutrophils together with dead tissue and pathogens.</div>
+<div class="definition"><b>Abscess:</b> a more chronic localized infection that becomes physically walled off.</div>
+<div class="definition"><b>Sepsis:</b> in the lecture's overview, a disseminated/systemic infection in which there is no effective localized barrier and the immune response becomes widespread. Later courses will define sepsis more formally.</div>
+
+<h3>Resolution as a sequence</h3>
+<div class="flow">
+<div class="step"><div class="n">1</div><b>Danger falls</b>Pathogen/damage signals diminish.</div>
+<div class="arrow">→</div>
+<div class="step"><div class="n">2</div><b>Inflammation contracts</b>Cytokine production falls; chemotaxis slows.</div>
+<div class="arrow">→</div>
+<div class="step"><div class="n">3</div><b>Cleanup</b>Macrophages ingest dead pathogens and tissue.</div>
+<div class="arrow">→</div>
+<div class="step"><div class="n">4</div><b>Repair</b>Macrophages signal local and wound-healing cells.</div>
+<div class="arrow">→</div>
+<div class="step"><div class="n">5</div><b>Effector contraction</b>Many plasma cells and pro-inflammatory T cells die by apoptosis; cytotoxic activity decreases.</div>
+<div class="arrow">→</div>
+<div class="step"><div class="n">6</div><b>Memory remains</b>Long-lived plasma/memory B and T cells preserve future responsiveness.</div>
+</div>
+
+<div class="definition"><b>Apoptosis:</b> programmed cell death. In resolution, apoptosis removes many activated effector cells once their job is finished.</div>
+<div class="definition"><b>Immunologic memory:</b> persistence of antigen-experienced lymphocyte populations that support a faster/more effective response on subsequent exposure.</div>
+
+<div class="memory">
+<div class="title">Need to memorize - resolution</div>
+<p><strong>Stop signal -> less cytokine/chemotaxis -> macrophage cleanup -> repair -> effector apoptosis/downregulation -> memory/long-lived cells remain.</strong></p>
+</div>
+
+<div class="box enrich"><div class="label">SUPPLEMENTAL HANDOUT ADDITION</div>
+<p>The handout explicitly adds <strong>regulatory T cells (Tregs)</strong> as active suppressors during resolution and states that memory T and memory B cells remain after most effector cells die. Dolen's slides emphasize the same contraction/long-lived-cell concept but describe it using plasma-cell survival and pro- versus anti-inflammatory T-cell shifts.</p></div>
+
+<h2>A Typical Immune Response - Put the Whole Lecture Together</h2>
+
+<p>The companion handout provides a useful infection-to-resolution storyline. Use it as a <strong>mechanism chain</strong>, not as a list of disconnected facts:</p>
+
+<table>
+<tr><th>Phase</th><th>What happens</th><th>What it teaches you</th></tr>
+<tr><td>Barrier breach</td><td>Bacteria enter damaged skin.</td><td>External barriers are the first defense layer.</td></tr>
+<tr><td>Innate recognition</td><td>Resident innate cells recognize PAMPs through PRRs/TLRs.</td><td>Innate immunity detects patterns, not one unique antigen at a time.</td></tr>
+<tr><td>Inflammation</td><td>Cytokines increase vascular dilation/leak and recruit neutrophils.</td><td>Inflammation is a recruitment program.</td></tr>
+<tr><td>Innate killing</td><td>Neutrophils/macrophages phagocytose; complement assists through opsonization/lysis.</td><td>Multiple innate mechanisms cooperate.</td></tr>
+<tr><td>Antigen presentation</td><td>Dendritic cells process antigen, travel to a lymph node, and activate matching naive T cells.</td><td>Dendritic cells connect peripheral innate detection to adaptive activation.</td></tr>
+<tr><td>Adaptive expansion</td><td>Helper T cells coordinate; B cells differentiate into plasma cells; CD8 cells become important for infected host cells.</td><td>Adaptive responses amplify specific clones.</td></tr>
+<tr><td>Clearance</td><td>Antibody, phagocytes, complement, and T cells cooperate.</td><td>Innate and adaptive effectors converge.</td></tr>
+<tr><td>Resolution</td><td>Danger disappears; signaling contracts; effectors die/downregulate; repair begins.</td><td>Stopping the response is part of immunity.</td></tr>
+<tr><td>Memory</td><td>Long-lived/memory populations remain.</td><td>Re-exposure is faster and stronger.</td></tr>
+</table>
+
+<div class="box fun"><div class="label">FUN MEMORY FRAME</div>
+<p>Think of the immune response as <strong>alarm -> dispatch -> identification -> specialized reinforcements -> cleanup -> case file</strong>. The "case file" is memory.</p></div>
+
+<h2>Clinical Correlations Dolen Wants You to Recognize</h2>
+
+<div class="grid">
+<div class="card"><h3>DiGeorge syndrome</h3>
+<p><strong>22q11.2 deletion -> thymic developmental abnormality -> impaired T-cell development.</strong> The important concept for this lecture is anatomy-to-cell-function.</p></div>
+
+<div class="card"><h3>Reticular dysgenesis</h3>
+<p>A severe combined immunodeficiency affecting both branches: the lecture lists <strong>agranulocytosis + lymphopenia + sensorineural deafness</strong>, autosomal-recessive inheritance, and HSCT treatment.</p></div>
+
+<div class="card"><h3>Autoimmunity</h3>
+<p>Adaptive response directed to self, either directly or through cross-reactivity/molecular mimicry.</p></div>
+
+<div class="card"><h3>Anaphylaxis - supplemental handout</h3>
+<p>The practice set uses rapid severe response after re-exposure to illustrate <strong>adaptive memory plus pre-existing IgE on mast cells</strong>.</p></div>
+</div>
+
+<div class="memory">
+<div class="title">Need to memorize - likely vignette anchors</div>
+<ul>
+<li><strong>No/poor thymus -> T-cell problem.</strong></li>
+<li><strong>Agranulocytosis + lymphopenia -> both innate and adaptive involvement.</strong></li>
+<li><strong>LPS/PAMP recognition -> innate PRR/TLR.</strong></li>
+<li><strong>Naive T-cell activation in lymph node -> dendritic cell.</strong></li>
+<li><strong>Viral peptide on MHC I -> CD8 T cell</strong> in the handout's practice logic.</li>
+<li><strong>Rapid stronger re-exposure response -> immunologic memory.</strong></li>
+</ul>
+</div>
+
+<h2>Definitions You Should Be Able to Say Out Loud</h2>
+
+<table class="mini-table">
+<tr><th>Term</th><th>Working definition for this course</th></tr>
+<tr><td>Antigen</td><td>A molecular target recognized by adaptive antigen receptors/antibody.</td></tr>
+<tr><td>PRR</td><td>Germline-encoded innate receptor that recognizes recurring molecular danger patterns.</td></tr>
+<tr><td>PAMP</td><td>Microbe-associated molecular pattern recognized by innate PRRs.</td></tr>
+<tr><td>DAMP</td><td>Damage-associated molecular signal that can activate innate immunity without an invading pathogen.</td></tr>
+<tr><td>Cytokine</td><td>Signaling molecule used by immune and other cells to communicate.</td></tr>
+<tr><td>Complement</td><td>Soluble protein system that supports innate defense; this handout emphasizes opsonization and lysis.</td></tr>
+<tr><td>Phagocytosis</td><td>Engulfment and internalization of particles/pathogens by a cell.</td></tr>
+<tr><td>Chemotaxis</td><td>Directed cell movement along a chemical gradient.</td></tr>
+<tr><td>Opsonization</td><td>Coating of a target to enhance phagocyte binding/ingestion.</td></tr>
+<tr><td>Humoral immunity</td><td>Adaptive immunity mediated by B cells and antibody.</td></tr>
+<tr><td>Cell-mediated immunity</td><td>Adaptive immunity mediated by T-cell functions, especially cytotoxicity in this lecture.</td></tr>
+<tr><td>Immune tolerance</td><td>Nonresponsiveness to antigen; lecture uses this to emphasize useful tolerance and immune evasion.</td></tr>
+<tr><td>Immune privilege</td><td>Local suppression of inflammatory immune responses in vulnerable tissues.</td></tr>
+<tr><td>Primary response</td><td>Adaptive response on first exposure; takes time for specific clones to activate/expand.</td></tr>
+<tr><td>Secondary response</td><td>Re-exposure response accelerated by memory.</td></tr>
+<tr><td>Apoptosis</td><td>Programmed cell death; important for contraction after immune activation.</td></tr>
+</table>
+
+<h2>What to Memorize vs What to Understand</h2>
+
+<div class="grid">
+<div class="card"><h3>Tier 1 - memorize cold</h3>
+<p>PRR/PAMP/DAMP; SALT/MALT/GALT/BALT; primary vs secondary lymphoid organs; B-marrow/T-thymus; innate vs adaptive comparison; innate/adaptive cell lists; cardinal inflammation signs; resolution sequence.</p></div>
+
+<div class="card"><h3>Tier 2 - understand deeply</h3>
+<p>Danger-signal model; why self/non-self is insufficient; how dendritic cells bridge the systems; how innate and adaptive responses feed back into each other; why immune responses must contract.</p></div>
+
+<div class="card"><h3>Tier 3 - recognize clinically</h3>
+<p>DiGeorge, reticular dysgenesis, anaphylaxis as memory, autoimmune cross-reactivity, pus vs abscess vs systemic infection/sepsis.</p></div>
+
+<div class="card"><h3>Tier 4 - lower priority today</h3>
+<p>Exact counts of known PRR genes/CD markers, all cytokine/CD marker names, advanced immunology texts, and details Dolen explicitly says will recur later.</p></div>
+</div>
+
+<div class="box prof"><div class="label">🔥 DO NOT GET LOST IN THE WEEDS</div>
+<p>The lecture deliberately labels CD markers and cytokines as <strong>bonus/reference material</strong>. Dolen says you only need to know some of them and that the high-yield ones will recur repeatedly. Do not turn this overview into a 100-cytokine memorization session.</p></div>
+
+<h2>Common Exam Traps</h2>
+
+<table>
+<tr><th>Trap</th><th>Correct way to think</th></tr>
+<tr><td>"Non-self always triggers immunity."</td><td>No. The microbiome is non-self and usually tolerated; danger-signal context matters.</td></tr>
+<tr><td>"Innate and adaptive are separate pathways."</td><td>No. They cooperate continuously; dendritic cells are a major bridge.</td></tr>
+<tr><td>"Adaptive receptors are pre-made in the germline."</td><td>No. Specific adaptive receptors are generated by rearrangement of germline DNA.</td></tr>
+<tr><td>"Fast killing of an infected cell must be CD8."</td><td>Not automatically. NK cells can also kill abnormal cells. Antigen-specific MHC I recognition points toward CD8.</td></tr>
+<tr><td>"A response ending means the immune system stops doing anything."</td><td>No. Resolution includes active suppression, cleanup, tissue repair, effector contraction, and memory formation.</td></tr>
+<tr><td>"Tolerance is always pathologic."</td><td>No. Tolerance is essential for avoiding damaging responses to appropriate antigens/commensals, although pathogens can exploit nonresponsiveness.</td></tr>
+<tr><td>"All plasma cells disappear after infection."</td><td>No. Most contract, but the lecture describes a population receiving survival signals and persisting long term.</td></tr>
+</table>
+
+<h2>Closed-Note Self-Check</h2>
+<ol>
+<li>What are the three immune-system jobs from the handout, and what disease direction results when each is inadequate?</li>
+<li>Why does Dolen prefer "danger signals" over a pure self/non-self model?</li>
+<li>Define PRR, PAMP, and DAMP without looking.</li>
+<li>List three PAMP examples from the handout.</li>
+<li>What are SALT, MALT, GALT, and BALT?</li>
+<li>Which organs are primary lymphoid organs? Which cell develops in each?</li>
+<li>List the major innate cells in the lecture.</li>
+<li>List the major adaptive cells and molecules.</li>
+<li>Give four differences between innate and adaptive immunity.</li>
+<li>Why are dendritic cells a bridge between innate and adaptive immunity?</li>
+<li>What are rubor, tumor, calor, dolor, and functio laesa?</li>
+<li>What does opsonization accomplish?</li>
+<li>Walk through a bacterial skin infection from barrier breach to memory in seven or fewer steps.</li>
+<li>What happens to cytokines, macrophages, plasma cells, T cells, and memory populations during resolution?</li>
+<li>Why does thymic absence cause a T-cell immune problem?</li>
+<li>What combination in reticular dysgenesis tells you both innate and adaptive immunity are affected?</li>
+</ol>
+
+<div class="priority">
+<h3>30-second end-of-lecture summary</h3>
+<p>The immune system is a danger-sensing network that must <strong>recognize the right threats, respond with the right intensity, and shut itself down when the job is done</strong>. Innate immunity detects shared PAMP/DAMP patterns through germline-encoded PRRs and responds rapidly through phagocytosis, inflammation, cytotoxicity, cytokines, and complement. Adaptive immunity generates highly specific receptors by gene rearrangement, expands more slowly on first exposure, and creates memory through T- and B-cell responses. Dendritic cells help convert innate detection into adaptive activation. After clearance, inflammatory signaling contracts, macrophages clean and repair tissue, most effectors disappear, and memory/long-lived cells remain.</p>
+</div>
+
+<p class="small"><strong>Source basis:</strong> William K. Dolen, <em>Overview of the Immune System</em> lecture deck + <em>Lecture 1: Immune System Overview</em> companion handout. The guide is organized around the five lecture learning objectives rather than slide order. Supplemental handout material is identified when it adds detail beyond the lecture deck.</p>
+
+</div>
+
+<div id="ozzyContainer">
+<button id="ozzyEasterEgg" aria-label="Find Ozzy" title="You found Ozzy">
+<img src="data:image/jpeg;base64,/9j/4QKcRXhpZgAATU0AKgAAAAgADgENAAIAAAAmAAAAtgEOAAIAAAAGAAAA3AESAAMAAAABAAEAAAEaAAUAAAABAAAA4gEbAAUAAAABAAAA6gEeAAUAAAABAAAA8gEfAAUAAAABAAAA+gEoAAMAAAABAAIAAAExAAIAAAAOAAABAgEyAAIAAAAUAAABEAFCAAQAAAABAAABQAFDAAQAAAABAAABQAITAAMAAAABAAEAAIdpAAQAAAABAAABJAAAAAAzNjBBRDNGRC0xMkExLTQ5RTktQkIwOC1DNTI0NDQ2RTEyRTAwAEVtb2ppAAAAAEgAAAABAAAASAAAAAEAAAAAAAAAAQAAAAAAAAABQXBwbGUgVGV4dEtpdAAyMDI2OjA4OjIwIDE3OjU4OjUyAAAQkAAABwAAAAQwMjIxkAMAAgAAABQAAAHqkAQAAgAAABQAAAH+kBAAAgAAAAcAAAISkBEAAgAAAAcAAAIakBIAAgAAAAcAAAIikQEABwAAAAQBAgMAknwABwAAAGgAAAIqkpAAAgAAAAQ4ODUAkpEAAgAAAAQ4ODUAkpIAAgAAAAQ4ODUAoAAABwAAAAQwMTAwoAEAAwAAAAEAAQAAoAIABAAAAAEAAAFAoAMABAAAAAEAAAFApAYAAwAAAAEAAAAAAAAAADIwMjY6MDg6MjAgMTc6NTg6NTIAMjAyNjowODoyMCAxNzo1ODo1MgAtMDQ6MDAAAC0wNDowMAAALTA0OjAwAABBcHBsZSBpT1MAAAFNTQABABYABwAAAEgAAAAgAAAAAGJwbGlzdDAwXxAcQWZaWFFvY0U3eXkzSTlJeitYOEtQL3piYnJ4RwgAAAAAAAABAQAAAAAAAAABAAAAAAAAAAAAAAAAAAAAJwAA/+EKvWh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8APD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iWE1QIENvcmUgNi4wLjAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOnBob3Rvc2hvcD0iaHR0cDovL25zLmFkb2JlLmNvbS9waG90b3Nob3AvMS4wLyIgeG1sbnM6ZGM9Imh0dHA6Ly9wdXJsLm9yZy9kYy9lbGVtZW50cy8xLjEvIiB4bXA6Q3JlYXRlRGF0ZT0iMjAyNi0wOC0yMFQxNzo1ODo1MiIgeG1wOkNyZWF0b3JUb29sPSJBcHBsZSBUZXh0S2l0IiB4bXA6TW9kaWZ5RGF0ZT0iMjAyNi0wOC0yMFQxNzo1ODo1MiIgcGhvdG9zaG9wOkRhdGVDcmVhdGVkPSIyMDI2LTA4LTIwVDE3OjU4OjUyLTA0OjAwIj4gPGRjOmRlc2NyaXB0aW9uPiA8cmRmOkFsdD4gPHJkZjpsaSB4bWw6bGFuZz0ieC1kZWZhdWx0Ij5FbW9qaTwvcmRmOmxpPiA8L3JkZjpBbHQ+IDwvZGM6ZGVzY3JpcHRpb24+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDw/eHBhY2tldCBlbmQ9InciPz4A/9sAhAACAgICAgIDAgIDBAMDAwQFBAQEBAUHBQUFBQUHCAcHBwcHBwgICAgICAgICgoKCgoKCwsLCwsNDQ0NDQ0NDQ0NAQICAgMDAwYDAwYNCQcJDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ3/3QAEABT/wAARCAFAAUADASIAAhEBAxEB/8QBogAAAQUBAQEBAQEAAAAA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" alt="Ozzy the cat">
+</button>
+<div id="ozzyInlineMessage" role="status" aria-live="polite">
+<button id="ozzyClose" aria-label="Close">&times;</button>
+<div class="oz-title">You found Ozzy 🐾</div>
+<div id="ozzyMessage"></div>
+</div>
+</div>
+
+<script>
+const ozzyMessages = ['You do not need to know everything at once. You need to keep building the map.', 'One lecture understood well beats three lectures skimmed in panic.', 'Your hippocampus requested snacks and one more retrieval pass.', 'Future physician behavior: turning confusion into a checklist.', 'If you can explain it simply, you probably own the concept.', 'Do the hard recall before rereading. Ozzy believes in retrieval practice.', 'Your job is not to feel ready. Your job is to practice until the question feels familiar.', 'Small study blocks still count. Medicine is built one block at a time.', 'Confusion is not failure. It is the exact place where learning starts.', 'Close the notes and see what survives. That is the material you actually know.', 'One ugly mechanism at a time. You are making progress.', 'Hydrate. Fix your posture. Then go bully that weak topic.', 'Your future patients do not need perfection. They need a physician who keeps learning.', 'Remember: a wrong practice question today can become a right exam answer later.', 'Do not just recognize the answer. Practice producing it.', 'Your notes are the map. Retrieval is the hike.', 'You have more stored in your brain than it feels like right now.', 'Study the differences. Exams love two things that look almost the same.', 'Mechanism first, memorization second. The facts stick better when they have a reason.', 'If a list will not stick, turn it into categories, contrasts, or a story.', 'Take the concept apart until each step feels inevitable.', 'Your brain is allowed to need repetition. That is how memory works.', 'Anki is not judging you. Ozzy might be, but lovingly.', 'Do not spend ten minutes rereading what you already know. Find the weak edge.', 'Practice saying the answer out loud before you look.', 'One page of active recall is worth a surprising amount of passive highlighting.', 'Make the easy points automatic so your brain has room for the hard vignette.', 'If two diseases are confusing, build a table. Tables are intellectual violence against confusion.', 'Do not memorize random facts when a pathway can connect them.', 'Your goal is not to finish the notes. Your goal is to be able to use them.', 'Every time you retrieve a fact, you make the next retrieval easier.', 'Treat your weak topics like patients: identify the problem, make a plan, reassess.', 'You can be tired and still make meaningful progress.', 'A five-minute review is still a vote for future-you.', 'Do not confuse familiarity with mastery. Test yourself.', 'The exam can only ask so many versions of the same core mechanism.', 'Learn the anchor fact, then attach the details to it.', 'When you miss a question, ask what clue should have changed your answer.', 'Keep a short list of recurring mistakes. That list is basically free points.', 'Your study plan does not have to be elegant. It has to be repeatable.', 'Medicine is enormous. Your job is to know the next layer, not the entire universe.', "Go find the sentence you cannot explain yet. That is today's target.", 'If you are stuck, compare normal physiology with what changed in disease.', 'Memorize what must be memorized. Understand everything else as deeply as time allows.', 'Do not let one difficult lecture convince you that you cannot learn medicine.', 'Your brain is doing construction work. Construction sites look messy.', 'Make the high-yield list shorter, then know that shorter list extremely well.', 'Questions are not just assessment. They are part of studying.', 'Protect your sleep when you can. Consolidation is part of the study process.', 'Ozzy says you have permission to stop making the same flashcard six different ways.'];
+const ozzyContainer = document.getElementById('ozzyContainer');
+const ozzy = document.getElementById('ozzyEasterEgg');
+const inlineMessage = document.getElementById('ozzyInlineMessage');
+const msg = document.getElementById('ozzyMessage');
+const closeBtn = document.getElementById('ozzyClose');
+
+function integrateOzzyIntoNotes(){
+  const candidates = [...document.querySelectorAll('.box.fun, .box.hy, .box.clinical, .box.prof, .memory, .card')]
+    .filter(el => !el.querySelector('#ozzyEasterEgg'));
+  if(!candidates.length) return;
+  const host = candidates[Math.floor(Math.random()*candidates.length)];
+  host.classList.add('ozzy-host');
+  host.insertBefore(ozzyContainer, host.firstChild);
+  ozzyContainer.style.display = 'block';
+}
+
+function motivate(){
+  let previous = sessionStorage.getItem('ozzyLast');
+  let idx;
+  do { idx = Math.floor(Math.random()*ozzyMessages.length); }
+  while(String(idx) === previous && ozzyMessages.length > 1);
+  sessionStorage.setItem('ozzyLast', String(idx));
+  msg.textContent = ozzyMessages[idx];
+  inlineMessage.classList.add('show');
+}
+
+ozzy.addEventListener('click', motivate);
+closeBtn.addEventListener('click', () => inlineMessage.classList.remove('show'));
+integrateOzzyIntoNotes();
+</script>
+</body>
+</html>
