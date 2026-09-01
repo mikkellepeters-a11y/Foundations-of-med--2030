@@ -1,0 +1,4 @@
+Foundations of Medicine MegaHub CURRENT v19
+Built from the Week 7 quiz-enabled launch MegaHub.
+Week 7 notes updated to v18 SAL content.
+SAL Histopathology 40-Q quiz replaced with actual-review-slide version.
