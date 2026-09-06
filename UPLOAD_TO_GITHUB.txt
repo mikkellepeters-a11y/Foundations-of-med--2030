@@ -1,33 +1,13 @@
-FOUNDATIONS OF MEDICINE MEGAHUB — CURRENT v19
+FOUNDATIONS OF MEDICINE MEGAHUB - CURRENT v28
 
-THIS IS THE FULL WEBSITE BUILD.
+FULL SITE BUILD
+- Preserves Weeks 2-7 and all current Week 7 quizzes/SAL updates.
+- Week 8: Foundations of Microbiology I currently has 8/9 core lectures available.
+- Week 8 Holistic Patient Care is now available:
+  Culturally Competent Patient Care / Working with Interpreters.
+- HPC is supplemental and does NOT change the 9-core denominator.
+- Week 8 quizzes have not been created yet.
 
-DEPLOY TO GITHUB PAGES
-1. Open your repository.
-2. Upload the CONTENTS of this folder to the repository root.
-3. Preserve all folders exactly.
-4. Replace matching paths.
-5. Commit and allow GitHub Pages to redeploy.
-
-CURRENT WEEK 7 CONTENT
-- All 9 core Hematology lecture companions + Factoid Sheets
-- Holistic Patient Care: Children with Medical Complexity
-- UPDATED Blood & Bone Marrow Histopathology SAL using released review slides
-- UPDATED Lymphoid Tissue Histopathology SAL using released review slides
-
-WEEK 7 QUIZZES INCLUDED
-- Monday Daily — 35 Q
-- Tuesday Daily — 40 Q
-- Wednesday Daily — 35 Q
-- Thursday Daily — 30 Q
-- Week 7 Prequiz — 50 Q
-- SAL Histopathology — 40 Q, UPDATED using the actual released SAL review slides
-- Week 7 Comprehensive — 150 Q, SAL excluded
-- Up to This Point Review — 50 Q, Weeks 2–7
-
-QUIZ FEATURES
-- Flag for Review
-- Shared review bank: fom:review-bank:v1
-
-IMPORTANT
-This ZIP is the full MegaHub. You do not need to merge it with the earlier v18 website-update ZIP.
+DEPLOY
+Upload the CONTENTS of this ZIP to the repository root and replace matching files/folders.
+Do not create an extra outer folder.

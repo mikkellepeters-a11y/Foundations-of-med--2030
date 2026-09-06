@@ -1,6 +1,6 @@
 {
   "site": "Foundations of Medicine",
-  "version": "week7-launch-megahub",
+  "version": "week8-complete-megahub",
   "weeks": [
     {
       "week": 2,
@@ -418,6 +418,64 @@
           "format": "html"
         }
       ]
+    },
+    {
+      "week": 8,
+      "title": "Foundations of Microbiology I",
+      "hub": "weeks/week8/index.html",
+      "quizzes": [
+        {
+          "title": "Tuesday Daily",
+          "count": 50,
+          "key": "week8-daily-tuesday-50",
+          "path": "quizzes/week8_tuesday_daily_50.html"
+        },
+        {
+          "title": "Wednesday Daily",
+          "count": 50,
+          "key": "week8-daily-wednesday-50",
+          "path": "quizzes/week8_wednesday_daily_50.html"
+        },
+        {
+          "title": "Thursday Daily",
+          "count": 50,
+          "key": "week8-daily-thursday-50",
+          "path": "quizzes/week8_thursday_daily_50.html"
+        },
+        {
+          "title": "Week 8 Prequiz",
+          "count": 50,
+          "key": "week8-foundations-microbiology-prequiz-50",
+          "path": "quizzes/week8_prequiz_50.html"
+        },
+        {
+          "title": "Week 8 Comprehensive A",
+          "count": 150,
+          "key": "week8-comprehensive-a-150",
+          "path": "quizzes/week8_comprehensive_a_150.html"
+        },
+        {
+          "title": "Week 8 Comprehensive B",
+          "count": 150,
+          "key": "week8-comprehensive-b-150",
+          "path": "quizzes/week8_comprehensive_b_150.html"
+        },
+        {
+          "title": "Up to This Point Review: Weeks 2\u20138",
+          "count": 100,
+          "key": "up-to-this-point-review-100",
+          "path": "quizzes/up_to_this_point_review_weeks2-8_100.html"
+        }
+      ]
     }
-  ]
+  ],
+  "module_review": {
+    "hub": "weeks/review/index.html",
+    "current_cumulative": {
+      "title": "Up to This Point Review: Weeks 2\u20138",
+      "count": 100,
+      "key": "up-to-this-point-review-100",
+      "path": "quizzes/up_to_this_point_review_weeks2-8_100.html"
+    }
+  }
 }

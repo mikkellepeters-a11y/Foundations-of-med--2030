@@ -11,6 +11,89 @@
 
 .week-card{display:block;color:inherit;text-decoration:none}
 .week-card:focus-visible{outline:3px solid rgba(105,74,57,.28);outline-offset:4px}
+
+.week7-quiz-panel{max-width:1120px;margin:4px auto 0}
+.quiz-panel-head{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin:34px 0 15px}
+.quiz-panel-head h2{margin:0;font-size:26px;letter-spacing:-.02em}
+.quiz-panel-head p{margin:4px 0 0;color:var(--muted);font-size:13px}
+.quiz-overview{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.quiz-overview>div{padding:13px 14px;border-radius:14px;background:#fffaf4;border:1px solid var(--line)}
+.quiz-overview strong{display:block;font-size:22px;color:var(--brown)}
+.quiz-overview span{font-size:10px;color:var(--muted);font-weight:800;letter-spacing:.06em}
+.week7-quiz-list{background:linear-gradient(180deg,var(--paper),#fbf5ee);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);overflow:hidden}
+.w7quiz{display:flex;align-items:center;gap:13px;padding:13px 16px;border-bottom:1px solid #eadfd6;color:inherit;text-decoration:none;transition:.13s ease}
+.w7quiz:last-child{border-bottom:0}.w7quiz:hover{background:#f7efe7;padding-left:20px}
+.w7qnum{width:34px;height:34px;flex:0 0 34px;display:grid;place-items:center;border-radius:10px;background:var(--tan);border:1px solid #e1d5ca;color:var(--brown);font-size:10px;font-weight:850}
+.w7qcopy{min-width:0;flex:1}.w7qcopy strong{display:block;font-size:13px}.w7qcopy span{display:block;margin-top:2px;color:var(--muted);font-size:10px}
+.w7qstatus{display:flex;align-items:center;gap:7px;flex-wrap:wrap;justify-content:flex-end}
+.w7pill{padding:5px 7px;border-radius:999px;background:#f2eae3;border:1px solid #e2d6cb;color:#6c5b50;font-size:10px;font-weight:800;white-space:nowrap}
+.w7pill.complete{background:#e6eee3;border-color:#cfddca;color:#56674f}
+.w7pill.score{background:#eee6de}
+.quick-note{margin-top:10px;color:var(--muted);font-size:11px;line-height:1.5}
+@media(max-width:760px){
+ .quiz-panel-head{align-items:flex-start;flex-direction:column}
+ .quiz-overview{grid-template-columns:1fr 1fr 1fr}
+ .w7quiz{align-items:flex-start}.w7qstatus{justify-content:flex-start}
+}
+
+
+
+.feedback-panel{
+  margin-top:28px;
+  background:linear-gradient(180deg,var(--paper),#fbf5ee);
+  border:1px solid var(--line);
+  border-radius:22px;
+  box-shadow:var(--shadow);
+  padding:20px;
+}
+.feedback-grid{
+  display:grid;
+  grid-template-columns:1.15fr .85fr;
+  gap:14px;
+}
+.feedback-card{
+  border:1px solid #e5dbd2;
+  background:#fffaf6;
+  border-radius:16px;
+  padding:18px;
+}
+.feedback-card h3{margin:4px 0 7px;font-size:18px}
+.feedback-card p{margin:0;color:var(--muted);font-size:12px;line-height:1.55}
+.feedback-action{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  margin-top:14px;
+  padding:10px 12px;
+  border-radius:11px;
+  background:var(--brown);
+  color:#fff;
+  font-size:11px;
+  font-weight:850;
+}
+.feedback-email{
+  display:block;
+  margin-top:9px;
+  color:var(--brown);
+  font-size:11px;
+  font-weight:800;
+  word-break:break-word;
+}
+.feedback-badge{
+  display:inline-flex;
+  padding:5px 8px;
+  border-radius:999px;
+  background:var(--tan);
+  border:1px solid #dfd4cb;
+  color:var(--brown);
+  font-size:9.5px;
+  font-weight:850;
+  text-transform:uppercase;
+  letter-spacing:.05em;
+}
+@media(max-width:760px){
+  .feedback-grid{grid-template-columns:1fr}
+}
 </style>
 </head>
 <body>
@@ -19,7 +102,7 @@
 <p class="eyebrow">Master Study Directory</p><h1>Choose a week to study.</h1><p class="lede">Each week will open into its own workspace for lecture notes, quizzes, and targeted review.</p>
 </div></header>
 <main>
-<div class="section-head"><div><span class="section-kicker">Course Weeks</span><h2>Foundations of Medicine</h2></div><p class="section-note">Weeks 2–7</p></div>
+<div class="section-head"><div><span class="section-kicker">Course Weeks</span><h2>Foundations of Medicine</h2></div><p class="section-note">Weeks 2–8 + Module Review</p></div>
 <section class="week-grid">
 <a aria-label="Open Week 2" class="week-card" href="weeks/week2/index.html"><div class="card-top"><div class="icon-wrap"><svg aria-hidden="true" viewbox="0 0 48 48">
 <path d="M8.7 17.1c-2.2 7.2.3 15.6 6.4 20.1 5.2 3.8 12.7 4.1 18.3.7 6.3-3.8 9.2-11.8 6.7-18.7C37.7 12.5 31 8.1 23.9 8.3c-6.6.2-12.9 3.4-15.2 8.8Z" fill="#ead8ca" stroke="#654735" stroke-width="1.8"></path>
@@ -64,8 +147,58 @@
 <circle cx="37.8" cy="12" fill="#f0dfd2" r="2.1" stroke="#9b755d" stroke-width="1.1"></circle>
 <circle cx="8.6" cy="35.2" fill="#c9a88f" r="1.5"></circle>
 </svg></div><span class="week-label">Week 7</span></div><h3>Hematology</h3><p class="desc">Blood cell development and function, hematologic physiology and pathology, and the mechanisms underlying disorders of red cells, white cells, platelets, and hemostasis.</p><div class="card-footer"><div class="content-tags"><span class="content-tag">12 Lectures</span><span class="content-tag">8 Quizzes</span><span class="content-tag">Review</span></div><div class="arrow">→</div></div></a>
+<a aria-label="Open Week 8" class="week-card" href="weeks/week8/index.html"><div class="card-top"><div class="icon-wrap"><svg aria-hidden="true" viewbox="0 0 48 48">
+<path d="M24 4.8 32.6 9.7v9.8L24 24.4l-8.6-4.9V9.7Z" fill="#d9bda8" stroke="#654735" stroke-linejoin="round" stroke-width="1.8"></path>
+<path d="M20.2 11.7c2.2-1.6 5.4-1.6 7.6 0M20.4 17.8c2.1 1.5 5.1 1.5 7.2 0" fill="none" stroke="#9a735a" stroke-linecap="round" stroke-width="1.2"></path>
+<path d="M21.2 24.1h5.6v4.2h-5.6Z" fill="#ead8ca" stroke="#654735" stroke-width="1.5"></path>
+<path d="M24 28.2v8.1M19.5 36.3h9" fill="none" stroke="#654735" stroke-linecap="round" stroke-width="2"></path>
+<path d="M21 36.4 14.4 43M23 36.4 20.3 43.2M25 36.4 27.7 43.2M27 36.4l6.6 6.6" fill="none" stroke="#8a654f" stroke-linecap="round" stroke-width="1.7"></path>
+<path d="M18.8 29.2 15.4 33M29.2 29.2l3.4 3.8" fill="none" stroke="#b48a6d" stroke-linecap="round" stroke-width="1.5"></path>
+<circle cx="24" cy="14.6" fill="#76523e" r="1.8"></circle>
+</svg></div><span class="week-label">Week 8</span></div><h3>Foundations of Microbiology I</h3><p class="desc">Immune dysregulation and the foundations of clinically important viruses, bacteria, fungi, antiviral therapy, and antifungal therapy.</p><div class="card-footer"><div class="content-tags"><span class="content-tag">9 / 9 Lectures</span><span class="content-tag">7 Quizzes</span><span class="content-tag">Review live</span></div><div class="arrow">→</div></div></a>
+<a aria-label="Open Review the Module" class="week-card" href="weeks/review/index.html">
+<div class="card-top">
+<div class="icon-wrap">
+<svg aria-hidden="true" viewbox="0 0 48 48">
+<path d="M9 8.5h13.3c3.1 0 5.7 1.5 7.2 3.8v25c-1.5-2-4-3.3-7.2-3.3H9Z" fill="#ead8ca" stroke="#654735" stroke-linejoin="round" stroke-width="1.8"></path>
+<path d="M39 8.5H25.7c-3.1 0-5.7 1.5-7.2 3.8v25c1.5-2 4-3.3 7.2-3.3H39Z" fill="#f5e9df" stroke="#654735" stroke-linejoin="round" stroke-width="1.8"></path>
+<path d="M24 12.3v24.2M12.8 14h8M12.8 18.3h8M27.2 14h8M27.2 18.3h8" fill="none" stroke="#9a735a" stroke-linecap="round" stroke-width="1.35"></path>
+</svg>
+</div>
+<span class="week-label">Module Review</span>
+</div>
+<h3>Review the Module</h3>
+<p class="desc">All quizzes in one place, with full-week assessments and cumulative “Up to This Point” reviews highlighted for module-wide retrieval practice.</p>
+<div class="card-footer">
+<div class="content-tags"><span class="content-tag">29 Quizzes</span><span class="content-tag">Cumulative Reviews</span><span class="content-tag">Review</span></div>
+<div class="arrow">→</div>
+</div>
+</a>
+</section>
+<section class="feedback-panel" id="feedback">
+<div class="section-head">
+<div>
+<span class="section-kicker">Community</span>
+<h2>Help Improve the MegaHub</h2>
+</div>
+<p class="section-note">Feedback + future features</p>
+</div>
+<div class="feedback-grid">
+<article class="feedback-card">
+<span class="feedback-badge">Leave Me Feedback</span>
+<h3>Found something confusing, broken, or worth adding?</h3>
+<p>Send feedback, corrections, quiz ideas, or feature requests. If you notice a bad link, a question issue, or something that would make the MegaHub better, I want to know.</p>
+<a class="feedback-action" href="mailto:mikpeters@augusta.edu?subject=Foundations%20of%20Medicine%20MegaHub%20Feedback">Email Feedback →</a>
+<a class="feedback-email" href="mailto:mikpeters@augusta.edu">mikpeters@augusta.edu</a>
+</article>
+<article class="feedback-card">
+<span class="feedback-badge">Future Feature</span>
+<h3>Quiz Leaderboard</h3>
+<p>A shared leaderboard for quizzes completed, total questions answered, or completion streaks would need a small shared database or service behind the site. The current GitHub Pages setup only stores quiz progress in each person's own browser, so it cannot compare users globally yet.</p>
+</article>
+</div>
 </section>
 </main>
-<footer>Foundations of Medicine · Weeks 2–7</footer>
+<footer>Foundations of Medicine · Weeks 2–8</footer>
 </body>
 </html>
