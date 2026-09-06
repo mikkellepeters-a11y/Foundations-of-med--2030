@@ -1,0 +1,93 @@
+<!doctype html><html><head><meta charset='utf-8'><style>
+@page{size:letter;margin:.34in}
+:root{--b:#503c31;--ink:#302924;--mut:#74685f;--line:#d8cabd;--gold:#f2ead3;--sage:#e9eee8;--rust:#f3e6de;--blue:#edf1f4}
+*{box-sizing:border-box}body{margin:0;color:var(--ink);font-family:Arial,Helvetica,sans-serif;font-size:9.25pt;line-height:1.22}
+h1{font-size:18pt;color:var(--b);margin:0 0 3px}h2{font-size:11.3pt;color:var(--b);margin:5.5px 0 2.5px;border-bottom:1.2px solid var(--line);padding-bottom:2px}
+.sub{color:var(--mut);font-weight:700;margin-bottom:4px}.memory{background:var(--b);color:#fff;border-radius:7px;padding:7px 8px;margin:4px 0;break-inside:avoid}
+.box{border:1px solid var(--line);border-radius:7px;padding:6px 7px;break-inside:avoid}.gold{background:var(--gold)}.sage{background:var(--sage)}.rust{background:var(--rust)}.blue{background:var(--blue)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:4px}table{width:100%;border-collapse:collapse;font-size:8.15pt;margin:2.5px 0;break-inside:avoid}
+th,td{border:1px solid var(--line);padding:3px 3.4px;vertical-align:top}th{background:#eee5dc;text-align:left;color:var(--b)}
+ul{margin:1.5px 0 1.5px 11px;padding:0}li{margin:.5px 0}.pagebreak{break-before:page}.tiny{font-size:7pt;color:var(--mut)}
+</style></head><body>
+<h1>Immunopathology Basics - Factoid Sheet</h1>
+<div class="sub">Week 8 • Foundations of Microbiology I • Dolen current deck controls</div>
+<div class="memory"><b>I = IgE immediate • II = antibody on fixed target • III = soluble immune complexes deposit • IV = T cells delayed.</b></div>
+
+<h2>Gell &amp; Coombs</h2>
+<table>
+<tr><th>Type</th><th>Mechanism</th><th>Deck examples</th><th>Fast cue</th></tr>
+<tr><td><b>I</b></td><td>IgE, FcεRI, mast-cell activation</td><td>Rhinitis, asthma, atopic dermatitis, anaphylaxis</td><td>Immediate</td></tr>
+<tr><td><b>II</b></td><td>IgG/IgM against cell-surface antigen or receptor</td><td>Drug hemolysis, Rh disease, Graves, MG</td><td>Fixed target</td></tr>
+<tr><td><b>III</b></td><td>IgG/IgM soluble immune complexes</td><td>Serum sickness, Arthus, HP</td><td>Deposit elsewhere</td></tr>
+<tr><td><b>IV</b></td><td>T-cell mediated, usually Th1; can include Tc killing</td><td>Contact dermatitis, tuberculin response</td><td>1-3 days</td></tr>
+</table>
+<div class="box gold"><b>Faculty caveat:</b> mechanisms overlap clinically. Exams ask for the <b>predominant</b> mechanism.</div>
+
+<h2>Allergy / atopy</h2>
+<ul>
+<li><b>Allergy</b> in the deck's preferred US usage = IgE-dependent Type I mechanism, <b>not</b> a disease/diagnosis.</li>
+<li>Classic “atopic diseases” = rhinitis + asthma + atopic dermatitis; inherited together (“atopic march”).</li>
+<li>Non-IgE biology exists: epithelial <b>TSLP → ILC2</b>; tezepelumab targets TSLP.</li>
+<li>Chronic urticaria is very rarely IgE-dependent; FcεRI autoantibody can activate mast cells.</li>
+</ul>
+
+<h2>Type I trigger</h2>
+<div class="memory"><b>IgE-FcεRI waits → allergen cross-links IgE → receptor aggregation → mast-cell activation → histamine/lipid mediators/cytokines → symptoms + eosinophil recruitment.</b></div>
+<div class="grid2">
+<div class="box sage"><b>Tryptase</b><br>Clinically useful mast-cell activation biomarker. Deck: basophils do <b>not</b> have tryptase.</div>
+<div class="box blue"><b>BTK figure</b><br>Conceptual outputs: granule exocytosis + new lipid mediators + cytokine production.</div>
+</div>
+
+<h2>Eosinophil products</h2>
+<table>
+<tr><th>Preformed</th><th>After activation</th></tr>
+<tr><td>Peroxidase; collagenase; major basic protein; eosinophil cationic protein; eosinophil-derived neurotoxin</td><td>IL-3, IL-5, GM-CSF; CXCL8; LTC4/LTD4/LTE4; platelet-activating factor</td></tr>
+</table>
+
+<h2>Early vs late</h2>
+<div class="box rust"><b>Early Type I:</b> minutes, preformed mast-cell mediators.<br><b>Late Type I:</b> hours, inflammatory response.<br><b>Do NOT confuse late-phase Type I with Type IV DTH.</b></div>
+
+<div class="pagebreak"></div>
+<h1 style="font-size:15pt">Types II-IV + Therapy</h1>
+
+<h2>Type II - fixed antigen/receptor</h2>
+<table>
+<tr><th>Pattern</th><th>Deck examples</th></tr>
+<tr><td><b>Cytotoxic</b></td><td>Penicillin-induced hemolytic anemia; Rh hemolytic disease. Complement → lysis and/or enhanced phagocytosis.</td></tr>
+<tr><td><b>Stimulatory</b></td><td>Graves disease.</td></tr>
+<tr><td><b>Inhibitory</b></td><td>Autoimmune hypothyroidism; myasthenia gravis.</td></tr>
+<tr><td><b>FcεRI autoantibody</b></td><td>Autoimmune chronic urticaria via non-IgE mast-cell activation.</td></tr>
+</table>
+<div class="memory"><b>II vs III:</b> II antibody binds the target directly. III complexes form in circulation first.</div>
+
+<h2>Type III - immune complexes</h2>
+<table>
+<tr><th>Pattern</th><th>Recognition</th></tr>
+<tr><td><b>Arthus</b></td><td>Local; preformed IgG; local IC deposition/complement. Example: sore arm hours after dT booster.</td></tr>
+<tr><td><b>Serum sickness</b></td><td>Systemic; foreign antigen; rash + GN + arthritis + fever as antibody forms, usually ~1 week.</td></tr>
+<tr><td><b>Hypersensitivity pneumonitis</b></td><td>Inhaled antigen → IgG → IC deposition in alveoli; farmer's lung / bird fancier's lung.</td></tr>
+</table>
+<div class="box gold"><b>Common deposition outcomes:</b> glomerulus → nephritis; synovium → arthritis; postcapillary venules → vasculitis.</div>
+
+<h2>Type IV - T cells</h2>
+<ul>
+<li>Usually <b>1-3 days</b> after antigen contact.</li>
+<li>Th1 + macrophage inflammatory pathway; processed antigen presented by MHC II.</li>
+<li>Can also be cytotoxic T-cell mediated.</li>
+<li>DTH = detrimental delayed hypersensitivity; CMI = beneficial cell-mediated immunity.</li>
+<li>Examples: contact dermatitis, transplant rejection, fungal resistance, Hashimoto thyroiditis.</li>
+</ul>
+
+<h2>Therapy slide 46</h2>
+<table>
+<tr><th>Strategy</th><th>Deck examples</th></tr>
+<tr><td>Broad/pathway suppression</td><td>Corticosteroids; JAK inhibitors; -brutinibs</td></tr>
+<tr><td>Monoclonal antibodies</td><td>Omalizumab; benralizumab; tezepelumab</td></tr>
+<tr><td>Mediator blockade</td><td>H1 antihistamines; leukotriene-receptor antagonists</td></tr>
+<tr><td>Allergen immunotherapy</td><td>Allergy shots for IgE-proven rhinitis, asthma, selected conditions</td></tr>
+</table>
+
+<div class="box blue"><b>Companion-only enrichment:</b> ACID mnemonic, Th2 IL-4/IL-13/IL-5 sensitization detail, allergy testing, epinephrine pharmacology, and broader DMARD/autoimmunity discussion are in the Word guide but are not dedicated current-deck content.</div>
+<div class="memory"><b>Final recognition:</b> IgE/mast cell = I • fixed Ab target = II • traveling complexes = III • T cell + delay = IV.</div>
+<p class="tiny">Primary: current 49-slide Dolen deck. Word companion is secondary enrichment only.</p>
+</body></html>

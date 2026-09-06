@@ -1,0 +1,77 @@
+<!doctype html><html><head><meta charset='utf-8'><style>
+@page{size:letter;margin:.29in}
+:root{--b:#503c31;--ink:#302924;--mut:#74685f;--line:#d8cabd;--gold:#f2ead3;--sage:#e9eee8;--rust:#f3e6de;--blue:#edf1f4}
+*{box-sizing:border-box}body{margin:0;color:var(--ink);font-family:Arial,Helvetica,sans-serif;font-size:9.45pt;line-height:1.18}
+h1{font-size:18.3pt;color:var(--b);margin:0 0 3px}h2{font-size:11.2pt;color:var(--b);margin:4.6px 0 2.2px;border-bottom:1.1px solid var(--line);padding-bottom:1.6px}
+.sub{color:var(--mut);font-weight:700;margin-bottom:3px}.memory{background:var(--b);color:#fff;border-radius:7px;padding:6.2px 7px;margin:3px 0;break-inside:avoid}
+.box{border:1px solid var(--line);border-radius:7px;padding:5.2px 5.8px;break-inside:avoid}.gold{background:var(--gold)}.sage{background:var(--sage)}.rust{background:var(--rust)}.blue{background:var(--blue)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:4px}table{width:100%;border-collapse:collapse;font-size:7.6pt;margin:2px 0;break-inside:avoid}
+th,td{border:1px solid var(--line);padding:2.5px 2.8px;vertical-align:top}th{background:#eee5dc;text-align:left;color:var(--b)}
+ul{margin:1.2px 0 1.2px 10px;padding:0}li{margin:.35px 0}.pagebreak{break-before:page}.tiny{font-size:6.7pt;color:var(--mut)}
+</style></head><body>
+<h1>Non-HIV Antiviral Agents - Factoid Sheet</h1>
+<div class="sub">Week 8 • Core 9 • Fisher current deck controls</div>
+<div class="memory"><b>Drug logic:</b> know the viral target / activation step first, then use, then toxicity.</div>
+
+<h2>Herpesvirus Drugs</h2>
+<table>
+<tr><th>Drug</th><th>Mechanism / activation</th><th>Use</th><th>Major toxicity / pearl</th></tr>
+<tr><td><b>Acyclovir</b></td><td>Guanosine analog; <b>viral TK</b> first phosphorylation → host kinases → viral DNA-pol chain termination</td><td>HSV / VZV</td><td><b>Crystalluria → renal failure</b>; neurotoxicity</td></tr>
+<tr><td><b>Valacyclovir</b></td><td>Valine ester prodrug of acyclovir</td><td>HSV / VZV</td><td>Better oral absorption</td></tr>
+<tr><td><b>Famciclovir</b></td><td>Prodrug → penciclovir; chain termination</td><td>Herpesvirus therapy</td><td>Better absorption / long half-life in deck</td></tr>
+<tr><td><b>Ganciclovir</b></td><td>Guanosine analog; handout: CMV <b>UL97</b> activation</td><td><b>CMV</b></td><td><b>Myelosuppression / leukopenia</b></td></tr>
+<tr><td><b>Valganciclovir</b></td><td>Valine ester prodrug of ganciclovir</td><td>CMV</td><td>Better oral absorption</td></tr>
+<tr><td><b>Cidofovir</b></td><td>Cytidine-monophosphate-like nucleotide analog; no viral kinase needed</td><td>Resistant HSV/CMV; broad-spectrum examples in deck</td><td><b>Nephrotoxicity / Fanconi</b>; handout: probenecid + hydration</td></tr>
+<tr><td><b>Foscarnet</b></td><td><b>Pyrophosphate analog</b>; direct polymerase inhibition; no viral kinase needed</td><td>Acyclovir-resistant HSV/VZV; CMV when ganciclovir cannot be used</td><td><b>Nephrotoxicity</b>; handout adds Ca/Mg abnormalities</td></tr>
+<tr><td><b>Pritelivir</b></td><td>Helicase-primase inhibitor</td><td>Deck: experimental compassionate use</td><td>Different class from nucleoside analogs</td></tr>
+</table>
+<div class="memory"><b>Viral kinase split:</b> acyclovir + ganciclovir NEED viral kinase; foscarnet + cidofovir DO NOT.</div>
+
+<h2>Respiratory Viruses</h2>
+<table>
+<tr><th>Drug</th><th>Mechanism</th><th>Key use / toxicity</th></tr>
+<tr><td><b>Ribavirin</b></td><td>Purine analog / disruptive “nonsense base” in deck</td><td>RSV, hemorrhagic fevers; handout: hemolytic anemia + teratogen</td></tr>
+<tr><td><b>Oseltamivir / Zanamivir / Peramivir</b></td><td><b>Neuraminidase inhibitors</b> → block release</td><td>Influenza A/B; zanamivir → bronchospasm</td></tr>
+<tr><td><b>Baloxavir</b></td><td>Handout: cap-dependent endonuclease inhibitor</td><td>Influenza; deck says adverse effects rare</td></tr>
+</table>
+<div class="box rust"><b>Slide 39 literally lists “hepatitis C ???” under ribavirin.</b> Treat as historical/questioning, not the modern HCV regimen.</div>
+
+<div class="pagebreak"></div>
+<h1 style="font-size:15.2pt">COVID-19 + Viral Hepatitis</h1>
+
+<h2>COVID-19</h2>
+<table>
+<tr><th>Agent</th><th>Current-deck mechanism / role</th><th>Toxicity / pearl</th></tr>
+<tr><td><b>Remdesivir</b></td><td>Adenosine nucleotide analog; viral RNA-polymerase inhibition / chain termination</td><td>↑ ALT/AST; infusion reactions</td></tr>
+<tr><td><b>Nirmatrelvir / Ritonavir</b></td><td>Nirmatrelvir antiviral protease inhibition; ritonavir <b>CYP3A inhibition</b> boosts exposure</td><td>Dysgeusia, N/V, diarrhea; drug interactions</td></tr>
+<tr><td><b>Molnupiravir</b></td><td>Oral nucleoside-related chain-terminating / mutagenic strategy in deck</td><td>Alternative in high-risk disease</td></tr>
+<tr><td><b>Pemivibart</b></td><td>mAb to spike RBD → blocks ACE2 attachment</td><td>Pre-exposure prophylaxis in mod-severely immunocompromised</td></tr>
+<tr><td><b>Baricitinib</b></td><td><b>Host JAK inhibitor</b>, not direct antiviral</td><td>Used as COVID immunomodulator in more severe disease</td></tr>
+</table>
+
+<h2>HBV</h2>
+<table>
+<tr><th>Drug</th><th>Mechanism</th><th>Deck toxicity / note</th></tr>
+<tr><td><b>Entecavir</b></td><td>Guanosine nucleoside analog → chain termination</td><td>Headache, fatigue, nausea, ↑ liver enzymes</td></tr>
+<tr><td><b>Tenofovir</b></td><td>Adenosine-monophosphate nucleotide analog → chain termination</td><td>GI symptoms, small renal risk, ↓ bone mineral density</td></tr>
+<tr><td><b>Bepirovirsen</b></td><td>Antisense oligonucleotide targeting HBV mRNAs</td><td>Deck presents 2026 research / modest functional-cure results</td></tr>
+</table>
+
+<h2>HCV</h2>
+<table>
+<tr><th>Class / drug</th><th>Target</th></tr>
+<tr><td><b>Glecaprevir</b> (-previr)</td><td>NS3/4A protease</td></tr>
+<tr><td><b>Pibrentasvir</b> (-asvir)</td><td>NS5A</td></tr>
+<tr><td><b>Sofosbuvir</b> (-buvir; handout-only in this lecture)</td><td>NS5B RNA-dependent RNA polymerase</td></tr>
+</table>
+<div class="box gold"><b>Current deck:</b> glecaprevir + pibrentasvir, 1 pill daily x 8 weeks, >95% cure rate shown.<br><b>Handout safety pearl:</b> screen for HBV because HCV DAAs can reactivate HBV.</div>
+
+<h2>Toxicity Lightning Round</h2>
+<div class="grid2">
+<div class="box sage"><b>Acyclovir</b> kidney crystals<br><b>Ganciclovir</b> marrow suppression<br><b>Cidofovir</b> Fanconi kidney<br><b>Foscarnet</b> kidney + electrolytes</div>
+<div class="box blue"><b>Zanamivir</b> bronchospasm<br><b>Remdesivir</b> liver + infusion<br><b>Tenofovir</b> kidney + bone<br><b>Paxlovid</b> CYP3A interactions</div>
+</div>
+
+<div class="memory"><b>Final discrimination:</b> HSV/VZV → acyclovir • CMV → ganciclovir • kinase-resistant herpes → foscarnet/cidofovir • flu release → neuraminidase inhibitor • HBV → tenofovir/entecavir • HCV → -previr + -asvir framework.</div>
+<p class="tiny">Primary: Fisher 66-slide deck. Attached “Non-HIV Antivirals” handout is secondary. Its HIV ART section is intentionally excluded.</p>
+</body></html>
