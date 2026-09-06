@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Review the Module · Foundations of Medicine</title>
+<style>
+:root{--bg:#f3ece3;--paper:#fffaf4;--ink:#3e3028;--muted:#78695f;--line:#dccfc3;--brown:#694a39;--dark:#4a3428;--soft:#8a654f;--tan:#eee5dc;--sage:#e7eee4;--gold:#f2ead3;--shadow:0 14px 34px rgba(65,43,31,.08)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at top left,rgba(255,255,255,.55),transparent 31%),var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+a{color:inherit;text-decoration:none}header{background:linear-gradient(135deg,var(--dark),var(--brown),var(--soft));color:#fff;padding:28px 22px 38px}.inner,main,footer{max-width:1120px;margin:auto}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:24px}.back{padding:8px 11px;border-radius:999px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.09);font-size:11px;font-weight:850}
+.hero{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center}.hero-icon{width:82px;height:82px;border-radius:24px;background:rgba(255,255,255,.11);border:1px solid rgba(255,255,255,.2);display:grid;place-items:center}.hero-icon svg{width:58px;height:58px}
+.kicker{font-size:10px;text-transform:uppercase;letter-spacing:.12em;font-weight:850;color:var(--soft)}header .kicker{color:#fff;opacity:.72}
+h1{font-size:clamp(34px,5vw,56px);margin:5px 0 8px;line-height:1.03}.lede{max-width:800px;margin:0;color:rgba(255,255,255,.84);line-height:1.55}
+.hero-pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}.hero-pills span{padding:7px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.09);font-size:11px;font-weight:800}
+main{padding:28px 22px 64px}.jump{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}.jump a{background:var(--paper);border:1px solid var(--line);padding:8px 11px;border-radius:999px;color:var(--brown);font-size:11px;font-weight:850}
+.featured{background:linear-gradient(135deg,#fffaf4,#f5eadb);border:1px solid #d6c1aa;border-radius:22px;padding:20px;box-shadow:var(--shadow);margin-bottom:28px}.featured-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:12px}.featured h2{margin:2px 0 0;font-size:25px}.featured-note{font-size:11px;color:var(--muted)}
+.featured-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:12px}.feature-card{border:1px solid #dac8b6;background:#fffaf6;border-radius:16px;padding:16px}.feature-card.ready{box-shadow:inset 4px 0 0 #8a654f}.feature-card.planned{opacity:.78;border-style:dashed}.feature-card h3{margin:3px 0 6px;font-size:17px}.feature-card p{margin:0 0 12px;color:var(--muted);font-size:11px;line-height:1.5}.feature-card .btn{display:inline-flex;padding:8px 10px;border-radius:9px;background:var(--brown);color:#fff;font-size:10px;font-weight:850}.feature-card .planned-pill{display:inline-flex;padding:7px 9px;border-radius:9px;background:#eee5dc;color:var(--brown);font-size:10px;font-weight:850}
+.tools{display:grid;grid-template-columns:1fr auto;gap:10px;margin:0 0 28px}input[type=search]{width:100%;border:1px solid var(--line);border-radius:12px;background:#fffaf6;padding:12px 13px;font:inherit;color:var(--ink)}.clear{border:1px solid var(--line);background:var(--paper);border-radius:12px;padding:0 14px;color:var(--brown);font-weight:800;cursor:pointer}
+.week-section{margin-top:28px}.section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;margin-bottom:10px}.section-head h2{margin:2px 0 0;font-size:23px}.count{font-size:10px;color:var(--muted);font-weight:800}
+.quiz-list{background:linear-gradient(180deg,var(--paper),#fbf5ee);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);overflow:hidden}.quiz-row{display:flex;align-items:center;gap:13px;padding:13px 15px;border-bottom:1px solid #eadfd6;transition:.13s ease}.quiz-row:last-child{border-bottom:0}.quiz-row:hover{background:#f7efe7;padding-left:19px}.featured-row{background:#f7efe2}
+.qnum{width:44px;height:34px;flex:0 0 44px;display:grid;place-items:center;border-radius:10px;background:var(--tan);border:1px solid #e1d5ca;color:var(--brown);font-size:10px;font-weight:850}.qcopy{min-width:0;flex:1}.qcopy strong{display:block;font-size:12.5px}.qcopy span{display:block;margin-top:2px;color:var(--muted);font-size:10px}.qmeta{display:flex;align-items:center;gap:7px;flex-wrap:wrap;justify-content:flex-end}.pill{padding:5px 7px;border-radius:999px;background:#f2eae3;border:1px solid #e2d6cb;color:#6c5b50;font-size:9.5px;font-weight:800;white-space:nowrap}.pill.status.complete{background:#e6eee3;border-color:#cfddca;color:#56674f}.pill.status.started{background:#f2ead3;border-color:#dfd0aa;color:#6d5a2d}.arrow{color:var(--brown);font-weight:900}
+.empty{padding:18px;border:1px dashed #d6c8bd;background:#f6efe8;border-radius:16px;color:var(--muted);font-size:11px;line-height:1.5}
+footer{padding:0 22px 34px;color:#8a7b70;font-size:11px}
+@media(max-width:760px){.hero{grid-template-columns:1fr}.hero-icon{width:68px;height:68px}.featured-grid{grid-template-columns:1fr}.section-head{align-items:flex-start;flex-direction:column}.quiz-row{align-items:flex-start}.qmeta{justify-content:flex-start}.tools{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><div class="inner">
+<div class="topbar"><a class="back" href="../../index.html">← All Weeks</a><span class="back">Quiz Directory · Cumulative Review</span></div>
+<div class="hero">
+<div class="hero-icon">
+<svg aria-hidden="true" viewbox="0 0 48 48">
+<path d="M9 8.5h13.3c3.1 0 5.7 1.5 7.2 3.8v25c-1.5-2-4-3.3-7.2-3.3H9Z" fill="#ead8ca" stroke="#654735" stroke-linejoin="round" stroke-width="1.8"></path>
+<path d="M39 8.5H25.7c-3.1 0-5.7 1.5-7.2 3.8v25c1.5-2 4-3.3 7.2-3.3H39Z" fill="#f5e9df" stroke="#654735" stroke-linejoin="round" stroke-width="1.8"></path>
+<path d="M24 12.3v24.2M12.8 14h8M12.8 18.3h8M27.2 14h8M27.2 18.3h8" fill="none" stroke="#9a735a" stroke-linecap="round" stroke-width="1.35"></path>
+</svg>
+</div>
+<div><div class="kicker">Foundations of Medicine · Module Review</div><h1>Review the Module</h1>
+<p class="lede">One place for every currently linked quiz across the module, with cumulative “Up to This Point” reviews pulled forward so they are easy to find.</p>
+<div class="hero-pills"><span>29 quizzes linked</span><span>1,990 questions</span><span>7 full comprehensives</span><span>Weeks 3–8</span></div></div>
+</div>
+</div></header>
+<main>
+<nav class="jump"><a href="#cumulative">Up to This Point</a><a href="#week3">Week 3</a><a href="#week4">Week 4</a><a href="#week5">Week 5</a><a href="#week6">Week 6</a><a href="#week7">Week 7</a><a href="#week8">Week 8</a></nav>
+<section class="featured" id="cumulative">
+<div class="featured-head"><div><span class="kicker">Featured Reviews</span><h2>Up to This Point</h2></div><div class="featured-note">Cumulative reviews get priority here.</div></div>
+<div class="featured-grid"><article class="feature-card ready">
+<span class="pill">CURRENT · 100 Q</span>
+<h3>Weeks 2–8 Cumulative Review</h3>
+<p>The current full-module checkpoint. One hundred mixed questions interleave examinable content across Weeks 2–8.</p>
+<a class="btn" data-key="up-to-this-point-review-100" href="../../quizzes/up_to_this_point_review_weeks2-8_100.html">Open Current Up to This Point Review →</a>
+</article><article class="feature-card ready">
+<span class="pill">PRIOR · 50 Q</span>
+<h3>Weeks 2–7 Cumulative Review</h3>
+<p>The previous cumulative checkpoint remains available for a shorter review through Hematology.</p>
+<a class="btn" data-key="week7-up-to-this-point-review-50" href="../../quizzes/up_to_this_point_review_weeks2-7_50.html">Open Weeks 2–7 Review →</a>
+</article></div>
+</section>
+<div class="tools">
+<input id="quizSearch" placeholder="Search quizzes by week, title, or type…" type="search"/>
+<button class="clear" id="clearSearch" type="button">Clear</button>
+</div>
+<section class="week-section" id="week2">
+<div class="section-head"><div><span class="kicker">Week 2</span><h2>Foundations of Cell Biology</h2></div><span class="count">0 linked quizzes</span></div>
+<div class="empty">No standalone Week 2 quiz is currently linked in the MegaHub inventory. Week 2 content is still represented in the cumulative <strong>Up to This Point</strong> reviews.</div>
+</section>
+<section class="week-section" id="week3">
+<div class="section-head">
+<div><span class="kicker">Week 3</span><h2>Foundations of Metabolism</h2></div>
+<span class="count">2 quizzes</span>
+</div>
+<div class="quiz-list">
+<a class="quiz-row" data-key="epithelial-plasma-40" data-search="epithelial tissue and plasma proteins targeted review" href="../../quizzes/week3_epithelial_plasma_40_redesigned.html">
+<div class="qnum">40 Q</div>
+<div class="qcopy"><strong>Epithelial Tissue and Plasma Proteins</strong><span>Targeted Review</span></div>
+<div class="qmeta"><span class="pill kind">Targeted Review</span><span class="pill status">Ready</span><span class="arrow">→</span></div>
+</a>
+<a class="quiz-row" data-key="metabolism-150" data-search="comprehensive metabolism comprehensive" href="../../quizzes/week3_comprehensive_metabolism_150_redesigned.html">
+<div class="qnum">150 Q</div>
+<div class="qcopy"><strong>Comprehensive Metabolism</strong><span>Comprehensive</span></div>
+<div class="qmeta"><span class="pill kind">Comprehensive</span><span class="pill status">Ready</span><span class="arrow">→</span></div>
+</a></div>
+</section>
+<section class="week-section" id="week4">
+<div class="section-head">
+<div><span class="kicker">Week 4</span><h2>Foundations of Genetics</h2></div>
+<span class="count">3 quizzes</span>
+</div>
+<div class="quiz-list">
+<a class="quiz-row" data-key="lecture4-histology-pathology-40" data-search="fundamentals of histology &amp; pathology targeted review" href="../../quizzes/week4_histology_pathology_40_redesigned.html">
+<div class="qnum">40 Q</div>
+<div class="qcopy"><strong>Fundamentals of Histology &amp; Pathology</strong><span>Targeted Review</span></div>
+<div class="qmeta"><span class="pill kind">Targeted Review</span><span class="pill status">Ready</span><span class="arrow">→</span></div>
+</a>
+<a class="quiz-row" data-key="week4-foundations-genetics-150" data-search="week 4 comprehensive: foundations of genetics comprehensive" href="../../quizzes/week4_foundations_genetics_150_redesigned.html">
+<div class="qnum">150 Q</div>
+<div class="qcopy"><strong>Week 4 Comprehensive: Foundations of Genetics</strong><span>Comprehensive</span></div>
+<div class="qmeta"><span class="pill kind">Comprehensive</span><span class="pill status">Ready</span><span class="arrow">→</span></div>
+</a>
+<a class="quiz-row" data-key="clinical-epithelial-image-25" data-search="clinical epithelial histology image challenge image challenge" href="../../quizzes/week4_clinical_epithelial_histology_images_25_redesigned.html">
+<div class="qnum">25 Q</div>
+<div class="qcopy"><strong>Clinical Epithelial Histology Image Challenge</strong><span>Image Challenge</span></div>
+<div class="qmeta"><span class="pill kind">Image Challenge</span><span class="pill status">Ready</span><span class="arrow">→</span></div>
+</a></div>
+</section>
+<section class="week-section" id="week5">
+<div class="section-head">
+<div><span class="kicker">Week 5</span><h2>Foundations of Cancer</h2></div>
+<span class="count">3 quizzes</span>
+</div>
+<div class="quiz-list">
+<a class="quiz-row" data-key="week5-cancer-prequiz-40" data-search="week 5 prequiz: foundations of cancer prequiz" href="../../quizzes/week5_foundations_cancer_prequiz_40_redesigned.html">
+<div class="qnum">40 Q</div>
+<div class="qcopy"><strong>Week 5 Prequiz: Foundations of Cancer</strong><span>Prequiz</span></div>
+<div class="qmeta"><span class="pill kind">Prequiz</span><span class="pill status">Ready</span><span class="arrow">→</span></div>
+</a>
+<a class="quiz-row" data-key="week5-foundations-cancer-150" data-search="week 5 comprehensive: foundations of cancer comprehensive" href="../../quizzes/week5_foundations_cancer_comprehensive_150_redesigned.html">
+<div class="qnum">150 Q</div>
+<div class="qcopy"><strong>Week 5 Comprehensive: Foundations of Cancer</strong><span>Comprehensive</span></div>
+<div class="qmeta"><span class="pill kind">Comprehensive</span><span class="pill status">Ready</span><span class="arrow">→</span></div>
+</a>
+<a class="quiz-row" data-key="week5-cancer-structured-active-learning-40" data-search="week 5 structured active learning: foundations of cancer sal" href="../../quizzes/week5_structured_active_learning_cancer_40_redesigned.html">
+<div class="qnum">40 Q</div>
+<div class="qcopy"><strong>Week 5 Structured Active Learning: Foundations of Cancer</strong><span>SAL</span></div>
+<div class="qmeta"><span class="pill kind">SAL</span><span class="pill status">Ready</span><span class="arrow">→</span></div>
+</a></div>
+</section>
+<section class="week-section" id="week6">
+<div class="section-head">
+<div><span class="kicker">Week 6</span><h2>Foundations of Immunology</h2></div>
+<span class="count">6 quizzes</span>
+</div>
+<div class="quiz-list">
+<a class="quiz-row" data-key="week6-foundations-immunology-prequiz-50" data-search="week 6 prequiz: foundations of immunology prequiz" href="../../quizzes/week6_foundations_immunology_prequiz_50_redesigned.html">
+<div class="qnum">50 Q</div>
+<div class="qcopy"><strong>Week 6 Prequiz: Foundations of Immunology</strong><span>Prequiz</span></div>
+<div class="qmeta"><span class="pill kind">Prequiz</span><span class="pill status">Ready</span><span class="arrow">→</span></div>
+</a>
+<a class="quiz-row" data-key="week6-daily-monday-25" data-search="monday daily quiz daily" href="../../quizzes/week6_monday_daily_25_redesigned.html">
+<div class="qnum">25 Q</div>
+<div class="qcopy"><strong>Monday Daily Quiz</strong><span>Daily</span></div>
+<div class="qmeta"><span class="pill kind">Daily</span><span class="pill status">Ready</span><span class="arrow">→</span></div>
+</a>
+<a class="quiz-row" data-key="week6-daily-tuesday-25" data-search="tuesday daily quiz daily" href="../../quizzes/week6_tuesday_daily_25_redesigned.html">
+<div class="qnum">25 Q</div>
+<div class="qcopy"><strong>Tuesday Daily Quiz</strong><span>Daily</span></div>
+<div class="qmeta"><span class="pill kind">Daily</span><span class="pill status">Ready</span><span class="arrow">→</span></div>
+</a>
+<a class="quiz-row" data-key="week6-daily-wednesday-25" data-search="wednesday daily quiz daily" href="../../quizzes/week6_wednesday_daily_25_redesigned.html">
+<div class="qnum">25 Q</div>
+<div class="qcopy"><strong>Wednesday Daily Quiz</strong><span>Daily</span></div>
+<div class="qmeta"><span class="pill kind">Daily</span><span class="pill status">Ready</span><span class="arrow">→</span></div>
+</a>
+<a class="quiz-row" data-key="week6-foundations-immunology-comprehensive-150" data-search="week 6 comprehensive: foundations of immunology comprehensive" href="../../quizzes/week6_foundations_immunology_comprehensive_150_redesigned.html">
+<div class="qnum">150 Q</div>
+<div class="qcopy"><strong>Week 6 Comprehensive: Foundations of Immunology</strong><span>Comprehensive</span></div>
+<div class="qmeta"><span class="pill kind">Comprehensive</span><span class="pill status">Ready</span><span class="arrow">→</span></div>
+</a>
+<a class="quiz-row" data-key="week6-sal-foundation-diagnostic-imaging-50" data-search="week 6 sal: foundation of diagnostic imaging sal" href="../../quizzes/week6_sal_diagnostic_imaging_50_redesigned.html">
+<div class="qnum">50 Q</div>
+<div class="qcopy"><strong>Week 6 SAL: Foundation of Diagnostic Imaging</strong><span>SAL</span></div>
+<div class="qmeta"><span class="pill kind">SAL</span><span class="pill status">Ready</span><span class="arrow">→</span></div>
+</a></div>
+</section>
+<section class="week-section" id="week7">
+<div class="section-head">
+<div><span class="kicker">Week 7</span><h2>Hematology</h2></div>
+<span class="count">8 quizzes</span>
+</div>
+<div class="quiz-list">
+<a class="quiz-row" data-key="week7-daily-monday-35" data-search="monday daily daily" href="../../quizzes/week7_monday_daily_35.html">
+<div class="qnum">35 Q</div>
+<div class="qcopy"><strong>Monday Daily</strong><span>Daily</span></div>
+<div class="qmeta"><span class="pill kind">Daily</span><span class="pill status">Ready</span><span class="arrow">→</span></div>
+</a>
+<a class="quiz-row" data-key="week7-daily-tuesday-40" data-search="tuesday daily daily" href="../../quizzes/week7_tuesday_daily_40.html">
+<div class="qnum">40 Q</div>
+<div class="qcopy"><strong>Tuesday Daily</strong><span>Daily</span></div>
+<div class="qmeta"><span class="pill kind">Daily</span><span class="pill status">Ready</span><span class="arrow">→</span></div>
+</a>
+<a class="quiz-row" data-key="week7-daily-wednesday-35" data-search="wednesday daily daily" href="../../quizzes/week7_wednesday_daily_35.html">
+<div class="qnum">35 Q</div>
+<div class="qcopy"><strong>Wednesday Daily</strong><span>Daily</span></div>
+<div class="qmeta"><span class="pill kind">Daily</span><span class="pill status">Ready</span><span class="arrow">→</span></div>
+</a>
+<a class="quiz-row" data-key="week7-daily-thursday-30" data-search="thursday daily daily" href="../../quizzes/week7_thursday_daily_30.html">
+<div class="qnum">30 Q</div>
+<div class="qcopy"><strong>Thursday Daily</strong><span>Daily</span></div>
+<div class="qmeta"><span class="pill kind">Daily</span><span class="pill status">Ready</span><span class="arrow">→</span></div>
+</a>
+<a class="quiz-row" data-key="week7-foundations-hematology-prequiz-50" data-search="week 7 prequiz prequiz" href="../../quizzes/week7_prequiz_50.html">
+<div class="qnum">50 Q</div>
+<div class="qcopy"><strong>Week 7 Prequiz</strong><span>Prequiz</span></div>
+<div class="qmeta"><span class="pill kind">Prequiz</span><span class="pill status">Ready</span><span class="arrow">→</span></div>
+</a>
+<a class="quiz-row" data-key="week7-sal-histopathology-40" data-search="sal histopathology sal" href="../../quizzes/week7_sal_histopathology_40.html">
+<div class="qnum">40 Q</div>
+<div class="qcopy"><strong>SAL Histopathology</strong><span>SAL</span></div>
+<div class="qmeta"><span class="pill kind">SAL</span><span class="pill status">Ready</span><span class="arrow">→</span></div>
+</a>
+<a class="quiz-row" data-key="week7-foundations-hematology-comprehensive-150" data-search="week 7 comprehensive comprehensive" href="../../quizzes/week7_comprehensive_150.html">
+<div class="qnum">150 Q</div>
+<div class="qcopy"><strong>Week 7 Comprehensive</strong><span>Comprehensive</span></div>
+<div class="qmeta"><span class="pill kind">Comprehensive</span><span class="pill status">Ready</span><span class="arrow">→</span></div>
+</a>
+<a class="quiz-row featured-row" data-key="week7-up-to-this-point-review-50" data-search="up to this point review: weeks 2–7 cumulative" href="../../quizzes/up_to_this_point_review_weeks2-7_50.html">
+<div class="qnum">50 Q</div>
+<div class="qcopy"><strong>Up to This Point Review: Weeks 2–7</strong><span>Cumulative</span></div>
+<div class="qmeta"><span class="pill kind">Cumulative</span><span class="pill status">Ready</span><span class="arrow">→</span></div>
+</a></div>
+</section>
+<section class="week-section" id="week8">
+<div class="section-head">
+<div><span class="kicker">Week 8</span><h2>Foundations of Microbiology I</h2></div>
+<span class="count">7 quizzes</span>
+</div>
+<div class="quiz-list">
+<a class="quiz-row" data-key="week8-daily-tuesday-50" data-search="tuesday daily daily" href="../../quizzes/week8_tuesday_daily_50.html">
+<div class="qnum">50 Q</div>
+<div class="qcopy"><strong>Tuesday Daily</strong><span>Daily</span></div>
+<div class="qmeta"><span class="pill kind">Daily</span><span class="pill status">Ready</span><span class="arrow">→</span></div>
+</a>
+<a class="quiz-row" data-key="week8-daily-wednesday-50" data-search="wednesday daily daily" href="../../quizzes/week8_wednesday_daily_50.html">
+<div class="qnum">50 Q</div>
+<div class="qcopy"><strong>Wednesday Daily</strong><span>Daily</span></div>
+<div class="qmeta"><span class="pill kind">Daily</span><span class="pill status">Ready</span><span class="arrow">→</span></div>
+</a>
+<a class="quiz-row" data-key="week8-daily-thursday-50" data-search="thursday daily daily" href="../../quizzes/week8_thursday_daily_50.html">
+<div class="qnum">50 Q</div>
+<div class="qcopy"><strong>Thursday Daily</strong><span>Daily</span></div>
+<div class="qmeta"><span class="pill kind">Daily</span><span class="pill status">Ready</span><span class="arrow">→</span></div>
+</a><a class="quiz-row" data-key="week8-foundations-microbiology-prequiz-50" data-search="week 8 prequiz foundations microbiology prequiz" href="../../quizzes/week8_prequiz_50.html">
+<div class="qnum">50 Q</div>
+<div class="qcopy"><strong>Week 8 Prequiz</strong><span>Prequiz · mixed first-pass assessment</span></div>
+<div class="qmeta"><span class="pill kind">Prequiz</span><span class="pill status">Ready</span><span class="arrow">→</span></div>
+</a><a class="quiz-row" data-key="week8-comprehensive-a-150" data-search="week 8 comprehensive a comprehensive foundations microbiology" href="../../quizzes/week8_comprehensive_a_150.html">
+<div class="qnum">150 Q</div>
+<div class="qcopy"><strong>Week 8 Comprehensive A</strong><span>Comprehensive · 3 mixed 50-question blocks</span></div>
+<div class="qmeta"><span class="pill kind">Comprehensive</span><span class="pill status">Ready</span><span class="arrow">→</span></div>
+</a><a class="quiz-row" data-key="week8-comprehensive-b-150" data-search="week 8 comprehensive b comprehensive foundations microbiology" href="../../quizzes/week8_comprehensive_b_150.html">
+<div class="qnum">150 Q</div>
+<div class="qcopy"><strong>Week 8 Comprehensive B</strong><span>Comprehensive · independent second bank</span></div>
+<div class="qmeta"><span class="pill kind">Comprehensive</span><span class="pill status">Ready</span><span class="arrow">→</span></div>
+</a><a class="quiz-row featured-row" data-key="up-to-this-point-review-100" data-search="up to this point weeks 2 8 cumulative module review" href="../../quizzes/up_to_this_point_review_weeks2-8_100.html">
+<div class="qnum">100 Q</div>
+<div class="qcopy"><strong>Up to This Point Review: Weeks 2–8</strong><span>Cumulative · current module checkpoint</span></div>
+<div class="qmeta"><span class="pill kind">Cumulative</span><span class="pill status">Ready</span><span class="arrow">→</span></div>
+</a></div>
+</section>
+</main>
+<footer>Foundations of Medicine · Review the Module</footer>
+<script>
+(function(){
+  function parse(raw){if(!raw)return null;try{return JSON.parse(raw)}catch(e){return null}}
+  function applyStatus(el){
+    const key=el.dataset.key;if(!key)return;
+    const p=parse(localStorage.getItem('quiz-progress:'+key))||parse(localStorage.getItem('med-quiz-folder:'+key));
+    const status=el.querySelector('.pill.status');
+    if(!p||!status)return;
+    const complete=!!(p.completed===true||p.complete===true);
+    const answered=typeof p.answered==='number'?p.answered:(p.responses?Object.values(p.responses).filter(Boolean).length:0);
+    if(complete){status.textContent='Complete';status.classList.add('complete')}
+    else if(answered){status.textContent=answered+' answered';status.classList.add('started')}
+  }
+  document.querySelectorAll('.quiz-row[data-key]').forEach(applyStatus);
+
+  const search=document.getElementById('quizSearch');
+  const clear=document.getElementById('clearSearch');
+  function filter(){
+    const q=search.value.trim().toLowerCase();
+    document.querySelectorAll('.quiz-row').forEach(row=>{
+      const hay=(row.dataset.search+' '+row.textContent).toLowerCase();
+      row.style.display=!q||hay.includes(q)?'flex':'none';
+    });
+  }
+  search.addEventListener('input',filter);
+  clear.addEventListener('click',()=>{search.value='';filter();search.focus()});
+})();
+</script>
+</body></html>
