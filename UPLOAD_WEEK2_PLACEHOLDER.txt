@@ -1,0 +1,27 @@
+WEEK 2 PLACEHOLDER - UPLOAD-READY PATCH
+
+HOW TO USE
+1. Unzip this package.
+2. Upload the CONTENTS of this package to the ROOT of the website repository.
+3. Allow Week2_Foundations_of_Cell_Biology_Weekly_Hub_Scaffold.html to overwrite the existing legacy Week 2 placeholder.
+   IMPORTANT: that old filename is retained ONLY so existing website links do not break. The actual Week 2 hub is Week 2/index.html and is titled Cellular & Molecular Foundations.
+4. Keep the new Week 2 folder and its subfolders exactly as arranged.
+
+WHAT THIS DOES
+• Preserves the existing website link to the old Week 2 scaffold by replacing that file with a redirect.
+• Adds the real Week 2 placeholder hub at Week 2/index.html.
+• Adds Lecture 1 HTML, Factoid HTML, Notes PDF, and Factoid PDF.
+• Leaves every other week, quiz folder, and root website file untouched.
+• Future Week 2 lecture packages can merge into the same Week 2 folder.
+
+CURRENT WEEK 2 DAY STRUCTURE
+Monday: EBM / Biostats (separate) + Core 1–2 + CMP SAL + CBC/Histology SAL
+Tuesday: Core 3–6
+Wednesday: Core 7–10
+Thursday: week review + Holistic Patient Care
+Friday assessment/quiz review is intentionally not shown as a class-content day.
+
+OZZY
+• Lecture 1 now uses the same modern Ozzy completion ending as the later lecture companions.
+• Ozzy also appears as the clickable in-lecture Easter egg.
+• Future Week 2 companions should preserve this same behavior.
