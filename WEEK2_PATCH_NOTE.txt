@@ -1,0 +1,13 @@
+FOUNDATIONS OF MEDICINE MEGAHUB — WEEK 2 PATCH
+
+This is a Week 2-only merge patch for an existing MegaHub deployment.
+Merge the CONTENTS of this folder into the website root while preserving paths.
+
+Adds/replaces:
+- weeks/week2/ (complete Week 2 MegaHub + deep lecture hub + study resources)
+- quizzes/week2_*.html (9 Week 2 quiz banks)
+
+It does not replace the root index.html and does not alter Week 9.
+Existing site-wide shared/review-bank.js and review/highly_missed.html remain external dependencies.
+
+The original canonical README_DEPLOY.txt and MANIFEST.txt are included unchanged.
