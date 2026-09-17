@@ -455,7 +455,7 @@ function renderQuiz(){
  quiz.innerHTML='';
  QUESTIONS.forEach(q=>{
   const article=document.createElement('article');article.className='question';article.id='q-'+q.number;
-  article.innerHTML=`<div class="qtop"><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><div class="qnum">Question ${q.number}</div><div class="tags"><span class="tag">${q.topic}</span></div></div>${flagButtonHTML(q.number)}</div><div class="stem highlightable" data-highlight-id="q${q.number}-stem">${q.stem}</div><div class="choices"></div><div class="feedback" id="feedback-${q.number}"></div>${confidenceHTML(q.number)}`;
+  article.innerHTML=`<div class="qtop"><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><div class="qnum">Question ${q.number}</div></div>${flagButtonHTML(q.number)}</div><div class="stem highlightable" data-highlight-id="q${q.number}-stem">${q.stem}</div><div class="choices"></div><div class="feedback" id="feedback-${q.number}"></div>${confidenceHTML(q.number)}`;
   const choices=article.querySelector('.choices');
   q.options.forEach((opt,idx)=>{
    const L=letter(idx),row=document.createElement('div');row.className='choice-row';
@@ -570,7 +570,7 @@ function renderAdvancedQuestion(){
  advancedQuestionCard.style.display='block';
  let choices='';
  q.options.forEach((opt,idx)=>{const L=letter(idx),classes=['choice'];if(struck[qn]?.[L])classes.push('struck');choices+=`<div class="choice-row"><button type="button" class="${classes.join(' ')}" data-letter="${L}"><span class="choice-letter">${L}</span><span class="choice-copy highlightable" data-highlight-id="q${qn}-opt-${L}">${opt}</span></button><button type="button" class="strike ${struck[qn]?.[L]?'active':''}" data-strike="${L}">S̶</button></div>`});
- advancedQuestionCard.innerHTML=`<div class="advanced-progress-label">Advanced Quiz Review · Primary Question</div><div class="qtop"><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><div class="qnum">Question ${qn}</div>${flagButtonHTML(qn)}</div><div class="tags"><span class="tag">${q.topic}</span></div></div><div class="stem highlightable" data-highlight-id="q${qn}-stem">${q.stem}</div><div class="choices">${choices}</div>${confidenceHTML(qn)}`;
+ advancedQuestionCard.innerHTML=`<div class="advanced-progress-label">Advanced Quiz Review · Primary Question</div><div class="qtop"><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><div class="qnum">Question ${qn}</div>${flagButtonHTML(qn)}</div></div><div class="stem highlightable" data-highlight-id="q${qn}-stem">${q.stem}</div><div class="choices">${choices}</div>${confidenceHTML(qn)}`;
  advancedQuestionCard.querySelectorAll('.choice').forEach(btn=>btn.addEventListener('click',e=>{if(hasTextSelectionInside(e.currentTarget))return;answerAdvancedPrimary(qn,btn.dataset.letter)}));
  advancedQuestionCard.querySelectorAll('[data-strike]').forEach(btn=>btn.addEventListener('click',()=>{const L=btn.dataset.strike;struck[qn]??={};struck[qn][L]=!struck[qn][L];renderAdvancedQuestion()}));
  advancedQuestionCard.querySelectorAll('.confidence-btn').forEach(btn=>btn.addEventListener('click',()=>setConfidence(qn,btn.dataset.level)));
