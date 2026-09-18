@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Week 9 CBL Case - Quick Guide</title>
+<style>
+@page{size:letter;margin:.30in}
+:root{--b:#503c31;--ink:#302924;--mut:#74685f;--line:#d8cabd;--gold:#f2ead3;--sage:#e9eee8;--rust:#f3e6de;--blue:#edf1f4}
+*{box-sizing:border-box}body{margin:0;color:var(--ink);font-family:Arial,Helvetica,sans-serif;font-size:8.15pt;line-height:1.12;background:#fff}
+main{max-width:8.5in;margin:auto;padding:.3in}h1{font-size:16.7pt;color:var(--b);margin:0 0 3px}
+h2{font-size:10pt;color:var(--b);margin:4.7px 0 2.2px;border-bottom:1.1px solid var(--line);padding-bottom:1.6px}
+.sub{color:var(--mut);font-weight:700;margin-bottom:3px}.memory{background:var(--b);color:#fff;border-radius:7px;padding:5.2px 6.3px;margin:3px 0;break-inside:avoid}
+.box{border:1px solid var(--line);border-radius:7px;padding:4.1px 5px;break-inside:avoid}.gold{background:var(--gold)}.sage{background:var(--sage)}.rust{background:var(--rust)}.blue{background:var(--blue)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:4px}table{width:100%;border-collapse:collapse;font-size:6.75pt;margin:2px 0;break-inside:avoid}
+th,td{border:1px solid var(--line);padding:2px 2.4px;vertical-align:top}th{background:#eee5dc;text-align:left;color:var(--b)}
+ul{margin:1.2px 0 1.2px 10px;padding:0}li{margin:.35px 0}.pagebreak{break-before:page}.tiny{font-size:6pt;color:var(--mut)}
+@media screen{body{background:#f3ece3}main{background:#fff;box-shadow:0 14px 34px rgba(65,43,31,.12);margin:20px auto}}
+</style>
+</head>
+<body><main>
+<h1>Week 9 CBL Case - Quick Guide</h1>
+<div class="sub">Foundations of Medicine • CBL • HIV Testing, OIs, ART, and CMV</div>
+
+<div class="memory"><b>Master chain:</b> screen correctly → interpret test performance and window periods → confirm HIV using the testing algorithm → stage immune risk by CD4 count → prevent/treat OIs → understand ART mechanisms and IRIS → use CMV-active therapy when indicated.</div>
+
+<h2>Interpreter Best Practices</h2>
+<div class="box sage"><b>Limited English proficiency:</b> the supplied source says encounters should <b>always</b> use a trained medical interpreter—not family, untrained fluent staff, or another untrained individual.</div>
+<div class="box blue"><b>Encounter setup:</b> physician face-to-face with patient • interpreter next to or slightly behind patient • speak directly to the patient • maintain eye contact • keep questions simple and ask one at a time.</div>
+
+<h2>Test Performance</h2>
+<table>
+<tr><th>Metric</th><th>Meaning / source value</th></tr>
+<tr><td><b>Sensitivity</b></td><td>TP/(TP+FN). OraQuick value in source: <b>99.3%</b>. Percentage positive when HIV is truly present.</td></tr>
+<tr><td><b>Specificity</b></td><td>TN/(TN+FP). OraQuick value in source: <b>99.8%</b>. Percentage negative when HIV is absent.</td></tr>
+<tr><td><b>PPV</b></td><td>TP/(TP+FP). Probability that a positive result is truly positive.</td></tr>
+<tr><td><b>NPV</b></td><td>Analogous concept for negative results.</td></tr>
+</table>
+<div class="memory"><b>Prevalence matters:</b> PPV and NPV depend on disease prevalence; sensitivity and specificity are intrinsic characteristics of the test in this discussion.</div>
+
+<h2>Hepatitis / TB Snapshot</h2>
+<table>
+<tr><th>Test pattern</th><th>Interpretation from source</th></tr>
+<tr><td>HAV</td><td>IgM = active infection; IgG = protective / immunization or prior infection.</td></tr>
+<tr><td>HBV immunized</td><td><b>HBsAg negative + HBcAb negative + HBsAb positive.</b></td></tr>
+<tr><td>HCV</td><td>Case source: not exposed.</td></tr>
+<tr><td>TB</td><td>QFT Gold = interferon-γ release assay; blood-test alternative to PPD with fewer false negatives from BCG vaccination.</td></tr>
+</table>
+
+<h2>HIV Generations + Window Period</h2>
+<table>
+<tr><th>Test</th><th>Detects</th><th>Time to positivity in source</th></tr>
+<tr><td><b>3rd generation</b></td><td>HIV IgG + IgM antibodies</td><td><b>20–30 days</b></td></tr>
+<tr><td><b>4th generation</b></td><td>HIV IgG + IgM + <b>p24 antigen</b></td><td><b>15–20 days</b></td></tr>
+</table>
+<div class="grid2">
+<div class="box gold"><b>Screening</b><br>Use first across a broad population; should be highly <b>sensitive</b> → negative helps rule OUT.</div>
+<div class="box rust"><b>Confirmatory</b><br>Used after a positive screen; should be highly <b>specific</b> → positive helps rule IN.</div>
+</div>
+
+<h2>Testing Algorithm</h2>
+<div class="memory"><b>4th-gen HIV-1/2 immunoassay → if positive, HIV-1/HIV-2 antibody differentiation immunoassay → if negative/indeterminate, HIV RNA testing.</b></div>
+
+<div class="pagebreak"></div>
+<h1 style="font-size:15pt">CD4 Thresholds + ART + OIs</h1>
+
+<h2>Opportunistic Infection Thresholds</h2>
+<table>
+<tr><th>CD4 level</th><th>High-yield risks from source</th></tr>
+<tr><td><b>&lt;200</b></td><td>Candidiasis • PCP</td></tr>
+<tr><td><b>&lt;100</b></td><td>Cryptococcal meningitis • CNS toxoplasmosis</td></tr>
+<tr><td><b>&lt;50</b></td><td>CMV retinitis • MAC (thresholds are idealized, not exact)</td></tr>
+<tr><td><b>Any CD4</b></td><td>Cryptosporidial diarrhea • Kaposi sarcoma</td></tr>
+</table>
+
+<h2>Biktarvy</h2>
+<div class="grid2">
+<div class="box sage"><b>Bictegravir</b><br>Integrase strand transfer inhibitor.</div>
+<div class="box blue"><b>Tenofovir alafenamide + emtricitabine</b><br>NRTIs.</div>
+</div>
+<div class="box gold"><b>Other ART classes to recognize:</b> NNRTIs • protease inhibitors • entry inhibitors • fusion inhibitors.</div>
+
+<h2>OI Prophylaxis</h2>
+<table>
+<tr><th>Drug</th><th>Prevents</th></tr>
+<tr><td><b>Azithromycin</b></td><td>MAC</td></tr>
+<tr><td><b>TMP-SMX</b></td><td>PCP</td></tr>
+</table>
+
+<h2>Lymphadenopathy in HIV</h2>
+<div class="grid2">
+<div class="box sage"><b>Persistent generalized LAD</b><br>Common in HIV; nontender axillary, cervical, and occipital nodes may begin early and persist into latency.</div>
+<div class="box rust"><b>Infectious causes</b><br>Mycobacterial infection is important; distinguish TB from NTM such as MAC.</div>
+</div>
+<div class="box blue"><b>Other causes:</b> IRIS • lymphoma • Kaposi sarcoma.</div>
+
+<h2>IRIS</h2>
+<table>
+<tr><th>Type</th><th>Meaning</th></tr>
+<tr><td><b>Paradoxical IRIS</b></td><td>Worsening/exacerbation of a recognized and treated OI after ART starts.</td></tr>
+<tr><td><b>Unmasking IRIS</b></td><td>Immune recovery reveals a previously subclinical infection.</td></tr>
+</table>
+<div class="box gold"><b>Caution:</b> neurologic OIs such as CNS toxoplasmosis can produce dangerous inflammatory responses; the source notes corticosteroids may be considered in those cases.</div>
+
+<h2>CMV Therapy</h2>
+<div class="memory"><b>Ganciclovir:</b> guanosine analog that preferentially inhibits viral DNA polymerase. CMV lacks the viral thymidylate kinase needed to activate acyclovir-family agents.</div>
+<div class="grid2">
+<div class="box sage"><b>Activation</b><br>Ganciclovir is converted to ganciclovir-monophosphate by a CMV viral kinase.</div>
+<div class="box blue"><b>Valganciclovir</b><br>Prodrug of ganciclovir with <b>better oral bioavailability</b>; preferred for outpatient PO therapy.</div>
+</div>
+<div class="box rust"><b>Toxicity:</b> myelosuppression + nephrotoxicity; source notes these agents are comparatively more toxic than acyclovir.</div>
+
+<div class="memory"><b>Last 30 seconds:</b> trained interpreter only • sensitivity 99.3%, specificity 99.8% • PPV/NPV depend on prevalence • 3rd gen = Ab only, 20–30d • 4th gen = Ab+p24, 15–20d • 4th-gen positive → differentiation assay → RNA if indeterminate • CD4 &lt;200 PCP/candida, &lt;100 crypto/toxo, &lt;50 CMV/MAC • Biktarvy = bictegravir + 2 NRTIs • ganciclovir for CMV, valganciclovir better PO.</div>
+<p class="tiny">Primary source: user-supplied “High Yield Information Week 9 CBL Case 2026.docx.” Its internal heading reads “High Yield Information – Week 8 CBL Case 2025”; this page is filed as Week 9 because it was supplied as the Week 9 CBL pairing.</p>
+</main></body></html>
