@@ -1,0 +1,11 @@
+Because you already committed the Practice Vignette shell, DO NOT replace the shell/index files.
+
+Required runtime replacement:
+  weeks/practice-vignettes/vignette-data.js
+
+Optional QA/source files:
+  weeks/practice-vignettes/vignette-data.json
+  BANK_VALIDATION.txt
+  README_APPLY_CONTENT_PATCH.txt
+
+After replacing vignette-data.js, the existing committed lobby will recognize BANK.quizzes[1] through BANK.quizzes[50] and activate all 50 cards automatically.
