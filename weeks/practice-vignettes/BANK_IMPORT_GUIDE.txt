@@ -1,0 +1,33 @@
+QUESTION BANK OBJECT SCHEMA
+
+Each quiz is stored under:
+window.FOM_VIGNETTE_BANK.quizzes[QUIZ_NUMBER]
+
+Each quiz object:
+{
+  title: "Practice Quiz 1",
+  subtitle: "Questions 1–10",
+  questions: [ ...10 question objects... ]
+}
+
+Each question object should contain:
+{
+  id: 1,
+  topic: "Topic label",
+  stem: "Full USMLE-style vignette and lead-in",
+  options: ["A text", "B text", "C text", "D text", "E text"],
+  answer: "A",
+  hint: "A nudge that does not reveal the answer",
+  explanation: "Detailed explanation of why the correct answer is correct",
+  optionExplanations: {
+    A: "Why A is correct/incorrect",
+    B: "Why B is correct/incorrect",
+    C: "Why C is correct/incorrect",
+    D: "Why D is correct/incorrect",
+    E: "Why E is correct/incorrect"
+  },
+  takeaway: "One-line key takeaway",
+  recognition: "How to recognize this pattern on Step 1"
+}
+
+The lobby and quiz engine require no changes when more quiz data is added. A card becomes active automatically when BANK.quizzes[n] exists.
