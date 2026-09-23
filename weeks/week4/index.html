@@ -1,29 +1,34 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Week 4 · Foundations of Genetics</title><style>
 :root{
   --bg:#f3ece3;--paper:#fffaf4;--paper-2:#fbf5ee;--ink:#3e3028;--muted:#78695f;
   --line:#dccfc3;--brown:#694a39;--brown-dark:#4a3428;--brown-soft:#8a654f;
-  --tan:#eee5dc;--tan-2:#e8ddd1;--sage:#70806a;--shadow:0 14px 34px rgba(65,43,31,.08)
+  --tan:#eee5dc;--tan-2:#e8ddd1;--shadow:0 14px 34px rgba(65,43,31,.08)
 }
 *{box-sizing:border-box}html{scroll-behavior:smooth}
-body{margin:0;background:radial-gradient(circle at top left,rgba(255,255,255,.55),transparent 30%),var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+body{margin:0;background:radial-gradient(circle at top left,rgba(255,255,255,.55),transparent 30%),var(--bg);
+color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
 a{text-decoration:none;color:inherit}
 .site-header{background:linear-gradient(135deg,var(--brown-dark),var(--brown),var(--brown-soft));color:#fff;padding:22px 22px 36px}
 .header-inner,main{max-width:1120px;margin:0 auto}
 .topbar{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:28px}
-.back-link{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:750;color:rgba(255,255,255,.85);padding:8px 11px;border:1px solid rgba(255,255,255,.16);border-radius:999px;background:rgba(255,255,255,.08)}
-.back-link:hover{background:rgba(255,255,255,.12)}
+.back-link{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:750;color:rgba(255,255,255,.85);
+padding:8px 11px;border:1px solid rgba(255,255,255,.16);border-radius:999px;background:rgba(255,255,255,.08)}
 .course-mark{font-size:12px;font-weight:750;opacity:.72;letter-spacing:.03em}
 .hero{display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:center}
-.hero-icon{width:86px;height:86px;border-radius:24px;display:grid;place-items:center;background:radial-gradient(circle at 32% 24%,rgba(255,255,255,.95),rgba(244,229,218,.9) 48%,rgba(223,204,190,.92));border:1px solid rgba(255,255,255,.26);box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 12px 26px rgba(35,22,15,.16)}
+.hero-icon{width:86px;height:86px;border-radius:24px;display:grid;place-items:center;
+background:radial-gradient(circle at 32% 24%,rgba(255,255,255,.95),rgba(244,229,218,.9) 48%,rgba(223,204,190,.92));
+border:1px solid rgba(255,255,255,.26);box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 12px 26px rgba(35,22,15,.16)}
 .hero-icon svg{width:60px;height:60px}
 .eyebrow{margin:0 0 7px;font-size:11px;text-transform:uppercase;letter-spacing:.12em;font-weight:850;opacity:.72}
 h1{margin:0;font-size:clamp(34px,5vw,54px);line-height:1.03;letter-spacing:-.035em}
 .subtitle{margin:11px 0 0;max-width:760px;color:rgba(255,255,255,.82);font-size:15px;line-height:1.6}
 main{padding:28px 22px 64px}
 .nav-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:28px}
-.nav-card{padding:16px 17px;background:rgba(255,250,244,.82);border:1px solid var(--line);border-radius:16px;box-shadow:0 6px 18px rgba(65,43,31,.05);transition:.16s ease}
+.nav-card{padding:16px 17px;background:rgba(255,250,244,.82);border:1px solid var(--line);border-radius:16px;
+box-shadow:0 6px 18px rgba(65,43,31,.05);transition:.16s ease}
 .nav-card:hover{transform:translateY(-2px);border-color:#cdbdad}
 .nav-card span{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.08em;font-weight:850;color:var(--brown-soft);margin-bottom:4px}
 .nav-card strong{font-size:15px}
@@ -38,77 +43,77 @@ main{padding:28px 22px 64px}
 .empty-library strong{display:block;font-size:15px;margin-bottom:4px}.empty-library p{margin:0;color:var(--muted);font-size:12px;line-height:1.5}
 .topic-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;padding:0 24px 24px}
 .topic-chip{padding:11px 12px;border-radius:14px;background:#f3ebe4;border:1px solid #e4d8ce;color:#6a5649;font-size:11px;font-weight:760;text-align:center}
-.lecture-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
-.lecture{display:flex;align-items:center;gap:13px;padding:15px 17px;border-bottom:1px solid #eadfd6}
-.lecture:nth-child(odd){border-right:1px solid #eadfd6}
-.num{width:30px;height:30px;flex:0 0 30px;border-radius:10px;display:grid;place-items:center;background:var(--tan);border:1px solid var(--tan-2);color:var(--brown);font-size:11px;font-weight:850}
-.lecture strong{display:block;font-size:12px}.lecture span{display:block;color:var(--muted);font-size:10px;margin-top:2px}
 .quiz-groups{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
 .quiz-group{padding:18px;border-radius:20px}.quiz-group h3{margin:0 0 5px;font-size:17px}.quiz-group .group-desc{margin:0 0 14px;color:var(--muted);font-size:12px;line-height:1.45}
-.quiz-link{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 0;border-top:1px solid #eadfd6;transition:.13s ease}
-.quiz-link:hover{padding-left:4px}.quiz-link strong{font-size:13px}
-.quiz-meta{display:flex;align-items:center;gap:7px;flex-wrap:wrap;justify-content:flex-end}
+.quiz-link{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 0;border-top:1px solid #eadfd6}
+.quiz-link strong{font-size:13px}.quiz-meta{display:flex;align-items:center;gap:7px}
 .pill{padding:5px 7px;border-radius:999px;background:#f2eae3;border:1px solid #e2d6cb;color:#6c5b50;font-size:10px;font-weight:800}
-.pill.complete{background:#e6eee3;border-color:#cfddca;color:#56674f}.pill.best{background:#eee6de}
 .arrow{font-size:15px;color:var(--brown)}
-.review-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:14px}
-.review-card{padding:19px;border-radius:20px}.review-card h3{margin:0 0 7px;font-size:17px}.review-card p{margin:0;color:var(--muted);font-size:12px;line-height:1.5}
+.review-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:14px}.review-card{padding:19px;border-radius:20px}
+.review-card h3{margin:0 0 7px;font-size:17px}.review-card p{margin:0;color:var(--muted);font-size:12px;line-height:1.5}
 .review-action{display:inline-flex;align-items:center;gap:8px;margin-top:15px;padding:9px 11px;border-radius:12px;background:var(--brown);color:#fff;font-size:12px;font-weight:800}
 .stat-row{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:13px}.stat{padding:12px;border-radius:14px;background:#f3ebe4;border:1px solid #e4d8ce}
 .stat strong{display:block;font-size:18px}.stat span{font-size:10px;color:var(--muted);font-weight:750}
-.pending{color:var(--muted);font-size:12px;padding:11px 0;border-top:1px solid #eadfd6}
-@media(max-width:820px){.hero{grid-template-columns:1fr}.nav-strip,.quiz-groups,.review-grid,.topic-row,.lecture-grid{grid-template-columns:1fr}.lecture{border-right:0!important}}
+.placeholder-note{margin-top:22px;padding:15px 16px;border:1px dashed #d2c3b6;background:rgba(255,250,244,.58);border-radius:15px;color:var(--muted);font-size:12px;line-height:1.55}
+
+.progress-panel{margin-bottom:16px;padding:18px 20px;border-radius:20px;background:linear-gradient(180deg,var(--paper),var(--paper-2));border:1px solid var(--line);box-shadow:var(--shadow)}
+.progress-top{display:flex;justify-content:space-between;align-items:end;gap:14px;margin-bottom:10px}.progress-top strong{font-size:15px}.progress-top span{font-size:12px;color:var(--muted);font-weight:750}
+.progress-track{height:9px;border-radius:999px;background:#e9ddd3;overflow:hidden}.progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--brown-soft),var(--brown));transition:width .2s ease}
+.day-block{margin-top:17px}.day-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 2px 9px}.day-head h3{margin:0;font-size:16px;color:var(--brown-dark)}.day-head span{font-size:10px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.08em}
+.lecture-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.lecture-card{background:linear-gradient(180deg,var(--paper),var(--paper-2));border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:0 7px 20px rgba(65,43,31,.05);display:flex;flex-direction:column;min-height:195px}.lecture-card.sal,.lecture-card.hpc,.lecture-card.self{border-color:#cdbdad}.lecture-card .badges{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:9px}.lecture-card .badge{padding:4px 7px;border-radius:999px;background:#f1e8df;border:1px solid #e3d6cb;color:#715849;font-size:9px;font-weight:850;text-transform:uppercase;letter-spacing:.05em}.lecture-card h4{margin:0 0 7px;font-size:16px;line-height:1.25}.lecture-card p{margin:0 0 12px;color:var(--muted);font-size:11px;line-height:1.45}.resource-actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:auto}.resource-btn{display:inline-flex;align-items:center;justify-content:center;padding:7px 9px;border-radius:10px;background:var(--brown);color:#fff;font-size:10px;font-weight:850}.resource-btn.secondary{background:#eee5dc;color:var(--brown-dark);border:1px solid #ded0c4}.resource-pdfs{margin-top:8px;font-size:9px;color:var(--muted);line-height:1.5}.resource-pdfs a{text-decoration:underline;text-underline-offset:2px}.review-check{display:flex;align-items:center;gap:7px;margin-top:11px;padding-top:10px;border-top:1px solid #e9ddd3;color:#6d5b50;font-size:10px;font-weight:800}.review-check input{accent-color:var(--brown)}
+.quiz-link{color:inherit}.quiz-link:hover strong{text-decoration:underline;text-underline-offset:3px}.quiz-link .pill.live{background:#e8eee7;border-color:#cad9c9;color:#456047}.quiz-link .pill.daily{background:#efe6dc;color:#684c3c}.section-count{font-weight:850;color:var(--brown-soft)}
+@media(max-width:900px){.lecture-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:620px){.lecture-grid{grid-template-columns:1fr}.progress-top{align-items:start;flex-direction:column}}
+
+@media(max-width:820px){.hero{grid-template-columns:1fr}.nav-strip,.quiz-groups,.review-grid,.topic-row{grid-template-columns:1fr}}
 </style></head>
 <body>
 <header class="site-header"><div class="header-inner">
   <div class="topbar"><a class="back-link" href="../../index.html">← All Weeks</a><div class="course-mark">FOUNDATIONS OF MEDICINE</div></div>
-  <div class="hero"><div class="hero-icon" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M15.2 7.5c0 11 17.6 20.4 17.6 33" fill="none" stroke="#654735" stroke-width="3" stroke-linecap="round"/><path d="M32.8 7.5c0 11-17.6 20.4-17.6 33" fill="none" stroke="#b78e70" stroke-width="3" stroke-linecap="round"/><path d="M17.6 12.2h12.8M14.8 18.5h18.4M14.8 25h18.4M17.4 31.5h13.2M20.1 37.6h7.8" fill="none" stroke="#7b5944" stroke-width="1.5" stroke-linecap="round"/></svg></div><div><p class="eyebrow">Week 4</p><h1>Foundations of Genetics</h1><p class="subtitle">Inheritance, molecular genetics, chromosome abnormalities, gene expression, and the application of genetic principles to human disease.</p></div></div>
+  <div class="hero"><div class="hero-icon" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M15.2 7.5c0 11 17.6 20.4 17.6 33" fill="none" stroke="#654735" stroke-width="3" stroke-linecap="round"/><path d="M32.8 7.5c0 11-17.6 20.4-17.6 33" fill="none" stroke="#b78e70" stroke-width="3" stroke-linecap="round"/><path d="M17.6 12.2h12.8M14.8 18.5h18.4M14.8 25h18.4M17.4 31.5h13.2M20.1 37.6h7.8" fill="none" stroke="#7b5944" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+  <div><p class="eyebrow">Week 4</p><h1>Foundations of Genetics</h1><p class="subtitle">Molecular genetics, gene expression, cell-cycle control, histology/pathology, ethical genetic testing, and meiotic chromosome abnormalities.</p></div></div>
 </div></header>
 <main>
-<nav class="nav-strip">
- <a class="nav-card" href="#notes"><span>01</span><strong>Lecture Notes</strong></a>
- <a class="nav-card" href="#quizzes"><span>02</span><strong>Practice Quizzes</strong></a>
- <a class="nav-card" href="#review"><span>03</span><strong>Review & Mastery</strong></a>
-</nav>
+<nav class="nav-strip"><a class="nav-card" href="#notes"><span>01</span><strong>Lecture Notes</strong></a>
+<a class="nav-card" href="#quizzes"><span>02</span><strong>Practice Quizzes</strong></a>
+<a class="nav-card" href="#review"><span>03</span><strong>Review & Mastery</strong></a></nav>
 
-<section class="section" id="notes"><div class="section-heading"><div><span class="section-kicker">Notes</span><h2>Lecture Library</h2></div><p>Ready to populate</p></div><div class="panel"><div class="empty-library"><div class="empty-icon">+</div><div><strong>Lecture notes will live here.</strong><p>The note library stays in the layout so it can be connected later without redesigning the week page.</p></div></div><div class="topic-row"><div class="topic-chip">Inheritance</div><div class="topic-chip">Chromosomes</div><div class="topic-chip">Gene Expression</div><div class="topic-chip">Genetic Disease</div></div></div></section>
+<section class="section" id="notes">
+<div class="section-heading"><div><span class="section-kicker">Notes</span><h2>Lecture Library</h2></div><p><span class="section-count">13 learning blocks</span> · Companion + Factoid resources</p></div>
+<div class="progress-panel"><div class="progress-top"><strong>Week 4 content progress</strong><span id="contentProgressText">0 of 13 reviewed</span></div><div class="progress-track"><div class="progress-fill" id="contentProgressFill"></div></div></div><div class="day-block"><div class="day-head"><h3>Monday</h3><span>3 resources</span></div><div class="lecture-grid"><article class="lecture-card core"><div class="badges"><span class="badge">Monday · 1</span><span class="badge">Core</span></div><h4>Nucleic Acids</h4><p>DNA denaturation/annealing, prokaryotic and eukaryotic DNA organization, chromatin remodeling, telomeres, repetitive DNA, and RNA classes.</p><div class="resource-actions"><a class="resource-btn" href="content/Week4_01_Nucleic_Acids_Companion.html">Open Companion</a><a class="resource-btn secondary" href="content/Week4_01_Nucleic_Acids_Factoid.html">Factoid Sheet</a></div><div class="resource-pdfs"><a href="content/Week4_01_Nucleic_Acids_Companion.pdf">Companion PDF</a> · <a href="content/Week4_01_Nucleic_Acids_Factoid.pdf">Factoid PDF</a></div><label class="review-check"><input type="checkbox" data-content-key="megahub:week4:content:1"> Mark reviewed</label></article><article class="lecture-card core"><div class="badges"><span class="badge">Monday · 2</span><span class="badge">Core</span></div><h4>Nucleus Structure & Cell Cycle</h4><p>Nuclear organization and transport, chromatin, cell-cycle phases, checkpoints, cyclins/CDKs, and control of cell division.</p><div class="resource-actions"><a class="resource-btn" href="content/Week4_02_Nucleus_Structure_Cell_Cycle_Companion.html">Open Companion</a><a class="resource-btn secondary" href="content/Week4_02_Nucleus_Structure_Cell_Cycle_Factoid.html">Factoid Sheet</a></div><div class="resource-pdfs"><a href="content/Week4_02_Nucleus_Structure_Cell_Cycle_Companion.pdf">Companion PDF</a> · <a href="content/Week4_02_Nucleus_Structure_Cell_Cycle_Factoid.pdf">Factoid PDF</a></div><label class="review-check"><input type="checkbox" data-content-key="megahub:week4:content:2"> Mark reviewed</label></article><article class="lecture-card core"><div class="badges"><span class="badge">Monday · 3</span><span class="badge">Core</span></div><h4>DNA Replication & Repair</h4><p>Replication machinery, telomeres, proofreading, mismatch/base/nucleotide excision repair, double-strand break repair, and disease correlations.</p><div class="resource-actions"><a class="resource-btn" href="content/Week4_03_DNA_Replication_Repair_Companion.html">Open Companion</a><a class="resource-btn secondary" href="content/Week4_03_DNA_Replication_Repair_Factoid.html">Factoid Sheet</a></div><div class="resource-pdfs"><a href="content/Week4_03_DNA_Replication_Repair_Companion.pdf">Companion PDF</a> · <a href="content/Week4_03_DNA_Replication_Repair_Factoid.pdf">Factoid PDF</a></div><label class="review-check"><input type="checkbox" data-content-key="megahub:week4:content:3"> Mark reviewed</label></article></div></div><div class="day-block"><div class="day-head"><h3>Structured Active Learning</h3><span>1 resource</span></div><div class="lecture-grid"><article class="lecture-card sal"><div class="badges"><span class="badge">SAL · 4</span><span class="badge">SAL</span></div><h4>Epithelium Lab & Fundamentals of Histology and Pathology</h4><p>Microscopy and Proscia, epithelial/connective tissue recognition, tissue processing, H&E/special stains, pathology terminology, and invasion.</p><div class="resource-actions"><a class="resource-btn" href="content/Week4_04_SAL_Epithelium_Histology_Pathology_Companion.html">Open Companion</a><a class="resource-btn secondary" href="content/Week4_04_SAL_Epithelium_Histology_Pathology_Factoid.html">Factoid Sheet</a></div><div class="resource-pdfs"><a href="content/Week4_04_SAL_Epithelium_Histology_Pathology_Companion.pdf">Companion PDF</a> · <a href="content/Week4_04_SAL_Epithelium_Histology_Pathology_Factoid.pdf">Factoid PDF</a></div><label class="review-check"><input type="checkbox" data-content-key="megahub:week4:content:4"> Mark reviewed</label></article></div></div><div class="day-block"><div class="day-head"><h3>Tuesday</h3><span>3 resources</span></div><div class="lecture-grid"><article class="lecture-card core"><div class="badges"><span class="badge">Tuesday · 5</span><span class="badge">Core</span></div><h4>DNA Recombination</h4><p>Homologous recombination, Holliday junctions, RecA/Rad51, site-specific recombination, V(D)J concepts, and clinical implications.</p><div class="resource-actions"><a class="resource-btn" href="content/Week4_05_DNA_Recombination_Companion.html">Open Companion</a><a class="resource-btn secondary" href="content/Week4_05_DNA_Recombination_Factoid.html">Factoid Sheet</a></div><div class="resource-pdfs"><a href="content/Week4_05_DNA_Recombination_Companion.pdf">Companion PDF</a> · <a href="content/Week4_05_DNA_Recombination_Factoid.pdf">Factoid PDF</a></div><label class="review-check"><input type="checkbox" data-content-key="megahub:week4:content:5"> Mark reviewed</label></article><article class="lecture-card core"><div class="badges"><span class="badge">Tuesday · 6</span><span class="badge">Core</span></div><h4>Bacterial Genetics & Virulence Determinants</h4><p>Transformation, conjugation, transduction, plasmids/transposons, phage genetics, horizontal gene transfer, and acquisition of virulence/resistance.</p><div class="resource-actions"><a class="resource-btn" href="content/Week4_06_Bacterial_Genetics_Companion.html">Open Companion</a><a class="resource-btn secondary" href="content/Week4_06_Bacterial_Genetics_Factoid.html">Factoid Sheet</a></div><div class="resource-pdfs"><a href="content/Week4_06_Bacterial_Genetics_Companion.pdf">Companion PDF</a> · <a href="content/Week4_06_Bacterial_Genetics_Factoid.pdf">Factoid PDF</a></div><label class="review-check"><input type="checkbox" data-content-key="megahub:week4:content:6"> Mark reviewed</label></article><article class="lecture-card core"><div class="badges"><span class="badge">Tuesday · 7</span><span class="badge">Core</span></div><h4>Transcription</h4><p>Prokaryotic/eukaryotic transcription, RNA polymerases, promoters, initiation/elongation/termination, RNA processing, rifampin, and alpha-amanitin.</p><div class="resource-actions"><a class="resource-btn" href="content/Week4_07_Transcription_Companion.html">Open Companion</a><a class="resource-btn secondary" href="content/Week4_07_Transcription_Factoid.html">Factoid Sheet</a></div><div class="resource-pdfs"><a href="content/Week4_07_Transcription_Companion.pdf">Companion PDF</a> · <a href="content/Week4_07_Transcription_Factoid.pdf">Factoid PDF</a></div><label class="review-check"><input type="checkbox" data-content-key="megahub:week4:content:7"> Mark reviewed</label></article></div></div><div class="day-block"><div class="day-head"><h3>Wednesday</h3><span>3 resources</span></div><div class="lecture-grid"><article class="lecture-card core"><div class="badges"><span class="badge">Wednesday · 8</span><span class="badge">Core</span></div><h4>Genetic Code & Translation</h4><p>Genetic code, tRNA/ribosomes, translation stages, mutation consequences, initiation control, iron-response regulation, IRES, and targeting.</p><div class="resource-actions"><a class="resource-btn" href="content/Week4_08_Genetic_Code_Translation_Companion.html">Open Companion</a><a class="resource-btn secondary" href="content/Week4_08_Genetic_Code_Translation_Factoid.html">Factoid Sheet</a></div><div class="resource-pdfs"><a href="content/Week4_08_Genetic_Code_Translation_Companion.pdf">Companion PDF</a> · <a href="content/Week4_08_Genetic_Code_Translation_Factoid.pdf">Factoid PDF</a></div><label class="review-check"><input type="checkbox" data-content-key="megahub:week4:content:8"> Mark reviewed</label></article><article class="lecture-card core"><div class="badges"><span class="badge">Wednesday · 9</span><span class="badge">Core</span></div><h4>Endomembranes</h4><p>ER/Golgi trafficking, signal sequences, protein quality control, COPI/COPII/clathrin, Rab/SNARE fusion, lysosomal targeting, secretion, CFTR, and endocytosis.</p><div class="resource-actions"><a class="resource-btn" href="content/Week4_09_Endomembranes_Companion.html">Open Companion</a><a class="resource-btn secondary" href="content/Week4_09_Endomembranes_Factoid.html">Factoid Sheet</a></div><div class="resource-pdfs"><a href="content/Week4_09_Endomembranes_Companion.pdf">Companion PDF</a> · <a href="content/Week4_09_Endomembranes_Factoid.pdf">Factoid PDF</a></div><label class="review-check"><input type="checkbox" data-content-key="megahub:week4:content:9"> Mark reviewed</label></article><article class="lecture-card core"><div class="badges"><span class="badge">Wednesday · 10</span><span class="badge">Core</span></div><h4>Cell Birth, Cell Death & Tissue Homeostasis</h4><p>Cell-cycle control, Rb/E2F, p53, flow cytometry, apoptosis pathways, caspases, BCL-2 family signaling, and tissue homeostasis.</p><div class="resource-actions"><a class="resource-btn" href="content/Week4_10_Cell_Birth_Death_Homeostasis_Companion.html">Open Companion</a><a class="resource-btn secondary" href="content/Week4_10_Cell_Birth_Death_Homeostasis_Factoid.html">Factoid Sheet</a></div><div class="resource-pdfs"><a href="content/Week4_10_Cell_Birth_Death_Homeostasis_Companion.pdf">Companion PDF</a> · <a href="content/Week4_10_Cell_Birth_Death_Homeostasis_Factoid.pdf">Factoid PDF</a></div><label class="review-check"><input type="checkbox" data-content-key="megahub:week4:content:10"> Mark reviewed</label></article></div></div><div class="day-block"><div class="day-head"><h3>Thursday</h3><span>2 resources</span></div><div class="lecture-grid"><article class="lecture-card core"><div class="badges"><span class="badge">Thursday · 11</span><span class="badge">Core</span></div><h4>Regulation of Gene Expression</h4><p>Transcriptional regulation, enhancers/silencers, chromatin and epigenetic control, DNA methylation, histone modification, and regulatory RNAs.</p><div class="resource-actions"><a class="resource-btn" href="content/Week4_11_Regulation_Gene_Expression_Companion.html">Open Companion</a><a class="resource-btn secondary" href="content/Week4_11_Regulation_Gene_Expression_Factoid.html">Factoid Sheet</a></div><div class="resource-pdfs"><a href="content/Week4_11_Regulation_Gene_Expression_Companion.pdf">Companion PDF</a> · <a href="content/Week4_11_Regulation_Gene_Expression_Factoid.pdf">Factoid PDF</a></div><label class="review-check"><input type="checkbox" data-content-key="megahub:week4:content:11"> Mark reviewed</label></article><article class="lecture-card hpc"><div class="badges"><span class="badge">Thursday · 12</span><span class="badge">HPC</span></div><h4>Ethical Dilemmas in Genetic Testing</h4><p>Consent, confidentiality, incidental findings, family implications, testing in minors, reproductive decision-making, uncertainty, and counseling ethics.</p><div class="resource-actions"><a class="resource-btn" href="content/Week4_12_Ethical_Dilemmas_Genetic_Testing_Companion.html">Open Companion</a><a class="resource-btn secondary" href="content/Week4_12_Ethical_Dilemmas_Genetic_Testing_Factoid.html">Factoid Sheet</a></div><div class="resource-pdfs"><a href="content/Week4_12_Ethical_Dilemmas_Genetic_Testing_Companion.pdf">Companion PDF</a> · <a href="content/Week4_12_Ethical_Dilemmas_Genetic_Testing_Factoid.pdf">Factoid PDF</a></div><label class="review-check"><input type="checkbox" data-content-key="megahub:week4:content:12"> Mark reviewed</label></article></div></div><div class="day-block"><div class="day-head"><h3>Self-Paced Learning</h3><span>1 resource</span></div><div class="lecture-grid"><article class="lecture-card self"><div class="badges"><span class="badge">Self-Paced · 13</span><span class="badge">Self-Paced</span></div><h4>Meiosis & Aneuploidy</h4><p>Meiotic segregation and recombination, nondisjunction, aneuploidy, gametogenesis, and chromosome-number abnormalities.</p><div class="resource-actions"><a class="resource-btn" href="content/SelfDirected_Meiosis_Aneuploidy_Companion.html">Open Companion</a><a class="resource-btn secondary" href="content/SelfDirected_Meiosis_Aneuploidy_Factoid_Sheet.html">Factoid Sheet</a></div><label class="review-check"><input type="checkbox" data-content-key="megahub:week4:content:13"> Mark reviewed</label></article></div></div></section>
 
-<section class="section" id="quizzes"><div class="section-heading"><div><span class="section-kicker">Quizzes</span><h2>Practice & Assessment</h2></div><p>3 linked quizzes</p></div>
-<div class="quiz-groups"><div class="quiz-group"><h3>Focused Practice</h3><p class="group-desc">Histology and pathology foundations.</p><a class="quiz-link" data-quiz-key="lecture4-histology-pathology-40" href="../../quizzes/week4_histology_pathology_40_redesigned.html">
-      <strong>Fundamentals of Histology &amp; Pathology</strong>
-      <div class="quiz-meta"><span class="pill">40 Q</span><span class="pill quiz-status">Ready</span><span class="arrow">→</span></div>
-    </a></div><div class="quiz-group"><h3>Core Assessments</h3><p class="group-desc">Broad mixed genetics practice.</p><a class="quiz-link" data-quiz-key="week4-foundations-genetics-150" href="../../quizzes/week4_foundations_genetics_150_redesigned.html">
-      <strong>Comprehensive: Foundations of Genetics</strong>
-      <div class="quiz-meta"><span class="pill">150 Q</span><span class="pill quiz-status">Ready</span><span class="arrow">→</span></div>
-    </a></div><div class="quiz-group"><h3>Image Practice</h3><p class="group-desc">Visual epithelial histology reasoning.</p><a class="quiz-link" data-quiz-key="clinical-epithelial-image-25" href="../../quizzes/week4_clinical_epithelial_histology_images_25_redesigned.html">
-      <strong>Clinical Epithelial Histology Image Challenge</strong>
-      <div class="quiz-meta"><span class="pill">25 Q</span><span class="pill quiz-status">Ready</span><span class="arrow">→</span></div>
-    </a></div></div></section>
-
-<section class="section" id="review"><div class="section-heading"><div><span class="section-kicker">Review</span><h2>Review & Mastery</h2></div><p>Shared across the course</p></div>
-<div class="review-grid">
- <div class="review-card"><h3>Highly Missed & Filed for Review</h3><p>Concepts you manually file or repeatedly miss collect in the shared review bank for targeted practice.</p><a class="review-action" href="../../review/highly_missed.html">Open Review Bank →</a></div>
- <div class="review-card"><h3>Week 4 Progress</h3><p>Completion updates automatically from the linked quizzes on this device.</p><div class="stat-row"><div class="stat"><strong id="completedCount">0/3</strong><span>Quiz completion</span></div><div class="stat"><strong id="bestScore">—</strong><span>Best score</span></div></div></div>
+<section class="section" id="quizzes">
+<div class="section-heading"><div><span class="section-kicker">Quizzes</span><h2>Practice &amp; Assessment</h2></div><p><span class="section-count">7 quiz sets</span> · 415 questions total</p></div>
+<div class="quiz-groups">
+<div class="quiz-group"><h3>Daily Practice</h3><p class="group-desc">Four 50-question sets restricted to each day’s lecture block.</p>
+<a class="quiz-link" href="../../quizzes/week4_monday_daily_50.html"><strong>Monday Daily Quiz</strong><div class="quiz-meta"><span class="pill daily">50 Q</span><span class="pill live">Live</span><span class="arrow">→</span></div></a>
+<a class="quiz-link" href="../../quizzes/week4_tuesday_daily_50.html"><strong>Tuesday Daily Quiz</strong><div class="quiz-meta"><span class="pill daily">50 Q</span><span class="pill live">Live</span><span class="arrow">→</span></div></a>
+<a class="quiz-link" href="../../quizzes/week4_wednesday_daily_50.html"><strong>Wednesday Daily Quiz</strong><div class="quiz-meta"><span class="pill daily">50 Q</span><span class="pill live">Live</span><span class="arrow">→</span></div></a>
+<a class="quiz-link" href="../../quizzes/week4_thursday_daily_50.html"><strong>Thursday Daily Quiz</strong><div class="quiz-meta"><span class="pill daily">50 Q</span><span class="pill live">Live</span><span class="arrow">→</span></div></a></div>
+<div class="quiz-group"><h3>Core Assessment</h3><p class="group-desc">The existing broad mixed Week 4 genetics assessment is retained.</p>
+<a class="quiz-link" href="../../quizzes/week4_foundations_genetics_150_redesigned.html"><strong>Week 4 Comprehensive</strong><div class="quiz-meta"><span class="pill">150 Q</span><span class="pill live">Live</span><span class="arrow">→</span></div></a></div>
+<div class="quiz-group"><h3>SAL &amp; Image Practice</h3><p class="group-desc">The two existing focused histology/pathology assessments remain available.</p>
+<a class="quiz-link" href="../../quizzes/week4_histology_pathology_40_redesigned.html"><strong>Histology &amp; Pathology Review</strong><div class="quiz-meta"><span class="pill">40 Q</span><span class="pill live">Live</span><span class="arrow">→</span></div></a>
+<a class="quiz-link" href="../../quizzes/week4_clinical_epithelial_histology_images_25_redesigned.html"><strong>Clinical Epithelial Image Challenge</strong><div class="quiz-meta"><span class="pill">25 Q</span><span class="pill live">Live</span><span class="arrow">→</span></div></a></div>
 </div></section>
-</main>
-<script>
+
+<section class="section" id="review">
+<div class="section-heading"><div><span class="section-kicker">Review</span><h2>Review &amp; Mastery</h2></div><p>Shared across Week 4 quizzes</p></div>
+<div class="review-grid"><div class="review-card"><h3>Highly Missed &amp; Filed for Review</h3><p>Missed or manually filed Week 4 concepts feed into the same shared review system used across the course.</p><a class="review-action" href="../../review/highly_missed.html">Open Review Bank →</a></div><div class="review-card"><h3>Week 4 Status</h3><p>The hub now reflects the complete lecture-day structure and all currently live Week 4 assessments.</p><div class="stat-row"><div class="stat"><strong id="reviewedStat">0/13</strong><span>Content reviewed</span></div><div class="stat"><strong>7</strong><span>Quiz sets live</span></div></div></div></div></section>
+
+<div class="placeholder-note"><strong>Week 4 live build:</strong> 13 learning blocks are organized in the official Monday → SAL → Tuesday → Wednesday → Thursday → Self-Paced sequence. Daily quizzes exclude SAL and Self-Paced content by design; those resources remain separate.</div>
+</main><script>
 (function(){
- const links=[...document.querySelectorAll('[data-quiz-key]')];
- let completed=0,bests=[];
- links.forEach(link=>{
-   const key=link.dataset.quizKey;
-   let p=null;
-   try{p=JSON.parse(localStorage.getItem('quiz-progress:'+key)||localStorage.getItem('med-quiz-folder:'+key)||'null')}catch(e){}
-   const bestRaw=localStorage.getItem('quiz-best:'+key);
-   let best=bestRaw!==null?Number(bestRaw):null;
-   if((best===null||Number.isNaN(best))&&p&&p.completed&&typeof p.percent==='number')best=p.percent;
-   const status=link.querySelector('.quiz-status');
-   if(p&&p.completed){completed++;status.textContent='Complete';status.classList.add('complete')}
-   else if(p&&p.answered){status.textContent=p.answered+' answered'}
-   if(best!==null&&!Number.isNaN(best)){bests.push(best);const b=document.createElement('span');b.className='pill best';b.textContent='Best '+best+'%';link.querySelector('.quiz-meta').insertBefore(b,status)}
- });
- document.getElementById('completedCount').textContent=completed+'/'+links.length;
- document.getElementById('bestScore').textContent=bests.length?Math.max(...bests)+'%':'—';
+  const boxes=[...document.querySelectorAll('input[data-content-key]')];
+  const fill=document.getElementById('contentProgressFill');
+  const text=document.getElementById('contentProgressText');
+  const stat=document.getElementById('reviewedStat');
+  function update(){
+    let done=0;
+    boxes.forEach(b=>{b.checked=localStorage.getItem(b.dataset.contentKey)==='1'; if(b.checked) done++;});
+    const pct=Math.round(done/boxes.length*100);
+    fill.style.width=pct+'%'; text.textContent=done+' of '+boxes.length+' reviewed'; stat.textContent=done+'/'+boxes.length;
+  }
+  boxes.forEach(b=>b.addEventListener('change',()=>{localStorage.setItem(b.dataset.contentKey,b.checked?'1':'0');update();}));
+  window.addEventListener('storage',update); update();
 })();
-</script>
-</body></html>
+</script></body></html>
