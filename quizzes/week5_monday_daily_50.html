@@ -1,0 +1,644 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Week 5 Monday Daily Quiz — Foundations of Cancer</title>
+<style>
+:root{
+  --bg:#f3ece3;--paper:#fffaf4;--paper2:#f8f1e9;--ink:#3e3028;--muted:#78695f;
+  --line:#dccfc3;--brown:#694a39;--brown-dark:#4a3428;--brown-soft:#8a654f;
+  --tan:#eee5dc;--tan2:#e8ddd1;--good:#55704e;--goodbg:#e9f1e5;
+  --bad:#92584f;--badbg:#f6e6e3;--gold:#9d7c45;--goldbg:#f5ecdb;
+  --highlight:#f6dd74;--shadow:0 14px 34px rgba(65,43,31,.08)
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(circle at top left,rgba(255,255,255,.55),transparent 30%),var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+button{font:inherit}a{text-decoration:none;color:inherit}
+.hero{background:linear-gradient(135deg,var(--brown-dark),var(--brown),var(--brown-soft));color:#fff;padding:20px 22px 32px}
+.hero-inner,main{max-width:1040px;margin:auto}
+.hero-top{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:24px}
+.back-link{display:inline-flex;align-items:center;gap:8px;padding:8px 11px;border:1px solid rgba(255,255,255,.17);border-radius:999px;background:rgba(255,255,255,.08);color:rgba(255,255,255,.88);font-size:12px;font-weight:800}
+.quiz-kicker{font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;opacity:.7}
+.hero-main{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center}
+.hero-icon{width:70px;height:70px;border-radius:21px;display:grid;place-items:center;background:radial-gradient(circle at 32% 24%,rgba(255,255,255,.96),rgba(244,229,218,.9) 48%,rgba(223,204,190,.92));border:1px solid rgba(255,255,255,.25);box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 10px 22px rgba(35,22,15,.14)}
+.hero-icon svg{width:49px;height:49px}.hero h1{margin:0;font-size:clamp(30px,5vw,48px);line-height:1.03;letter-spacing:-.035em}
+.hero p{margin:9px 0 0;color:rgba(255,255,255,.8);max-width:800px;font-size:14px;line-height:1.55}
+.modebar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:19px}.modebtn{border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.08);color:white;border-radius:12px;padding:9px 12px;font-weight:800;font-size:12px;cursor:pointer;transition:.16s}
+.modebtn:hover{background:rgba(255,255,255,.12)}.modebtn.active{background:white;color:var(--brown);border-color:white}.mode-note{font-size:11px;color:rgba(255,255,255,.72);flex-basis:100%;margin-top:1px}
+main{padding:20px 18px 60px}.progress-shell{position:sticky;top:0;z-index:20;background:rgba(243,236,227,.94);backdrop-filter:blur(12px);padding:10px 0 12px}
+.progress-card{background:rgba(255,250,244,.94);border:1px solid var(--line);border-radius:17px;padding:12px 14px;box-shadow:0 7px 20px rgba(65,43,31,.06)}
+.progress-row{display:flex;justify-content:space-between;gap:10px;font-size:12px;font-weight:850}.progress-track{height:7px;background:#e5d9ce;border-radius:999px;overflow:hidden;margin-top:9px}.progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--brown-soft),var(--brown));transition:.2s}
+.study-tools{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-top:10px;padding-top:10px;border-top:1px solid #eadfd6}.tool-label{font-size:10px;font-weight:900;color:var(--brown-soft);text-transform:uppercase;letter-spacing:.08em;margin-right:2px}
+.tool-btn{border:1px solid var(--line);background:var(--paper2);color:var(--brown);border-radius:10px;padding:7px 9px;font-size:11px;font-weight:800;cursor:pointer}.tool-btn:hover{background:#efe4da}.tool-btn.danger{color:#81554f}.tool-status{font-size:10px;color:var(--muted);margin-left:auto;max-width:330px;text-align:right}
+mark.study-highlight{background:var(--highlight);color:inherit;border-radius:3px;padding:0 .06em;box-shadow:inset 0 -1px 0 rgba(122,91,37,.12)}
+.highlightable{user-select:text;-webkit-user-select:text}.choice-copy{user-select:text;-webkit-user-select:text}
+.question,.advanced-card,.review-card{background:linear-gradient(180deg,var(--paper),#fdf7f0);border:1px solid var(--line);border-radius:20px;padding:21px;margin:0 0 15px;box-shadow:var(--shadow);scroll-margin-top:132px}
+.qtop{display:flex;justify-content:space-between;gap:12px;align-items:center}.qnum{display:inline-flex;align-items:center;padding:6px 9px;border-radius:999px;background:var(--tan);border:1px solid var(--tan2);font-size:11px;font-weight:900;color:var(--brown);letter-spacing:.02em}.tags{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.tag{font-size:9px;font-weight:850;padding:5px 7px;border-radius:999px;border:1px solid var(--line);background:var(--paper2);color:var(--muted)}
+.stem{font-size:17px;line-height:1.58;margin:15px 0 15px;font-weight:600}.choices{display:grid;gap:9px}.choice-row{display:grid;grid-template-columns:1fr auto;gap:8px}
+.choice{width:100%;text-align:left;border:1px solid var(--line);background:#fffdfa;border-radius:14px;padding:11px 13px;cursor:pointer;color:var(--ink);line-height:1.45;display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:start;transition:border-color .14s,background .14s,transform .14s}
+.choice:hover{border-color:#c9b7a8;background:#fffaf5}.choice-letter{width:28px;height:28px;border-radius:9px;display:grid;place-items:center;background:#f1e7de;border:1px solid #e1d4c9;color:var(--brown);font-size:11px;font-weight:900;user-select:none}.choice-copy{padding-top:4px}
+.choice.selected{border:2px solid var(--brown-soft);background:#f3e8df}.choice.selected .choice-letter{background:var(--brown);border-color:var(--brown);color:#fff}.choice.correct{border:2px solid var(--good);background:var(--goodbg);color:#30442d}.choice.correct .choice-letter{background:var(--good);border-color:var(--good);color:#fff}.choice.wrong{border:2px solid var(--bad);background:var(--badbg);color:#6f3f39}.choice.wrong .choice-letter{background:var(--bad);border-color:var(--bad);color:#fff}
+.choice.struck{text-decoration:line-through;opacity:.52;background:#f0ece8}.strike{min-width:43px;border:1px solid var(--line);background:var(--paper2);border-radius:13px;cursor:pointer;font-weight:900;color:var(--muted)}.strike.active{background:#e7ddd4}
+.feedback{display:none;margin-top:12px;padding:12px 13px;border-radius:12px;font-size:13px;line-height:1.52}.feedback.show.good{display:block;background:var(--goodbg);border:1px solid #c7d6c1;color:#355231}.feedback.show.bad{display:block;background:var(--badbg);border:1px solid #dfc1bb;color:#713f39}
+.confidence-wrap{margin-top:14px;padding-top:13px;border-top:1px dashed var(--line)}
+.confidence-panel{padding:11px 12px;border:1px solid var(--line);border-radius:13px;background:#fffaf5}
+.confidence-label{font-size:10px;font-weight:900;color:var(--muted);margin-bottom:3px;text-transform:uppercase;letter-spacing:.07em}
+.confidence-note{font-size:10px;color:#907f73;margin-bottom:8px;line-height:1.35}
+.confidence-buttons{display:flex;gap:6px;flex-wrap:wrap}
+.confidence-btn{border:1px solid var(--line);background:var(--paper2);color:var(--muted);border-radius:999px;padding:7px 10px;font-size:10px;font-weight:800;cursor:pointer}
+.confidence-btn:hover{border-color:#c9b7a8;background:#f8eee6}
+.confidence-btn.active{background:var(--brown);color:#fff;border-color:var(--brown)}
+.bottom-actions,.review-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:24px 0}.primary,.secondary,.review-decision{border-radius:12px;padding:11px 16px;font-weight:850;cursor:pointer;font-size:12px}.primary{border:none;background:var(--brown);color:white}.secondary{border:1px solid var(--line);background:var(--paper);color:var(--brown)}.primary:disabled{opacity:.45;cursor:not-allowed}#gradeBtn{display:none}
+.advanced-shell{display:none}.advanced-shell.show{display:block}#quiz.hidden{display:none}.advanced-progress-label{font-size:10px;font-weight:900;color:var(--brown-soft);text-transform:uppercase;letter-spacing:.08em;margin-bottom:7px}.review-card{display:none;border-color:#c8b18f;background:linear-gradient(180deg,#fffaf4,#f7eee2)}.review-card.show{display:block}.review-title{font-size:24px;font-weight:900;color:var(--brown);margin:0 0 8px}.review-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}.meta-card{border:1px solid var(--line);border-radius:11px;padding:10px;background:#fffaf4}.meta-card span{display:block;font-size:9px;font-weight:850;letter-spacing:.07em;color:var(--muted);text-transform:uppercase;margin-bottom:4px}.meta-card strong{font-size:13px;color:var(--brown)}.concept-box{padding:12px 14px;border-radius:11px;background:var(--goldbg);border:1px solid #dfcda9;line-height:1.45;margin:12px 0}.concept-box strong{color:#735b2c}.transfer{margin-top:18px;padding-top:17px;border-top:1px solid var(--line)}.transfer h3{margin:0 0 8px;color:var(--brown)}.transfer-status{margin:10px 0;padding:10px 12px;border-radius:10px;display:none;font-size:13px;line-height:1.45}.transfer-status.show.good{display:block;background:var(--goodbg);border:1px solid #c7d6c1;color:#355231}.transfer-status.show.bad{display:block;background:var(--badbg);border:1px solid #dfc1bb;color:#713f39}.decision-box{margin-top:18px;padding:14px;border:1px solid var(--line);border-radius:12px;background:#fffaf4}.decision-box h3{margin:0 0 5px;font-size:16px}.decision-box p{margin:0 0 10px;color:var(--muted);font-size:12px}.review-decision{border:1px solid var(--line);background:var(--paper2);color:var(--brown)}.review-decision.active-understand{background:var(--goodbg);border-color:#adc3a5;color:#355231}.review-decision.active-file{background:var(--badbg);border-color:#d6ada5;color:#713f39}
+.result-overlay{position:fixed;inset:0;background:rgba(45,31,24,.70);z-index:100;display:none;align-items:flex-start;justify-content:center;padding:30px 14px;overflow:auto}.result-overlay.show{display:flex}.result-card{width:min(760px,100%);background:var(--paper);border-radius:22px;border:1px solid var(--line);box-shadow:0 26px 80px rgba(0,0,0,.25);overflow:hidden}.result-grid{display:grid;grid-template-columns:240px 1fr}.hunter-wrap{position:relative;min-height:320px;background:#ddd}.hunter-img{width:100%;height:100%;min-height:320px;object-fit:cover;cursor:pointer;user-select:none;-webkit-user-drag:none}.hunter-bubble{position:absolute;left:12px;right:12px;bottom:12px;background:rgba(255,250,244,.96);border:1px solid var(--line);border-radius:12px;padding:10px 12px;color:var(--brown);font-size:13px;font-weight:850;text-align:center;opacity:0;transform:translateY(8px);transition:.18s;pointer-events:none}.hunter-bubble.show{opacity:1;transform:translateY(0)}.result-content{padding:24px}.result-content h2{margin:0 0 5px;color:var(--brown);font-size:29px}.score-big{font-size:24px;font-weight:900;margin:6px 0 14px}.review-box{border-top:1px solid var(--line);margin-top:15px;padding-top:15px}.review-list{margin:6px 0 14px;padding-left:20px}.review-list li{margin:5px 0;line-height:1.35}.strong{color:var(--good);font-weight:800}.need{color:var(--bad);font-weight:800}.confidence-summary{margin-top:10px;padding:10px 12px;border-radius:10px;background:#f5ede4;border:1px solid var(--line)}.confidence-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:8px}.conf-stat{padding:9px 10px;border:1px solid var(--line);border-radius:9px;background:#fffaf4}.conf-stat b{display:block;font-size:18px;color:var(--brown)}.conf-stat span{font-size:10px;color:var(--muted)}.result-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.footer-note{max-width:1040px;margin:-34px auto 42px;padding:0 18px;color:var(--muted);font-size:11px;line-height:1.5}
+@media(max-width:720px){.hero-main{grid-template-columns:1fr}.hero-icon{width:60px;height:60px}.hero-top{align-items:flex-start}.qtop{flex-direction:column;align-items:flex-start}.tags{justify-content:flex-start}.review-meta{grid-template-columns:1fr}.result-grid{grid-template-columns:1fr}.hunter-wrap,.hunter-img{min-height:260px;height:260px}.confidence-grid{grid-template-columns:1fr}.tool-status{flex-basis:100%;max-width:none;text-align:left;margin-left:0}}
+</style>
+
+<style>
+.flag-btn{border:1px solid var(--line);background:var(--paper2);color:var(--brown);border-radius:999px;padding:7px 10px;font-size:10px;font-weight:900;cursor:pointer;white-space:nowrap}
+.flag-btn:hover{background:#f2e7de;border-color:#c8b5a6}
+.flag-btn.active{background:var(--brown);color:#fff;border-color:var(--brown)}
+.review-resource{margin:14px 0 4px;padding:12px 13px;border:1px solid #dfd0c3;border-radius:13px;background:#fff8ef;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.review-resource span{font-size:10px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.review-resource a,.factoid-links a{color:var(--brown);font-weight:900;text-decoration:none}
+.review-resource a:hover,.factoid-links a:hover{text-decoration:underline}
+.factoid-links{margin-top:14px;padding:12px 13px;border:1px solid var(--line);border-radius:13px;background:#fffaf5}
+.factoid-links strong{display:block;margin-bottom:7px}
+.factoid-row{display:flex;gap:8px;flex-wrap:wrap}
+.factoid-row a{display:inline-flex;padding:7px 9px;border-radius:9px;background:var(--tan);font-size:11px}
+@media(max-width:560px){.qtop{align-items:flex-start}.flag-btn{font-size:9.5px;padding:6px 8px}}
+</style>
+
+</head>
+<body>
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-top">
+      <a class="back-link" href="../notes/Week%205/Week%205%20Note%20Hub/index.html">← Week 5 Hub</a>
+      <div class="quiz-kicker">FOUNDATIONS OF MEDICINE · WEEK 5</div>
+    </div>
+    <div class="hero-main">
+      <div class="hero-icon" aria-hidden="true">
+        <svg viewBox="0 0 48 48" role="img" aria-label="Cancer biology cell symbol">
+          <circle cx="24" cy="24" r="15" fill="#e8d5c7" stroke="#654735" stroke-width="1.8"/>
+          <circle cx="21" cy="22" r="6.2" fill="#f7eee7" stroke="#8a654f" stroke-width="1.5"/>
+          <circle cx="31.5" cy="17" r="2.1" fill="#b98f72"/><circle cx="32" cy="30" r="2.6" fill="#c99b7c"/>
+          <path d="M10 13l4.2 3.2M36 9l-2.8 5M39 35l-4.2-3.1M9 34l4.8-2.3" fill="none" stroke="#8a654f" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div><div><h1>Monday Daily Quiz</h1><p>Introduction to Neoplasia · Genetic Testing for Familial Cancer Syndromes · Molecular Diagnostics · Molecular Cytogenetics · 50 mixed questions</p></div>
+    </div>
+    <div class="modebar">
+      <button class="modebtn active" id="practiceMode" type="button">Practice</button>
+      <button class="modebtn" id="examMode" type="button">Exam</button>
+      <button class="modebtn" id="advancedMode" type="button">Advanced Review</button>
+      <span class="mode-note" id="modeNote">Immediate feedback is ON.</span>
+    </div>
+  </div>
+</header>
+<main>
+  <div class="progress-shell">
+    <div class="progress-card">
+      <div class="progress-row"><span id="answeredLabel">0 of 50 answered</span><span id="scoreLabel">Practice score: —</span></div>
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="study-tools" aria-label="Study tools">
+        <span class="tool-label">Highlight</span>
+        <button class="tool-btn" id="highlightBtn" type="button">Highlight selection</button>
+        <button class="tool-btn" id="eraseHighlightBtn" type="button">Erase selected highlight</button>
+        <button class="tool-btn danger" id="clearHighlightsBtn" type="button">Clear all</button>
+        <span class="tool-status" id="highlightStatus">Select text in a question stem or answer choice.</span>
+      </div>
+    </div>
+  </div>
+
+<div id="quiz"></div>
+
+<div class="advanced-shell" id="advancedShell">
+  <div class="advanced-card" id="advancedQuestionCard"></div>
+  <div class="review-card" id="advancedReviewCard"></div>
+</div>
+
+<div class="bottom-actions">
+<button class="primary" id="gradeBtn" type="button">Grade Quiz</button>
+<button class="secondary" id="resetBtn" type="button">Reset Quiz</button>
+</div>
+<footer class="footer-note">Source basis: the Week 5 lecture companions, official Week 5 objectives, and Week 5 high-yield review for this day. Yellow highlights are stored in this browser and are intentionally preserved when the quiz is reset.</footer>
+</main>
+
+<div class="result-overlay" id="resultOverlay" role="dialog" aria-modal="true" aria-labelledby="resultTitle">
+<div class="result-card"><div class="result-grid">
+<div class="hunter-wrap"><img class="hunter-img" id="hunterImg" alt="Hunter result reaction"><div class="hunter-bubble" id="hunterBubble" aria-live="polite"></div></div>
+<div class="result-content"><h2 id="resultTitle"></h2><div class="score-big" id="finalScore"></div><div class="review-box"><h3>Hunter's Review</h3><div id="reviewBody"></div></div>
+<div class="result-actions"><button class="primary" id="reviewMissedBtn" type="button">Review missed questions</button><a class="secondary" id="openReviewBankBtn" href="../notes/review/Review_the_Module_COMPLETE_WEEK8.html" style="text-decoration:none;display:inline-flex;align-items:center;justify-content:center">Open Highly Missed Quiz</a><button class="secondary" id="closeResultBtn" type="button">Close</button></div>
+</div></div></div></div>
+
+<script>
+const QUESTIONS=[{"difficulty":"Step 1-style","lecture":"Introduction to Neoplasia","topic":"Grade & differentiation","concept":"Pleomorphic adenoma is a mixed tumor with divergent differentiation from one cell line.","stem":"A salivary-gland tumor contains glandular epithelium and cartilage-like stroma, but molecular analysis shows both components arose from the same progenitor. Which diagnosis best fits this pattern?","options":["Pleomorphic adenoma","Teratoma","Hamartoma","Choristoma","Liposarcoma"],"answer":"A","explanation":"Pleomorphic adenoma is a mixed tumor with divergent differentiation from one cell line.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/01_Introduction_to_Neoplasia_Factoid.html","factoidLabel":"Introduction to Neoplasia","number":1,"reviewCheck":{"stem":"Which statement about Carcinoma is correct?","options":["Full-thickness epithelial dysplasia with an intact basement membrane.","Classically spread via lymphatics.","Gross protruding lesion; does not by itself mean benign.","Malignant epithelial tumor.","Anatomic extent; TNM = tumor, nodes, metastasis."],"answer":"D","explanation":"Carcinoma: Malignant epithelial tumor."}},{"difficulty":"Step 1-style","lecture":"Introduction to Neoplasia","topic":"Dysplasia, CIS & invasion","concept":"Basement-membrane breach is the critical histologic boundary between in situ disease and invasive carcinoma.","stem":"A previously dysplastic epithelial lesion is re-biopsied. Which new finding would most decisively establish that it has become an invasive carcinoma?","options":["A higher mitotic rate","Neoplastic cells breaching the basement membrane","More nuclear pleomorphism","Loss of surface maturation","A higher nuclear-to-cytoplasmic ratio"],"answer":"B","explanation":"Basement-membrane breach is the critical histologic boundary between in situ disease and invasive carcinoma.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/01_Introduction_to_Neoplasia_Factoid.html","factoidLabel":"Introduction to Neoplasia","number":2,"reviewCheck":{"stem":"Which fact should be associated with Sarcomas?","options":["Classically spread hematogenously.","Gross protruding lesion; does not by itself mean benign.","Malignant epithelial tumor.","Tumor breaches the basement membrane.","Localized; does not invade or metastasize."],"answer":"A","explanation":"Sarcomas: Classically spread hematogenously."}},{"difficulty":"In-house","lecture":"Introduction to Neoplasia","topic":"Grade & differentiation","concept":"Anaplasia means lack of differentiation and is a hallmark of malignancy.","stem":"A malignant tumor is composed of highly pleomorphic cells with little resemblance to the tissue of origin. Which term best describes this degree of differentiation?","options":["Dysplasia confined to the lower third","Desmoplasia","Anaplasia","Metaplasia","Hyperplasia"],"answer":"C","explanation":"Anaplasia means lack of differentiation and is a hallmark of malignancy.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/01_Introduction_to_Neoplasia_Factoid.html","factoidLabel":"Introduction to Neoplasia","number":3,"reviewCheck":{"stem":"Which label best fits this high-yield fact: Malignant epithelial tumor.?","options":["Sarcoma","Invasive carcinoma","Sarcomas","Carcinoma","Benign neoplasm"],"answer":"D","explanation":"Carcinoma: Malignant epithelial tumor."}},{"difficulty":"In-house","lecture":"Introduction to Neoplasia","topic":"TNM staging & metastasis","concept":"M describes the presence or absence of distant metastasis; stage IV generally implies distant metastatic spread.","stem":"In the TNM system, which component indicates distant metastatic disease?","options":["Grade","Ki-67","N","M","T"],"answer":"D","explanation":"M describes the presence or absence of distant metastasis; stage IV generally implies distant metastatic spread.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/01_Introduction_to_Neoplasia_Factoid.html","factoidLabel":"Introduction to Neoplasia","number":4,"reviewCheck":{"stem":"Which term should be paired with the following fact: Classically spread via lymphatics.","options":["Polyp","Invasive carcinoma","Sarcomas","Carcinoma","Carcinomas"],"answer":"E","explanation":"Carcinomas: Classically spread via lymphatics."}},{"difficulty":"In-house","lecture":"Introduction to Neoplasia","topic":"Introduction to Neoplasia","concept":"Neoplasia persists independently of the original stimulus and arises from a single precursor cell.","stem":"Which description best matches the lecture's high-yield definition of neoplasia?","options":["Disorganized mature tissue native to its site","Normal tissue located in an abnormal site","Reversible, polyclonal proliferation after physiologic stimulation","A transient increase in cell number that stops when stimulation ends","Unregulated, irreversible, monoclonal cell growth"],"answer":"E","explanation":"Neoplasia persists independently of the original stimulus and arises from a single precursor cell.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/01_Introduction_to_Neoplasia_Factoid.html","factoidLabel":"Introduction to Neoplasia","number":5,"reviewCheck":{"stem":"Which statement about Adenoma is correct?","options":["Disordered epithelial growth; preinvasive.","Classically spread hematogenously.","Malignant mesenchymal tumor.","Benign epithelial neoplasm with glandular origin/pattern; may be premalignant.","Localized; does not invade or metastasize."],"answer":"D","explanation":"Adenoma: Benign epithelial neoplasm with glandular origin/pattern; may be premalignant."}},{"difficulty":"Step 1-style","lecture":"Introduction to Neoplasia","topic":"TNM staging & metastasis","concept":"Full-thickness dysplasia without basement-membrane breach is carcinoma in situ.","stem":"A cervical biopsy shows atypical cells with hyperchromatic nuclei and loss of polarity through the full thickness of the epithelium, but the basement membrane remains intact. Which diagnosis is most accurate?","options":["Carcinoma in situ","Choristoma","Metastatic carcinoma","Benign papilloma","Invasive carcinoma"],"answer":"A","explanation":"Full-thickness dysplasia without basement-membrane breach is carcinoma in situ.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/01_Introduction_to_Neoplasia_Factoid.html","factoidLabel":"Introduction to Neoplasia","number":6,"reviewCheck":{"stem":"Which statement about Carcinomas is correct?","options":["Microscopic differentiation/aggressiveness.","Classically spread via lymphatics.","Pleomorphism, hyperchromasia, high N:C ratio, abnormal mitoses, loss of architecture.","Malignant mesenchymal tumor.","Disordered epithelial growth; preinvasive."],"answer":"B","explanation":"Carcinomas: Classically spread via lymphatics."}},{"difficulty":"Step 1-style","lecture":"Introduction to Neoplasia","topic":"TNM staging & metastasis","concept":"Stage reflects anatomic extent of disease and is the single most important prognostic factor for most cancers.","stem":"Two patients have morphologically similar breast carcinomas. One has a small primary tumor with no nodal or distant spread; the other has distant metastases. Which variable is generally the more important prognostic determinant?","options":["Whether the tumor name ends in -oma","Tumor stage","Degree of desmoplasia","Tumor grade alone","Amount of stromal inflammation"],"answer":"B","explanation":"Stage reflects anatomic extent of disease and is the single most important prognostic factor for most cancers.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/01_Introduction_to_Neoplasia_Factoid.html","factoidLabel":"Introduction to Neoplasia","number":7,"reviewCheck":{"stem":"Identify the concept described by this statement: Malignant mesenchymal tumor.","options":["Dysplasia","Anaplasia","Benign neoplasm","Sarcoma","Sarcomas"],"answer":"D","explanation":"Sarcoma: Malignant mesenchymal tumor."}},{"difficulty":"Intermediate","lecture":"Introduction to Neoplasia","topic":"Grade & differentiation","concept":"Sarcomas classically favor hematogenous dissemination, whereas carcinomas commonly spread first through lymphatics.","stem":"A newly diagnosed high-grade osteosarcoma is being staged. Which route of dissemination should be expected to predominate based on its mesenchymal origin?","options":["Spread exclusively through ducts","Direct extension without distant spread","Hematogenous spread","Lymphatic spread as the dominant initial route","Transcoelomic seeding only"],"answer":"C","explanation":"Sarcomas classically favor hematogenous dissemination, whereas carcinomas commonly spread first through lymphatics.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/01_Introduction_to_Neoplasia_Factoid.html","factoidLabel":"Introduction to Neoplasia","number":8,"reviewCheck":{"stem":"Which label best fits this high-yield fact: Pleomorphism, hyperchromasia, high N:C ratio, abnormal mitoses, loss of architecture.?","options":["Anaplasia","Malignant neoplasm","Grade","Dysplasia","Sarcoma"],"answer":"A","explanation":"Anaplasia: Pleomorphism, hyperchromasia, high N:C ratio, abnormal mitoses, loss of architecture."}},{"difficulty":"Intermediate","lecture":"Introduction to Neoplasia","topic":"Grade & differentiation","concept":"Tumor stroma supplies connective tissue and vessels; abundant fibrous stroma produces a firm, scirrhous mass.","stem":"A breast mass is unusually firm and hard despite containing relatively few malignant cells. Histology shows abundant fibrous tissue surrounding the tumor nests. Which component most directly explains the consistency of the mass?","options":["A high nuclear-to-cytoplasmic ratio","Marked anaplasia of the tumor parenchyma","A lack of tumor blood vessels","A dense desmoplastic stromal reaction","Monoclonality of the neoplastic cells"],"answer":"D","explanation":"Tumor stroma supplies connective tissue and vessels; abundant fibrous stroma produces a firm, scirrhous mass.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/01_Introduction_to_Neoplasia_Factoid.html","factoidLabel":"Introduction to Neoplasia","number":9,"reviewCheck":{"stem":"For Carcinoma, which statement is most accurate?","options":["Localized; does not invade or metastasize.","Classically spread hematogenously.","Malignant epithelial tumor.","Malignant mesenchymal tumor.","Disordered epithelial growth; preinvasive."],"answer":"C","explanation":"Carcinoma: Malignant epithelial tumor."}},{"difficulty":"Step 1-style","lecture":"Introduction to Neoplasia","topic":"TNM staging & metastasis","concept":"Ovarian carcinoma characteristically disseminates across the peritoneal cavity, producing surface implants and omental caking.","stem":"A woman with ovarian carcinoma develops diffuse tumor implants coating the peritoneal surfaces and omentum. Which metastatic pathway best explains this pattern?","options":["Initial lymphatic spread to axillary nodes","Primary hematogenous spread through the renal vein","Direct extension confined to the ovary","Perineural invasion only","Seeding of a body cavity"],"answer":"E","explanation":"Ovarian carcinoma characteristically disseminates across the peritoneal cavity, producing surface implants and omental caking.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/01_Introduction_to_Neoplasia_Factoid.html","factoidLabel":"Introduction to Neoplasia","number":10,"reviewCheck":{"stem":"Which option correctly describes Carcinomas?","options":["Localized; does not invade or metastasize.","Gross protruding lesion; does not by itself mean benign.","Tumor breaches the basement membrane.","Classically spread hematogenously.","Classically spread via lymphatics."],"answer":"E","explanation":"Carcinomas: Classically spread via lymphatics."}},{"difficulty":"In-house","lecture":"Introduction to Neoplasia","topic":"Dysplasia, CIS & invasion","concept":"A hamartoma is a disorganized but mature mass of tissues native to the involved site.","stem":"A lung nodule contains a disorganized mixture of mature cartilage, bronchial epithelium, and blood vessels, all normally found in the lung. Which term best describes it?","options":["Hamartoma","Teratoma","Pleomorphic adenoma","Carcinoma in situ","Choristoma"],"answer":"A","explanation":"A hamartoma is a disorganized but mature mass of tissues native to the involved site.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/01_Introduction_to_Neoplasia_Factoid.html","factoidLabel":"Introduction to Neoplasia","number":11,"reviewCheck":{"stem":"Which term should be paired with the following fact: Benign epithelial neoplasm with glandular origin/pattern; may be premalignant.","options":["Dysplasia","Anaplasia","Benign neoplasm","Sarcoma","Adenoma"],"answer":"E","explanation":"Adenoma: Benign epithelial neoplasm with glandular origin/pattern; may be premalignant."}},{"difficulty":"In-house","lecture":"Introduction to Neoplasia","topic":"Dysplasia, CIS & invasion","concept":"A benign gland-forming epithelial neoplasm is an adenoma; invasion would support adenocarcinoma.","stem":"A colon lesion forms glands but remains confined above the basement membrane and shows no invasion. Which name is most appropriate?","options":["Liposarcoma","Adenoma","Squamous cell carcinoma","Choristoma","Adenocarcinoma"],"answer":"B","explanation":"A benign gland-forming epithelial neoplasm is an adenoma; invasion would support adenocarcinoma.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/01_Introduction_to_Neoplasia_Factoid.html","factoidLabel":"Introduction to Neoplasia","number":12,"reviewCheck":{"stem":"Which label best fits this high-yield fact: Classically spread hematogenously.?","options":["Carcinoma in situ","Carcinomas","Sarcomas","Carcinoma","Stage"],"answer":"C","explanation":"Sarcomas: Classically spread hematogenously."}},{"difficulty":"Step 1-style","lecture":"Genetic Testing for Familial Cancer Syndromes","topic":"FAP / APC","concept":"Because untreated FAP carries an almost certain lifetime colorectal cancer risk, prophylactic colectomy is standard management.","stem":"A young adult is confirmed to carry a pathogenic APC mutation and has diffuse adenomatous polyposis. Which intervention most directly addresses the near-100% lifetime colorectal cancer risk described in the lecture?","options":["Prophylactic thyroidectomy","Checkpoint inhibitor therapy before cancer develops","Prophylactic colectomy","Annual whole-body MRI only","PARP inhibitor prophylaxis"],"answer":"C","explanation":"Because untreated FAP carries an almost certain lifetime colorectal cancer risk, prophylactic colectomy is standard management.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/02_Genetic_Testing_Familial_Cancer_Factoid.html","factoidLabel":"Genetic Testing for Familial Cancer Syndromes","number":13,"reviewCheck":{"stem":"Which option correctly describes HBOC?","options":["Cancer substantially younger than expected.","Inherited; present broadly in body cells; has implications for relatives.","Uncertain; generally not used alone for prophylactic surgery or predictive family testing.","MMR genes MLH1/MSH2/MSH6/PMS2; MSI; colorectal + endometrial anchors.","BRCA1/2 homologous-recombination repair defect; breast, ovarian, pancreatic, prostate."],"answer":"E","explanation":"HBOC: BRCA1/2 homologous-recombination repair defect; breast, ovarian, pancreatic, prostate."}},{"difficulty":"In-house","lecture":"Genetic Testing for Familial Cancer Syndromes","topic":"FAP / APC","concept":"MEN2B features medullary thyroid carcinoma, pheochromocytoma, mucosal neuromas, and marfanoid habitus.","stem":"A teenager has medullary thyroid carcinoma, pheochromocytoma, mucosal neuromas, and a marfanoid habitus. Which syndrome is most likely?","options":["FAP","MEN2A","MEN1","MEN2B","VHL syndrome"],"answer":"D","explanation":"MEN2B features medullary thyroid carcinoma, pheochromocytoma, mucosal neuromas, and marfanoid habitus.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/02_Genetic_Testing_Familial_Cancer_Factoid.html","factoidLabel":"Genetic Testing for Familial Cancer Syndromes","number":14,"reviewCheck":{"stem":"What is the key high-yield point about NCCN?","options":["More than one primary tumor or bilateral disease.","BRCA1/2 homologous-recombination repair defect; breast, ovarian, pancreatic, prostate.","Syndrome overview, inheritance, manifestations, management.","Current testing, surveillance, and risk-reduction guidance.","Acquired in tumor; may guide treatment but does not prove inherited risk."],"answer":"D","explanation":"NCCN: Current testing, surveillance, and risk-reduction guidance."}},{"difficulty":"Step 1-style","lecture":"Genetic Testing for Familial Cancer Syndromes","topic":"Lynch syndrome / MMR","concept":"The combination of early breast cancer, sarcoma, and brain tumors fits Li-Fraumeni syndrome from germline TP53 mutation.","stem":"A 32-year-old woman with premenopausal breast cancer has a sibling with sarcoma and a parent who died from a brain tumor at 39. Which germline gene is most likely involved?","options":["APC","VHL","RET","MLH1","TP53"],"answer":"E","explanation":"The combination of early breast cancer, sarcoma, and brain tumors fits Li-Fraumeni syndrome from germline TP53 mutation.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/02_Genetic_Testing_Familial_Cancer_Factoid.html","factoidLabel":"Genetic Testing for Familial Cancer Syndromes","number":15,"reviewCheck":{"stem":"What is the key high-yield point about FAP?","options":["Cancer substantially younger than expected.","Inherited; present broadly in body cells; has implications for relatives.","APC loss → β-catenin signaling → diffuse adenomatous polyposis; osteomas/desmoids/CHRPE.","Uncertain; generally not used alone for prophylactic surgery or predictive family testing.","MMR genes MLH1/MSH2/MSH6/PMS2; MSI; colorectal + endometrial anchors."],"answer":"C","explanation":"FAP: APC loss → β-catenin signaling → diffuse adenomatous polyposis; osteomas/desmoids/CHRPE."}},{"difficulty":"Step 1-style","lecture":"Genetic Testing for Familial Cancer Syndromes","topic":"MEN / RET","concept":"MEN2 patients should be evaluated for pheochromocytoma before surgery because catecholamine release can provoke severe hypertension.","stem":"A child with a familial activating RET mutation is scheduled for prophylactic thyroidectomy. Which associated condition should be screened for before surgery to avoid a perioperative hypertensive crisis?","options":["Pheochromocytoma","Osteosarcoma","Colon adenocarcinoma","MALT lymphoma","Glioblastoma"],"answer":"A","explanation":"MEN2 patients should be evaluated for pheochromocytoma before surgery because catecholamine release can provoke severe hypertension.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/02_Genetic_Testing_Familial_Cancer_Factoid.html","factoidLabel":"Genetic Testing for Familial Cancer Syndromes","number":16,"reviewCheck":{"stem":"Which description best matches Multiple/bilateral primaries?","options":["Current testing, surveillance, and risk-reduction guidance.","Related cancers across generations or multiple close relatives.","Disease-causing and clinically actionable in the appropriate context.","APC loss → β-catenin signaling → diffuse adenomatous polyposis; osteomas/desmoids/CHRPE.","More than one primary tumor or bilateral disease."],"answer":"E","explanation":"Multiple/bilateral primaries: More than one primary tumor or bilateral disease."}},{"difficulty":"Step 1-style","lecture":"Genetic Testing for Familial Cancer Syndromes","topic":"MEN / RET","concept":"VHL normally promotes HIF degradation; loss of VHL allows HIF accumulation and upregulation of pro-angiogenic factors such as VEGF.","stem":"A patient with cerebellar hemangioblastoma and clear-cell renal cell carcinoma has loss of VHL function. Which downstream change follows?","options":["Suppression of angiogenic signaling","Accumulation of HIF with increased VEGF expression","Decreased HIF stability","Loss of microsatellite repair","Constitutive RET activation"],"answer":"B","explanation":"VHL normally promotes HIF degradation; loss of VHL allows HIF accumulation and upregulation of pro-angiogenic factors such as VEGF.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/02_Genetic_Testing_Familial_Cancer_Factoid.html","factoidLabel":"Genetic Testing for Familial Cancer Syndromes","number":17,"reviewCheck":{"stem":"For Pathogenic, which statement is most accurate?","options":["Uncertain; generally not used alone for prophylactic surgery or predictive family testing.","Disease-causing and clinically actionable in the appropriate context.","MMR genes MLH1/MSH2/MSH6/PMS2; MSI; colorectal + endometrial anchors.","Cancer substantially younger than expected.","Inherited; present broadly in body cells; has implications for relatives."],"answer":"B","explanation":"Pathogenic: Disease-causing and clinically actionable in the appropriate context."}},{"difficulty":"Step 1-style","lecture":"Genetic Testing for Familial Cancer Syndromes","topic":"Lynch syndrome / MMR","concept":"MSH2 and MSH6 function as a mismatch-repair pair; loss points to deficient MMR and possible Lynch syndrome.","stem":"A 44-year-old woman with endometrial cancer has tumor IHC showing loss of MSH2 and MSH6. Which pathway is most likely defective?","options":["Homologous recombination through BRCA1/2","VHL-mediated HIF degradation","DNA mismatch repair","Wnt signaling through APC","RET-mediated mitogenic signaling"],"answer":"C","explanation":"MSH2 and MSH6 function as a mismatch-repair pair; loss points to deficient MMR and possible Lynch syndrome.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/02_Genetic_Testing_Familial_Cancer_Factoid.html","factoidLabel":"Genetic Testing for Familial Cancer Syndromes","number":18,"reviewCheck":{"stem":"For Family clustering, which statement is most accurate?","options":["Current testing, surveillance, and risk-reduction guidance.","APC loss → β-catenin signaling → diffuse adenomatous polyposis; osteomas/desmoids/CHRPE.","Related cancers across generations or multiple close relatives.","Cancer substantially younger than expected.","Disease-causing and clinically actionable in the appropriate context."],"answer":"C","explanation":"Family clustering: Related cancers across generations or multiple close relatives."}},{"difficulty":"In-house","lecture":"Genetic Testing for Familial Cancer Syndromes","topic":"Germline vs somatic","concept":"Hereditary cancers arise from germline variants that are present throughout the body and can be transmitted to offspring.","stem":"Which feature most strongly distinguishes hereditary cancer from sporadic cancer?","options":["A family cluster with no identifiable germline mutation","A somatic mutation confined to the tumor","A cancer diagnosed after age 70","A pathogenic germline mutation present in all cells","A tumor with a low mutation burden"],"answer":"D","explanation":"Hereditary cancers arise from germline variants that are present throughout the body and can be transmitted to offspring.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/02_Genetic_Testing_Familial_Cancer_Factoid.html","factoidLabel":"Genetic Testing for Familial Cancer Syndromes","number":19,"reviewCheck":{"stem":"For Pathogenic, which statement is most accurate?","options":["Cancer substantially younger than expected.","Related cancers across generations or multiple close relatives.","Disease-causing and clinically actionable in the appropriate context.","Current testing, surveillance, and risk-reduction guidance.","APC loss → β-catenin signaling → diffuse adenomatous polyposis; osteomas/desmoids/CHRPE."],"answer":"C","explanation":"Pathogenic: Disease-causing and clinically actionable in the appropriate context."}},{"difficulty":"Intermediate","lecture":"Genetic Testing for Familial Cancer Syndromes","topic":"MEN / RET","concept":"VHL surveillance targets renal, CNS/retinal, and pheochromocytoma-associated manifestations.","stem":"Which surveillance plan best fits the multisystem tumor risks of confirmed VHL syndrome as described in the lecture?","options":["Colonoscopy every 1-2 years only","Avoid all imaging because of tumor risk","Prophylactic colectomy in childhood","Annual mammogram without other surveillance","Regular abdominal and CNS imaging, eye exams, and biochemical pheochromocytoma screening"],"answer":"E","explanation":"VHL surveillance targets renal, CNS/retinal, and pheochromocytoma-associated manifestations.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/02_Genetic_Testing_Familial_Cancer_Factoid.html","factoidLabel":"Genetic Testing for Familial Cancer Syndromes","number":20,"reviewCheck":{"stem":"What is the key high-yield point about FAP?","options":["Related cancers across generations or multiple close relatives.","Disease-causing and clinically actionable in the appropriate context.","Current testing, surveillance, and risk-reduction guidance.","Cancer substantially younger than expected.","APC loss → β-catenin signaling → diffuse adenomatous polyposis; osteomas/desmoids/CHRPE."],"answer":"E","explanation":"FAP: APC loss → β-catenin signaling → diffuse adenomatous polyposis; osteomas/desmoids/CHRPE."}},{"difficulty":"In-house","lecture":"Genetic Testing for Familial Cancer Syndromes","topic":"HBOC / BRCA","concept":"MEN1 is remembered by the three P's: parathyroid, pituitary, and pancreatic neuroendocrine tumors.","stem":"Which trio is classically associated with MEN1?","options":["Parathyroid, pituitary, and pancreatic neuroendocrine tumors","Breast, ovarian, and pancreatic carcinoma","Hemangioblastoma, renal cell carcinoma, and pheochromocytoma","Colon polyposis, osteomas, and desmoid tumors","Medullary thyroid carcinoma, pheochromocytoma, and mucosal neuromas"],"answer":"A","explanation":"MEN1 is remembered by the three P's: parathyroid, pituitary, and pancreatic neuroendocrine tumors.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/02_Genetic_Testing_Familial_Cancer_Factoid.html","factoidLabel":"Genetic Testing for Familial Cancer Syndromes","number":21,"reviewCheck":{"stem":"Identify the concept described by this statement: Related cancers across generations or multiple close relatives.","options":["Germline variant","VUS","Family clustering","Early age","Lynch"],"answer":"C","explanation":"Family clustering: Related cancers across generations or multiple close relatives."}},{"difficulty":"Intermediate","lecture":"Genetic Testing for Familial Cancer Syndromes","topic":"FAP / APC","concept":"Li-Fraumeni patients are predisposed to additional cancers and have an increased risk of radiation-induced secondary malignancy.","stem":"Why should ionizing-radiation exposure be minimized when feasible in a patient with Li-Fraumeni syndrome?","options":["TP53 mutation makes all tumors completely radioresistant","They have increased risk of radiation-induced secondary malignancies","Radiation always triggers pheochromocytoma","Radiation prevents MRI surveillance","Radiation causes immediate APC inactivation"],"answer":"B","explanation":"Li-Fraumeni patients are predisposed to additional cancers and have an increased risk of radiation-induced secondary malignancy.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/02_Genetic_Testing_Familial_Cancer_Factoid.html","factoidLabel":"Genetic Testing for Familial Cancer Syndromes","number":22,"reviewCheck":{"stem":"Identify the concept described by this statement: Acquired in tumor; may guide treatment but does not prove inherited risk.","options":["Family clustering","Somatic variant","NCCN","FAP","Pathogenic"],"answer":"B","explanation":"Somatic variant: Acquired in tumor; may guide treatment but does not prove inherited risk."}},{"difficulty":"In-house","lecture":"Genetic Testing for Familial Cancer Syndromes","topic":"Lynch syndrome / MMR","concept":"BRCA1/2 are tumor suppressors involved in repair of double-strand DNA breaks.","stem":"A woman with hereditary breast and ovarian cancer syndrome carries a BRCA1 mutation. Which normal cellular function is most directly impaired?","options":["HIF degradation","Mismatch repair of microsatellites","Double-strand DNA repair","Wnt pathway suppression by APC","Activation of RET signaling"],"answer":"C","explanation":"BRCA1/2 are tumor suppressors involved in repair of double-strand DNA breaks.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/02_Genetic_Testing_Familial_Cancer_Factoid.html","factoidLabel":"Genetic Testing for Familial Cancer Syndromes","number":23,"reviewCheck":{"stem":"What is being described here: More than one primary tumor or bilateral disease.","options":["HBOC","Early age","GeneReviews","Multiple/bilateral primaries","Somatic variant"],"answer":"D","explanation":"Multiple/bilateral primaries: More than one primary tumor or bilateral disease."}},{"difficulty":"Intermediate","lecture":"Genetic Testing for Familial Cancer Syndromes","topic":"HBOC / BRCA","concept":"Once a familial pathogenic variant is known, cascade testing identifies which relatives actually inherited it and need syndrome-specific surveillance.","stem":"A pathogenic germline BRCA2 variant is identified in a patient with metastatic prostate cancer. What is the most appropriate family-level next step?","options":["Wait until relatives reach the patient's age before discussing testing","Test only relatives who already have cancer","Treat all relatives as positive without testing","Offer targeted cascade testing to at-risk relatives","Assume daughters cannot inherit the variant"],"answer":"D","explanation":"Once a familial pathogenic variant is known, cascade testing identifies which relatives actually inherited it and need syndrome-specific surveillance.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/02_Genetic_Testing_Familial_Cancer_Factoid.html","factoidLabel":"Genetic Testing for Familial Cancer Syndromes","number":24,"reviewCheck":{"stem":"What is the key high-yield point about NCCN?","options":["BRCA1/2 homologous-recombination repair defect; breast, ovarian, pancreatic, prostate.","Current testing, surveillance, and risk-reduction guidance.","Syndrome overview, inheritance, manifestations, management.","More than one primary tumor or bilateral disease.","Acquired in tumor; may guide treatment but does not prove inherited risk."],"answer":"B","explanation":"NCCN: Current testing, surveillance, and risk-reduction guidance."}},{"difficulty":"Step 1-style","lecture":"Genetic Testing for Familial Cancer Syndromes","topic":"Lynch syndrome / MMR","concept":"MMR-deficient tumors accumulate many mutations and neoantigens, which can make them particularly responsive to checkpoint inhibitors.","stem":"A metastatic colorectal cancer is MSI-high with a high tumor mutation burden due to mismatch-repair deficiency. Which treatment class is especially rational?","options":["PARP inhibition for all MSI-high tumors","Aromatase inhibition","RET inhibition","BCR-ABL inhibition","Immune checkpoint inhibition"],"answer":"E","explanation":"MMR-deficient tumors accumulate many mutations and neoantigens, which can make them particularly responsive to checkpoint inhibitors.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/02_Genetic_Testing_Familial_Cancer_Factoid.html","factoidLabel":"Genetic Testing for Familial Cancer Syndromes","number":25,"reviewCheck":{"stem":"Which fact should be associated with Lynch?","options":["More than one primary tumor or bilateral disease.","Acquired in tumor; may guide treatment but does not prove inherited risk.","BRCA1/2 homologous-recombination repair defect; breast, ovarian, pancreatic, prostate.","MMR genes MLH1/MSH2/MSH6/PMS2; MSI; colorectal + endometrial anchors.","Syndrome overview, inheritance, manifestations, management."],"answer":"D","explanation":"Lynch: MMR genes MLH1/MSH2/MSH6/PMS2; MSI; colorectal + endometrial anchors."}},{"difficulty":"In-house","lecture":"Genetic Testing for Familial Cancer Syndromes","topic":"HBOC / BRCA","concept":"BRCA-deficient tumors have impaired double-strand repair and are especially vulnerable to PARP inhibition.","stem":"A BRCA1-mutated ovarian cancer is treated with a drug intended to exploit an existing DNA-repair weakness. Which class best matches that strategy?","options":["PARP inhibitors","RET inhibitors","Anti-VEGF therapy solely because BRCA is mutated","Aromatase inhibitors","BCR-ABL inhibitors"],"answer":"A","explanation":"BRCA-deficient tumors have impaired double-strand repair and are especially vulnerable to PARP inhibition.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/02_Genetic_Testing_Familial_Cancer_Factoid.html","factoidLabel":"Genetic Testing for Familial Cancer Syndromes","number":26,"reviewCheck":{"stem":"Which description best matches Multiple/bilateral primaries?","options":["Current testing, surveillance, and risk-reduction guidance.","Related cancers across generations or multiple close relatives.","APC loss → β-catenin signaling → diffuse adenomatous polyposis; osteomas/desmoids/CHRPE.","More than one primary tumor or bilateral disease.","Disease-causing and clinically actionable in the appropriate context."],"answer":"D","explanation":"Multiple/bilateral primaries: More than one primary tumor or bilateral disease."}},{"difficulty":"Intermediate","lecture":"Genetic Testing for Familial Cancer Syndromes","topic":"Lynch syndrome / MMR","concept":"FAP is caused by germline APC tumor-suppressor mutations and can include osteomas and desmoid tumors in Gardner syndrome.","stem":"A 23-year-old has more than 700 adenomatous colon polyps and an osteoma of the jaw. Which gene is most likely affected?","options":["MLH1","APC","RET","BRCA2","VHL"],"answer":"B","explanation":"FAP is caused by germline APC tumor-suppressor mutations and can include osteomas and desmoid tumors in Gardner syndrome.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/02_Genetic_Testing_Familial_Cancer_Factoid.html","factoidLabel":"Genetic Testing for Familial Cancer Syndromes","number":27,"reviewCheck":{"stem":"Which label best fits this high-yield fact: APC loss → β-catenin signaling → diffuse adenomatous polyposis; osteomas/desmoids/CHRPE.?","options":["FAP","HBOC","Multiple/bilateral primaries","GeneReviews","Somatic variant"],"answer":"A","explanation":"FAP: APC loss → β-catenin signaling → diffuse adenomatous polyposis; osteomas/desmoids/CHRPE."}},{"difficulty":"Intermediate","lecture":"Genetic Testing for Familial Cancer Syndromes","topic":"Germline vs somatic","concept":"Oncogenes behave dominantly at the cellular level: one activating allele can drive growth.","stem":"Which genetic change is most consistent with activation of an oncogene rather than loss of a tumor suppressor?","options":["Loss-of-function of both alleles","Biallelic deletion of a DNA-repair gene","A gain-of-function alteration in one allele","Inherited loss of one allele followed by a somatic second hit","Loss of heterozygosity at a suppressor locus"],"answer":"C","explanation":"Oncogenes behave dominantly at the cellular level: one activating allele can drive growth.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/02_Genetic_Testing_Familial_Cancer_Factoid.html","factoidLabel":"Genetic Testing for Familial Cancer Syndromes","number":28,"reviewCheck":{"stem":"Which concept best matches this description: Current testing, surveillance, and risk-reduction guidance.","options":["GeneReviews","Somatic variant","Multiple/bilateral primaries","HBOC","NCCN"],"answer":"E","explanation":"NCCN: Current testing, surveillance, and risk-reduction guidance."}},{"difficulty":"In-house","lecture":"Molecular Diagnostics","topic":"PCR","concept":"PCR amplifies a defined DNA target.","stem":"A laboratory needs to amplify a specific 180-base-pair region of genomic DNA before sequencing. Which technique is the most direct choice?","options":["RT-PCR beginning from RNA","Western blot","Northern blot","PCR","FISH"],"answer":"D","explanation":"PCR selectively amplifies a defined DNA sequence using primers flanking the target.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/03_Molecular_Diagnostics_Factoid.html","factoidLabel":"Molecular Diagnostics","number":29,"reviewCheck":{"stem":"For Quantify an RNA transcript, which statement is most accurate?","options":["Made from mature mRNA, so introns are absent.","RT-PCR after reverse transcription.","Bisulfite-based analysis.","Protein.","Identity, paternity, forensics, linkage/variant analysis."],"answer":"B","explanation":"Quantify an RNA transcript: RT-PCR after reverse transcription."}},{"difficulty":"Intermediate","lecture":"Molecular Diagnostics","topic":"RT-PCR","concept":"Reverse transcription converts RNA to cDNA before PCR amplification.","stem":"A researcher wants to determine whether a tumor is expressing a particular fusion transcript. Which initial molecular step is required before standard PCR amplification?","options":["Digest the RNA with a restriction enzyme","Translate the RNA into protein","Label genomic DNA with a Southern probe","Hybridize the sample to a metaphase chromosome","Convert RNA to cDNA with reverse transcriptase"],"answer":"E","explanation":"An RNA target must first be reverse-transcribed into complementary DNA; the cDNA can then be amplified by PCR.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/03_Molecular_Diagnostics_Factoid.html","factoidLabel":"Molecular Diagnostics","number":30,"reviewCheck":{"stem":"What is being described here: ddNTP chain termination; ddNTP lacks a 3′-OH.","options":["cDNA","Western blot","Sanger sequencing","Quantify an RNA transcript","Targeted methylation question"],"answer":"C","explanation":"Sanger sequencing: ddNTP chain termination; ddNTP lacks a 3′-OH."}},{"difficulty":"Intermediate","lecture":"Molecular Diagnostics","topic":"cDNA","concept":"cDNA reflects processed mature mRNA and therefore lacks introns.","stem":"A human coding sequence will be expressed in bacteria. Why is cDNA preferable to genomic DNA for the expression construct?","options":["cDNA lacks introns that bacteria cannot splice from the transcript","cDNA is resistant to restriction enzymes","cDNA contains centromeres needed for plasmid segregation","cDNA is always methylated at CpG islands","cDNA contains telomeres that stabilize the plasmid"],"answer":"A","explanation":"cDNA is synthesized from mature mRNA, so introns have already been removed.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/03_Molecular_Diagnostics_Factoid.html","factoidLabel":"Molecular Diagnostics","number":31,"reviewCheck":{"stem":"What is being described here: Use intron-free cDNA.","options":["Quantify an RNA transcript","Express a human coding sequence in bacteria","RT-PCR","Northern blot","Bisulfite sequencing"],"answer":"B","explanation":"Express a human coding sequence in bacteria: Use intron-free cDNA."}},{"difficulty":"In-house","lecture":"Molecular Diagnostics","topic":"Blotting","concept":"Southern detects DNA, Northern RNA, and Western protein.","stem":"A clinician wants to determine whether a patient's cells produce a specific protein isoform. Which classic blotting method directly assesses the protein?","options":["Northern blot","Western blot","Southern blot","Southwestern blot for genomic copy number","RT-PCR without reverse transcription"],"answer":"B","explanation":"Western blotting detects proteins; Southern and Northern assess DNA and RNA, respectively.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/03_Molecular_Diagnostics_Factoid.html","factoidLabel":"Molecular Diagnostics","number":32,"reviewCheck":{"stem":"Which option correctly describes STR/VNTR/RFLP?","options":["Made from mature mRNA, so introns are absent.","Bisulfite-based analysis.","Protein.","Use intron-free cDNA.","Identity, paternity, forensics, linkage/variant analysis."],"answer":"E","explanation":"STR/VNTR/RFLP: Identity, paternity, forensics, linkage/variant analysis."}},{"difficulty":"Intermediate","lecture":"Molecular Diagnostics","topic":"Southern blot","concept":"Southern blotting detects specific DNA sequences.","stem":"Which assay is classically used to detect a specific DNA fragment after restriction digestion and gel electrophoresis?","options":["ELISA","Western blot","Southern blot","Flow cytometry","Northern blot"],"answer":"C","explanation":"Southern blotting transfers DNA fragments and detects the target with a labeled nucleic-acid probe.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/03_Molecular_Diagnostics_Factoid.html","factoidLabel":"Molecular Diagnostics","number":33,"reviewCheck":{"stem":"Which label best fits this high-yield fact: ddNTP chain termination; ddNTP lacks a 3′-OH.?","options":["RT-PCR","Sanger sequencing","Northern blot","Bisulfite sequencing","Identify a protein"],"answer":"B","explanation":"Sanger sequencing: ddNTP chain termination; ddNTP lacks a 3′-OH."}},{"difficulty":"Intermediate","lecture":"Molecular Diagnostics","topic":"Sanger sequencing","concept":"Dideoxynucleotides terminate DNA synthesis because they lack a 3′ hydroxyl group.","stem":"During Sanger sequencing, incorporation of a dideoxynucleotide stops further chain elongation. Which structural feature causes termination?","options":["Absence of a nitrogenous base","Absence of a 5′ phosphate","Presence of two ribose hydroxyl groups","Absence of a 3′ hydroxyl group","Presence of uracil instead of thymine"],"answer":"D","explanation":"DNA polymerase requires a free 3′-OH to add the next nucleotide. A ddNTP lacks that group.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/03_Molecular_Diagnostics_Factoid.html","factoidLabel":"Molecular Diagnostics","number":34,"reviewCheck":{"stem":"Which fact should be associated with Southern blot?","options":["Bisulfite-based analysis.","Made from mature mRNA, so introns are absent.","DNA.","Protein.","RT-PCR after reverse transcription."],"answer":"C","explanation":"Southern blot: DNA."}},{"difficulty":"Intermediate","lecture":"Molecular Diagnostics","topic":"Bisulfite sequencing","concept":"Bisulfite-based methods distinguish methylated from unmethylated cytosines.","stem":"A tumor-suppressor promoter is suspected to be silenced by CpG methylation. Which method is most directly suited to map the methylation pattern?","options":["Protein electrophoresis","Standard karyotyping","Western blot","Gram staining","Bisulfite sequencing"],"answer":"E","explanation":"Bisulfite conversion allows methylated and unmethylated cytosines to be distinguished during sequencing.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/03_Molecular_Diagnostics_Factoid.html","factoidLabel":"Molecular Diagnostics","number":35,"reviewCheck":{"stem":"Which description best matches Targeted methylation question?","options":["RNA → cDNA → amplification; useful for RNA targets/gene expression.","Bisulfite-based analysis.","Western blot.","ddNTP chain termination; ddNTP lacks a 3′-OH.","PCR."],"answer":"B","explanation":"Targeted methylation question: Bisulfite-based analysis."}},{"difficulty":"Intermediate","lecture":"Molecular Diagnostics","topic":"STR analysis","concept":"Short tandem repeats are highly polymorphic markers useful for identity and paternity testing.","stem":"Two DNA samples must be compared for forensic identity. Which marker type is especially useful because the number of repeat units varies greatly among individuals?","options":["STR loci","Centromeric alpha-satellite only","Housekeeping-gene exons","rRNA coding sequence","Mitochondrial ribosomal protein genes"],"answer":"A","explanation":"STRs are highly polymorphic repeat loci widely used in forensic identification and paternity testing.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/03_Molecular_Diagnostics_Factoid.html","factoidLabel":"Molecular Diagnostics","number":36,"reviewCheck":{"stem":"Which statement about Identify a protein is correct?","options":["Identity, paternity, forensics, linkage/variant analysis.","Amplifies a defined DNA sequence.","Protein.","Western blot.","Use intron-free cDNA."],"answer":"D","explanation":"Identify a protein: Western blot."}},{"difficulty":"Intermediate","lecture":"Molecular Diagnostics","topic":"RFLP","concept":"RFLP detects sequence variation that changes restriction-fragment lengths.","stem":"A single-nucleotide variant abolishes a restriction-enzyme recognition site. Which older molecular approach can reveal the resulting change in fragment length?","options":["ELISA","RFLP analysis","Western blot","FISH with a centromeric probe","Karyotype"],"answer":"B","explanation":"Restriction fragment length polymorphism analysis detects DNA variants that alter restriction sites and therefore fragment sizes.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/03_Molecular_Diagnostics_Factoid.html","factoidLabel":"Molecular Diagnostics","number":37,"reviewCheck":{"stem":"What is the key high-yield point about Express a human coding sequence in bacteria?","options":["Assesses DNA methylation patterns.","Use intron-free cDNA.","RT-PCR after reverse transcription.","Bisulfite-based analysis.","RNA."],"answer":"B","explanation":"Express a human coding sequence in bacteria: Use intron-free cDNA."}},{"difficulty":"Step 1-style","lecture":"Molecular Diagnostics","topic":"Technique selection","concept":"Assay choice depends on whether the target is DNA, RNA, protein, or a chromosomal locus.","stem":"A patient with CML is being monitored for the amount of BCR-ABL transcript after therapy. Which method best matches the target being quantified?","options":["Conventional karyotype only","Southern blot for total genomic DNA","Quantitative RT-PCR","STR profiling","Western blot for all cellular proteins"],"answer":"C","explanation":"BCR-ABL transcript is RNA, so reverse transcription followed by quantitative PCR provides sensitive molecular monitoring.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/03_Molecular_Diagnostics_Factoid.html","factoidLabel":"Molecular Diagnostics","number":38,"reviewCheck":{"stem":"Which fact should be associated with Western blot?","options":["PCR.","DNA.","Protein.","ddNTP chain termination; ddNTP lacks a 3′-OH.","Amplifies a defined DNA sequence."],"answer":"C","explanation":"Western blot: Protein."}},{"difficulty":"Intermediate","lecture":"Molecular Diagnostics","topic":"Gene therapy vectors","concept":"Gene therapy requires delivery of genetic material into target cells using an appropriate vector or delivery system.","stem":"Which statement best describes the central purpose of a gene-therapy vector?","options":["To stain metaphase chromosomes","To measure serum antibody concentration","To create restriction-fragment polymorphisms","To deliver therapeutic genetic material into target cells","To remove introns from mature mRNA"],"answer":"D","explanation":"A gene-therapy vector serves as the delivery vehicle for therapeutic nucleic acid to the intended cells.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/03_Molecular_Diagnostics_Factoid.html","factoidLabel":"Molecular Diagnostics","number":39,"reviewCheck":{"stem":"What is the key high-yield point about Targeted methylation question?","options":["Identity, paternity, forensics, linkage/variant analysis.","Use intron-free cDNA.","DNA.","Amplifies a defined DNA sequence.","Bisulfite-based analysis."],"answer":"E","explanation":"Targeted methylation question: Bisulfite-based analysis."}},{"difficulty":"Intermediate","lecture":"Molecular Cytogenetics","topic":"Karyotype","concept":"Conventional karyotyping surveys the whole chromosome set for large numerical and structural abnormalities.","stem":"A newborn has multiple congenital anomalies, and the clinician wants a broad survey for aneuploidy or a large translocation without a specific locus in mind. Which test is the best first match?","options":["Targeted FISH for 22q11.2","RT-PCR","Western blot","STR profiling","Conventional karyotype"],"answer":"E","explanation":"Karyotyping provides a genome-wide view of chromosome number and large structural changes.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/04_Molecular_Cytogenetics_Factoid.html","factoidLabel":"Molecular Cytogenetics","number":40,"reviewCheck":{"stem":"Which description best matches Meiosis II?","options":["15q11-q13 imprinting region.","Most often nondisjunction; Robertsonian translocation is an important alternative mechanism.","Sister chromatids fail to separate.","Homologous chromosomes fail to separate.","Genome-wide chromosome survey; large numerical/structural changes; requires dividing cells; lower resolution."],"answer":"C","explanation":"Meiosis II: Sister chromatids fail to separate."}},{"difficulty":"Intermediate","lecture":"Molecular Cytogenetics","topic":"FISH","concept":"FISH is targeted and can detect specific chromosomal loci below routine karyotype resolution.","stem":"A child is strongly suspected of having a known microdeletion syndrome. Which test can rapidly interrogate that specific chromosomal region with a fluorescent probe?","options":["FISH","Sanger sequencing of mitochondrial DNA","Serum electrophoresis","Northern blot","Karyotype only"],"answer":"A","explanation":"FISH uses a locus-specific fluorescent probe and can detect targeted deletions or rearrangements.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/04_Molecular_Cytogenetics_Factoid.html","factoidLabel":"Molecular Cytogenetics","number":41,"reviewCheck":{"stem":"Which fact should be associated with Robertsonian translocation?","options":["No major net gain/loss of genetic material; carrier may be phenotypically normal.","Fusion of long arms of acrocentric chromosomes.","Genome-wide chromosome survey; large numerical/structural changes; requires dividing cells; lower resolution.","Homologous chromosomes fail to separate.","Most often nondisjunction; Robertsonian translocation is an important alternative mechanism."],"answer":"B","explanation":"Robertsonian translocation: Fusion of long arms of acrocentric chromosomes."}},{"difficulty":"Intermediate","lecture":"Molecular Cytogenetics","topic":"FISH limitation","concept":"A normal FISH result only excludes the abnormality targeted by the probe.","stem":"A targeted FISH study for 22q11.2 is normal in a child with unexplained developmental abnormalities. Which conclusion is most appropriate?","options":["All chromosomal disorders are excluded","Only the probed 22q11.2 abnormality was not detected","A normal result proves a balanced karyotype","The child has no genetic disorder","FISH has ruled out single-gene disease"],"answer":"B","explanation":"FISH is targeted. A normal probe result does not survey the rest of the genome.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/04_Molecular_Cytogenetics_Factoid.html","factoidLabel":"Molecular Cytogenetics","number":42,"reviewCheck":{"stem":"Which fact should be associated with FISH?","options":["Targeted probe; faster; can detect specific microdeletions/rearrangements; only detects the probed target.","Genome-wide chromosome survey; large numerical/structural changes; requires dividing cells; lower resolution.","15q11-q13 imprinting region.","Homologous chromosomes fail to separate.","Most often nondisjunction; Robertsonian translocation is an important alternative mechanism."],"answer":"A","explanation":"FISH: Targeted probe; faster; can detect specific microdeletions/rearrangements; only detects the probed target."}},{"difficulty":"Intermediate","lecture":"Molecular Cytogenetics","topic":"Meiosis I nondisjunction","concept":"Meiosis I nondisjunction occurs when homologous chromosomes fail to separate.","stem":"A meiotic error leaves both homologous copies of chromosome 21 in the same daughter cell after the first meiotic division. What error occurred?","options":["Mitotic recombination","Meiosis II nondisjunction","Meiosis I nondisjunction","Isochromosome formation","Robertsonian translocation"],"answer":"C","explanation":"Failure of homologous chromosomes to separate during the first meiotic division is meiosis I nondisjunction.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/04_Molecular_Cytogenetics_Factoid.html","factoidLabel":"Molecular Cytogenetics","number":43,"reviewCheck":{"stem":"Which concept best matches this description: No major net gain/loss of genetic material; carrier may be phenotypically normal.","options":["FISH","Trisomy 21","DiGeorge","Cri-du-chat","Balanced rearrangement"],"answer":"E","explanation":"Balanced rearrangement: No major net gain/loss of genetic material; carrier may be phenotypically normal."}},{"difficulty":"Intermediate","lecture":"Molecular Cytogenetics","topic":"Meiosis II nondisjunction","concept":"Meiosis II nondisjunction occurs when sister chromatids fail to separate.","stem":"Homologous chromosomes segregate normally during meiosis I, but one chromosome's sister chromatids travel together during meiosis II. Which mechanism is present?","options":["Deletion","Reciprocal translocation","Meiosis I nondisjunction","Meiosis II nondisjunction","Crossing-over failure only"],"answer":"D","explanation":"Meiosis II nondisjunction is failure of sister chromatids to separate.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/04_Molecular_Cytogenetics_Factoid.html","factoidLabel":"Molecular Cytogenetics","number":44,"reviewCheck":{"stem":"Which fact should be associated with Meiosis II?","options":["No major net gain/loss of genetic material; carrier may be phenotypically normal.","22q11.2 deletion.","Sister chromatids fail to separate.","Homologous chromosomes fail to separate.","Most often nondisjunction; Robertsonian translocation is an important alternative mechanism."],"answer":"C","explanation":"Meiosis II: Sister chromatids fail to separate."}},{"difficulty":"Intermediate","lecture":"Molecular Cytogenetics","topic":"Robertsonian translocation","concept":"Robertsonian translocations fuse the long arms of two acrocentric chromosomes.","stem":"A phenotypically normal parent carries a rearrangement formed by fusion of the long arms of chromosomes 14 and 21. What type of rearrangement is this?","options":["Ring chromosome","Reciprocal microdeletion","Isochromosome","Paracentric inversion","Robertsonian translocation"],"answer":"E","explanation":"A Robertsonian translocation is a long-arm fusion involving acrocentric chromosomes.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/04_Molecular_Cytogenetics_Factoid.html","factoidLabel":"Molecular Cytogenetics","number":45,"reviewCheck":{"stem":"What is being described here: Genome-wide chromosome survey; large numerical/structural changes; requires dividing cells; lower resolution.","options":["Karyotype","Balanced rearrangement","DiGeorge","Meiosis I","Trisomy 21"],"answer":"A","explanation":"Karyotype: Genome-wide chromosome survey; large numerical/structural changes; requires dividing cells; lower resolution."}},{"difficulty":"Intermediate","lecture":"Molecular Cytogenetics","topic":"Balanced rearrangement","concept":"Balanced carriers can be clinically normal because there is no major net gain or loss of genetic material.","stem":"A healthy adult has a balanced chromosomal translocation discovered during evaluation for recurrent pregnancy loss. Why can the carrier be phenotypically normal?","options":["No major net gain or loss of genetic material occurred","Balanced translocations always increase gene dosage","FISH automatically corrects the rearrangement","The rearrangement cannot be transmitted to gametes","The translocation is present only in erythrocytes"],"answer":"A","explanation":"A balanced rearrangement preserves overall dosage, although meiosis can generate unbalanced gametes.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/04_Molecular_Cytogenetics_Factoid.html","factoidLabel":"Molecular Cytogenetics","number":46,"reviewCheck":{"stem":"Which label best fits this high-yield fact: Sister chromatids fail to separate.?","options":["Meiosis II","Prader-Willi / Angelman","Robertsonian translocation","Karyotype","Unbalanced rearrangement"],"answer":"A","explanation":"Meiosis II: Sister chromatids fail to separate."}},{"difficulty":"Step 1-style","lecture":"Molecular Cytogenetics","topic":"Down syndrome","concept":"Most Down syndrome results from trisomy 21 due to nondisjunction, with Robertsonian translocation as an important alternative.","stem":"A child has Down syndrome, but the chromosome count is 46 because extra chromosome 21 material is attached to chromosome 14. Which mechanism best explains this finding?","options":["22q11.2 deletion","Robertsonian translocation","Meiotic nondisjunction producing free trisomy","5p deletion","15q imprinting defect"],"answer":"B","explanation":"Translocation Down syndrome can result from a Robertsonian translocation that places extra 21q material on another acrocentric chromosome.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/04_Molecular_Cytogenetics_Factoid.html","factoidLabel":"Molecular Cytogenetics","number":47,"reviewCheck":{"stem":"Which term should be paired with the following fact: Targeted probe; faster; can detect specific microdeletions/rearrangements; only detects the probed target.","options":["Unbalanced rearrangement","FISH","Prader-Willi / Angelman","Meiosis II","Robertsonian translocation"],"answer":"B","explanation":"FISH: Targeted probe; faster; can detect specific microdeletions/rearrangements; only detects the probed target."}},{"difficulty":"Step 1-style","lecture":"Molecular Cytogenetics","topic":"DiGeorge syndrome","concept":"DiGeorge/velocardiofacial syndrome is associated with a 22q11.2 deletion.","stem":"A child with conotruncal cardiac disease, hypocalcemia, and thymic hypoplasia is suspected of having a microdeletion syndrome. Which locus is the classic target?","options":["7q11","5p","22q11.2","Xp21","15q11-q13"],"answer":"C","explanation":"DiGeorge syndrome is classically caused by deletion of 22q11.2.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/04_Molecular_Cytogenetics_Factoid.html","factoidLabel":"Molecular Cytogenetics","number":48,"reviewCheck":{"stem":"What is the key high-yield point about FISH?","options":["Most often nondisjunction; Robertsonian translocation is an important alternative mechanism.","22q11.2 deletion.","No major net gain/loss of genetic material; carrier may be phenotypically normal.","Targeted probe; faster; can detect specific microdeletions/rearrangements; only detects the probed target.","Homologous chromosomes fail to separate."],"answer":"D","explanation":"FISH: Targeted probe; faster; can detect specific microdeletions/rearrangements; only detects the probed target."}},{"difficulty":"Intermediate","lecture":"Molecular Cytogenetics","topic":"Cri-du-chat","concept":"Cri-du-chat syndrome is associated with deletion of the short arm of chromosome 5.","stem":"Which cytogenetic abnormality is classically associated with cri-du-chat syndrome?","options":["22q11.2 deletion","15q paternal deletion","45,X","5p deletion","Trisomy 18"],"answer":"D","explanation":"Cri-du-chat results from deletion of 5p.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/04_Molecular_Cytogenetics_Factoid.html","factoidLabel":"Molecular Cytogenetics","number":49,"reviewCheck":{"stem":"Which statement about Meiosis I is correct?","options":["Sister chromatids fail to separate.","Homologous chromosomes fail to separate.","Fusion of long arms of acrocentric chromosomes.","15q11-q13 imprinting region.","Dosage gain/loss; often causes phenotype."],"answer":"B","explanation":"Meiosis I: Homologous chromosomes fail to separate."}},{"difficulty":"Intermediate","lecture":"Molecular Cytogenetics","topic":"Prader-Willi/Angelman","concept":"Prader-Willi and Angelman syndromes involve the imprinted 15q11-q13 region and differ by parental origin/expression.","stem":"Two disorders can result from abnormalities in the same imprinted chromosomal region but differ according to which parental contribution is lost. Which region is involved?","options":["17p13","5p","22q11.2","11p15","15q11-q13"],"answer":"E","explanation":"Prader-Willi and Angelman syndromes both involve the imprinted 15q11-q13 region.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/04_Molecular_Cytogenetics_Factoid.html","factoidLabel":"Molecular Cytogenetics","number":50,"reviewCheck":{"stem":"What is being described here: 22q11.2 deletion.","options":["Robertsonian translocation","DiGeorge","Cri-du-chat","Meiosis II","FISH"],"answer":"B","explanation":"DiGeorge: 22q11.2 deletion."}}];
+
+if(!window.ReviewBank){
+(function(){
+  const KEY='fom:review-bank:v1';
+  const AUTO_FLAG_MISSES=2;
+  const MASTERY_TARGET=3;
+
+  function load(){
+    try{
+      const parsed=JSON.parse(localStorage.getItem(KEY)||'{"items":{}}');
+      if(!parsed.items) parsed.items={};
+      return parsed;
+    }catch(e){ return {items:{}}; }
+  }
+  function save(bank){ localStorage.setItem(KEY,JSON.stringify(bank)); }
+  function idFor(item){
+    return [item.lecture||'',item.topic||'',item.concept||''].join('||').toLowerCase();
+  }
+  function base(item){
+    return {
+      id:idFor(item),
+      lecture:item.lecture||'',
+      topic:item.topic||'',
+      concept:item.concept||'',
+      difficulty:item.difficulty||'',
+      questionStem:item.stem||'',
+      choices:item.options||[],
+      answer:item.answer||'',
+      explanation:item.explanation||'',
+      transferCheck:item.reviewCheck||null,
+      sourceQuiz:item.sourceQuiz||'',
+      misses:0,
+      attempts:0,
+      manual:false,
+      active:false,
+      mastered:false,
+      masteryStreak:0,
+      lastConfidence:null,
+      updatedAt:new Date().toISOString()
+    };
+  }
+  function getEntry(bank,item){
+    const id=idFor(item);
+    if(!bank.items[id]) bank.items[id]=base(item);
+    const e=bank.items[id];
+    Object.assign(e,{
+      lecture:item.lecture||e.lecture,
+      topic:item.topic||e.topic,
+      concept:item.concept||e.concept,
+      difficulty:item.difficulty||e.difficulty,
+      questionStem:item.stem||e.questionStem,
+      choices:item.options||e.choices,
+      answer:item.answer||e.answer,
+      explanation:item.explanation||e.explanation,
+      transferCheck:item.reviewCheck||e.transferCheck,
+      sourceQuiz:item.sourceQuiz||e.sourceQuiz
+    });
+    return e;
+  }
+  function recordPrimaryOutcome(item,correct,confidence){
+    const bank=load(),e=getEntry(bank,item);
+    e.attempts=(e.attempts||0)+1;
+    e.lastConfidence=confidence||null;
+    if(!correct){
+      e.misses=(e.misses||0)+1;
+      e.masteryStreak=0;
+      if(e.mastered || e.misses>=AUTO_FLAG_MISSES) e.active=true;
+      if(e.mastered){ e.mastered=false; }
+    }
+    e.updatedAt=new Date().toISOString();
+    save(bank); return e;
+  }
+  function fileItem(item){
+    const bank=load(),e=getEntry(bank,item);
+    e.manual=true;
+    e.active=true;
+    e.mastered=false;
+    e.masteryStreak=0;
+    e.updatedAt=new Date().toISOString();
+    save(bank); return e;
+  }
+  function recordMastery(item,success){
+    const bank=load(),e=getEntry(bank,item);
+    if(success){
+      e.masteryStreak=(e.masteryStreak||0)+1;
+      if(e.masteryStreak>=MASTERY_TARGET){
+        e.active=false;
+        e.mastered=true;
+      }
+    }else{
+      e.masteryStreak=0;
+    }
+    e.updatedAt=new Date().toISOString();
+    save(bank); return e;
+  }
+  function getActive(){
+    return Object.values(load().items).filter(x=>x.active);
+  }
+  function getAll(){ return Object.values(load().items); }
+  window.ReviewBank={KEY,AUTO_FLAG_MISSES,MASTERY_TARGET,recordPrimaryOutcome,fileItem,recordMastery,getActive,getAll};
+})();
+}
+const QUIZ_KEY="week5-daily-monday-50";
+const HIGHLIGHT_KEY='quiz-highlights:'+QUIZ_KEY;
+let pendingHighlightSelection=null;
+
+function loadHighlights(){
+  try{return JSON.parse(localStorage.getItem(HIGHLIGHT_KEY)||'{}')||{}}catch(e){return {}}
+}
+function saveHighlights(data){try{localStorage.setItem(HIGHLIGHT_KEY,JSON.stringify(data))}catch(e){}}
+function normalizeRanges(ranges){
+  const sorted=(ranges||[]).filter(r=>Number.isFinite(r.start)&&Number.isFinite(r.end)&&r.end>r.start).sort((a,b)=>a.start-b.start||a.end-b.end);
+  const out=[];
+  sorted.forEach(r=>{const last=out[out.length-1];if(last&&r.start<=last.end)last.end=Math.max(last.end,r.end);else out.push({start:r.start,end:r.end})});
+  return out;
+}
+function unwrapHighlights(scope=document){
+  scope.querySelectorAll('mark.study-highlight').forEach(mark=>{const p=mark.parentNode;while(mark.firstChild)p.insertBefore(mark.firstChild,mark);p.removeChild(mark);p.normalize()});
+}
+function textPoint(root,offset){
+  const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);let pos=0,node;
+  while(node=walker.nextNode()){
+    const next=pos+node.nodeValue.length;
+    if(offset<=next)return {node,offset:Math.max(0,offset-pos)};
+    pos=next;
+  }
+  return null;
+}
+function wrapOffsetRange(root,start,end){
+  if(end<=start)return;
+  const s=textPoint(root,start),e=textPoint(root,end);if(!s||!e)return;
+  const range=document.createRange();
+  try{range.setStart(s.node,s.offset);range.setEnd(e.node,e.offset)}catch(err){return}
+  if(range.collapsed)return;
+  const mark=document.createElement('mark');mark.className='study-highlight';
+  try{const frag=range.extractContents();mark.appendChild(frag);range.insertNode(mark)}catch(err){}
+}
+function refreshHighlights(scope=document){
+  unwrapHighlights(scope);
+  const data=loadHighlights();
+  scope.querySelectorAll('.highlightable[data-highlight-id]').forEach(el=>{
+    const ranges=normalizeRanges(data[el.dataset.highlightId]||[]).sort((a,b)=>b.start-a.start);
+    ranges.forEach(r=>wrapOffsetRange(el,r.start,r.end));
+  });
+}
+function offsetWithin(root,node,offset){
+  const r=document.createRange();r.selectNodeContents(root);r.setEnd(node,offset);return r.toString().length;
+}
+function captureHighlightSelection(){
+  const sel=window.getSelection();if(!sel||sel.rangeCount===0||sel.isCollapsed)return;
+  const range=sel.getRangeAt(0);let startEl=range.startContainer.nodeType===1?range.startContainer:range.startContainer.parentElement;let endEl=range.endContainer.nodeType===1?range.endContainer:range.endContainer.parentElement;
+  startEl=startEl?.closest?.('.highlightable[data-highlight-id]');endEl=endEl?.closest?.('.highlightable[data-highlight-id]');
+  if(!startEl||startEl!==endEl)return;
+  const start=offsetWithin(startEl,range.startContainer,range.startOffset),end=offsetWithin(startEl,range.endContainer,range.endOffset);
+  if(end<=start)return;
+  pendingHighlightSelection={id:startEl.dataset.highlightId,start,end,preview:sel.toString().trim().slice(0,55)};
+  const status=document.getElementById('highlightStatus');if(status)status.textContent=pendingHighlightSelection.preview?`Selected: “${pendingHighlightSelection.preview}${sel.toString().trim().length>55?'…':''}”`:'Selection ready.';
+}
+function hasTextSelectionInside(el){
+  const sel=window.getSelection();if(!sel||sel.isCollapsed||!sel.toString().trim())return false;
+  const a=sel.anchorNode,b=sel.focusNode;return !!(a&&b&&el.contains(a)&&el.contains(b));
+}
+function addPendingHighlight(){
+  const s=pendingHighlightSelection,status=document.getElementById('highlightStatus');
+  if(!s){if(status)status.textContent='Select text in a question stem or answer choice first.';return}
+  const data=loadHighlights();data[s.id]=normalizeRanges([...(data[s.id]||[]),{start:s.start,end:s.end}]);saveHighlights(data);refreshHighlights(document);if(status)status.textContent='Highlight saved. It will stay after reset or reopen.';pendingHighlightSelection=null;window.getSelection()?.removeAllRanges();
+}
+function erasePendingHighlight(){
+  const s=pendingHighlightSelection,status=document.getElementById('highlightStatus');
+  if(!s){if(status)status.textContent='Select part of a yellow highlight to erase it.';return}
+  const data=loadHighlights(),ranges=data[s.id]||[];const kept=ranges.filter(r=>r.end<=s.start||r.start>=s.end);if(kept.length)data[s.id]=kept;else delete data[s.id];saveHighlights(data);refreshHighlights(document);if(status)status.textContent=ranges.length!==kept.length?'Selected highlight erased.':'No saved highlight overlapped that selection.';pendingHighlightSelection=null;window.getSelection()?.removeAllRanges();
+}
+function clearAllHighlights(){
+  const data=loadHighlights();if(!Object.keys(data).length){document.getElementById('highlightStatus').textContent='There are no saved highlights to clear.';return}
+  if(!confirm('Clear every yellow highlight saved for this quiz?'))return;saveHighlights({});refreshHighlights(document);pendingHighlightSelection=null;document.getElementById('highlightStatus').textContent='All highlights cleared.';
+}
+document.addEventListener('selectionchange',()=>{clearTimeout(window.__hlTimer);window.__hlTimer=setTimeout(captureHighlightSelection,40)});
+document.getElementById('highlightBtn')?.addEventListener('click',addPendingHighlight);
+document.getElementById('eraseHighlightBtn')?.addEventListener('click',erasePendingHighlight);
+document.getElementById('clearHighlightsBtn')?.addEventListener('click',clearAllHighlights);
+
+let primaryRecorded={};
+
+function bankItem(q){
+  return Object.assign({},q,{sourceQuiz:QUIZ_KEY});
+}
+function recordPrimaryOnce(qn){
+  if(primaryRecorded[qn]) return;
+  const q=QUESTIONS.find(x=>x.number===qn);
+  if(!q || !responses[qn]) return;
+  ReviewBank.recordPrimaryOutcome(bankItem(q),responses[qn]===q.answer,confidence[qn]||null);
+  primaryRecorded[qn]=true;
+}
+function saveProgress(completed=false){
+  const answered=Object.keys(responses).length;
+  const correct=QUESTIONS.filter(q=>responses[q.number]===q.answer).length;
+  const scoreVisible=(mode!=='exam'||completed);
+  const data={
+    key:QUIZ_KEY,total:QUESTIONS.length,answered,
+    score:scoreVisible?correct:null,
+    percent:scoreVisible&&answered?Math.round(correct/answered*100):null,
+    completed:!!completed,mode,updatedAt:new Date().toISOString()
+  };
+  try{
+    localStorage.setItem('quiz-progress:'+QUIZ_KEY,JSON.stringify(data));
+    localStorage.setItem('med-quiz-folder:'+QUIZ_KEY,JSON.stringify(data));
+    if(completed){
+      const pct=Math.round(correct/QUESTIONS.length*100);
+      const prev=Number(localStorage.getItem('quiz-best:'+QUIZ_KEY)||'-1');
+      if(pct>prev) localStorage.setItem('quiz-best:'+QUIZ_KEY,String(pct));
+    }
+  }catch(e){}
+}
+
+let mode='practice',responses={},struck={},confidence={},locked={},resultsShown=false;
+let advancedIndex=0,advancedTransfer={},advancedDecision={},advancedFiled={};
+
+const quiz=document.getElementById('quiz'),advancedShell=document.getElementById('advancedShell'),advancedQuestionCard=document.getElementById('advancedQuestionCard'),advancedReviewCard=document.getElementById('advancedReviewCard');
+const practiceMode=document.getElementById('practiceMode'),examMode=document.getElementById('examMode'),advancedMode=document.getElementById('advancedMode'),modeNote=document.getElementById('modeNote'),gradeBtn=document.getElementById('gradeBtn'),resultOverlay=document.getElementById('resultOverlay');
+
+function letter(i){return String.fromCharCode(65+i)}
+
+
+function findReviewEntry(q){
+  try{
+    const key=(window.ReviewBank&&ReviewBank.KEY)||'fom:review-bank:v1';
+    const bank=JSON.parse(localStorage.getItem(key)||'{"items":{}}');
+    return Object.values((bank&&bank.items)||{}).find(e=>e&&e.sourceQuiz===QUIZ_KEY&&e.questionStem===q.stem)||null;
+  }catch(e){return null}
+}
+function isManualFlagged(q){
+  const e=findReviewEntry(q);
+  return !!(e&&e.manual);
+}
+function setManualFlag(qn,on){
+  const q=QUESTIONS.find(x=>x.number===qn);
+  if(!q)return;
+  if(on){
+    ReviewBank.fileItem(bankItem(q));
+  }else{
+    try{
+      const key=(window.ReviewBank&&ReviewBank.KEY)||'fom:review-bank:v1';
+      const bank=JSON.parse(localStorage.getItem(key)||'{"version":1,"items":{}}');
+      Object.values((bank&&bank.items)||{}).forEach(e=>{
+        if(e&&e.sourceQuiz===QUIZ_KEY&&e.questionStem===q.stem){
+          e.manual=false;
+          const autoMiss=(e.misses||0)>=((window.ReviewBank&&ReviewBank.AUTO_FLAG_MISSES)||2);
+          if(!autoMiss&&!e.mastered)e.active=false;
+          e.updatedAt=new Date().toISOString();
+        }
+      });
+      localStorage.setItem(key,JSON.stringify(bank));
+    }catch(e){}
+  }
+  if(mode==='advanced'){
+    if(Object.prototype.hasOwnProperty.call(responses,qn))renderAdvancedReview(qn);
+    else renderAdvancedQuestion();
+  }else{
+    paintState();
+  }
+}
+function flagButtonHTML(qn){
+  const q=QUESTIONS.find(x=>x.number===qn),on=q?isManualFlagged(q):false;
+  return `<button type="button" class="flag-btn ${on?'active':''}" data-flag-q="${qn}">${on?'Flagged ✓':'Flag for Review'}</button>`;
+}
+function bindFlagButtons(root){
+  (root||document).querySelectorAll('[data-flag-q]').forEach(btn=>btn.addEventListener('click',e=>{
+    e.preventDefault();e.stopPropagation();
+    const qn=Number(btn.dataset.flagQ),q=QUESTIONS.find(x=>x.number===qn);
+    if(q)setManualFlag(qn,!isManualFlagged(q));
+  }));
+}
+function factoidResourceHTML(q){
+  return `<div class="review-resource"><span>Lecture review resource</span><a href="${q.factoid}" target="_blank" rel="noopener">Open ${q.factoidLabel} Factoid Sheet ↗</a></div>`;
+}
+
+function confidenceHTML(qn){
+ const value=confidence[qn]||'';
+ return `<div class="confidence-wrap">
+   <div class="confidence-panel">
+     <div class="confidence-label">Confidence</div>
+     
+     <div class="confidence-buttons">
+       <button type="button" class="confidence-btn ${value==='guessing'?'active':''}" data-level="guessing">Guessing</button>
+       <button type="button" class="confidence-btn ${value==='unsure'?'active':''}" data-level="unsure">Unsure</button>
+       <button type="button" class="confidence-btn ${value==='confident'?'active':''}" data-level="confident">Confident</button>
+     </div>
+   </div>
+ </div>`;
+}
+
+function renderQuiz(){
+ quiz.innerHTML='';
+ QUESTIONS.forEach(q=>{
+  const article=document.createElement('article');article.className='question';article.id='q-'+q.number;
+  article.innerHTML=`<div class="qtop"><div class="qnum">Question ${q.number}</div>${flagButtonHTML(q.number)}</div><div class="stem highlightable" data-highlight-id="q${q.number}-stem">${q.stem}</div><div class="choices"></div><div class="feedback" id="feedback-${q.number}"></div>${confidenceHTML(q.number)}`;
+  const choices=article.querySelector('.choices');
+  q.options.forEach((opt,idx)=>{
+   const L=letter(idx),row=document.createElement('div');row.className='choice-row';
+   row.innerHTML=`<button type="button" class="choice" data-letter="${L}"><span class="choice-letter">${L}</span><span class="choice-copy highlightable" data-highlight-id="q${q.number}-opt-${L}">${opt}</span></button><button type="button" class="strike" title="Strike through choice ${L}">S̶</button>`;
+   row.querySelector('.choice').addEventListener('click',e=>{if(hasTextSelectionInside(e.currentTarget))return;choose(q.number,L)});
+   row.querySelector('.strike').addEventListener('click',e=>{e.stopPropagation();toggleStrike(q.number,L)});
+   choices.appendChild(row);
+  });
+  article.querySelectorAll('.confidence-btn').forEach(btn=>btn.addEventListener('click',()=>setConfidence(q.number,btn.dataset.level)));
+  bindFlagButtons(article);
+  quiz.appendChild(article);
+ });
+ refreshHighlights(quiz);
+ paintState();
+}
+
+function syncReviewBankConfidence(qn){
+ const q=QUESTIONS.find(x=>x.number===qn);
+ if(!q || !Object.prototype.hasOwnProperty.call(responses,qn)) return;
+ try{
+   const key=(window.ReviewBank&&ReviewBank.KEY)||'fom:review-bank:v1';
+   const raw=localStorage.getItem(key);
+   if(!raw)return;
+   const bank=JSON.parse(raw);
+   let changed=false;
+   Object.values((bank&&bank.items)||{}).forEach(e=>{
+     if(e && e.sourceQuiz===QUIZ_KEY && e.questionStem===q.stem){
+       e.lastConfidence=confidence[qn]||null;
+       e.updatedAt=new Date().toISOString();
+       changed=true;
+     }
+   });
+   if(changed)localStorage.setItem(key,JSON.stringify(bank));
+ }catch(e){}
+}
+
+function setConfidence(qn,level){
+ confidence[qn]=level;
+ syncReviewBankConfidence(qn);
+ if(mode==='advanced'){
+   if(Object.prototype.hasOwnProperty.call(responses,qn))renderAdvancedReview(qn);
+   else renderAdvancedQuestion();
+ }else paintState();
+}
+function choose(qn,L){if(mode==='practice'&&locked[qn])return;responses[qn]=L;if(mode==='practice'){locked[qn]=true;gradeQuestion(qn,true);recordPrimaryOnce(qn)}paintState();if(mode==='practice'&&Object.keys(responses).length===QUESTIONS.length&&!resultsShown)setTimeout(showResults,250)}
+function toggleStrike(qn,L){if(mode==='practice'&&locked[qn])return;struck[qn]??={};struck[qn][L]=!struck[qn][L];paintState()}
+
+function paintState(){
+ QUESTIONS.forEach(q=>{
+  const article=document.getElementById('q-'+q.number);if(!article)return;article.classList.remove('correct-q','wrong-q');
+  article.querySelectorAll('.choice').forEach(btn=>{const L=btn.dataset.letter;btn.classList.remove('selected','correct','wrong','struck');if(responses[q.number]===L)btn.classList.add('selected');if(struck[q.number]?.[L])btn.classList.add('struck');if(mode==='practice'&&locked[q.number]){if(L===q.answer)btn.classList.add('correct');if(responses[q.number]===L&&L!==q.answer)btn.classList.add('wrong')}});
+  article.querySelectorAll('.strike').forEach((btn,idx)=>{btn.classList.toggle('active',!!struck[q.number]?.[letter(idx)]);btn.disabled=mode==='practice'&&!!locked[q.number]});
+  article.querySelectorAll('.confidence-btn').forEach(btn=>{
+   btn.classList.toggle('active',confidence[q.number]===btn.dataset.level);
+   btn.disabled=false;
+  });
+  const flag=article.querySelector('[data-flag-q]');
+  if(flag){const on=isManualFlagged(q);flag.classList.toggle('active',on);flag.textContent=on?'Flagged ✓':'Flag for Review';}
+ });
+ updateProgress();
+}
+
+function gradeQuestion(qn,showFeedback){
+ const q=QUESTIONS.find(x=>x.number===qn),fb=document.getElementById('feedback-'+qn),isCorrect=responses[qn]===q.answer;
+ if(showFeedback&&fb){fb.className='feedback show '+(isCorrect?'good':'bad');fb.innerHTML=isCorrect?`<strong>Correct.</strong> ${q.explanation}`:`<strong>Not quite.</strong> Correct answer: <strong>${q.answer}</strong>. ${q.explanation}`}
+ const article=document.getElementById('q-'+qn);if(article){article.querySelectorAll('.choice').forEach(btn=>{const L=btn.dataset.letter;if(L===q.answer)btn.classList.add('correct');if(responses[qn]===L&&L!==q.answer)btn.classList.add('wrong')})}
+}
+
+function updateProgress(){
+ const answered=Object.keys(responses).length;
+ document.getElementById('answeredLabel').textContent=mode==='advanced'?`Question ${Math.min(advancedIndex+1,QUESTIONS.length)} of ${QUESTIONS.length} · ${answered} answered`:`${answered} of ${QUESTIONS.length} answered`;
+ document.getElementById('progressFill').style.width=`${answered/QUESTIONS.length*100}%`;
+ if(mode==='practice'){const correct=QUESTIONS.filter(q=>responses[q.number]===q.answer).length;document.getElementById('scoreLabel').textContent=answered?`Practice score: ${correct}/${answered}`:'Practice score: —'}
+ else if(mode==='advanced'){const transferDone=Object.keys(advancedTransfer).length;document.getElementById('scoreLabel').textContent=`Advanced review · ${transferDone} transfer checks completed`}
+ else document.getElementById('scoreLabel').textContent='Exam score hidden until grading';
+ saveProgress(false);
+}
+
+function setMode(next){
+ if(Object.keys(responses).length&&!confirm('Switching modes will reset this test run. Continue?'))return;
+ if(Object.keys(responses).length)resetState(false);
+ mode=next;
+ practiceMode.classList.toggle('active',mode==='practice');examMode.classList.toggle('active',mode==='exam');advancedMode.classList.toggle('active',mode==='advanced');
+ quiz.classList.toggle('hidden',mode==='advanced');advancedShell.classList.toggle('show',mode==='advanced');
+ gradeBtn.style.display=mode==='exam'?'inline-block':'none';
+ modeNote.textContent=mode==='practice'?'Immediate feedback is ON.':mode==='exam'?'Feedback is hidden until you grade the quiz.':'One question at a time. If you miss the primary question, Advanced Review is required. If you get it right, the review is optional.';
+ if(mode==='advanced'){advancedIndex=0;renderAdvancedQuestion()}else{renderQuiz()}
+ updateProgress();
+}
+practiceMode.addEventListener('click',()=>setMode('practice'));examMode.addEventListener('click',()=>setMode('exam'));advancedMode.addEventListener('click',()=>setMode('advanced'));
+
+function renderAdvancedQuestion(){
+ if(advancedIndex>=QUESTIONS.length){showResults();return}
+ const q=QUESTIONS[advancedIndex],qn=q.number;
+ advancedReviewCard.classList.remove('show');
+ advancedQuestionCard.style.display='block';
+ let choices='';
+ q.options.forEach((opt,idx)=>{const L=letter(idx),classes=['choice'];if(struck[qn]?.[L])classes.push('struck');choices+=`<div class="choice-row"><button type="button" class="${classes.join(' ')}" data-letter="${L}"><span class="choice-letter">${L}</span><span class="choice-copy highlightable" data-highlight-id="q${qn}-opt-${L}">${opt}</span></button><button type="button" class="strike ${struck[qn]?.[L]?'active':''}" data-strike="${L}">S̶</button></div>`});
+ advancedQuestionCard.innerHTML=`<div class="advanced-progress-label">Advanced Quiz Review · Primary Question</div><div class="qtop"><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><div class="qnum">Question ${qn}</div>${flagButtonHTML(qn)}</div><div class="tags"><span class="tag">Metadata hidden until review</span></div></div><div class="stem highlightable" data-highlight-id="q${qn}-stem">${q.stem}</div><div class="choices">${choices}</div>${confidenceHTML(qn)}`;
+ advancedQuestionCard.querySelectorAll('.choice').forEach(btn=>btn.addEventListener('click',e=>{if(hasTextSelectionInside(e.currentTarget))return;answerAdvancedPrimary(qn,btn.dataset.letter)}));
+ advancedQuestionCard.querySelectorAll('[data-strike]').forEach(btn=>btn.addEventListener('click',()=>{const L=btn.dataset.strike;struck[qn]??={};struck[qn][L]=!struck[qn][L];renderAdvancedQuestion()}));
+ advancedQuestionCard.querySelectorAll('.confidence-btn').forEach(btn=>btn.addEventListener('click',()=>setConfidence(qn,btn.dataset.level)));
+ bindFlagButtons(advancedQuestionCard);
+ refreshHighlights(advancedQuestionCard);
+ updateProgress();
+}
+
+function answerAdvancedPrimary(qn,L){
+ responses[qn]=L;locked[qn]=true;recordPrimaryOnce(qn);
+ renderAdvancedReview(qn);
+ updateProgress();
+}
+
+function renderAdvancedReview(qn){
+ const q=QUESTIONS.find(x=>x.number===qn),correct=responses[qn]===q.answer,rc=q.reviewCheck;
+ advancedQuestionCard.style.display='none';advancedReviewCard.classList.add('show');
+ let transferChoices='';rc.options.forEach((opt,idx)=>{const L=letter(idx),chosen=advancedTransfer[qn]===L,done=!!advancedTransfer[qn],classes=['choice'];if(chosen)classes.push('selected');if(done&&L===rc.answer)classes.push('correct');if(done&&chosen&&L!==rc.answer)classes.push('wrong');transferChoices+=`<div class="choice-row"><button type="button" class="${classes.join(' ')}" data-transfer="${L}" ${done?'disabled':''}><span class="choice-letter">${L}</span><span class="choice-copy highlightable" data-highlight-id="q${qn}-transfer-opt-${L}">${opt}</span></button></div>`});
+ const transferDone=!!advancedTransfer[qn],transferCorrect=advancedTransfer[qn]===rc.answer,decision=advancedDecision[qn]||'';
+ advancedReviewCard.innerHTML=`
+ <div class="qtop"><div class="advanced-progress-label">Advanced Review Screen</div>${flagButtonHTML(qn)}</div>
+ <h2 class="review-title">${correct?'Correct primary answer':'Primary answer missed'}</h2>
+ <div class="feedback show ${correct?'good':'bad'}">${correct?'<strong>Correct.</strong>':'<strong>Not quite.</strong> Correct answer: <strong>'+q.answer+'</strong>.'} ${q.explanation}</div>
+ ${confidenceHTML(qn)}
+ <div class="review-meta">
+   <div class="meta-card"><span>Difficulty</span><strong>${q.difficulty}</strong></div>
+   <div class="meta-card"><span>Lecture</span><strong>${q.lecture}</strong></div>
+   <div class="meta-card"><span>Topic</span><strong>${q.topic}</strong></div>
+ </div>
+ <div class="concept-box"><strong>Concept:</strong> ${q.concept}</div>
+ ${factoidResourceHTML(q)}
+ <div class="transfer"><h3>Transfer Check</h3><p>Apply the same concept to a similar stem before moving on.</p><div class="stem highlightable" data-highlight-id="q${qn}-transfer-stem">${rc.stem}</div><div class="choices">${transferChoices}</div>
+ <div class="transfer-status ${transferDone?'show '+(transferCorrect?'good':'bad'):''}">${transferDone?(transferCorrect?'<strong>Transfer check correct.</strong> ':'<strong>Transfer check missed.</strong> Correct answer: <strong>'+rc.answer+'</strong>. ')+rc.explanation:''}</div></div>
+ <div class="decision-box"><h3>Before continuing</h3>
+ <p>${correct?'Because you answered the primary question correctly, Advanced Review is optional. You may skip it, or complete the transfer check for deeper review.':'Because you missed the primary question, complete the transfer check and then either confirm understanding or file the concept for review.'}</p>
+ ${correct?`<div class="review-actions"><button type="button" class="secondary" id="skipAdvancedBtn">${advancedIndex===QUESTIONS.length-1?'Skip review & finish':'Skip Advanced Review'}</button></div>`:''}
+ <div class="review-actions"><button type="button" class="review-decision ${decision==='understand'?'active-understand':''}" id="understandBtn">I understand</button><button type="button" class="review-decision ${decision==='file'?'active-file':''}" id="fileBtn">File for review</button></div>
+ <button type="button" class="primary" id="continueAdvancedBtn" ${(!transferDone||!decision)?'disabled':''}>${advancedIndex===QUESTIONS.length-1?'Finish Advanced Review':'Continue to next question'}</button></div>`;
+ refreshHighlights(advancedReviewCard);
+ bindFlagButtons(advancedReviewCard);
+ advancedReviewCard.querySelectorAll('.confidence-btn').forEach(btn=>btn.addEventListener('click',()=>setConfidence(qn,btn.dataset.level)));
+ advancedReviewCard.querySelectorAll('[data-transfer]').forEach(btn=>btn.addEventListener('click',e=>{if(hasTextSelectionInside(e.currentTarget))return;advancedTransfer[qn]=btn.dataset.transfer;renderAdvancedReview(qn);updateProgress()}));
+ document.getElementById('understandBtn').addEventListener('click',()=>{advancedDecision[qn]='understand';advancedFiled[qn]=false;renderAdvancedReview(qn)});
+ document.getElementById('fileBtn').addEventListener('click',()=>{advancedDecision[qn]='file';advancedFiled[qn]=true;ReviewBank.fileItem(bankItem(q));renderAdvancedReview(qn)});
+ const skip=document.getElementById('skipAdvancedBtn');
+ if(skip)skip.addEventListener('click',()=>{
+   advancedDecision[qn]='understand';
+   advancedFiled[qn]=false;
+   advancedIndex++;
+   if(advancedIndex>=QUESTIONS.length)showResults();else renderAdvancedQuestion();
+   updateProgress();
+ });
+ const cont=document.getElementById('continueAdvancedBtn');if(cont)cont.addEventListener('click',()=>{if(!advancedTransfer[qn]||!advancedDecision[qn])return;const masterySuccess=(responses[qn]===q.answer&&advancedTransfer[qn]===rc.answer&&advancedDecision[qn]==='understand');ReviewBank.recordMastery(bankItem(q),masterySuccess);if(advancedDecision[qn]==='file')ReviewBank.fileItem(bankItem(q));advancedIndex++;if(advancedIndex>=QUESTIONS.length)showResults();else renderAdvancedQuestion();updateProgress()});
+}
+
+gradeBtn.addEventListener('click',()=>{if(Object.keys(responses).length<QUESTIONS.length){alert(`You still have ${QUESTIONS.length-Object.keys(responses).length} unanswered question(s).`);return}QUESTIONS.forEach(q=>{locked[q.number]=true;gradeQuestion(q.number,true);recordPrimaryOnce(q.number)});resultsShown=true;paintState();showResults()});
+
+function showResults(){
+ resultsShown=true;const correct=QUESTIONS.filter(q=>responses[q.number]===q.answer).length,pct=Math.round(correct/QUESTIONS.length*100),passed=pct>=70;saveProgress(true);
+ document.getElementById('hunterImg').src=passed?HUNTER_UP:HUNTER_DOWN;document.getElementById('resultTitle').textContent=passed?'Hunter is proud of you':'Hunter says boot up anki little bro';
+ let scoreText=`${pct}% · ${correct}/${QUESTIONS.length} primary questions correct`;
+ if(mode==='advanced'){const attemptedTransfers=QUESTIONS.filter(q=>advancedTransfer[q.number]).length,transferCorrect=QUESTIONS.filter(q=>advancedTransfer[q.number]===q.reviewCheck.answer).length;scoreText+=attemptedTransfers?` · ${transferCorrect}/${attemptedTransfers} transfer checks correct`:' · No transfer checks attempted'}
+ document.getElementById('finalScore').textContent=scoreText;
+ const missed=QUESTIONS.filter(q=>responses[q.number]!==q.answer),topicMap={};QUESTIONS.forEach(q=>{topicMap[q.topic]??={total:0,missed:0,concepts:[]};topicMap[q.topic].total++;if(responses[q.number]!==q.answer){topicMap[q.topic].missed++;topicMap[q.topic].concepts.push(q.concept)}});
+ const needs=Object.entries(topicMap).filter(([,v])=>v.missed>0).sort((a,b)=>(b[1].missed/b[1].total)-(a[1].missed/a[1].total)),strong=Object.entries(topicMap).filter(([,v])=>v.missed===0).map(([k])=>k);
+ let h='';if(!missed.length)h+='<p class="strong">No primary-question review topics flagged by score.</p>';else{h+='<div class="need">Needs the most review</div><ul class="review-list">';needs.slice(0,4).forEach(([topic,v])=>h+=`<li><strong>${topic}</strong> — ${v.missed} missed of ${v.total} tested</li>`);h+='</ul>'}
+ if(mode==='advanced'){const filed=QUESTIONS.filter(q=>advancedFiled[q.number]);if(filed.length){h+='<div class="need">You manually filed these for review</div><ul class="review-list">';filed.forEach(q=>h+=`<li><strong>${q.topic}</strong> — ${q.concept}</li>`);h+='</ul>'}const transferMissed=QUESTIONS.filter(q=>advancedTransfer[q.number]&&advancedTransfer[q.number]!==q.reviewCheck.answer);if(transferMissed.length){h+='<div class="need">Transfer checks to revisit</div><ul class="review-list">';transferMissed.forEach(q=>h+=`<li><strong>${q.topic}</strong> — apply the concept to a new stem</li>`);h+='</ul>'}}
+ if(strong.length){h+='<div class="strong">Strongest areas</div><ul class="review-list">';strong.slice(0,4).forEach(t=>h+=`<li>${t}</li>`);h+='</ul>'}
+ const confidentWrong=QUESTIONS.filter(q=>confidence[q.number]==='confident'&&responses[q.number]!==q.answer),
+ confidentRight=QUESTIONS.filter(q=>confidence[q.number]==='confident'&&responses[q.number]===q.answer),
+ unsureRight=QUESTIONS.filter(q=>confidence[q.number]==='unsure'&&responses[q.number]===q.answer),
+ guessingRight=QUESTIONS.filter(q=>confidence[q.number]==='guessing'&&responses[q.number]===q.answer),
+ rated=QUESTIONS.filter(q=>confidence[q.number]).length;
+ h+=`<div class="confidence-summary"><strong>Confidence analysis</strong><div style="font-size:11px;color:var(--muted);margin-top:3px">Your most recent confidence rating is used, whether you set it before or after answering.</div><div class="confidence-grid"><div class="conf-stat"><b>${confidentWrong.length}</b><span>CONFIDENTLY WRONG</span></div><div class="conf-stat"><b>${confidentRight.length}</b><span>CONFIDENT + CORRECT</span></div><div class="conf-stat"><b>${unsureRight.length}</b><span>UNSURE BUT CORRECT</span></div><div class="conf-stat"><b>${guessingRight.length}</b><span>GUESSES THAT LANDED</span></div></div>`;
+ if(confidentWrong.length){h+='<div class="need" style="margin-top:10px">Highest-priority review: confidently wrong</div><ul class="review-list">';confidentWrong.forEach(q=>h+=`<li><strong>${q.topic}</strong> — ${q.concept}</li>`);h+='</ul>'}
+ else if(rated)h+='<p class="strong" style="margin:10px 0 0">No confidently-wrong concepts this attempt.</p>';
+ else h+='<p style="margin:10px 0 0;color:var(--muted)">No confidence ratings were selected.</p>';
+ h+='</div>';
+ const manuallyFlagged=QUESTIONS.filter(q=>isManualFlagged(q));
+ if(manuallyFlagged.length){
+   h+='<div class="need">Flagged for Review</div><ul class="review-list">';
+   manuallyFlagged.forEach(q=>h+=`<li><strong>${q.topic}</strong> — ${q.concept}</li>`);
+   h+='</ul>';
+ }
+ h+=`<div class="factoid-links"><strong>Monday Factoid Sheets</strong><div class="factoid-row">
+ <a href="../notes/Week%205/Week%205%20Note%20Hub/Factoids/01_Introduction_to_Neoplasia_Factoid.html" target="_blank" rel="noopener">Introduction to Neoplasia ↗</a>
+ <a href="../notes/Week%205/Week%205%20Note%20Hub/Factoids/02_Genetic_Testing_Familial_Cancer_Factoid.html" target="_blank" rel="noopener">Genetic Testing for Familial Cancer Syndromes ↗</a>
+ <a href="../notes/Week%205/Week%205%20Note%20Hub/Factoids/03_Molecular_Diagnostics_Factoid.html" target="_blank" rel="noopener">Molecular Diagnostics ↗</a>
+ <a href="../notes/Week%205/Week%205%20Note%20Hub/Factoids/04_Molecular_Cytogenetics_Factoid.html" target="_blank" rel="noopener">Molecular Cytogenetics ↗</a>
+ </div></div>`;
+ const activeCount=ReviewBank.getActive().length;h+=`<p style="margin-top:12px;color:var(--muted);font-size:12px">Shared review bank: ${activeCount} active concept${activeCount===1?'':'s'}.</p>`;document.getElementById('reviewBody').innerHTML=h;resultOverlay.classList.add('show');
+}
+
+let hunterClicks=0,hunterBubbleTimer=null,lastHunterMessage=-1;
+const hunterMessages=["Why are you poking me?","You do know there are questions to review, right?","Hunter has documented this behavior.","Please return to Anki immediately.","This interaction is not improving your score.","I am literally just a results screen.","There are missed questions waiting for you.","Your persistence is medically concerning.","This counts as procrastination, by the way.","Achievement unlocked: Professional Hunter Annoyer."];
+document.getElementById('hunterImg').addEventListener('click',()=>{hunterClicks++;if(hunterClicks<3)return;let idx;do{idx=Math.floor(Math.random()*hunterMessages.length)}while(hunterMessages.length>1&&idx===lastHunterMessage);lastHunterMessage=idx;const bubble=document.getElementById('hunterBubble');bubble.textContent=hunterMessages[idx];bubble.classList.add('show');clearTimeout(hunterBubbleTimer);hunterBubbleTimer=setTimeout(()=>bubble.classList.remove('show'),2200)});
+
+document.getElementById('closeResultBtn').addEventListener('click',()=>resultOverlay.classList.remove('show'));const rbLink=document.getElementById('openReviewBankBtn');if(rbLink&&location.protocol==='file:')rbLink.style.display='none';
+document.getElementById('reviewMissedBtn').addEventListener('click',()=>{resultOverlay.classList.remove('show');if(mode==='advanced'){const first=QUESTIONS.find(q=>responses[q.number]!==q.answer||advancedFiled[q.number]||advancedTransfer[q.number]!==q.reviewCheck.answer);if(first){advancedIndex=first.number-1;renderAdvancedReview(first.number)}}else{const first=QUESTIONS.find(q=>responses[q.number]!==q.answer);if(first)document.getElementById('q-'+first.number)?.scrollIntoView({behavior:'smooth',block:'start'})}});
+
+function resetState(confirmFirst=true){
+ if(confirmFirst&&Object.keys(responses).length&&!confirm('Clear all responses, confidence ratings, strike-throughs, and advanced-review decisions? Your yellow highlights will be kept.'))return;
+ responses={};struck={};confidence={};locked={};primaryRecorded={};resultsShown=false;advancedIndex=0;advancedTransfer={};advancedDecision={};advancedFiled={};hunterClicks=0;lastHunterMessage=-1;resultOverlay.classList.remove('show');
+ if(mode==='advanced')renderAdvancedQuestion();else renderQuiz();updateProgress();
+}
+document.getElementById('resetBtn').addEventListener('click',()=>resetState(true));
+
+renderQuiz();
+updateProgress();
+</script>
+</body></html>

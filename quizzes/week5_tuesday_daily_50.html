@@ -1,0 +1,644 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Week 5 Tuesday Daily Quiz — Foundations of Cancer</title>
+<style>
+:root{
+  --bg:#f3ece3;--paper:#fffaf4;--paper2:#f8f1e9;--ink:#3e3028;--muted:#78695f;
+  --line:#dccfc3;--brown:#694a39;--brown-dark:#4a3428;--brown-soft:#8a654f;
+  --tan:#eee5dc;--tan2:#e8ddd1;--good:#55704e;--goodbg:#e9f1e5;
+  --bad:#92584f;--badbg:#f6e6e3;--gold:#9d7c45;--goldbg:#f5ecdb;
+  --highlight:#f6dd74;--shadow:0 14px 34px rgba(65,43,31,.08)
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(circle at top left,rgba(255,255,255,.55),transparent 30%),var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+button{font:inherit}a{text-decoration:none;color:inherit}
+.hero{background:linear-gradient(135deg,var(--brown-dark),var(--brown),var(--brown-soft));color:#fff;padding:20px 22px 32px}
+.hero-inner,main{max-width:1040px;margin:auto}
+.hero-top{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:24px}
+.back-link{display:inline-flex;align-items:center;gap:8px;padding:8px 11px;border:1px solid rgba(255,255,255,.17);border-radius:999px;background:rgba(255,255,255,.08);color:rgba(255,255,255,.88);font-size:12px;font-weight:800}
+.quiz-kicker{font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;opacity:.7}
+.hero-main{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center}
+.hero-icon{width:70px;height:70px;border-radius:21px;display:grid;place-items:center;background:radial-gradient(circle at 32% 24%,rgba(255,255,255,.96),rgba(244,229,218,.9) 48%,rgba(223,204,190,.92));border:1px solid rgba(255,255,255,.25);box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 10px 22px rgba(35,22,15,.14)}
+.hero-icon svg{width:49px;height:49px}.hero h1{margin:0;font-size:clamp(30px,5vw,48px);line-height:1.03;letter-spacing:-.035em}
+.hero p{margin:9px 0 0;color:rgba(255,255,255,.8);max-width:800px;font-size:14px;line-height:1.55}
+.modebar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:19px}.modebtn{border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.08);color:white;border-radius:12px;padding:9px 12px;font-weight:800;font-size:12px;cursor:pointer;transition:.16s}
+.modebtn:hover{background:rgba(255,255,255,.12)}.modebtn.active{background:white;color:var(--brown);border-color:white}.mode-note{font-size:11px;color:rgba(255,255,255,.72);flex-basis:100%;margin-top:1px}
+main{padding:20px 18px 60px}.progress-shell{position:sticky;top:0;z-index:20;background:rgba(243,236,227,.94);backdrop-filter:blur(12px);padding:10px 0 12px}
+.progress-card{background:rgba(255,250,244,.94);border:1px solid var(--line);border-radius:17px;padding:12px 14px;box-shadow:0 7px 20px rgba(65,43,31,.06)}
+.progress-row{display:flex;justify-content:space-between;gap:10px;font-size:12px;font-weight:850}.progress-track{height:7px;background:#e5d9ce;border-radius:999px;overflow:hidden;margin-top:9px}.progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--brown-soft),var(--brown));transition:.2s}
+.study-tools{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-top:10px;padding-top:10px;border-top:1px solid #eadfd6}.tool-label{font-size:10px;font-weight:900;color:var(--brown-soft);text-transform:uppercase;letter-spacing:.08em;margin-right:2px}
+.tool-btn{border:1px solid var(--line);background:var(--paper2);color:var(--brown);border-radius:10px;padding:7px 9px;font-size:11px;font-weight:800;cursor:pointer}.tool-btn:hover{background:#efe4da}.tool-btn.danger{color:#81554f}.tool-status{font-size:10px;color:var(--muted);margin-left:auto;max-width:330px;text-align:right}
+mark.study-highlight{background:var(--highlight);color:inherit;border-radius:3px;padding:0 .06em;box-shadow:inset 0 -1px 0 rgba(122,91,37,.12)}
+.highlightable{user-select:text;-webkit-user-select:text}.choice-copy{user-select:text;-webkit-user-select:text}
+.question,.advanced-card,.review-card{background:linear-gradient(180deg,var(--paper),#fdf7f0);border:1px solid var(--line);border-radius:20px;padding:21px;margin:0 0 15px;box-shadow:var(--shadow);scroll-margin-top:132px}
+.qtop{display:flex;justify-content:space-between;gap:12px;align-items:center}.qnum{display:inline-flex;align-items:center;padding:6px 9px;border-radius:999px;background:var(--tan);border:1px solid var(--tan2);font-size:11px;font-weight:900;color:var(--brown);letter-spacing:.02em}.tags{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.tag{font-size:9px;font-weight:850;padding:5px 7px;border-radius:999px;border:1px solid var(--line);background:var(--paper2);color:var(--muted)}
+.stem{font-size:17px;line-height:1.58;margin:15px 0 15px;font-weight:600}.choices{display:grid;gap:9px}.choice-row{display:grid;grid-template-columns:1fr auto;gap:8px}
+.choice{width:100%;text-align:left;border:1px solid var(--line);background:#fffdfa;border-radius:14px;padding:11px 13px;cursor:pointer;color:var(--ink);line-height:1.45;display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:start;transition:border-color .14s,background .14s,transform .14s}
+.choice:hover{border-color:#c9b7a8;background:#fffaf5}.choice-letter{width:28px;height:28px;border-radius:9px;display:grid;place-items:center;background:#f1e7de;border:1px solid #e1d4c9;color:var(--brown);font-size:11px;font-weight:900;user-select:none}.choice-copy{padding-top:4px}
+.choice.selected{border:2px solid var(--brown-soft);background:#f3e8df}.choice.selected .choice-letter{background:var(--brown);border-color:var(--brown);color:#fff}.choice.correct{border:2px solid var(--good);background:var(--goodbg);color:#30442d}.choice.correct .choice-letter{background:var(--good);border-color:var(--good);color:#fff}.choice.wrong{border:2px solid var(--bad);background:var(--badbg);color:#6f3f39}.choice.wrong .choice-letter{background:var(--bad);border-color:var(--bad);color:#fff}
+.choice.struck{text-decoration:line-through;opacity:.52;background:#f0ece8}.strike{min-width:43px;border:1px solid var(--line);background:var(--paper2);border-radius:13px;cursor:pointer;font-weight:900;color:var(--muted)}.strike.active{background:#e7ddd4}
+.feedback{display:none;margin-top:12px;padding:12px 13px;border-radius:12px;font-size:13px;line-height:1.52}.feedback.show.good{display:block;background:var(--goodbg);border:1px solid #c7d6c1;color:#355231}.feedback.show.bad{display:block;background:var(--badbg);border:1px solid #dfc1bb;color:#713f39}
+.confidence-wrap{margin-top:14px;padding-top:13px;border-top:1px dashed var(--line)}
+.confidence-panel{padding:11px 12px;border:1px solid var(--line);border-radius:13px;background:#fffaf5}
+.confidence-label{font-size:10px;font-weight:900;color:var(--muted);margin-bottom:3px;text-transform:uppercase;letter-spacing:.07em}
+.confidence-note{font-size:10px;color:#907f73;margin-bottom:8px;line-height:1.35}
+.confidence-buttons{display:flex;gap:6px;flex-wrap:wrap}
+.confidence-btn{border:1px solid var(--line);background:var(--paper2);color:var(--muted);border-radius:999px;padding:7px 10px;font-size:10px;font-weight:800;cursor:pointer}
+.confidence-btn:hover{border-color:#c9b7a8;background:#f8eee6}
+.confidence-btn.active{background:var(--brown);color:#fff;border-color:var(--brown)}
+.bottom-actions,.review-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:24px 0}.primary,.secondary,.review-decision{border-radius:12px;padding:11px 16px;font-weight:850;cursor:pointer;font-size:12px}.primary{border:none;background:var(--brown);color:white}.secondary{border:1px solid var(--line);background:var(--paper);color:var(--brown)}.primary:disabled{opacity:.45;cursor:not-allowed}#gradeBtn{display:none}
+.advanced-shell{display:none}.advanced-shell.show{display:block}#quiz.hidden{display:none}.advanced-progress-label{font-size:10px;font-weight:900;color:var(--brown-soft);text-transform:uppercase;letter-spacing:.08em;margin-bottom:7px}.review-card{display:none;border-color:#c8b18f;background:linear-gradient(180deg,#fffaf4,#f7eee2)}.review-card.show{display:block}.review-title{font-size:24px;font-weight:900;color:var(--brown);margin:0 0 8px}.review-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}.meta-card{border:1px solid var(--line);border-radius:11px;padding:10px;background:#fffaf4}.meta-card span{display:block;font-size:9px;font-weight:850;letter-spacing:.07em;color:var(--muted);text-transform:uppercase;margin-bottom:4px}.meta-card strong{font-size:13px;color:var(--brown)}.concept-box{padding:12px 14px;border-radius:11px;background:var(--goldbg);border:1px solid #dfcda9;line-height:1.45;margin:12px 0}.concept-box strong{color:#735b2c}.transfer{margin-top:18px;padding-top:17px;border-top:1px solid var(--line)}.transfer h3{margin:0 0 8px;color:var(--brown)}.transfer-status{margin:10px 0;padding:10px 12px;border-radius:10px;display:none;font-size:13px;line-height:1.45}.transfer-status.show.good{display:block;background:var(--goodbg);border:1px solid #c7d6c1;color:#355231}.transfer-status.show.bad{display:block;background:var(--badbg);border:1px solid #dfc1bb;color:#713f39}.decision-box{margin-top:18px;padding:14px;border:1px solid var(--line);border-radius:12px;background:#fffaf4}.decision-box h3{margin:0 0 5px;font-size:16px}.decision-box p{margin:0 0 10px;color:var(--muted);font-size:12px}.review-decision{border:1px solid var(--line);background:var(--paper2);color:var(--brown)}.review-decision.active-understand{background:var(--goodbg);border-color:#adc3a5;color:#355231}.review-decision.active-file{background:var(--badbg);border-color:#d6ada5;color:#713f39}
+.result-overlay{position:fixed;inset:0;background:rgba(45,31,24,.70);z-index:100;display:none;align-items:flex-start;justify-content:center;padding:30px 14px;overflow:auto}.result-overlay.show{display:flex}.result-card{width:min(760px,100%);background:var(--paper);border-radius:22px;border:1px solid var(--line);box-shadow:0 26px 80px rgba(0,0,0,.25);overflow:hidden}.result-grid{display:grid;grid-template-columns:240px 1fr}.hunter-wrap{position:relative;min-height:320px;background:#ddd}.hunter-img{width:100%;height:100%;min-height:320px;object-fit:cover;cursor:pointer;user-select:none;-webkit-user-drag:none}.hunter-bubble{position:absolute;left:12px;right:12px;bottom:12px;background:rgba(255,250,244,.96);border:1px solid var(--line);border-radius:12px;padding:10px 12px;color:var(--brown);font-size:13px;font-weight:850;text-align:center;opacity:0;transform:translateY(8px);transition:.18s;pointer-events:none}.hunter-bubble.show{opacity:1;transform:translateY(0)}.result-content{padding:24px}.result-content h2{margin:0 0 5px;color:var(--brown);font-size:29px}.score-big{font-size:24px;font-weight:900;margin:6px 0 14px}.review-box{border-top:1px solid var(--line);margin-top:15px;padding-top:15px}.review-list{margin:6px 0 14px;padding-left:20px}.review-list li{margin:5px 0;line-height:1.35}.strong{color:var(--good);font-weight:800}.need{color:var(--bad);font-weight:800}.confidence-summary{margin-top:10px;padding:10px 12px;border-radius:10px;background:#f5ede4;border:1px solid var(--line)}.confidence-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:8px}.conf-stat{padding:9px 10px;border:1px solid var(--line);border-radius:9px;background:#fffaf4}.conf-stat b{display:block;font-size:18px;color:var(--brown)}.conf-stat span{font-size:10px;color:var(--muted)}.result-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.footer-note{max-width:1040px;margin:-34px auto 42px;padding:0 18px;color:var(--muted);font-size:11px;line-height:1.5}
+@media(max-width:720px){.hero-main{grid-template-columns:1fr}.hero-icon{width:60px;height:60px}.hero-top{align-items:flex-start}.qtop{flex-direction:column;align-items:flex-start}.tags{justify-content:flex-start}.review-meta{grid-template-columns:1fr}.result-grid{grid-template-columns:1fr}.hunter-wrap,.hunter-img{min-height:260px;height:260px}.confidence-grid{grid-template-columns:1fr}.tool-status{flex-basis:100%;max-width:none;text-align:left;margin-left:0}}
+</style>
+
+<style>
+.flag-btn{border:1px solid var(--line);background:var(--paper2);color:var(--brown);border-radius:999px;padding:7px 10px;font-size:10px;font-weight:900;cursor:pointer;white-space:nowrap}
+.flag-btn:hover{background:#f2e7de;border-color:#c8b5a6}
+.flag-btn.active{background:var(--brown);color:#fff;border-color:var(--brown)}
+.review-resource{margin:14px 0 4px;padding:12px 13px;border:1px solid #dfd0c3;border-radius:13px;background:#fff8ef;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.review-resource span{font-size:10px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.review-resource a,.factoid-links a{color:var(--brown);font-weight:900;text-decoration:none}
+.review-resource a:hover,.factoid-links a:hover{text-decoration:underline}
+.factoid-links{margin-top:14px;padding:12px 13px;border:1px solid var(--line);border-radius:13px;background:#fffaf5}
+.factoid-links strong{display:block;margin-bottom:7px}
+.factoid-row{display:flex;gap:8px;flex-wrap:wrap}
+.factoid-row a{display:inline-flex;padding:7px 9px;border-radius:9px;background:var(--tan);font-size:11px}
+@media(max-width:560px){.qtop{align-items:flex-start}.flag-btn{font-size:9.5px;padding:6px 8px}}
+</style>
+
+</head>
+<body>
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-top">
+      <a class="back-link" href="../notes/Week%205/Week%205%20Note%20Hub/index.html">← Week 5 Hub</a>
+      <div class="quiz-kicker">FOUNDATIONS OF MEDICINE · WEEK 5</div>
+    </div>
+    <div class="hero-main">
+      <div class="hero-icon" aria-hidden="true">
+        <svg viewBox="0 0 48 48" role="img" aria-label="Cancer biology cell symbol">
+          <circle cx="24" cy="24" r="15" fill="#e8d5c7" stroke="#654735" stroke-width="1.8"/>
+          <circle cx="21" cy="22" r="6.2" fill="#f7eee7" stroke="#8a654f" stroke-width="1.5"/>
+          <circle cx="31.5" cy="17" r="2.1" fill="#b98f72"/><circle cx="32" cy="30" r="2.6" fill="#c99b7c"/>
+          <path d="M10 13l4.2 3.2M36 9l-2.8 5M39 35l-4.2-3.1M9 34l4.8-2.3" fill="none" stroke="#8a654f" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div><div><h1>Tuesday Daily Quiz</h1><p>Carcinogenesis and Epidemiology · Nucleotide Metabolism · Molecular Cytogenetics of Cancer · Cancer Survival Mechanisms · 50 mixed questions</p></div>
+    </div>
+    <div class="modebar">
+      <button class="modebtn active" id="practiceMode" type="button">Practice</button>
+      <button class="modebtn" id="examMode" type="button">Exam</button>
+      <button class="modebtn" id="advancedMode" type="button">Advanced Review</button>
+      <span class="mode-note" id="modeNote">Immediate feedback is ON.</span>
+    </div>
+  </div>
+</header>
+<main>
+  <div class="progress-shell">
+    <div class="progress-card">
+      <div class="progress-row"><span id="answeredLabel">0 of 50 answered</span><span id="scoreLabel">Practice score: —</span></div>
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="study-tools" aria-label="Study tools">
+        <span class="tool-label">Highlight</span>
+        <button class="tool-btn" id="highlightBtn" type="button">Highlight selection</button>
+        <button class="tool-btn" id="eraseHighlightBtn" type="button">Erase selected highlight</button>
+        <button class="tool-btn danger" id="clearHighlightsBtn" type="button">Clear all</button>
+        <span class="tool-status" id="highlightStatus">Select text in a question stem or answer choice.</span>
+      </div>
+    </div>
+  </div>
+
+<div id="quiz"></div>
+
+<div class="advanced-shell" id="advancedShell">
+  <div class="advanced-card" id="advancedQuestionCard"></div>
+  <div class="review-card" id="advancedReviewCard"></div>
+</div>
+
+<div class="bottom-actions">
+<button class="primary" id="gradeBtn" type="button">Grade Quiz</button>
+<button class="secondary" id="resetBtn" type="button">Reset Quiz</button>
+</div>
+<footer class="footer-note">Source basis: the Week 5 lecture companions, official Week 5 objectives, and Week 5 high-yield review for this day. Yellow highlights are stored in this browser and are intentionally preserved when the quiz is reset.</footer>
+</main>
+
+<div class="result-overlay" id="resultOverlay" role="dialog" aria-modal="true" aria-labelledby="resultTitle">
+<div class="result-card"><div class="result-grid">
+<div class="hunter-wrap"><img class="hunter-img" id="hunterImg" alt="Hunter result reaction"><div class="hunter-bubble" id="hunterBubble" aria-live="polite"></div></div>
+<div class="result-content"><h2 id="resultTitle"></h2><div class="score-big" id="finalScore"></div><div class="review-box"><h3>Hunter's Review</h3><div id="reviewBody"></div></div>
+<div class="result-actions"><button class="primary" id="reviewMissedBtn" type="button">Review missed questions</button><a class="secondary" id="openReviewBankBtn" href="../notes/review/Review_the_Module_COMPLETE_WEEK8.html" style="text-decoration:none;display:inline-flex;align-items:center;justify-content:center">Open Highly Missed Quiz</a><button class="secondary" id="closeResultBtn" type="button">Close</button></div>
+</div></div></div></div>
+
+<script>
+const QUESTIONS=[{"difficulty":"Intermediate","lecture":"Carcinogenesis and Epidemiology","topic":"Chemical carcinogenesis","concept":"Aflatoxin exposure is a classic risk factor for hepatocellular carcinoma.","stem":"A population with substantial exposure to improperly stored grain has increased exposure to aflatoxin from Aspergillus flavus. Which malignancy is classically associated?","options":["Mesothelioma","Hepatocellular carcinoma","Osteosarcoma","Bladder transitional-cell carcinoma","Papillary thyroid carcinoma"],"answer":"B","explanation":"Aflatoxin exposure is a classic risk factor for hepatocellular carcinoma.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/05_Carcinogenesis_and_Epidemiology_Factoid.html","factoidLabel":"Carcinogenesis and Epidemiology","number":1,"reviewCheck":{"stem":"Which concept best matches this description: Activated proto-oncogene; gain-of-function; one activated allele may be sufficient at the cellular level.","options":["Chemical carcinogens","Oncogene","Ionizing radiation","Mortality","Tumor suppressor"],"answer":"B","explanation":"Oncogene: Activated proto-oncogene; gain-of-function; one activated allele may be sufficient at the cellular level."}},{"difficulty":"Intermediate","lecture":"Carcinogenesis and Epidemiology","topic":"UV injury & NER","concept":"Ionizing radiation causes DNA damage in large part through free-radical generation.","stem":"Which mechanism best explains the carcinogenic effect of ionizing radiation described in the lecture?","options":["Inhibition of all angiogenesis","Formation of only pyrimidine dimers","Generation of free radicals that damage DNA","Selective activation of telomerase without DNA injury","Direct conversion of p53 into BCL2"],"answer":"C","explanation":"Ionizing radiation causes DNA damage in large part through free-radical generation.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/05_Carcinogenesis_and_Epidemiology_Factoid.html","factoidLabel":"Carcinogenesis and Epidemiology","number":2,"reviewCheck":{"stem":"What is the key high-yield point about Mortality?","options":["Many require metabolic activation and form DNA adducts/mutations.","Loss/inactivation of a growth brake; often requires loss of both functional copies in a tumor cell.","DNA strand breaks.","Deaths due to the cancer over time.","Repair failure increases mutation rate and genomic instability."],"answer":"D","explanation":"Mortality: Deaths due to the cancer over time."}},{"difficulty":"Step 1-style","lecture":"Carcinogenesis and Epidemiology","topic":"HPV oncogenesis","concept":"High-risk HPV E6 interferes with p53 and E7 interferes with Rb, removing key cell-cycle and apoptosis brakes.","stem":"A persistent high-risk HPV infection promotes malignant transformation. Which pairing correctly links the viral oncoproteins with their major tumor-suppressor targets?","options":["E6 inhibits BCL2; E7 inhibits MYC","E6 activates APC; E7 activates VHL","E6 inhibits Rb; E7 inhibits p53","E6 inhibits p53; E7 inhibits Rb","E6 activates BRCA1; E7 activates MSH2"],"answer":"D","explanation":"High-risk HPV E6 interferes with p53 and E7 interferes with Rb, removing key cell-cycle and apoptosis brakes.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/05_Carcinogenesis_and_Epidemiology_Factoid.html","factoidLabel":"Carcinogenesis and Epidemiology","number":3,"reviewCheck":{"stem":"What is being described here: E6 inhibits p53; E7 inhibits RB.","options":["Ionizing radiation","Chemical carcinogens","HPV","Tumor suppressor","DNA-repair gene"],"answer":"C","explanation":"HPV: E6 inhibits p53; E7 inhibits RB."}},{"difficulty":"Intermediate","lecture":"Carcinogenesis and Epidemiology","topic":"Chemical carcinogenesis","concept":"Polycyclic hydrocarbons in cigarette smoke and smoked meats are linked to lung and bladder cancer.","stem":"A long-term smoker is counseled about carcinogens in tobacco smoke. Polycyclic hydrocarbons are particularly linked to which cancers in the lecture?","options":["Pancreatic neuroendocrine tumors only","Osteosarcoma and melanoma","Retinoblastoma and Wilms tumor","Brain and thyroid cancer","Lung and bladder cancer"],"answer":"E","explanation":"Polycyclic hydrocarbons in cigarette smoke and smoked meats are linked to lung and bladder cancer.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/05_Carcinogenesis_and_Epidemiology_Factoid.html","factoidLabel":"Carcinogenesis and Epidemiology","number":4,"reviewCheck":{"stem":"What is being described here: Loss/inactivation of a growth brake; often requires loss of both functional copies in a tumor cell.","options":["Apoptosis regulator","UVB","Tumor suppressor","Incidence","Oncogene"],"answer":"C","explanation":"Tumor suppressor: Loss/inactivation of a growth brake; often requires loss of both functional copies in a tumor cell."}},{"difficulty":"In-house","lecture":"Carcinogenesis and Epidemiology","topic":"Oncogenes","concept":"The lecture identifies BRAF V600E as an activating point mutation; HER2 and MYC may be amplified, and ABL is activated in BCR-ABL by translocation.","stem":"Which oncogene–activation mechanism pairing is correctly matched?","options":["BRAF V600E — point mutation","ABL in CML — promoter methylation","APC — gene amplification","HER2 — deletion","MYC in Burkitt lymphoma — loss-of-function mutation"],"answer":"A","explanation":"The lecture identifies BRAF V600E as an activating point mutation; HER2 and MYC may be amplified, and ABL is activated in BCR-ABL by translocation.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/05_Carcinogenesis_and_Epidemiology_Factoid.html","factoidLabel":"Carcinogenesis and Epidemiology","number":5,"reviewCheck":{"stem":"For UVB, which statement is most accurate?","options":["New cases in a population over time.","Pyrimidine dimers; nucleotide-excision repair connection.","Changes survival/death balance; BCL2 overexpression promotes survival.","Activated proto-oncogene; gain-of-function; one activated allele may be sufficient at the cellular level.","E6 inhibits p53; E7 inhibits RB."],"answer":"B","explanation":"UVB: Pyrimidine dimers; nucleotide-excision repair connection."}},{"difficulty":"In-house","lecture":"Carcinogenesis and Epidemiology","topic":"HPV oncogenesis","concept":"H. pylori is linked to gastric adenocarcinoma and MALT lymphoma.","stem":"Which infection–malignancy pairing is most consistent with the lecture?","options":["EBV — mesothelioma","Helicobacter pylori — gastric adenocarcinoma and MALT lymphoma","HPV — renal cell carcinoma","HHV8 — colon adenocarcinoma","HBV — osteosarcoma"],"answer":"B","explanation":"H. pylori is linked to gastric adenocarcinoma and MALT lymphoma.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/05_Carcinogenesis_and_Epidemiology_Factoid.html","factoidLabel":"Carcinogenesis and Epidemiology","number":6,"reviewCheck":{"stem":"Which term should be paired with the following fact: Many require metabolic activation and form DNA adducts/mutations.","options":["UVB","Incidence","Chemical carcinogens","HPV","Oncogene"],"answer":"C","explanation":"Chemical carcinogens: Many require metabolic activation and form DNA adducts/mutations."}},{"difficulty":"Intermediate","lecture":"Carcinogenesis and Epidemiology","topic":"Ionizing radiation","concept":"Vinyl chloride exposure is classically associated with hepatic angiosarcoma.","stem":"A worker in a PVC-manufacturing plant develops a rare malignant vascular tumor of the liver. Which exposure best explains the association?","options":["Arsenic","Helicobacter pylori","Vinyl chloride","Ultraviolet B radiation","Asbestos"],"answer":"C","explanation":"Vinyl chloride exposure is classically associated with hepatic angiosarcoma.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/05_Carcinogenesis_and_Epidemiology_Factoid.html","factoidLabel":"Carcinogenesis and Epidemiology","number":7,"reviewCheck":{"stem":"Which description best matches Chemical carcinogens?","options":["Repair failure increases mutation rate and genomic instability.","DNA strand breaks.","Many require metabolic activation and form DNA adducts/mutations.","Loss/inactivation of a growth brake; often requires loss of both functional copies in a tumor cell.","Deaths due to the cancer over time."],"answer":"C","explanation":"Chemical carcinogens: Many require metabolic activation and form DNA adducts/mutations."}},{"difficulty":"Step 1-style","lecture":"Carcinogenesis and Epidemiology","topic":"UV injury & NER","concept":"Xeroderma pigmentosum reflects defective nucleotide excision repair of UV-induced DNA lesions.","stem":"A child develops severe sun sensitivity and multiple skin cancers at an unusually young age. Which DNA-repair pathway is most likely deficient?","options":["Non-homologous end joining only","Homologous recombination only","Base excision repair","Nucleotide excision repair","Mismatch repair"],"answer":"D","explanation":"Xeroderma pigmentosum reflects defective nucleotide excision repair of UV-induced DNA lesions.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/05_Carcinogenesis_and_Epidemiology_Factoid.html","factoidLabel":"Carcinogenesis and Epidemiology","number":8,"reviewCheck":{"stem":"What is being described here: Loss/inactivation of a growth brake; often requires loss of both functional copies in a tumor cell.","options":["Apoptosis regulator","UVB","Oncogene","Tumor suppressor","HPV"],"answer":"D","explanation":"Tumor suppressor: Loss/inactivation of a growth brake; often requires loss of both functional copies in a tumor cell."}},{"difficulty":"In-house","lecture":"Carcinogenesis and Epidemiology","topic":"Oncogenes","concept":"The lecture groups cancer-driving mutations into oncogenes, tumor suppressors, apoptosis regulators, and DNA-repair genes.","stem":"Which set contains the four major gene classes emphasized as drivers of carcinogenesis?","options":["Cyclins, histones, ribosomes, and collagen genes","Only oncogenes and tumor suppressors","Metabolic enzymes, clotting factors, structural proteins, and cytokines","Telomeres, centromeres, introns, and exons","Oncogenes, tumor suppressor genes, apoptosis-regulating genes, and DNA-repair genes"],"answer":"E","explanation":"The lecture groups cancer-driving mutations into oncogenes, tumor suppressors, apoptosis regulators, and DNA-repair genes.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/05_Carcinogenesis_and_Epidemiology_Factoid.html","factoidLabel":"Carcinogenesis and Epidemiology","number":9,"reviewCheck":{"stem":"Which term should be paired with the following fact: Changes survival/death balance; BCL2 overexpression promotes survival.","options":["Chemical carcinogens","DNA-repair gene","Apoptosis regulator","Ionizing radiation","Tumor suppressor"],"answer":"C","explanation":"Apoptosis regulator: Changes survival/death balance; BCL2 overexpression promotes survival."}},{"difficulty":"Intermediate","lecture":"Carcinogenesis and Epidemiology","topic":"Carcinogenesis and Epidemiology","concept":"Leukemias, particularly B-ALL, are the most common pediatric cancers, followed by CNS tumors and lymphomas.","stem":"A pediatric oncology service reviews the most common malignancy patterns in children. Which diagnosis should be most common overall?","options":["Leukemia, especially B-cell acute lymphoblastic leukemia","Mesothelioma","Hepatocellular carcinoma","Invasive ductal breast carcinoma","Prostate carcinoma"],"answer":"A","explanation":"Leukemias, particularly B-ALL, are the most common pediatric cancers, followed by CNS tumors and lymphomas.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/05_Carcinogenesis_and_Epidemiology_Factoid.html","factoidLabel":"Carcinogenesis and Epidemiology","number":10,"reviewCheck":{"stem":"What is the key high-yield point about Tumor suppressor?","options":["Many require metabolic activation and form DNA adducts/mutations.","Repair failure increases mutation rate and genomic instability.","DNA strand breaks.","Deaths due to the cancer over time.","Loss/inactivation of a growth brake; often requires loss of both functional copies in a tumor cell."],"answer":"E","explanation":"Tumor suppressor: Loss/inactivation of a growth brake; often requires loss of both functional copies in a tumor cell."}},{"difficulty":"In-house","lecture":"Carcinogenesis and Epidemiology","topic":"Cancer epidemiology","concept":"The lecture emphasizes that the most common cancer is not necessarily the deadliest; lung cancer leads mortality.","stem":"Which statement best reflects the incidence-versus-mortality pattern emphasized for cancer in the United States?","options":["Prostate cancer is the leading cause of cancer death in men","Lung cancer causes the most cancer deaths even though prostate and breast cancers are more commonly diagnosed in men and women, respectively","Breast cancer is the leading cause of cancer death in women","Colorectal cancer causes more deaths than lung cancer in both sexes","Lung cancer is the most commonly diagnosed cancer in both sexes"],"answer":"B","explanation":"The lecture emphasizes that the most common cancer is not necessarily the deadliest; lung cancer leads mortality.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/05_Carcinogenesis_and_Epidemiology_Factoid.html","factoidLabel":"Carcinogenesis and Epidemiology","number":11,"reviewCheck":{"stem":"What is being described here: E6 inhibits p53; E7 inhibits RB.","options":["Chemical carcinogens","HPV","DNA-repair gene","Mortality","Tumor suppressor"],"answer":"B","explanation":"HPV: E6 inhibits p53; E7 inhibits RB."}},{"difficulty":"Intermediate","lecture":"Carcinogenesis and Epidemiology","topic":"Cancer epidemiology","concept":"The lecture notes higher mortality for Black men and women and higher incidence for Black men, with multifactorial causes.","stem":"Which population pattern was highlighted in the lecture as an important U.S. cancer disparity?","options":["Black men have the lowest cancer incidence","Cancer mortality is identical across racial and ethnic groups","Black men and women have the highest cancer mortality rates, and Black men have the highest incidence","Disparities are attributed to a single known genetic cause","Only pediatric cancers show racial disparities"],"answer":"C","explanation":"The lecture notes higher mortality for Black men and women and higher incidence for Black men, with multifactorial causes.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/05_Carcinogenesis_and_Epidemiology_Factoid.html","factoidLabel":"Carcinogenesis and Epidemiology","number":12,"reviewCheck":{"stem":"Which description best matches DNA-repair gene?","options":["Many require metabolic activation and form DNA adducts/mutations.","Repair failure increases mutation rate and genomic instability.","DNA strand breaks.","Deaths due to the cancer over time.","Loss/inactivation of a growth brake; often requires loss of both functional copies in a tumor cell."],"answer":"B","explanation":"DNA-repair gene: Repair failure increases mutation rate and genomic instability."}},{"difficulty":"Intermediate","lecture":"Nucleotide Metabolism","topic":"Purine salvage / Lesch-Nyhan","concept":"Ribonucleotide reductase generates deoxyribonucleotide precursors needed for DNA synthesis and is inhibited by hydroxyurea.","stem":"Hydroxyurea inhibits an enzyme required to convert ribonucleoside diphosphates into deoxyribonucleotides. Which enzyme is targeted?","options":["HGPRT","CPS II","DHFR","Ribonucleotide reductase","Thymidylate synthase"],"answer":"D","explanation":"Ribonucleotide reductase generates deoxyribonucleotide precursors needed for DNA synthesis and is inhibited by hydroxyurea.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/06_Nucleotide_Metabolism_Factoid.html","factoidLabel":"Nucleotide Metabolism","number":13,"reviewCheck":{"stem":"What is the key high-yield point about Methotrexate?","options":["Orotic aciduria + megaloblastic anemia; no hyperammonemia.","Inhibits DHFR.","Inhibits de novo purine synthesis; inactivated by xanthine oxidase.","Toxic deoxyadenosine metabolites injure lymphocytes → SCID.","Salvages hypoxanthine and guanine."],"answer":"B","explanation":"Methotrexate: Inhibits DHFR."}},{"difficulty":"Step 1-style","lecture":"Nucleotide Metabolism","topic":"Purine salvage / Lesch-Nyhan","concept":"Methotrexate inhibits DHFR and depletes THF cofactors needed for purine and thymidylate synthesis; leucovorin supplies reduced folate downstream of the block.","stem":"A high-dose methotrexate regimen is followed by leucovorin rescue. Which biochemical block is leucovorin intended to bypass in normal cells?","options":["Inhibition of ADA","Loss of HGPRT-mediated salvage","Blockade of CPS II","Direct inhibition of xanthine oxidase","Depletion of reduced folate after DHFR inhibition"],"answer":"E","explanation":"Methotrexate inhibits DHFR and depletes THF cofactors needed for purine and thymidylate synthesis; leucovorin supplies reduced folate downstream of the block.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/06_Nucleotide_Metabolism_Factoid.html","factoidLabel":"Nucleotide Metabolism","number":14,"reviewCheck":{"stem":"What is being described here: Orotic aciduria + megaloblastic anemia; no hyperammonemia.","options":["Ribonucleotide reductase","UMP synthase deficiency","Lesch-Nyhan","De novo purine synthesis","Methotrexate"],"answer":"B","explanation":"UMP synthase deficiency: Orotic aciduria + megaloblastic anemia; no hyperammonemia."}},{"difficulty":"In-house","lecture":"Nucleotide Metabolism","topic":"Orotic acid disorders","concept":"5-FU forms an inhibitory complex with thymidylate synthase, blocking dUMP→dTMP and causing thymineless death.","stem":"A patient receiving 5-fluorouracil develops impaired thymidine synthesis. Which reaction is most directly inhibited?","options":["dUMP to dTMP","PRPP to 5-phosphoribosylamine","IMP to GMP through IMP dehydrogenase","Adenosine to inosine","Hypoxanthine to IMP"],"answer":"A","explanation":"5-FU forms an inhibitory complex with thymidylate synthase, blocking dUMP→dTMP and causing thymineless death.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/06_Nucleotide_Metabolism_Factoid.html","factoidLabel":"Nucleotide Metabolism","number":15,"reviewCheck":{"stem":"What is being described here: Orotic aciduria + megaloblastic anemia; no hyperammonemia.","options":["Ribonucleotide reductase","UMP synthase deficiency","Lesch-Nyhan","De novo purine synthesis","Methotrexate"],"answer":"B","explanation":"UMP synthase deficiency: Orotic aciduria + megaloblastic anemia; no hyperammonemia."}},{"difficulty":"In-house","lecture":"Nucleotide Metabolism","topic":"Purine salvage / Lesch-Nyhan","concept":"HGPRT salvages hypoxanthine and guanine using PRPP.","stem":"A cell efficiently recycles hypoxanthine rather than building a new purine ring. Which enzyme directly converts hypoxanthine plus PRPP to IMP?","options":["DHFR","HGPRT","ADA","APRT","Xanthine oxidase"],"answer":"B","explanation":"HGPRT salvages hypoxanthine and guanine using PRPP.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/06_Nucleotide_Metabolism_Factoid.html","factoidLabel":"Nucleotide Metabolism","number":16,"reviewCheck":{"stem":"For 5-FU, which statement is most accurate?","options":["Inhibits thymidylate synthase.","HGPRT deficiency → excess uric acid + neurologic dysfunction/self-injury.","↑ uric acid, K, phosphate; ↓ Ca.","Orotic acid + hyperammonemia.","Builds the purine ring on PRPP."],"answer":"A","explanation":"5-FU: Inhibits thymidylate synthase."}},{"difficulty":"Intermediate","lecture":"Nucleotide Metabolism","topic":"ADA deficiency","concept":"Xanthine oxidase catalyzes both hypoxanthine→xanthine and xanthine→uric acid.","stem":"A patient with recurrent gout begins allopurinol for prevention. Which two sequential purine-degradation conversions are directly reduced?","options":["Orotic acid to UMP and UMP to UDP","PRPP to 5-phosphoribosylamine and IMP to AMP","Hypoxanthine to xanthine and xanthine to uric acid","Adenine to AMP and guanine to GMP","dUMP to dTMP and DHF to THF"],"answer":"C","explanation":"Xanthine oxidase catalyzes both hypoxanthine→xanthine and xanthine→uric acid.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/06_Nucleotide_Metabolism_Factoid.html","factoidLabel":"Nucleotide Metabolism","number":17,"reviewCheck":{"stem":"Which description best matches HGPRT?","options":["↑ uric acid, K, phosphate; ↓ Ca.","Inhibits thymidylate synthase.","Orotic acid + hyperammonemia.","Inhibits de novo purine synthesis; inactivated by xanthine oxidase.","Salvages hypoxanthine and guanine."],"answer":"E","explanation":"HGPRT: Salvages hypoxanthine and guanine."}},{"difficulty":"Intermediate","lecture":"Nucleotide Metabolism","topic":"Purine salvage / Lesch-Nyhan","concept":"Glutamine PRPP amidotransferase converts PRPP to 5-phosphoribosylamine and is regulated by PRPP and end-product purines.","stem":"Which enzyme catalyzes the committed, rate-limiting step of de novo purine synthesis?","options":["Xanthine oxidase","HGPRT","CPS II","Glutamine PRPP amidotransferase","Thymidylate synthase"],"answer":"D","explanation":"Glutamine PRPP amidotransferase converts PRPP to 5-phosphoribosylamine and is regulated by PRPP and end-product purines.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/06_Nucleotide_Metabolism_Factoid.html","factoidLabel":"Nucleotide Metabolism","number":18,"reviewCheck":{"stem":"Which option correctly describes De novo purine synthesis?","options":["Inhibits DHFR.","Makes deoxyribonucleotides; inhibited by hydroxyurea.","Builds the purine ring on PRPP.","HGPRT deficiency → excess uric acid + neurologic dysfunction/self-injury.","Orotic aciduria + megaloblastic anemia; no hyperammonemia."],"answer":"C","explanation":"De novo purine synthesis: Builds the purine ring on PRPP."}},{"difficulty":"Step 1-style","lecture":"Nucleotide Metabolism","topic":"Orotic acid disorders","concept":"6-MP is inactivated by xanthine oxidase; allopurinol blocks that metabolism and can cause severe myelosuppression unless the 6-MP dose is reduced.","stem":"A leukemia patient taking 6-mercaptopurine is started on allopurinol for hyperuricemia. What adjustment is most important?","options":["Give UMP to prevent 6-MP toxicity","Add hydroxyurea to accelerate 6-MP breakdown","Increase the 6-mercaptopurine dose","Stop allopurinol because it activates xanthine oxidase","Reduce the 6-mercaptopurine dose substantially"],"answer":"E","explanation":"6-MP is inactivated by xanthine oxidase; allopurinol blocks that metabolism and can cause severe myelosuppression unless the 6-MP dose is reduced.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/06_Nucleotide_Metabolism_Factoid.html","factoidLabel":"Nucleotide Metabolism","number":19,"reviewCheck":{"stem":"Which option correctly describes De novo purine synthesis?","options":["Inhibits DHFR.","Makes deoxyribonucleotides; inhibited by hydroxyurea.","Builds the purine ring on PRPP.","HGPRT deficiency → excess uric acid + neurologic dysfunction/self-injury.","Orotic aciduria + megaloblastic anemia; no hyperammonemia."],"answer":"C","explanation":"De novo purine synthesis: Builds the purine ring on PRPP."}},{"difficulty":"Step 1-style","lecture":"Nucleotide Metabolism","topic":"Purine salvage / Lesch-Nyhan","concept":"UMP synthase deficiency blocks conversion of orotic acid toward UMP, causing pyrimidine deficiency and megaloblastic anemia without hyperammonemia.","stem":"An infant has failure to thrive, orotic aciduria, and megaloblastic anemia unresponsive to folate or B12; serum ammonia is normal. Which defect is most likely?","options":["UMP synthase deficiency","PRPP synthetase deficiency","HGPRT deficiency","ADA deficiency","OTC deficiency"],"answer":"A","explanation":"UMP synthase deficiency blocks conversion of orotic acid toward UMP, causing pyrimidine deficiency and megaloblastic anemia without hyperammonemia.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/06_Nucleotide_Metabolism_Factoid.html","factoidLabel":"Nucleotide Metabolism","number":20,"reviewCheck":{"stem":"Identify the concept described by this statement: Toxic deoxyadenosine metabolites injure lymphocytes → SCID.","options":["ADA deficiency","Methotrexate","Lesch-Nyhan","De novo purine synthesis","Tumor lysis"],"answer":"A","explanation":"ADA deficiency: Toxic deoxyadenosine metabolites injure lymphocytes → SCID."}},{"difficulty":"Step 1-style","lecture":"Nucleotide Metabolism","topic":"Purine salvage / Lesch-Nyhan","concept":"Loss of salvage both diverts bases toward degradation and leaves excess PRPP, which feed-forward activates de novo purine synthesis.","stem":"A boy with self-injurious behavior, dystonia, and hyperuricemia has HGPRT deficiency. Why does uric acid production rise so dramatically?","options":["PRPP falls and shuts off salvage","PRPP accumulates and drives de novo purine synthesis while hypoxanthine and guanine are degraded","ADA activity becomes excessive and destroys lymphocytes","Xanthine oxidase is absent","UMP synthase becomes overactive"],"answer":"B","explanation":"Loss of salvage both diverts bases toward degradation and leaves excess PRPP, which feed-forward activates de novo purine synthesis.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/06_Nucleotide_Metabolism_Factoid.html","factoidLabel":"Nucleotide Metabolism","number":21,"reviewCheck":{"stem":"Which concept best matches this description: Inhibits de novo purine synthesis; inactivated by xanthine oxidase.","options":["Methotrexate","UMP synthase deficiency","Ribonucleotide reductase","6-MP","De novo purine synthesis"],"answer":"D","explanation":"6-MP: Inhibits de novo purine synthesis; inactivated by xanthine oxidase."}},{"difficulty":"Step 1-style","lecture":"Nucleotide Metabolism","topic":"ADA deficiency","concept":"ADA deficiency causes deoxyadenosine accumulation and high dATP, which inhibits ribonucleotide reductase and limits DNA precursor synthesis.","stem":"An infant with recurrent bacterial, viral, fungal, and protozoal infections has ADA deficiency. Which accumulated metabolite is most directly toxic to lymphocytes?","options":["dUMP","PRPP","dATP","Uric acid","Orotic acid"],"answer":"C","explanation":"ADA deficiency causes deoxyadenosine accumulation and high dATP, which inhibits ribonucleotide reductase and limits DNA precursor synthesis.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/06_Nucleotide_Metabolism_Factoid.html","factoidLabel":"Nucleotide Metabolism","number":22,"reviewCheck":{"stem":"Identify the concept described by this statement: Toxic deoxyadenosine metabolites injure lymphocytes → SCID.","options":["ADA deficiency","Methotrexate","Lesch-Nyhan","De novo purine synthesis","Tumor lysis"],"answer":"A","explanation":"ADA deficiency: Toxic deoxyadenosine metabolites injure lymphocytes → SCID."}},{"difficulty":"In-house","lecture":"Nucleotide Metabolism","topic":"Orotic acid disorders","concept":"De novo purine synthesis culminates in IMP, which can then be converted to AMP or GMP.","stem":"Which nucleotide is the first purine formed de novo and serves as the branch point for AMP and GMP synthesis?","options":["UMP","PRPP","CTP","IMP","dTMP"],"answer":"D","explanation":"De novo purine synthesis culminates in IMP, which can then be converted to AMP or GMP.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/06_Nucleotide_Metabolism_Factoid.html","factoidLabel":"Nucleotide Metabolism","number":23,"reviewCheck":{"stem":"For OTC deficiency, which statement is most accurate?","options":["Inhibits de novo purine synthesis; inactivated by xanthine oxidase.","↑ uric acid, K, phosphate; ↓ Ca.","Inhibits thymidylate synthase.","Orotic acid + hyperammonemia.","HGPRT deficiency → excess uric acid + neurologic dysfunction/self-injury."],"answer":"D","explanation":"OTC deficiency: Orotic acid + hyperammonemia."}},{"difficulty":"Intermediate","lecture":"Nucleotide Metabolism","topic":"Orotic acid disorders","concept":"PRPP synthetase overactivity increases PRPP, which promotes purine production and ultimately uric acid formation.","stem":"A patient has a gain-of-function mutation in PRPP synthetase and develops recurrent gout. Which metabolic change most directly contributes?","options":["Reduced PRPP formation and decreased purine production","Direct inhibition of xanthine oxidase","Inhibition of CPS II by PRPP","Loss of UMP synthase","Increased PRPP availability driving purine synthesis"],"answer":"E","explanation":"PRPP synthetase overactivity increases PRPP, which promotes purine production and ultimately uric acid formation.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/06_Nucleotide_Metabolism_Factoid.html","factoidLabel":"Nucleotide Metabolism","number":24,"reviewCheck":{"stem":"Which label best fits this high-yield fact: HGPRT deficiency → excess uric acid + neurologic dysfunction/self-injury.?","options":["UMP synthase deficiency","ADA deficiency","6-MP","Lesch-Nyhan","HGPRT"],"answer":"D","explanation":"Lesch-Nyhan: HGPRT deficiency → excess uric acid + neurologic dysfunction/self-injury."}},{"difficulty":"In-house","lecture":"Nucleotide Metabolism","topic":"Purine salvage / Lesch-Nyhan","concept":"CPS II makes carbamoyl phosphate for pyrimidine synthesis in the cytosol and is inhibited by UTP.","stem":"Which enzyme is the rate-limiting step of de novo pyrimidine synthesis and acts in the cytosol?","options":["Carbamoyl phosphate synthetase II","Carbamoyl phosphate synthetase I","Xanthine oxidase","HGPRT","Ribonucleotide reductase"],"answer":"A","explanation":"CPS II makes carbamoyl phosphate for pyrimidine synthesis in the cytosol and is inhibited by UTP.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/06_Nucleotide_Metabolism_Factoid.html","factoidLabel":"Nucleotide Metabolism","number":25,"reviewCheck":{"stem":"What is the key high-yield point about UMP synthase deficiency?","options":["Builds the purine ring on PRPP.","Orotic aciduria + megaloblastic anemia; no hyperammonemia.","Toxic deoxyadenosine metabolites injure lymphocytes → SCID.","Makes deoxyribonucleotides; inhibited by hydroxyurea.","Inhibits DHFR."],"answer":"B","explanation":"UMP synthase deficiency: Orotic aciduria + megaloblastic anemia; no hyperammonemia."}},{"difficulty":"In-house","lecture":"Molecular Cytogenetics of Cancer","topic":"Gene amplification","concept":"Gene amplification increases oncogene copy number and can appear as double minutes or homogeneously staining regions.","stem":"Which description best defines oncogene amplification?","options":["Loss of both alleles of a suppressor","Hundreds of extra copies of a growth-promoting gene causing marked overexpression","A reciprocal exchange of DNA between homologous chromosomes only","Epigenetic silencing without copy-number change","A single-base substitution that always inactivates a gene"],"answer":"B","explanation":"Gene amplification increases oncogene copy number and can appear as double minutes or homogeneously staining regions.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/07_Molecular_Cytogenetics_of_Cancer_Factoid.html","factoidLabel":"Molecular Cytogenetics of Cancer","number":26,"reviewCheck":{"stem":"For t(14;18), which statement is most accurate?","options":["Aggressive biology but targetable receptor amplification.","BCL2 overexpression; follicular lymphoma; apoptosis resistance.","Guardian of the genome: arrest, repair, senescence, or apoptosis after damage.","Neuroblastoma amplification = adverse prognosis.","For BCR-ABL monitoring: karyotype < FISH < quantitative RT-PCR."],"answer":"B","explanation":"t(14;18): BCL2 overexpression; follicular lymphoma; apoptosis resistance."}},{"difficulty":"Step 1-style","lecture":"Molecular Cytogenetics of Cancer","topic":"BCR-ABL / Philadelphia chromosome","concept":"Burkitt lymphoma is driven by MYC overexpression after t(8;14), producing extremely rapid proliferation.","stem":"A rapidly growing B-cell lymphoma shows a classic 'starry sky' pattern. Which chromosomal event most directly explains the proliferative drive?","options":["t(14;18) activating BCL2","Deletion of HER2","t(8;14) placing MYC near the IgH promoter","Loss of all copies of MYCN","t(9;22) creating BCR-ABL"],"answer":"C","explanation":"Burkitt lymphoma is driven by MYC overexpression after t(8;14), producing extremely rapid proliferation.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/07_Molecular_Cytogenetics_of_Cancer_Factoid.html","factoidLabel":"Molecular Cytogenetics of Cancer","number":27,"reviewCheck":{"stem":"Which statement about Detection sensitivity is correct?","options":["Aggressive biology but targetable receptor amplification.","Guardian of the genome: arrest, repair, senescence, or apoptosis after damage.","Neuroblastoma amplification = adverse prognosis.","For BCR-ABL monitoring: karyotype < FISH < quantitative RT-PCR.","BCL2 overexpression; follicular lymphoma; apoptosis resistance."],"answer":"D","explanation":"Detection sensitivity: For BCR-ABL monitoring: karyotype < FISH < quantitative RT-PCR."}},{"difficulty":"Step 1-style","lecture":"Molecular Cytogenetics of Cancer","topic":"BCL2 / t(14;18)","concept":"Hereditary retinoblastoma begins with one germline RB1 mutation, so only one additional somatic hit is needed in multiple retinal cells.","stem":"A child develops bilateral multifocal retinoblastoma. Which genetic sequence best explains this presentation?","options":["A germline BCL2 translocation","Two independent germline activating mutations in MYC","A single somatic RB1 hit with both alleles otherwise intact","One germline RB1 hit followed by a somatic second hit in retinal cells","Two somatic RB1 hits occurring only in one retinal cell"],"answer":"D","explanation":"Hereditary retinoblastoma begins with one germline RB1 mutation, so only one additional somatic hit is needed in multiple retinal cells.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/07_Molecular_Cytogenetics_of_Cancer_Factoid.html","factoidLabel":"Molecular Cytogenetics of Cancer","number":28,"reviewCheck":{"stem":"What is being described here: BCR-ABL; constitutive tyrosine kinase; CML and some ALL.","options":["MYCN","t(14;18)","t(9;22)","p53","HER2"],"answer":"C","explanation":"t(9;22): BCR-ABL; constitutive tyrosine kinase; CML and some ALL."}},{"difficulty":"Intermediate","lecture":"Molecular Cytogenetics of Cancer","topic":"BCR-ABL / Philadelphia chromosome","concept":"The lecture's cytogenetic comparison identifies t(11;14) with Cyclin D1 in mantle cell lymphoma.","stem":"A lymphoma carries t(11;14), leading to overexpression of a cell-cycle regulator. Which protein is most closely associated with this translocation in the lecture?","options":["HER2","MYC","BCR-ABL","BCL2","Cyclin D1"],"answer":"E","explanation":"The lecture's cytogenetic comparison identifies t(11;14) with Cyclin D1 in mantle cell lymphoma.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/07_Molecular_Cytogenetics_of_Cancer_Factoid.html","factoidLabel":"Molecular Cytogenetics of Cancer","number":29,"reviewCheck":{"stem":"What is being described here: Aggressive biology but targetable receptor amplification.","options":["MDM2","Double minutes / HSR","HER2","CCND1/Cyclin D1","t(9;22)"],"answer":"C","explanation":"HER2: Aggressive biology but targetable receptor amplification."}},{"difficulty":"Intermediate","lecture":"Molecular Cytogenetics of Cancer","topic":"BCL2 / t(14;18)","concept":"MDM2 promotes p53 degradation, so MDM2 amplification functionally mimics TP53 loss.","stem":"A sarcoma has marked MDM2 amplification. Which functional change is most similar?","options":["Loss of TP53 function","Loss of BCL2 function","Constitutive inhibition of Ras","Gain of RB1 function","Inactivation of HER2"],"answer":"A","explanation":"MDM2 promotes p53 degradation, so MDM2 amplification functionally mimics TP53 loss.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/07_Molecular_Cytogenetics_of_Cancer_Factoid.html","factoidLabel":"Molecular Cytogenetics of Cancer","number":30,"reviewCheck":{"stem":"Which fact should be associated with CCND1/Cyclin D1?","options":["BCR-ABL; constitutive tyrosine kinase; CML and some ALL.","Suppresses p53; important in selected sarcomas.","Extrachromosomal / intrachromosomal patterns of amplification.","Promotes aneuploidy, deletions, translocations, and amplification.","Promotes G1→S; pathway targetable with CDK4/6 inhibition in selected breast cancer."],"answer":"E","explanation":"CCND1/Cyclin D1: Promotes G1→S; pathway targetable with CDK4/6 inhibition in selected breast cancer."}},{"difficulty":"In-house","lecture":"Molecular Cytogenetics of Cancer","topic":"BCL2 / t(14;18)","concept":"Activated Ras initiates the RAF-MEK-ERK phosphorylation cascade that promotes transcription and proliferation.","stem":"After growth-factor receptor activation, which sequence best represents the Ras signaling cascade emphasized in the lecture?","options":["BCL2 → Bax → Bak → cytochrome c","Ras → RAF → MEK → ERK","BRCA1 → MLH1 → PMS2 → Rb","HIF → VHL → APC → MYC","Rb → E2F → BCL2 → VEGF"],"answer":"B","explanation":"Activated Ras initiates the RAF-MEK-ERK phosphorylation cascade that promotes transcription and proliferation.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/07_Molecular_Cytogenetics_of_Cancer_Factoid.html","factoidLabel":"Molecular Cytogenetics of Cancer","number":31,"reviewCheck":{"stem":"Which term should be paired with the following fact: For BCR-ABL monitoring: karyotype < FISH < quantitative RT-PCR.","options":["t(9;22)","Double minutes / HSR","Genomic instability","Detection sensitivity","MDM2"],"answer":"D","explanation":"Detection sensitivity: For BCR-ABL monitoring: karyotype < FISH < quantitative RT-PCR."}},{"difficulty":"Intermediate","lecture":"Molecular Cytogenetics of Cancer","topic":"Molecular Cytogenetics of Cancer","concept":"Oncogenic Ras mutations can lock the G protein in a GTP-bound active state, creating autonomous growth signaling.","stem":"A point mutation locks Ras in its active configuration. Which molecular state should predominate?","options":["Suppressed MAPK signaling","GDP-bound inactive Ras","GTP-bound Ras signaling without a continuing growth-factor signal","Constitutive Rb binding to E2F","Ras unable to interact with RAF"],"answer":"C","explanation":"Oncogenic Ras mutations can lock the G protein in a GTP-bound active state, creating autonomous growth signaling.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/07_Molecular_Cytogenetics_of_Cancer_Factoid.html","factoidLabel":"Molecular Cytogenetics of Cancer","number":32,"reviewCheck":{"stem":"What is being described here: Aggressive biology but targetable receptor amplification.","options":["Double minutes / HSR","CCND1/Cyclin D1","HER2","MDM2","Genomic instability"],"answer":"C","explanation":"HER2: Aggressive biology but targetable receptor amplification."}},{"difficulty":"Intermediate","lecture":"Molecular Cytogenetics of Cancer","topic":"BCL2 / t(14;18)","concept":"High BCL2 inhibits Bax/Bak and prevents intrinsic-apoptosis signaling after cellular damage.","stem":"A lymphoma overexpresses BCL2 and survives despite chemotherapy-induced DNA damage. Which event is being directly suppressed?","options":["Telomerase-mediated repeat addition","Rb phosphorylation","Ras GDP-to-GTP exchange","Bax/Bak-mediated mitochondrial permeabilization and cytochrome-c release","HER2 gene amplification"],"answer":"D","explanation":"High BCL2 inhibits Bax/Bak and prevents intrinsic-apoptosis signaling after cellular damage.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/07_Molecular_Cytogenetics_of_Cancer_Factoid.html","factoidLabel":"Molecular Cytogenetics of Cancer","number":33,"reviewCheck":{"stem":"Which statement about HER2 is correct?","options":["BCL2 overexpression; follicular lymphoma; apoptosis resistance.","Aggressive biology but targetable receptor amplification.","For BCR-ABL monitoring: karyotype < FISH < quantitative RT-PCR.","Neuroblastoma amplification = adverse prognosis.","Guardian of the genome: arrest, repair, senescence, or apoptosis after damage."],"answer":"B","explanation":"HER2: Aggressive biology but targetable receptor amplification."}},{"difficulty":"In-house","lecture":"Molecular Cytogenetics of Cancer","topic":"BCR-ABL / Philadelphia chromosome","concept":"t(14;18) places BCL2 under the highly active immunoglobulin heavy-chain promoter.","stem":"Which translocation is the hallmark of follicular lymphoma in the lecture?","options":["t(15;17)","t(9;22)","t(8;14)","t(11;14)","t(14;18)"],"answer":"E","explanation":"t(14;18) places BCL2 under the highly active immunoglobulin heavy-chain promoter.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/07_Molecular_Cytogenetics_of_Cancer_Factoid.html","factoidLabel":"Molecular Cytogenetics of Cancer","number":34,"reviewCheck":{"stem":"What is being described here: BCR-ABL; constitutive tyrosine kinase; CML and some ALL.","options":["t(9;22)","t(14;18)","MYCN","Detection sensitivity","HER2"],"answer":"A","explanation":"t(9;22): BCR-ABL; constitutive tyrosine kinase; CML and some ALL."}},{"difficulty":"Intermediate","lecture":"Molecular Cytogenetics of Cancer","topic":"BCR-ABL / Philadelphia chromosome","concept":"FISH is the gold-standard confirmatory test for equivocal HER2 IHC by directly assessing gene amplification.","stem":"A breast carcinoma has equivocal HER2 immunohistochemistry scored 2+. Which next test is most appropriate before HER2-directed treatment decisions?","options":["FISH to assess HER2 gene amplification","Repeat IHC after six months without other testing","Assume the tumor is HER2-positive","Measure serum uric acid","Test for BCR-ABL"],"answer":"A","explanation":"FISH is the gold-standard confirmatory test for equivocal HER2 IHC by directly assessing gene amplification.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/07_Molecular_Cytogenetics_of_Cancer_Factoid.html","factoidLabel":"Molecular Cytogenetics of Cancer","number":35,"reviewCheck":{"stem":"Identify the concept described by this statement: Guardian of the genome: arrest, repair, senescence, or apoptosis after damage.","options":["Double minutes / HSR","p53","t(9;22)","Genomic instability","MDM2"],"answer":"B","explanation":"p53: Guardian of the genome: arrest, repair, senescence, or apoptosis after damage."}},{"difficulty":"Intermediate","lecture":"Molecular Cytogenetics of Cancer","topic":"p53 & genomic stability","concept":"p53 normally responds to DNA damage with arrest or apoptosis; its loss allows damaged genomes to propagate.","stem":"A tumor has loss of p53 function. Which consequence most directly promotes genomic instability?","options":["DNA repair becomes more accurate","Cells continue dividing despite DNA damage instead of arresting or undergoing apoptosis","Bax/Bak are constitutively activated","Ras remains GDP-bound","E2F is permanently sequestered by Rb"],"answer":"B","explanation":"p53 normally responds to DNA damage with arrest or apoptosis; its loss allows damaged genomes to propagate.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/07_Molecular_Cytogenetics_of_Cancer_Factoid.html","factoidLabel":"Molecular Cytogenetics of Cancer","number":36,"reviewCheck":{"stem":"Which concept best matches this description: Promotes G1→S; pathway targetable with CDK4/6 inhibition in selected breast cancer.","options":["CCND1/Cyclin D1","MYCN","t(14;18)","HER2","p53"],"answer":"A","explanation":"CCND1/Cyclin D1: Promotes G1→S; pathway targetable with CDK4/6 inhibition in selected breast cancer."}},{"difficulty":"Step 1-style","lecture":"Molecular Cytogenetics of Cancer","topic":"MYCN amplification","concept":"MYCN amplification in neuroblastoma is a strong adverse prognostic marker.","stem":"A child with neuroblastoma has numerous extrachromosomal double-minute DNA fragments containing MYCN. What is the clinical significance?","options":["It indicates loss of p53 by MDM2 deletion","It confirms a BRCA-associated tumor","MYCN amplification predicts a poorer prognosis","The finding proves the tumor is benign","It predicts exceptional sensitivity to all chemotherapy"],"answer":"C","explanation":"MYCN amplification in neuroblastoma is a strong adverse prognostic marker.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/07_Molecular_Cytogenetics_of_Cancer_Factoid.html","factoidLabel":"Molecular Cytogenetics of Cancer","number":37,"reviewCheck":{"stem":"Which term should be paired with the following fact: Extrachromosomal / intrachromosomal patterns of amplification.","options":["Detection sensitivity","HER2","t(14;18)","Double minutes / HSR","p53"],"answer":"D","explanation":"Double minutes / HSR: Extrachromosomal / intrachromosomal patterns of amplification."}},{"difficulty":"Intermediate","lecture":"Cancer Survival Mechanisms","topic":"Hypoxia & angiogenesis","concept":"Bax and Bak form pores in the outer mitochondrial membrane, permitting cytochrome c release and caspase activation.","stem":"Which event is central to activation of the intrinsic apoptotic pathway?","options":["Rb binding to E2F","VEGF secretion","Fas ligand binding without mitochondrial involvement","Bax/Bak-mediated mitochondrial permeabilization with cytochrome-c release","E-cadherin upregulation"],"answer":"D","explanation":"Bax and Bak form pores in the outer mitochondrial membrane, permitting cytochrome c release and caspase activation.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/08_Cancer_Survival_Mechanisms_Factoid.html","factoidLabel":"Cancer Survival Mechanisms","number":38,"reviewCheck":{"stem":"Which statement about Metastatic sequence is correct?","options":["Maintains TTAGGG telomeres and delays senescence.","Produces 2-hydroxyglutarate → altered methylation and blocked differentiation.","Loss of adhesion/ECM invasion → intravasation → circulation survival → extravasation → colonization.","Pro-apoptotic.","CDK inhibition keeps RB active and restrains E2F → G1/S arrest."],"answer":"C","explanation":"Metastatic sequence: Loss of adhesion/ECM invasion → intravasation → circulation survival → extravasation → colonization."}},{"difficulty":"Intermediate","lecture":"Cancer Survival Mechanisms","topic":"Immune escape / immunotherapy","concept":"Checkpoint inhibitors remove physiologic brakes on T-cell activation, which can produce immune-related adverse events such as colitis and endocrinopathies.","stem":"A patient responding to anti-CTLA-4 therapy develops autoimmune colitis. Which principle best explains the adverse effect?","options":["The drug blocks all cytokine signaling","Checkpoint blockade selectively suppresses T cells","The colitis reflects tumor lysis syndrome","CTLA-4 inhibition directly alkylates intestinal DNA","Releasing immune checkpoints can cause generalized immune activation against normal tissues"],"answer":"E","explanation":"Checkpoint inhibitors remove physiologic brakes on T-cell activation, which can produce immune-related adverse events such as colitis and endocrinopathies.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/08_Cancer_Survival_Mechanisms_Factoid.html","factoidLabel":"Cancer Survival Mechanisms","number":39,"reviewCheck":{"stem":"For BAX/PUMA, which statement is most accurate?","options":["Loss of adhesion/ECM invasion → intravasation → circulation survival → extravasation → colonization.","Pro-apoptotic.","CDK inhibition keeps RB active and restrains E2F → G1/S arrest.","Produces 2-hydroxyglutarate → altered methylation and blocked differentiation.","Maintains TTAGGG telomeres and delays senescence."],"answer":"B","explanation":"BAX/PUMA: Pro-apoptotic."}},{"difficulty":"Intermediate","lecture":"Cancer Survival Mechanisms","topic":"Warburg metabolism / FDG-PET","concept":"Cancer cells preferentially use high-rate glycolysis even in oxygenated conditions.","stem":"Which metabolic pattern defines the Warburg effect?","options":["Preference for aerobic glycolysis despite adequate oxygen","Exclusive fatty-acid oxidation in hypoxia","Failure to take up glucose","Use of oxidative phosphorylation only","Complete shutdown of glycolysis"],"answer":"A","explanation":"Cancer cells preferentially use high-rate glycolysis even in oxygenated conditions.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/08_Cancer_Survival_Mechanisms_Factoid.html","factoidLabel":"Cancer Survival Mechanisms","number":40,"reviewCheck":{"stem":"For Metastatic sequence, which statement is most accurate?","options":["CDK inhibition keeps RB active and restrains E2F → G1/S arrest.","Produces 2-hydroxyglutarate → altered methylation and blocked differentiation.","Maintains TTAGGG telomeres and delays senescence.","Pro-apoptotic.","Loss of adhesion/ECM invasion → intravasation → circulation survival → extravasation → colonization."],"answer":"E","explanation":"Metastatic sequence: Loss of adhesion/ECM invasion → intravasation → circulation survival → extravasation → colonization."}},{"difficulty":"Intermediate","lecture":"Cancer Survival Mechanisms","topic":"Telomerase & immortality","concept":"Phosphorylated Rb no longer sequesters E2F, permitting the G1-to-S transition.","stem":"What happens when Cyclin D/CDK4/6 and Cyclin E/CDK2 phosphorylate Rb in a normal proliferating cell?","options":["Telomerase is permanently silenced","Rb releases E2F, allowing transcription of S-phase genes","p53 immediately activates BAX","Rb binds E2F more tightly","BCL2 is degraded"],"answer":"B","explanation":"Phosphorylated Rb no longer sequesters E2F, permitting the G1-to-S transition.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/08_Cancer_Survival_Mechanisms_Factoid.html","factoidLabel":"Cancer Survival Mechanisms","number":41,"reviewCheck":{"stem":"What is being described here: Anti-apoptotic.","options":["Mutant IDH1/2","p53 → p21","Metastatic sequence","BCL2/BCL-XL","Telomerase"],"answer":"D","explanation":"BCL2/BCL-XL: Anti-apoptotic."}},{"difficulty":"Intermediate","lecture":"Cancer Survival Mechanisms","topic":"Metastatic cascade","concept":"Reduced E-cadherin weakens epithelial cell-cell adhesion and facilitates local invasion.","stem":"Which change is an early step in the metastatic cascade of many carcinomas?","options":["Loss of all motility","Increased E-cadherin adhesion","Downregulation of E-cadherin, allowing tumor cells to detach","Permanent confinement above basement membrane","Complete inhibition of matrix metalloproteinases"],"answer":"C","explanation":"Reduced E-cadherin weakens epithelial cell-cell adhesion and facilitates local invasion.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/08_Cancer_Survival_Mechanisms_Factoid.html","factoidLabel":"Cancer Survival Mechanisms","number":42,"reviewCheck":{"stem":"Which term should be paired with the following fact: Pro-apoptotic.","options":["BCL2/BCL-XL","Resistance","Warburg effect","Hypoxia","BAX/PUMA"],"answer":"E","explanation":"BAX/PUMA: Pro-apoptotic."}},{"difficulty":"Step 1-style","lecture":"Cancer Survival Mechanisms","topic":"Apoptosis resistance","concept":"PD-1 is an inhibitory receptor on T cells; tumor PD-L1 engagement functions as an immune brake.","stem":"A tumor upregulates PD-L1. What is the direct immunologic consequence?","options":["PD-L1 directly activates Bax in tumor cells","PD-L1 increases MMR accuracy","PD-L1 stimulates Rb to arrest the tumor","PD-L1 engages PD-1 on activated T cells and suppresses their antitumor activity","PD-L1 blocks all macrophage development"],"answer":"D","explanation":"PD-1 is an inhibitory receptor on T cells; tumor PD-L1 engagement functions as an immune brake.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/08_Cancer_Survival_Mechanisms_Factoid.html","factoidLabel":"Cancer Survival Mechanisms","number":43,"reviewCheck":{"stem":"Which fact should be associated with BCL2/BCL-XL?","options":["Stabilizes HIF-1α → VEGF → angiogenesis.","Heterogeneity and stem-like populations allow resistant clones to repopulate.","Aerobic glycolysis with high glucose uptake/lactate; supports biosynthesis; FDG-PET avidity.","Targets BCL2 in selected hematologic malignancies.","Anti-apoptotic."],"answer":"E","explanation":"BCL2/BCL-XL: Anti-apoptotic."}},{"difficulty":"Step 1-style","lecture":"Cancer Survival Mechanisms","topic":"Hypoxia & angiogenesis","concept":"Venetoclax inhibits BCL2, allowing pro-apoptotic signaling to proceed in BCL2-dependent cancer cells.","stem":"A CLL cell depends heavily on BCL2 to survive. What is the intended effect of venetoclax?","options":["Phosphorylate Rb","Activate BCL2 to protect the cell","Inhibit VEGF directly","Block thymidylate synthase","Remove the anti-apoptotic BCL2 brake and permit mitochondrial apoptosis"],"answer":"E","explanation":"Venetoclax inhibits BCL2, allowing pro-apoptotic signaling to proceed in BCL2-dependent cancer cells.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/08_Cancer_Survival_Mechanisms_Factoid.html","factoidLabel":"Cancer Survival Mechanisms","number":44,"reviewCheck":{"stem":"Which concept best matches this description: CDK inhibition keeps RB active and restrains E2F → G1/S arrest.","options":["Warburg effect","BCL2/BCL-XL","p53 → p21","Hypoxia","Resistance"],"answer":"C","explanation":"p53 → p21: CDK inhibition keeps RB active and restrains E2F → G1/S arrest."}},{"difficulty":"Step 1-style","lecture":"Cancer Survival Mechanisms","topic":"Warburg metabolism / FDG-PET","concept":"The Warburg effect causes many tumors to avidly take up the glucose analog FDG.","stem":"Why does an FDG-PET scan often highlight metabolically active tumors?","options":["Tumor cells frequently have high glucose uptake because of aerobic glycolysis","PET detects only telomere length","Tumors cannot metabolize glucose","FDG binds directly to BCL2","FDG selectively labels collagen"],"answer":"A","explanation":"The Warburg effect causes many tumors to avidly take up the glucose analog FDG.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/08_Cancer_Survival_Mechanisms_Factoid.html","factoidLabel":"Cancer Survival Mechanisms","number":45,"reviewCheck":{"stem":"Which description best matches Venetoclax?","options":["Heterogeneity and stem-like populations allow resistant clones to repopulate.","Targets BCL2 in selected hematologic malignancies.","Stabilizes HIF-1α → VEGF → angiogenesis.","Anti-apoptotic.","Aerobic glycolysis with high glucose uptake/lactate; supports biosynthesis; FDG-PET avidity."],"answer":"B","explanation":"Venetoclax: Targets BCL2 in selected hematologic malignancies."}},{"difficulty":"Step 1-style","lecture":"Cancer Survival Mechanisms","topic":"Telomerase & immortality","concept":"p53 coordinates either cell-cycle arrest through p21 or apoptosis through pro-apoptotic proteins such as BAX.","stem":"A cell with severe DNA damage has intact p53. Which response best distinguishes moderate damage from irreparable damage?","options":["p53 activates only telomerase","p53 can induce p21-mediated arrest for repair or BAX-mediated apoptosis if damage is severe","p53 always forces immediate S-phase entry","p53 promotes BCL2 overexpression","p53 permanently activates HER2"],"answer":"B","explanation":"p53 coordinates either cell-cycle arrest through p21 or apoptosis through pro-apoptotic proteins such as BAX.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/08_Cancer_Survival_Mechanisms_Factoid.html","factoidLabel":"Cancer Survival Mechanisms","number":46,"reviewCheck":{"stem":"Which option correctly describes Mutant IDH1/2?","options":["CDK inhibition keeps RB active and restrains E2F → G1/S arrest.","Loss of adhesion/ECM invasion → intravasation → circulation survival → extravasation → colonization.","Maintains TTAGGG telomeres and delays senescence.","Pro-apoptotic.","Produces 2-hydroxyglutarate → altered methylation and blocked differentiation."],"answer":"E","explanation":"Mutant IDH1/2: Produces 2-hydroxyglutarate → altered methylation and blocked differentiation."}},{"difficulty":"Intermediate","lecture":"Cancer Survival Mechanisms","topic":"Hypoxia & angiogenesis","concept":"Tumors increase pro-angiogenic signaling, especially VEGF, to recruit new blood vessels.","stem":"A tumor has reached several millimeters in diameter and becomes strongly dependent on neovascularization. Which factor is most directly responsible for the angiogenic switch?","options":["PMS2","E-cadherin","VEGF","Rb","HGPRT"],"answer":"C","explanation":"Tumors increase pro-angiogenic signaling, especially VEGF, to recruit new blood vessels.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/08_Cancer_Survival_Mechanisms_Factoid.html","factoidLabel":"Cancer Survival Mechanisms","number":47,"reviewCheck":{"stem":"What is being described here: Anti-apoptotic.","options":["BAX/PUMA","Metastatic sequence","Telomerase","BCL2/BCL-XL","p53 → p21"],"answer":"D","explanation":"BCL2/BCL-XL: Anti-apoptotic."}},{"difficulty":"Step 1-style","lecture":"Cancer Survival Mechanisms","topic":"Cancer Survival Mechanisms","concept":"MMPs and cathepsins degrade basement membrane and extracellular matrix during invasion.","stem":"A carcinoma has detached from neighboring cells but cannot cross the basement membrane. Which newly acquired activity would most directly solve that barrier?","options":["Reduced motility","Inhibition of cathepsins","Increased E-cadherin expression","Secretion of matrix metalloproteinases and related proteases","Suppression of all extracellular proteolysis"],"answer":"D","explanation":"MMPs and cathepsins degrade basement membrane and extracellular matrix during invasion.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/08_Cancer_Survival_Mechanisms_Factoid.html","factoidLabel":"Cancer Survival Mechanisms","number":48,"reviewCheck":{"stem":"For BAX/PUMA, which statement is most accurate?","options":["CDK inhibition keeps RB active and restrains E2F → G1/S arrest.","Pro-apoptotic.","Loss of adhesion/ECM invasion → intravasation → circulation survival → extravasation → colonization.","Produces 2-hydroxyglutarate → altered methylation and blocked differentiation.","Maintains TTAGGG telomeres and delays senescence."],"answer":"B","explanation":"BAX/PUMA: Pro-apoptotic."}},{"difficulty":"Intermediate","lecture":"Cancer Survival Mechanisms","topic":"Metastatic cascade","concept":"The sentinel node samples the first expected lymphatic drainage site of the tumor.","stem":"Why can a negative sentinel lymph-node biopsy spare some patients a more extensive nodal dissection?","options":["Tumors never skip blood-borne metastasis","A negative sentinel node proves there is no primary cancer","Sentinel nodes are only used in sarcomas","The sentinel node is always the largest node","The sentinel node is the first draining node, so absence of tumor there makes downstream nodal spread less likely"],"answer":"E","explanation":"The sentinel node samples the first expected lymphatic drainage site of the tumor.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/08_Cancer_Survival_Mechanisms_Factoid.html","factoidLabel":"Cancer Survival Mechanisms","number":49,"reviewCheck":{"stem":"Which description best matches BCL2/BCL-XL?","options":["Anti-apoptotic.","Stabilizes HIF-1α → VEGF → angiogenesis.","Heterogeneity and stem-like populations allow resistant clones to repopulate.","Aerobic glycolysis with high glucose uptake/lactate; supports biosynthesis; FDG-PET avidity.","Targets BCL2 in selected hematologic malignancies."],"answer":"A","explanation":"BCL2/BCL-XL: Anti-apoptotic."}},{"difficulty":"Step 1-style","lecture":"Cancer Survival Mechanisms","topic":"Apoptosis resistance","concept":"CDK4/6 inhibitors work upstream of Rb; if Rb itself is absent, the pathway can be bypassed.","stem":"A breast cancer initially responds to palbociclib but later progresses after acquiring RB1 loss. Why does the drug lose efficacy?","options":["Without functional Rb, blocking CDK4/6 can no longer keep E2F sequestered","The drug is converted into an alkylating agent","PD-1 disappears from T cells","BCL2 becomes unable to inhibit Bax","The tumor can no longer synthesize Cyclin D"],"answer":"A","explanation":"CDK4/6 inhibitors work upstream of Rb; if Rb itself is absent, the pathway can be bypassed.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/08_Cancer_Survival_Mechanisms_Factoid.html","factoidLabel":"Cancer Survival Mechanisms","number":50,"reviewCheck":{"stem":"Which concept best matches this description: CDK inhibition keeps RB active and restrains E2F → G1/S arrest.","options":["Venetoclax","p53 → p21","Warburg effect","BCL2/BCL-XL","Resistance"],"answer":"B","explanation":"p53 → p21: CDK inhibition keeps RB active and restrains E2F → G1/S arrest."}}];
+
+if(!window.ReviewBank){
+(function(){
+  const KEY='fom:review-bank:v1';
+  const AUTO_FLAG_MISSES=2;
+  const MASTERY_TARGET=3;
+
+  function load(){
+    try{
+      const parsed=JSON.parse(localStorage.getItem(KEY)||'{"items":{}}');
+      if(!parsed.items) parsed.items={};
+      return parsed;
+    }catch(e){ return {items:{}}; }
+  }
+  function save(bank){ localStorage.setItem(KEY,JSON.stringify(bank)); }
+  function idFor(item){
+    return [item.lecture||'',item.topic||'',item.concept||''].join('||').toLowerCase();
+  }
+  function base(item){
+    return {
+      id:idFor(item),
+      lecture:item.lecture||'',
+      topic:item.topic||'',
+      concept:item.concept||'',
+      difficulty:item.difficulty||'',
+      questionStem:item.stem||'',
+      choices:item.options||[],
+      answer:item.answer||'',
+      explanation:item.explanation||'',
+      transferCheck:item.reviewCheck||null,
+      sourceQuiz:item.sourceQuiz||'',
+      misses:0,
+      attempts:0,
+      manual:false,
+      active:false,
+      mastered:false,
+      masteryStreak:0,
+      lastConfidence:null,
+      updatedAt:new Date().toISOString()
+    };
+  }
+  function getEntry(bank,item){
+    const id=idFor(item);
+    if(!bank.items[id]) bank.items[id]=base(item);
+    const e=bank.items[id];
+    Object.assign(e,{
+      lecture:item.lecture||e.lecture,
+      topic:item.topic||e.topic,
+      concept:item.concept||e.concept,
+      difficulty:item.difficulty||e.difficulty,
+      questionStem:item.stem||e.questionStem,
+      choices:item.options||e.choices,
+      answer:item.answer||e.answer,
+      explanation:item.explanation||e.explanation,
+      transferCheck:item.reviewCheck||e.transferCheck,
+      sourceQuiz:item.sourceQuiz||e.sourceQuiz
+    });
+    return e;
+  }
+  function recordPrimaryOutcome(item,correct,confidence){
+    const bank=load(),e=getEntry(bank,item);
+    e.attempts=(e.attempts||0)+1;
+    e.lastConfidence=confidence||null;
+    if(!correct){
+      e.misses=(e.misses||0)+1;
+      e.masteryStreak=0;
+      if(e.mastered || e.misses>=AUTO_FLAG_MISSES) e.active=true;
+      if(e.mastered){ e.mastered=false; }
+    }
+    e.updatedAt=new Date().toISOString();
+    save(bank); return e;
+  }
+  function fileItem(item){
+    const bank=load(),e=getEntry(bank,item);
+    e.manual=true;
+    e.active=true;
+    e.mastered=false;
+    e.masteryStreak=0;
+    e.updatedAt=new Date().toISOString();
+    save(bank); return e;
+  }
+  function recordMastery(item,success){
+    const bank=load(),e=getEntry(bank,item);
+    if(success){
+      e.masteryStreak=(e.masteryStreak||0)+1;
+      if(e.masteryStreak>=MASTERY_TARGET){
+        e.active=false;
+        e.mastered=true;
+      }
+    }else{
+      e.masteryStreak=0;
+    }
+    e.updatedAt=new Date().toISOString();
+    save(bank); return e;
+  }
+  function getActive(){
+    return Object.values(load().items).filter(x=>x.active);
+  }
+  function getAll(){ return Object.values(load().items); }
+  window.ReviewBank={KEY,AUTO_FLAG_MISSES,MASTERY_TARGET,recordPrimaryOutcome,fileItem,recordMastery,getActive,getAll};
+})();
+}
+const QUIZ_KEY="week5-daily-tuesday-50";
+const HIGHLIGHT_KEY='quiz-highlights:'+QUIZ_KEY;
+let pendingHighlightSelection=null;
+
+function loadHighlights(){
+  try{return JSON.parse(localStorage.getItem(HIGHLIGHT_KEY)||'{}')||{}}catch(e){return {}}
+}
+function saveHighlights(data){try{localStorage.setItem(HIGHLIGHT_KEY,JSON.stringify(data))}catch(e){}}
+function normalizeRanges(ranges){
+  const sorted=(ranges||[]).filter(r=>Number.isFinite(r.start)&&Number.isFinite(r.end)&&r.end>r.start).sort((a,b)=>a.start-b.start||a.end-b.end);
+  const out=[];
+  sorted.forEach(r=>{const last=out[out.length-1];if(last&&r.start<=last.end)last.end=Math.max(last.end,r.end);else out.push({start:r.start,end:r.end})});
+  return out;
+}
+function unwrapHighlights(scope=document){
+  scope.querySelectorAll('mark.study-highlight').forEach(mark=>{const p=mark.parentNode;while(mark.firstChild)p.insertBefore(mark.firstChild,mark);p.removeChild(mark);p.normalize()});
+}
+function textPoint(root,offset){
+  const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);let pos=0,node;
+  while(node=walker.nextNode()){
+    const next=pos+node.nodeValue.length;
+    if(offset<=next)return {node,offset:Math.max(0,offset-pos)};
+    pos=next;
+  }
+  return null;
+}
+function wrapOffsetRange(root,start,end){
+  if(end<=start)return;
+  const s=textPoint(root,start),e=textPoint(root,end);if(!s||!e)return;
+  const range=document.createRange();
+  try{range.setStart(s.node,s.offset);range.setEnd(e.node,e.offset)}catch(err){return}
+  if(range.collapsed)return;
+  const mark=document.createElement('mark');mark.className='study-highlight';
+  try{const frag=range.extractContents();mark.appendChild(frag);range.insertNode(mark)}catch(err){}
+}
+function refreshHighlights(scope=document){
+  unwrapHighlights(scope);
+  const data=loadHighlights();
+  scope.querySelectorAll('.highlightable[data-highlight-id]').forEach(el=>{
+    const ranges=normalizeRanges(data[el.dataset.highlightId]||[]).sort((a,b)=>b.start-a.start);
+    ranges.forEach(r=>wrapOffsetRange(el,r.start,r.end));
+  });
+}
+function offsetWithin(root,node,offset){
+  const r=document.createRange();r.selectNodeContents(root);r.setEnd(node,offset);return r.toString().length;
+}
+function captureHighlightSelection(){
+  const sel=window.getSelection();if(!sel||sel.rangeCount===0||sel.isCollapsed)return;
+  const range=sel.getRangeAt(0);let startEl=range.startContainer.nodeType===1?range.startContainer:range.startContainer.parentElement;let endEl=range.endContainer.nodeType===1?range.endContainer:range.endContainer.parentElement;
+  startEl=startEl?.closest?.('.highlightable[data-highlight-id]');endEl=endEl?.closest?.('.highlightable[data-highlight-id]');
+  if(!startEl||startEl!==endEl)return;
+  const start=offsetWithin(startEl,range.startContainer,range.startOffset),end=offsetWithin(startEl,range.endContainer,range.endOffset);
+  if(end<=start)return;
+  pendingHighlightSelection={id:startEl.dataset.highlightId,start,end,preview:sel.toString().trim().slice(0,55)};
+  const status=document.getElementById('highlightStatus');if(status)status.textContent=pendingHighlightSelection.preview?`Selected: “${pendingHighlightSelection.preview}${sel.toString().trim().length>55?'…':''}”`:'Selection ready.';
+}
+function hasTextSelectionInside(el){
+  const sel=window.getSelection();if(!sel||sel.isCollapsed||!sel.toString().trim())return false;
+  const a=sel.anchorNode,b=sel.focusNode;return !!(a&&b&&el.contains(a)&&el.contains(b));
+}
+function addPendingHighlight(){
+  const s=pendingHighlightSelection,status=document.getElementById('highlightStatus');
+  if(!s){if(status)status.textContent='Select text in a question stem or answer choice first.';return}
+  const data=loadHighlights();data[s.id]=normalizeRanges([...(data[s.id]||[]),{start:s.start,end:s.end}]);saveHighlights(data);refreshHighlights(document);if(status)status.textContent='Highlight saved. It will stay after reset or reopen.';pendingHighlightSelection=null;window.getSelection()?.removeAllRanges();
+}
+function erasePendingHighlight(){
+  const s=pendingHighlightSelection,status=document.getElementById('highlightStatus');
+  if(!s){if(status)status.textContent='Select part of a yellow highlight to erase it.';return}
+  const data=loadHighlights(),ranges=data[s.id]||[];const kept=ranges.filter(r=>r.end<=s.start||r.start>=s.end);if(kept.length)data[s.id]=kept;else delete data[s.id];saveHighlights(data);refreshHighlights(document);if(status)status.textContent=ranges.length!==kept.length?'Selected highlight erased.':'No saved highlight overlapped that selection.';pendingHighlightSelection=null;window.getSelection()?.removeAllRanges();
+}
+function clearAllHighlights(){
+  const data=loadHighlights();if(!Object.keys(data).length){document.getElementById('highlightStatus').textContent='There are no saved highlights to clear.';return}
+  if(!confirm('Clear every yellow highlight saved for this quiz?'))return;saveHighlights({});refreshHighlights(document);pendingHighlightSelection=null;document.getElementById('highlightStatus').textContent='All highlights cleared.';
+}
+document.addEventListener('selectionchange',()=>{clearTimeout(window.__hlTimer);window.__hlTimer=setTimeout(captureHighlightSelection,40)});
+document.getElementById('highlightBtn')?.addEventListener('click',addPendingHighlight);
+document.getElementById('eraseHighlightBtn')?.addEventListener('click',erasePendingHighlight);
+document.getElementById('clearHighlightsBtn')?.addEventListener('click',clearAllHighlights);
+
+let primaryRecorded={};
+
+function bankItem(q){
+  return Object.assign({},q,{sourceQuiz:QUIZ_KEY});
+}
+function recordPrimaryOnce(qn){
+  if(primaryRecorded[qn]) return;
+  const q=QUESTIONS.find(x=>x.number===qn);
+  if(!q || !responses[qn]) return;
+  ReviewBank.recordPrimaryOutcome(bankItem(q),responses[qn]===q.answer,confidence[qn]||null);
+  primaryRecorded[qn]=true;
+}
+function saveProgress(completed=false){
+  const answered=Object.keys(responses).length;
+  const correct=QUESTIONS.filter(q=>responses[q.number]===q.answer).length;
+  const scoreVisible=(mode!=='exam'||completed);
+  const data={
+    key:QUIZ_KEY,total:QUESTIONS.length,answered,
+    score:scoreVisible?correct:null,
+    percent:scoreVisible&&answered?Math.round(correct/answered*100):null,
+    completed:!!completed,mode,updatedAt:new Date().toISOString()
+  };
+  try{
+    localStorage.setItem('quiz-progress:'+QUIZ_KEY,JSON.stringify(data));
+    localStorage.setItem('med-quiz-folder:'+QUIZ_KEY,JSON.stringify(data));
+    if(completed){
+      const pct=Math.round(correct/QUESTIONS.length*100);
+      const prev=Number(localStorage.getItem('quiz-best:'+QUIZ_KEY)||'-1');
+      if(pct>prev) localStorage.setItem('quiz-best:'+QUIZ_KEY,String(pct));
+    }
+  }catch(e){}
+}
+
+let mode='practice',responses={},struck={},confidence={},locked={},resultsShown=false;
+let advancedIndex=0,advancedTransfer={},advancedDecision={},advancedFiled={};
+
+const quiz=document.getElementById('quiz'),advancedShell=document.getElementById('advancedShell'),advancedQuestionCard=document.getElementById('advancedQuestionCard'),advancedReviewCard=document.getElementById('advancedReviewCard');
+const practiceMode=document.getElementById('practiceMode'),examMode=document.getElementById('examMode'),advancedMode=document.getElementById('advancedMode'),modeNote=document.getElementById('modeNote'),gradeBtn=document.getElementById('gradeBtn'),resultOverlay=document.getElementById('resultOverlay');
+
+function letter(i){return String.fromCharCode(65+i)}
+
+
+function findReviewEntry(q){
+  try{
+    const key=(window.ReviewBank&&ReviewBank.KEY)||'fom:review-bank:v1';
+    const bank=JSON.parse(localStorage.getItem(key)||'{"items":{}}');
+    return Object.values((bank&&bank.items)||{}).find(e=>e&&e.sourceQuiz===QUIZ_KEY&&e.questionStem===q.stem)||null;
+  }catch(e){return null}
+}
+function isManualFlagged(q){
+  const e=findReviewEntry(q);
+  return !!(e&&e.manual);
+}
+function setManualFlag(qn,on){
+  const q=QUESTIONS.find(x=>x.number===qn);
+  if(!q)return;
+  if(on){
+    ReviewBank.fileItem(bankItem(q));
+  }else{
+    try{
+      const key=(window.ReviewBank&&ReviewBank.KEY)||'fom:review-bank:v1';
+      const bank=JSON.parse(localStorage.getItem(key)||'{"version":1,"items":{}}');
+      Object.values((bank&&bank.items)||{}).forEach(e=>{
+        if(e&&e.sourceQuiz===QUIZ_KEY&&e.questionStem===q.stem){
+          e.manual=false;
+          const autoMiss=(e.misses||0)>=((window.ReviewBank&&ReviewBank.AUTO_FLAG_MISSES)||2);
+          if(!autoMiss&&!e.mastered)e.active=false;
+          e.updatedAt=new Date().toISOString();
+        }
+      });
+      localStorage.setItem(key,JSON.stringify(bank));
+    }catch(e){}
+  }
+  if(mode==='advanced'){
+    if(Object.prototype.hasOwnProperty.call(responses,qn))renderAdvancedReview(qn);
+    else renderAdvancedQuestion();
+  }else{
+    paintState();
+  }
+}
+function flagButtonHTML(qn){
+  const q=QUESTIONS.find(x=>x.number===qn),on=q?isManualFlagged(q):false;
+  return `<button type="button" class="flag-btn ${on?'active':''}" data-flag-q="${qn}">${on?'Flagged ✓':'Flag for Review'}</button>`;
+}
+function bindFlagButtons(root){
+  (root||document).querySelectorAll('[data-flag-q]').forEach(btn=>btn.addEventListener('click',e=>{
+    e.preventDefault();e.stopPropagation();
+    const qn=Number(btn.dataset.flagQ),q=QUESTIONS.find(x=>x.number===qn);
+    if(q)setManualFlag(qn,!isManualFlagged(q));
+  }));
+}
+function factoidResourceHTML(q){
+  return `<div class="review-resource"><span>Lecture review resource</span><a href="${q.factoid}" target="_blank" rel="noopener">Open ${q.factoidLabel} Factoid Sheet ↗</a></div>`;
+}
+
+function confidenceHTML(qn){
+ const value=confidence[qn]||'';
+ return `<div class="confidence-wrap">
+   <div class="confidence-panel">
+     <div class="confidence-label">Confidence</div>
+     
+     <div class="confidence-buttons">
+       <button type="button" class="confidence-btn ${value==='guessing'?'active':''}" data-level="guessing">Guessing</button>
+       <button type="button" class="confidence-btn ${value==='unsure'?'active':''}" data-level="unsure">Unsure</button>
+       <button type="button" class="confidence-btn ${value==='confident'?'active':''}" data-level="confident">Confident</button>
+     </div>
+   </div>
+ </div>`;
+}
+
+function renderQuiz(){
+ quiz.innerHTML='';
+ QUESTIONS.forEach(q=>{
+  const article=document.createElement('article');article.className='question';article.id='q-'+q.number;
+  article.innerHTML=`<div class="qtop"><div class="qnum">Question ${q.number}</div>${flagButtonHTML(q.number)}</div><div class="stem highlightable" data-highlight-id="q${q.number}-stem">${q.stem}</div><div class="choices"></div><div class="feedback" id="feedback-${q.number}"></div>${confidenceHTML(q.number)}`;
+  const choices=article.querySelector('.choices');
+  q.options.forEach((opt,idx)=>{
+   const L=letter(idx),row=document.createElement('div');row.className='choice-row';
+   row.innerHTML=`<button type="button" class="choice" data-letter="${L}"><span class="choice-letter">${L}</span><span class="choice-copy highlightable" data-highlight-id="q${q.number}-opt-${L}">${opt}</span></button><button type="button" class="strike" title="Strike through choice ${L}">S̶</button>`;
+   row.querySelector('.choice').addEventListener('click',e=>{if(hasTextSelectionInside(e.currentTarget))return;choose(q.number,L)});
+   row.querySelector('.strike').addEventListener('click',e=>{e.stopPropagation();toggleStrike(q.number,L)});
+   choices.appendChild(row);
+  });
+  article.querySelectorAll('.confidence-btn').forEach(btn=>btn.addEventListener('click',()=>setConfidence(q.number,btn.dataset.level)));
+  bindFlagButtons(article);
+  quiz.appendChild(article);
+ });
+ refreshHighlights(quiz);
+ paintState();
+}
+
+function syncReviewBankConfidence(qn){
+ const q=QUESTIONS.find(x=>x.number===qn);
+ if(!q || !Object.prototype.hasOwnProperty.call(responses,qn)) return;
+ try{
+   const key=(window.ReviewBank&&ReviewBank.KEY)||'fom:review-bank:v1';
+   const raw=localStorage.getItem(key);
+   if(!raw)return;
+   const bank=JSON.parse(raw);
+   let changed=false;
+   Object.values((bank&&bank.items)||{}).forEach(e=>{
+     if(e && e.sourceQuiz===QUIZ_KEY && e.questionStem===q.stem){
+       e.lastConfidence=confidence[qn]||null;
+       e.updatedAt=new Date().toISOString();
+       changed=true;
+     }
+   });
+   if(changed)localStorage.setItem(key,JSON.stringify(bank));
+ }catch(e){}
+}
+
+function setConfidence(qn,level){
+ confidence[qn]=level;
+ syncReviewBankConfidence(qn);
+ if(mode==='advanced'){
+   if(Object.prototype.hasOwnProperty.call(responses,qn))renderAdvancedReview(qn);
+   else renderAdvancedQuestion();
+ }else paintState();
+}
+function choose(qn,L){if(mode==='practice'&&locked[qn])return;responses[qn]=L;if(mode==='practice'){locked[qn]=true;gradeQuestion(qn,true);recordPrimaryOnce(qn)}paintState();if(mode==='practice'&&Object.keys(responses).length===QUESTIONS.length&&!resultsShown)setTimeout(showResults,250)}
+function toggleStrike(qn,L){if(mode==='practice'&&locked[qn])return;struck[qn]??={};struck[qn][L]=!struck[qn][L];paintState()}
+
+function paintState(){
+ QUESTIONS.forEach(q=>{
+  const article=document.getElementById('q-'+q.number);if(!article)return;article.classList.remove('correct-q','wrong-q');
+  article.querySelectorAll('.choice').forEach(btn=>{const L=btn.dataset.letter;btn.classList.remove('selected','correct','wrong','struck');if(responses[q.number]===L)btn.classList.add('selected');if(struck[q.number]?.[L])btn.classList.add('struck');if(mode==='practice'&&locked[q.number]){if(L===q.answer)btn.classList.add('correct');if(responses[q.number]===L&&L!==q.answer)btn.classList.add('wrong')}});
+  article.querySelectorAll('.strike').forEach((btn,idx)=>{btn.classList.toggle('active',!!struck[q.number]?.[letter(idx)]);btn.disabled=mode==='practice'&&!!locked[q.number]});
+  article.querySelectorAll('.confidence-btn').forEach(btn=>{
+   btn.classList.toggle('active',confidence[q.number]===btn.dataset.level);
+   btn.disabled=false;
+  });
+  const flag=article.querySelector('[data-flag-q]');
+  if(flag){const on=isManualFlagged(q);flag.classList.toggle('active',on);flag.textContent=on?'Flagged ✓':'Flag for Review';}
+ });
+ updateProgress();
+}
+
+function gradeQuestion(qn,showFeedback){
+ const q=QUESTIONS.find(x=>x.number===qn),fb=document.getElementById('feedback-'+qn),isCorrect=responses[qn]===q.answer;
+ if(showFeedback&&fb){fb.className='feedback show '+(isCorrect?'good':'bad');fb.innerHTML=isCorrect?`<strong>Correct.</strong> ${q.explanation}`:`<strong>Not quite.</strong> Correct answer: <strong>${q.answer}</strong>. ${q.explanation}`}
+ const article=document.getElementById('q-'+qn);if(article){article.querySelectorAll('.choice').forEach(btn=>{const L=btn.dataset.letter;if(L===q.answer)btn.classList.add('correct');if(responses[qn]===L&&L!==q.answer)btn.classList.add('wrong')})}
+}
+
+function updateProgress(){
+ const answered=Object.keys(responses).length;
+ document.getElementById('answeredLabel').textContent=mode==='advanced'?`Question ${Math.min(advancedIndex+1,QUESTIONS.length)} of ${QUESTIONS.length} · ${answered} answered`:`${answered} of ${QUESTIONS.length} answered`;
+ document.getElementById('progressFill').style.width=`${answered/QUESTIONS.length*100}%`;
+ if(mode==='practice'){const correct=QUESTIONS.filter(q=>responses[q.number]===q.answer).length;document.getElementById('scoreLabel').textContent=answered?`Practice score: ${correct}/${answered}`:'Practice score: —'}
+ else if(mode==='advanced'){const transferDone=Object.keys(advancedTransfer).length;document.getElementById('scoreLabel').textContent=`Advanced review · ${transferDone} transfer checks completed`}
+ else document.getElementById('scoreLabel').textContent='Exam score hidden until grading';
+ saveProgress(false);
+}
+
+function setMode(next){
+ if(Object.keys(responses).length&&!confirm('Switching modes will reset this test run. Continue?'))return;
+ if(Object.keys(responses).length)resetState(false);
+ mode=next;
+ practiceMode.classList.toggle('active',mode==='practice');examMode.classList.toggle('active',mode==='exam');advancedMode.classList.toggle('active',mode==='advanced');
+ quiz.classList.toggle('hidden',mode==='advanced');advancedShell.classList.toggle('show',mode==='advanced');
+ gradeBtn.style.display=mode==='exam'?'inline-block':'none';
+ modeNote.textContent=mode==='practice'?'Immediate feedback is ON.':mode==='exam'?'Feedback is hidden until you grade the quiz.':'One question at a time. If you miss the primary question, Advanced Review is required. If you get it right, the review is optional.';
+ if(mode==='advanced'){advancedIndex=0;renderAdvancedQuestion()}else{renderQuiz()}
+ updateProgress();
+}
+practiceMode.addEventListener('click',()=>setMode('practice'));examMode.addEventListener('click',()=>setMode('exam'));advancedMode.addEventListener('click',()=>setMode('advanced'));
+
+function renderAdvancedQuestion(){
+ if(advancedIndex>=QUESTIONS.length){showResults();return}
+ const q=QUESTIONS[advancedIndex],qn=q.number;
+ advancedReviewCard.classList.remove('show');
+ advancedQuestionCard.style.display='block';
+ let choices='';
+ q.options.forEach((opt,idx)=>{const L=letter(idx),classes=['choice'];if(struck[qn]?.[L])classes.push('struck');choices+=`<div class="choice-row"><button type="button" class="${classes.join(' ')}" data-letter="${L}"><span class="choice-letter">${L}</span><span class="choice-copy highlightable" data-highlight-id="q${qn}-opt-${L}">${opt}</span></button><button type="button" class="strike ${struck[qn]?.[L]?'active':''}" data-strike="${L}">S̶</button></div>`});
+ advancedQuestionCard.innerHTML=`<div class="advanced-progress-label">Advanced Quiz Review · Primary Question</div><div class="qtop"><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><div class="qnum">Question ${qn}</div>${flagButtonHTML(qn)}</div><div class="tags"><span class="tag">Metadata hidden until review</span></div></div><div class="stem highlightable" data-highlight-id="q${qn}-stem">${q.stem}</div><div class="choices">${choices}</div>${confidenceHTML(qn)}`;
+ advancedQuestionCard.querySelectorAll('.choice').forEach(btn=>btn.addEventListener('click',e=>{if(hasTextSelectionInside(e.currentTarget))return;answerAdvancedPrimary(qn,btn.dataset.letter)}));
+ advancedQuestionCard.querySelectorAll('[data-strike]').forEach(btn=>btn.addEventListener('click',()=>{const L=btn.dataset.strike;struck[qn]??={};struck[qn][L]=!struck[qn][L];renderAdvancedQuestion()}));
+ advancedQuestionCard.querySelectorAll('.confidence-btn').forEach(btn=>btn.addEventListener('click',()=>setConfidence(qn,btn.dataset.level)));
+ bindFlagButtons(advancedQuestionCard);
+ refreshHighlights(advancedQuestionCard);
+ updateProgress();
+}
+
+function answerAdvancedPrimary(qn,L){
+ responses[qn]=L;locked[qn]=true;recordPrimaryOnce(qn);
+ renderAdvancedReview(qn);
+ updateProgress();
+}
+
+function renderAdvancedReview(qn){
+ const q=QUESTIONS.find(x=>x.number===qn),correct=responses[qn]===q.answer,rc=q.reviewCheck;
+ advancedQuestionCard.style.display='none';advancedReviewCard.classList.add('show');
+ let transferChoices='';rc.options.forEach((opt,idx)=>{const L=letter(idx),chosen=advancedTransfer[qn]===L,done=!!advancedTransfer[qn],classes=['choice'];if(chosen)classes.push('selected');if(done&&L===rc.answer)classes.push('correct');if(done&&chosen&&L!==rc.answer)classes.push('wrong');transferChoices+=`<div class="choice-row"><button type="button" class="${classes.join(' ')}" data-transfer="${L}" ${done?'disabled':''}><span class="choice-letter">${L}</span><span class="choice-copy highlightable" data-highlight-id="q${qn}-transfer-opt-${L}">${opt}</span></button></div>`});
+ const transferDone=!!advancedTransfer[qn],transferCorrect=advancedTransfer[qn]===rc.answer,decision=advancedDecision[qn]||'';
+ advancedReviewCard.innerHTML=`
+ <div class="qtop"><div class="advanced-progress-label">Advanced Review Screen</div>${flagButtonHTML(qn)}</div>
+ <h2 class="review-title">${correct?'Correct primary answer':'Primary answer missed'}</h2>
+ <div class="feedback show ${correct?'good':'bad'}">${correct?'<strong>Correct.</strong>':'<strong>Not quite.</strong> Correct answer: <strong>'+q.answer+'</strong>.'} ${q.explanation}</div>
+ ${confidenceHTML(qn)}
+ <div class="review-meta">
+   <div class="meta-card"><span>Difficulty</span><strong>${q.difficulty}</strong></div>
+   <div class="meta-card"><span>Lecture</span><strong>${q.lecture}</strong></div>
+   <div class="meta-card"><span>Topic</span><strong>${q.topic}</strong></div>
+ </div>
+ <div class="concept-box"><strong>Concept:</strong> ${q.concept}</div>
+ ${factoidResourceHTML(q)}
+ <div class="transfer"><h3>Transfer Check</h3><p>Apply the same concept to a similar stem before moving on.</p><div class="stem highlightable" data-highlight-id="q${qn}-transfer-stem">${rc.stem}</div><div class="choices">${transferChoices}</div>
+ <div class="transfer-status ${transferDone?'show '+(transferCorrect?'good':'bad'):''}">${transferDone?(transferCorrect?'<strong>Transfer check correct.</strong> ':'<strong>Transfer check missed.</strong> Correct answer: <strong>'+rc.answer+'</strong>. ')+rc.explanation:''}</div></div>
+ <div class="decision-box"><h3>Before continuing</h3>
+ <p>${correct?'Because you answered the primary question correctly, Advanced Review is optional. You may skip it, or complete the transfer check for deeper review.':'Because you missed the primary question, complete the transfer check and then either confirm understanding or file the concept for review.'}</p>
+ ${correct?`<div class="review-actions"><button type="button" class="secondary" id="skipAdvancedBtn">${advancedIndex===QUESTIONS.length-1?'Skip review & finish':'Skip Advanced Review'}</button></div>`:''}
+ <div class="review-actions"><button type="button" class="review-decision ${decision==='understand'?'active-understand':''}" id="understandBtn">I understand</button><button type="button" class="review-decision ${decision==='file'?'active-file':''}" id="fileBtn">File for review</button></div>
+ <button type="button" class="primary" id="continueAdvancedBtn" ${(!transferDone||!decision)?'disabled':''}>${advancedIndex===QUESTIONS.length-1?'Finish Advanced Review':'Continue to next question'}</button></div>`;
+ refreshHighlights(advancedReviewCard);
+ bindFlagButtons(advancedReviewCard);
+ advancedReviewCard.querySelectorAll('.confidence-btn').forEach(btn=>btn.addEventListener('click',()=>setConfidence(qn,btn.dataset.level)));
+ advancedReviewCard.querySelectorAll('[data-transfer]').forEach(btn=>btn.addEventListener('click',e=>{if(hasTextSelectionInside(e.currentTarget))return;advancedTransfer[qn]=btn.dataset.transfer;renderAdvancedReview(qn);updateProgress()}));
+ document.getElementById('understandBtn').addEventListener('click',()=>{advancedDecision[qn]='understand';advancedFiled[qn]=false;renderAdvancedReview(qn)});
+ document.getElementById('fileBtn').addEventListener('click',()=>{advancedDecision[qn]='file';advancedFiled[qn]=true;ReviewBank.fileItem(bankItem(q));renderAdvancedReview(qn)});
+ const skip=document.getElementById('skipAdvancedBtn');
+ if(skip)skip.addEventListener('click',()=>{
+   advancedDecision[qn]='understand';
+   advancedFiled[qn]=false;
+   advancedIndex++;
+   if(advancedIndex>=QUESTIONS.length)showResults();else renderAdvancedQuestion();
+   updateProgress();
+ });
+ const cont=document.getElementById('continueAdvancedBtn');if(cont)cont.addEventListener('click',()=>{if(!advancedTransfer[qn]||!advancedDecision[qn])return;const masterySuccess=(responses[qn]===q.answer&&advancedTransfer[qn]===rc.answer&&advancedDecision[qn]==='understand');ReviewBank.recordMastery(bankItem(q),masterySuccess);if(advancedDecision[qn]==='file')ReviewBank.fileItem(bankItem(q));advancedIndex++;if(advancedIndex>=QUESTIONS.length)showResults();else renderAdvancedQuestion();updateProgress()});
+}
+
+gradeBtn.addEventListener('click',()=>{if(Object.keys(responses).length<QUESTIONS.length){alert(`You still have ${QUESTIONS.length-Object.keys(responses).length} unanswered question(s).`);return}QUESTIONS.forEach(q=>{locked[q.number]=true;gradeQuestion(q.number,true);recordPrimaryOnce(q.number)});resultsShown=true;paintState();showResults()});
+
+function showResults(){
+ resultsShown=true;const correct=QUESTIONS.filter(q=>responses[q.number]===q.answer).length,pct=Math.round(correct/QUESTIONS.length*100),passed=pct>=70;saveProgress(true);
+ document.getElementById('hunterImg').src=passed?HUNTER_UP:HUNTER_DOWN;document.getElementById('resultTitle').textContent=passed?'Hunter is proud of you':'Hunter says boot up anki little bro';
+ let scoreText=`${pct}% · ${correct}/${QUESTIONS.length} primary questions correct`;
+ if(mode==='advanced'){const attemptedTransfers=QUESTIONS.filter(q=>advancedTransfer[q.number]).length,transferCorrect=QUESTIONS.filter(q=>advancedTransfer[q.number]===q.reviewCheck.answer).length;scoreText+=attemptedTransfers?` · ${transferCorrect}/${attemptedTransfers} transfer checks correct`:' · No transfer checks attempted'}
+ document.getElementById('finalScore').textContent=scoreText;
+ const missed=QUESTIONS.filter(q=>responses[q.number]!==q.answer),topicMap={};QUESTIONS.forEach(q=>{topicMap[q.topic]??={total:0,missed:0,concepts:[]};topicMap[q.topic].total++;if(responses[q.number]!==q.answer){topicMap[q.topic].missed++;topicMap[q.topic].concepts.push(q.concept)}});
+ const needs=Object.entries(topicMap).filter(([,v])=>v.missed>0).sort((a,b)=>(b[1].missed/b[1].total)-(a[1].missed/a[1].total)),strong=Object.entries(topicMap).filter(([,v])=>v.missed===0).map(([k])=>k);
+ let h='';if(!missed.length)h+='<p class="strong">No primary-question review topics flagged by score.</p>';else{h+='<div class="need">Needs the most review</div><ul class="review-list">';needs.slice(0,4).forEach(([topic,v])=>h+=`<li><strong>${topic}</strong> — ${v.missed} missed of ${v.total} tested</li>`);h+='</ul>'}
+ if(mode==='advanced'){const filed=QUESTIONS.filter(q=>advancedFiled[q.number]);if(filed.length){h+='<div class="need">You manually filed these for review</div><ul class="review-list">';filed.forEach(q=>h+=`<li><strong>${q.topic}</strong> — ${q.concept}</li>`);h+='</ul>'}const transferMissed=QUESTIONS.filter(q=>advancedTransfer[q.number]&&advancedTransfer[q.number]!==q.reviewCheck.answer);if(transferMissed.length){h+='<div class="need">Transfer checks to revisit</div><ul class="review-list">';transferMissed.forEach(q=>h+=`<li><strong>${q.topic}</strong> — apply the concept to a new stem</li>`);h+='</ul>'}}
+ if(strong.length){h+='<div class="strong">Strongest areas</div><ul class="review-list">';strong.slice(0,4).forEach(t=>h+=`<li>${t}</li>`);h+='</ul>'}
+ const confidentWrong=QUESTIONS.filter(q=>confidence[q.number]==='confident'&&responses[q.number]!==q.answer),
+ confidentRight=QUESTIONS.filter(q=>confidence[q.number]==='confident'&&responses[q.number]===q.answer),
+ unsureRight=QUESTIONS.filter(q=>confidence[q.number]==='unsure'&&responses[q.number]===q.answer),
+ guessingRight=QUESTIONS.filter(q=>confidence[q.number]==='guessing'&&responses[q.number]===q.answer),
+ rated=QUESTIONS.filter(q=>confidence[q.number]).length;
+ h+=`<div class="confidence-summary"><strong>Confidence analysis</strong><div style="font-size:11px;color:var(--muted);margin-top:3px">Your most recent confidence rating is used, whether you set it before or after answering.</div><div class="confidence-grid"><div class="conf-stat"><b>${confidentWrong.length}</b><span>CONFIDENTLY WRONG</span></div><div class="conf-stat"><b>${confidentRight.length}</b><span>CONFIDENT + CORRECT</span></div><div class="conf-stat"><b>${unsureRight.length}</b><span>UNSURE BUT CORRECT</span></div><div class="conf-stat"><b>${guessingRight.length}</b><span>GUESSES THAT LANDED</span></div></div>`;
+ if(confidentWrong.length){h+='<div class="need" style="margin-top:10px">Highest-priority review: confidently wrong</div><ul class="review-list">';confidentWrong.forEach(q=>h+=`<li><strong>${q.topic}</strong> — ${q.concept}</li>`);h+='</ul>'}
+ else if(rated)h+='<p class="strong" style="margin:10px 0 0">No confidently-wrong concepts this attempt.</p>';
+ else h+='<p style="margin:10px 0 0;color:var(--muted)">No confidence ratings were selected.</p>';
+ h+='</div>';
+ const manuallyFlagged=QUESTIONS.filter(q=>isManualFlagged(q));
+ if(manuallyFlagged.length){
+   h+='<div class="need">Flagged for Review</div><ul class="review-list">';
+   manuallyFlagged.forEach(q=>h+=`<li><strong>${q.topic}</strong> — ${q.concept}</li>`);
+   h+='</ul>';
+ }
+ h+=`<div class="factoid-links"><strong>Tuesday Factoid Sheets</strong><div class="factoid-row">
+ <a href="../notes/Week%205/Week%205%20Note%20Hub/Factoids/05_Carcinogenesis_and_Epidemiology_Factoid.html" target="_blank" rel="noopener">Carcinogenesis and Epidemiology ↗</a>
+ <a href="../notes/Week%205/Week%205%20Note%20Hub/Factoids/06_Nucleotide_Metabolism_Factoid.html" target="_blank" rel="noopener">Nucleotide Metabolism ↗</a>
+ <a href="../notes/Week%205/Week%205%20Note%20Hub/Factoids/07_Molecular_Cytogenetics_of_Cancer_Factoid.html" target="_blank" rel="noopener">Molecular Cytogenetics of Cancer ↗</a>
+ <a href="../notes/Week%205/Week%205%20Note%20Hub/Factoids/08_Cancer_Survival_Mechanisms_Factoid.html" target="_blank" rel="noopener">Cancer Survival Mechanisms ↗</a>
+ </div></div>`;
+ const activeCount=ReviewBank.getActive().length;h+=`<p style="margin-top:12px;color:var(--muted);font-size:12px">Shared review bank: ${activeCount} active concept${activeCount===1?'':'s'}.</p>`;document.getElementById('reviewBody').innerHTML=h;resultOverlay.classList.add('show');
+}
+
+let hunterClicks=0,hunterBubbleTimer=null,lastHunterMessage=-1;
+const hunterMessages=["Why are you poking me?","You do know there are questions to review, right?","Hunter has documented this behavior.","Please return to Anki immediately.","This interaction is not improving your score.","I am literally just a results screen.","There are missed questions waiting for you.","Your persistence is medically concerning.","This counts as procrastination, by the way.","Achievement unlocked: Professional Hunter Annoyer."];
+document.getElementById('hunterImg').addEventListener('click',()=>{hunterClicks++;if(hunterClicks<3)return;let idx;do{idx=Math.floor(Math.random()*hunterMessages.length)}while(hunterMessages.length>1&&idx===lastHunterMessage);lastHunterMessage=idx;const bubble=document.getElementById('hunterBubble');bubble.textContent=hunterMessages[idx];bubble.classList.add('show');clearTimeout(hunterBubbleTimer);hunterBubbleTimer=setTimeout(()=>bubble.classList.remove('show'),2200)});
+
+document.getElementById('closeResultBtn').addEventListener('click',()=>resultOverlay.classList.remove('show'));const rbLink=document.getElementById('openReviewBankBtn');if(rbLink&&location.protocol==='file:')rbLink.style.display='none';
+document.getElementById('reviewMissedBtn').addEventListener('click',()=>{resultOverlay.classList.remove('show');if(mode==='advanced'){const first=QUESTIONS.find(q=>responses[q.number]!==q.answer||advancedFiled[q.number]||advancedTransfer[q.number]!==q.reviewCheck.answer);if(first){advancedIndex=first.number-1;renderAdvancedReview(first.number)}}else{const first=QUESTIONS.find(q=>responses[q.number]!==q.answer);if(first)document.getElementById('q-'+first.number)?.scrollIntoView({behavior:'smooth',block:'start'})}});
+
+function resetState(confirmFirst=true){
+ if(confirmFirst&&Object.keys(responses).length&&!confirm('Clear all responses, confidence ratings, strike-throughs, and advanced-review decisions? Your yellow highlights will be kept.'))return;
+ responses={};struck={};confidence={};locked={};primaryRecorded={};resultsShown=false;advancedIndex=0;advancedTransfer={};advancedDecision={};advancedFiled={};hunterClicks=0;lastHunterMessage=-1;resultOverlay.classList.remove('show');
+ if(mode==='advanced')renderAdvancedQuestion();else renderQuiz();updateProgress();
+}
+document.getElementById('resetBtn').addEventListener('click',()=>resetState(true));
+
+renderQuiz();
+updateProgress();
+</script>
+</body></html>

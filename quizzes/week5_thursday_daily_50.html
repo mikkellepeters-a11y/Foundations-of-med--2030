@@ -1,0 +1,642 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Week 5 Thursday Daily Quiz — Foundations of Cancer</title>
+<style>
+:root{
+  --bg:#f3ece3;--paper:#fffaf4;--paper2:#f8f1e9;--ink:#3e3028;--muted:#78695f;
+  --line:#dccfc3;--brown:#694a39;--brown-dark:#4a3428;--brown-soft:#8a654f;
+  --tan:#eee5dc;--tan2:#e8ddd1;--good:#55704e;--goodbg:#e9f1e5;
+  --bad:#92584f;--badbg:#f6e6e3;--gold:#9d7c45;--goldbg:#f5ecdb;
+  --highlight:#f6dd74;--shadow:0 14px 34px rgba(65,43,31,.08)
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(circle at top left,rgba(255,255,255,.55),transparent 30%),var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+button{font:inherit}a{text-decoration:none;color:inherit}
+.hero{background:linear-gradient(135deg,var(--brown-dark),var(--brown),var(--brown-soft));color:#fff;padding:20px 22px 32px}
+.hero-inner,main{max-width:1040px;margin:auto}
+.hero-top{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:24px}
+.back-link{display:inline-flex;align-items:center;gap:8px;padding:8px 11px;border:1px solid rgba(255,255,255,.17);border-radius:999px;background:rgba(255,255,255,.08);color:rgba(255,255,255,.88);font-size:12px;font-weight:800}
+.quiz-kicker{font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;opacity:.7}
+.hero-main{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center}
+.hero-icon{width:70px;height:70px;border-radius:21px;display:grid;place-items:center;background:radial-gradient(circle at 32% 24%,rgba(255,255,255,.96),rgba(244,229,218,.9) 48%,rgba(223,204,190,.92));border:1px solid rgba(255,255,255,.25);box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 10px 22px rgba(35,22,15,.14)}
+.hero-icon svg{width:49px;height:49px}.hero h1{margin:0;font-size:clamp(30px,5vw,48px);line-height:1.03;letter-spacing:-.035em}
+.hero p{margin:9px 0 0;color:rgba(255,255,255,.8);max-width:800px;font-size:14px;line-height:1.55}
+.modebar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:19px}.modebtn{border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.08);color:white;border-radius:12px;padding:9px 12px;font-weight:800;font-size:12px;cursor:pointer;transition:.16s}
+.modebtn:hover{background:rgba(255,255,255,.12)}.modebtn.active{background:white;color:var(--brown);border-color:white}.mode-note{font-size:11px;color:rgba(255,255,255,.72);flex-basis:100%;margin-top:1px}
+main{padding:20px 18px 60px}.progress-shell{position:sticky;top:0;z-index:20;background:rgba(243,236,227,.94);backdrop-filter:blur(12px);padding:10px 0 12px}
+.progress-card{background:rgba(255,250,244,.94);border:1px solid var(--line);border-radius:17px;padding:12px 14px;box-shadow:0 7px 20px rgba(65,43,31,.06)}
+.progress-row{display:flex;justify-content:space-between;gap:10px;font-size:12px;font-weight:850}.progress-track{height:7px;background:#e5d9ce;border-radius:999px;overflow:hidden;margin-top:9px}.progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--brown-soft),var(--brown));transition:.2s}
+.study-tools{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-top:10px;padding-top:10px;border-top:1px solid #eadfd6}.tool-label{font-size:10px;font-weight:900;color:var(--brown-soft);text-transform:uppercase;letter-spacing:.08em;margin-right:2px}
+.tool-btn{border:1px solid var(--line);background:var(--paper2);color:var(--brown);border-radius:10px;padding:7px 9px;font-size:11px;font-weight:800;cursor:pointer}.tool-btn:hover{background:#efe4da}.tool-btn.danger{color:#81554f}.tool-status{font-size:10px;color:var(--muted);margin-left:auto;max-width:330px;text-align:right}
+mark.study-highlight{background:var(--highlight);color:inherit;border-radius:3px;padding:0 .06em;box-shadow:inset 0 -1px 0 rgba(122,91,37,.12)}
+.highlightable{user-select:text;-webkit-user-select:text}.choice-copy{user-select:text;-webkit-user-select:text}
+.question,.advanced-card,.review-card{background:linear-gradient(180deg,var(--paper),#fdf7f0);border:1px solid var(--line);border-radius:20px;padding:21px;margin:0 0 15px;box-shadow:var(--shadow);scroll-margin-top:132px}
+.qtop{display:flex;justify-content:space-between;gap:12px;align-items:center}.qnum{display:inline-flex;align-items:center;padding:6px 9px;border-radius:999px;background:var(--tan);border:1px solid var(--tan2);font-size:11px;font-weight:900;color:var(--brown);letter-spacing:.02em}.tags{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.tag{font-size:9px;font-weight:850;padding:5px 7px;border-radius:999px;border:1px solid var(--line);background:var(--paper2);color:var(--muted)}
+.stem{font-size:17px;line-height:1.58;margin:15px 0 15px;font-weight:600}.choices{display:grid;gap:9px}.choice-row{display:grid;grid-template-columns:1fr auto;gap:8px}
+.choice{width:100%;text-align:left;border:1px solid var(--line);background:#fffdfa;border-radius:14px;padding:11px 13px;cursor:pointer;color:var(--ink);line-height:1.45;display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:start;transition:border-color .14s,background .14s,transform .14s}
+.choice:hover{border-color:#c9b7a8;background:#fffaf5}.choice-letter{width:28px;height:28px;border-radius:9px;display:grid;place-items:center;background:#f1e7de;border:1px solid #e1d4c9;color:var(--brown);font-size:11px;font-weight:900;user-select:none}.choice-copy{padding-top:4px}
+.choice.selected{border:2px solid var(--brown-soft);background:#f3e8df}.choice.selected .choice-letter{background:var(--brown);border-color:var(--brown);color:#fff}.choice.correct{border:2px solid var(--good);background:var(--goodbg);color:#30442d}.choice.correct .choice-letter{background:var(--good);border-color:var(--good);color:#fff}.choice.wrong{border:2px solid var(--bad);background:var(--badbg);color:#6f3f39}.choice.wrong .choice-letter{background:var(--bad);border-color:var(--bad);color:#fff}
+.choice.struck{text-decoration:line-through;opacity:.52;background:#f0ece8}.strike{min-width:43px;border:1px solid var(--line);background:var(--paper2);border-radius:13px;cursor:pointer;font-weight:900;color:var(--muted)}.strike.active{background:#e7ddd4}
+.feedback{display:none;margin-top:12px;padding:12px 13px;border-radius:12px;font-size:13px;line-height:1.52}.feedback.show.good{display:block;background:var(--goodbg);border:1px solid #c7d6c1;color:#355231}.feedback.show.bad{display:block;background:var(--badbg);border:1px solid #dfc1bb;color:#713f39}
+.confidence-wrap{margin-top:14px;padding-top:13px;border-top:1px dashed var(--line)}
+.confidence-panel{padding:11px 12px;border:1px solid var(--line);border-radius:13px;background:#fffaf5}
+.confidence-label{font-size:10px;font-weight:900;color:var(--muted);margin-bottom:3px;text-transform:uppercase;letter-spacing:.07em}
+.confidence-note{font-size:10px;color:#907f73;margin-bottom:8px;line-height:1.35}
+.confidence-buttons{display:flex;gap:6px;flex-wrap:wrap}
+.confidence-btn{border:1px solid var(--line);background:var(--paper2);color:var(--muted);border-radius:999px;padding:7px 10px;font-size:10px;font-weight:800;cursor:pointer}
+.confidence-btn:hover{border-color:#c9b7a8;background:#f8eee6}
+.confidence-btn.active{background:var(--brown);color:#fff;border-color:var(--brown)}
+.bottom-actions,.review-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:24px 0}.primary,.secondary,.review-decision{border-radius:12px;padding:11px 16px;font-weight:850;cursor:pointer;font-size:12px}.primary{border:none;background:var(--brown);color:white}.secondary{border:1px solid var(--line);background:var(--paper);color:var(--brown)}.primary:disabled{opacity:.45;cursor:not-allowed}#gradeBtn{display:none}
+.advanced-shell{display:none}.advanced-shell.show{display:block}#quiz.hidden{display:none}.advanced-progress-label{font-size:10px;font-weight:900;color:var(--brown-soft);text-transform:uppercase;letter-spacing:.08em;margin-bottom:7px}.review-card{display:none;border-color:#c8b18f;background:linear-gradient(180deg,#fffaf4,#f7eee2)}.review-card.show{display:block}.review-title{font-size:24px;font-weight:900;color:var(--brown);margin:0 0 8px}.review-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}.meta-card{border:1px solid var(--line);border-radius:11px;padding:10px;background:#fffaf4}.meta-card span{display:block;font-size:9px;font-weight:850;letter-spacing:.07em;color:var(--muted);text-transform:uppercase;margin-bottom:4px}.meta-card strong{font-size:13px;color:var(--brown)}.concept-box{padding:12px 14px;border-radius:11px;background:var(--goldbg);border:1px solid #dfcda9;line-height:1.45;margin:12px 0}.concept-box strong{color:#735b2c}.transfer{margin-top:18px;padding-top:17px;border-top:1px solid var(--line)}.transfer h3{margin:0 0 8px;color:var(--brown)}.transfer-status{margin:10px 0;padding:10px 12px;border-radius:10px;display:none;font-size:13px;line-height:1.45}.transfer-status.show.good{display:block;background:var(--goodbg);border:1px solid #c7d6c1;color:#355231}.transfer-status.show.bad{display:block;background:var(--badbg);border:1px solid #dfc1bb;color:#713f39}.decision-box{margin-top:18px;padding:14px;border:1px solid var(--line);border-radius:12px;background:#fffaf4}.decision-box h3{margin:0 0 5px;font-size:16px}.decision-box p{margin:0 0 10px;color:var(--muted);font-size:12px}.review-decision{border:1px solid var(--line);background:var(--paper2);color:var(--brown)}.review-decision.active-understand{background:var(--goodbg);border-color:#adc3a5;color:#355231}.review-decision.active-file{background:var(--badbg);border-color:#d6ada5;color:#713f39}
+.result-overlay{position:fixed;inset:0;background:rgba(45,31,24,.70);z-index:100;display:none;align-items:flex-start;justify-content:center;padding:30px 14px;overflow:auto}.result-overlay.show{display:flex}.result-card{width:min(760px,100%);background:var(--paper);border-radius:22px;border:1px solid var(--line);box-shadow:0 26px 80px rgba(0,0,0,.25);overflow:hidden}.result-grid{display:grid;grid-template-columns:240px 1fr}.hunter-wrap{position:relative;min-height:320px;background:#ddd}.hunter-img{width:100%;height:100%;min-height:320px;object-fit:cover;cursor:pointer;user-select:none;-webkit-user-drag:none}.hunter-bubble{position:absolute;left:12px;right:12px;bottom:12px;background:rgba(255,250,244,.96);border:1px solid var(--line);border-radius:12px;padding:10px 12px;color:var(--brown);font-size:13px;font-weight:850;text-align:center;opacity:0;transform:translateY(8px);transition:.18s;pointer-events:none}.hunter-bubble.show{opacity:1;transform:translateY(0)}.result-content{padding:24px}.result-content h2{margin:0 0 5px;color:var(--brown);font-size:29px}.score-big{font-size:24px;font-weight:900;margin:6px 0 14px}.review-box{border-top:1px solid var(--line);margin-top:15px;padding-top:15px}.review-list{margin:6px 0 14px;padding-left:20px}.review-list li{margin:5px 0;line-height:1.35}.strong{color:var(--good);font-weight:800}.need{color:var(--bad);font-weight:800}.confidence-summary{margin-top:10px;padding:10px 12px;border-radius:10px;background:#f5ede4;border:1px solid var(--line)}.confidence-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:8px}.conf-stat{padding:9px 10px;border:1px solid var(--line);border-radius:9px;background:#fffaf4}.conf-stat b{display:block;font-size:18px;color:var(--brown)}.conf-stat span{font-size:10px;color:var(--muted)}.result-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.footer-note{max-width:1040px;margin:-34px auto 42px;padding:0 18px;color:var(--muted);font-size:11px;line-height:1.5}
+@media(max-width:720px){.hero-main{grid-template-columns:1fr}.hero-icon{width:60px;height:60px}.hero-top{align-items:flex-start}.qtop{flex-direction:column;align-items:flex-start}.tags{justify-content:flex-start}.review-meta{grid-template-columns:1fr}.result-grid{grid-template-columns:1fr}.hunter-wrap,.hunter-img{min-height:260px;height:260px}.confidence-grid{grid-template-columns:1fr}.tool-status{flex-basis:100%;max-width:none;text-align:left;margin-left:0}}
+</style>
+
+<style>
+.flag-btn{border:1px solid var(--line);background:var(--paper2);color:var(--brown);border-radius:999px;padding:7px 10px;font-size:10px;font-weight:900;cursor:pointer;white-space:nowrap}
+.flag-btn:hover{background:#f2e7de;border-color:#c8b5a6}
+.flag-btn.active{background:var(--brown);color:#fff;border-color:var(--brown)}
+.review-resource{margin:14px 0 4px;padding:12px 13px;border:1px solid #dfd0c3;border-radius:13px;background:#fff8ef;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.review-resource span{font-size:10px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.review-resource a,.factoid-links a{color:var(--brown);font-weight:900;text-decoration:none}
+.review-resource a:hover,.factoid-links a:hover{text-decoration:underline}
+.factoid-links{margin-top:14px;padding:12px 13px;border:1px solid var(--line);border-radius:13px;background:#fffaf5}
+.factoid-links strong{display:block;margin-bottom:7px}
+.factoid-row{display:flex;gap:8px;flex-wrap:wrap}
+.factoid-row a{display:inline-flex;padding:7px 9px;border-radius:9px;background:var(--tan);font-size:11px}
+@media(max-width:560px){.qtop{align-items:flex-start}.flag-btn{font-size:9.5px;padding:6px 8px}}
+</style>
+
+</head>
+<body>
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-top">
+      <a class="back-link" href="../notes/Week%205/Week%205%20Note%20Hub/index.html">← Week 5 Hub</a>
+      <div class="quiz-kicker">FOUNDATIONS OF MEDICINE · WEEK 5</div>
+    </div>
+    <div class="hero-main">
+      <div class="hero-icon" aria-hidden="true">
+        <svg viewBox="0 0 48 48" role="img" aria-label="Cancer biology cell symbol">
+          <circle cx="24" cy="24" r="15" fill="#e8d5c7" stroke="#654735" stroke-width="1.8"/>
+          <circle cx="21" cy="22" r="6.2" fill="#f7eee7" stroke="#8a654f" stroke-width="1.5"/>
+          <circle cx="31.5" cy="17" r="2.1" fill="#b98f72"/><circle cx="32" cy="30" r="2.6" fill="#c99b7c"/>
+          <path d="M10 13l4.2 3.2M36 9l-2.8 5M39 35l-4.2-3.1M9 34l4.8-2.3" fill="none" stroke="#8a654f" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div><div><h1>Thursday Daily Quiz</h1><p>Palliative Care in Cancer Care · Introduction to Developmental-Behavioral Pediatrics · 50 mixed questions</p></div>
+    </div>
+    <div class="modebar">
+      <button class="modebtn active" id="practiceMode" type="button">Practice</button>
+      <button class="modebtn" id="examMode" type="button">Exam</button>
+      <button class="modebtn" id="advancedMode" type="button">Advanced Review</button>
+      <span class="mode-note" id="modeNote">Immediate feedback is ON.</span>
+    </div>
+  </div>
+</header>
+<main>
+  <div class="progress-shell">
+    <div class="progress-card">
+      <div class="progress-row"><span id="answeredLabel">0 of 50 answered</span><span id="scoreLabel">Practice score: —</span></div>
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="study-tools" aria-label="Study tools">
+        <span class="tool-label">Highlight</span>
+        <button class="tool-btn" id="highlightBtn" type="button">Highlight selection</button>
+        <button class="tool-btn" id="eraseHighlightBtn" type="button">Erase selected highlight</button>
+        <button class="tool-btn danger" id="clearHighlightsBtn" type="button">Clear all</button>
+        <span class="tool-status" id="highlightStatus">Select text in a question stem or answer choice.</span>
+      </div>
+    </div>
+  </div>
+
+<div id="quiz"></div>
+
+<div class="advanced-shell" id="advancedShell">
+  <div class="advanced-card" id="advancedQuestionCard"></div>
+  <div class="review-card" id="advancedReviewCard"></div>
+</div>
+
+<div class="bottom-actions">
+<button class="primary" id="gradeBtn" type="button">Grade Quiz</button>
+<button class="secondary" id="resetBtn" type="button">Reset Quiz</button>
+</div>
+<footer class="footer-note">Source basis: the Week 5 lecture companions, official Week 5 objectives, and Week 5 high-yield review for this day. Yellow highlights are stored in this browser and are intentionally preserved when the quiz is reset.</footer>
+</main>
+
+<div class="result-overlay" id="resultOverlay" role="dialog" aria-modal="true" aria-labelledby="resultTitle">
+<div class="result-card"><div class="result-grid">
+<div class="hunter-wrap"><img class="hunter-img" id="hunterImg" alt="Hunter result reaction"><div class="hunter-bubble" id="hunterBubble" aria-live="polite"></div></div>
+<div class="result-content"><h2 id="resultTitle"></h2><div class="score-big" id="finalScore"></div><div class="review-box"><h3>Hunter's Review</h3><div id="reviewBody"></div></div>
+<div class="result-actions"><button class="primary" id="reviewMissedBtn" type="button">Review missed questions</button><a class="secondary" id="openReviewBankBtn" href="../notes/review/Review_the_Module_COMPLETE_WEEK8.html" style="text-decoration:none;display:inline-flex;align-items:center;justify-content:center">Open Highly Missed Quiz</a><button class="secondary" id="closeResultBtn" type="button">Close</button></div>
+</div></div></div></div>
+
+<script>
+const QUESTIONS=[{"difficulty":"Step 1-style","lecture":"Palliative Care in Cancer Care","topic":"Principle of double effect","concept":"The principle of double effect permits an action with a foreseeable adverse consequence when the action itself is acceptable, the good effect is intended, and the balance favors benefit.","stem":"A terminally ill patient has severe pain requiring escalating opioids. The intent is symptom relief, although the team recognizes a possible risk of hastening death. Which ethical principle supports this approach when the good effect is intended and outweighs the bad effect?","options":["Lead-time bias","Therapeutic privilege","Genetic nondiscrimination","Principle of double effect","Cascade testing"],"answer":"D","explanation":"The principle of double effect permits an action with a foreseeable adverse consequence when the action itself is acceptable, the good effect is intended, and the balance favors benefit.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/13_Palliative_Care_in_Cancer_Care_Factoid.html","factoidLabel":"Palliative Care in Cancer Care","number":1,"reviewCheck":{"stem":"Which fact should be associated with Tolerance?","options":["High symptom burden, progressive illness, functional decline, recurrent crises, difficult decisions.","Compulsive use despite harm; distinct from expected dependence.","Burning, electric, shooting.","Quiet familiar setting, evaluate reversible causes consistent with goals, relieve distress.","More drug needed for same effect."],"answer":"E","explanation":"Tolerance: More drug needed for same effect."}},{"difficulty":"Intermediate","lecture":"Palliative Care in Cancer Care","topic":"Neuropathic pain","concept":"Burning, radiating pain is neuropathic, and gabapentin is a targeted adjuvant analgesic.","stem":"A patient with pancreatic cancer describes burning, shooting pain radiating down the leg. Which medication is specifically well suited to this pain quality?","options":["Prophylactic laxative only","Ibuprofen alone","Ondansetron","Acetaminophen alone","Gabapentin"],"answer":"E","explanation":"Burning, radiating pain is neuropathic, and gabapentin is a targeted adjuvant analgesic.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/13_Palliative_Care_in_Cancer_Care_Factoid.html","factoidLabel":"Palliative Care in Cancer Care","number":2,"reviewCheck":{"stem":"Which statement about Persistent opioid-treated pain is correct?","options":["Burning, electric, shooting.","Compulsive use despite harm; distinct from expected dependence.","Scheduled baseline therapy + short-acting breakthrough rescue; prophylactic bowel regimen.","Quiet familiar setting, evaluate reversible causes consistent with goals, relieve distress.","High symptom burden, progressive illness, functional decline, recurrent crises, difficult decisions."],"answer":"C","explanation":"Persistent opioid-treated pain: Scheduled baseline therapy + short-acting breakthrough rescue; prophylactic bowel regimen."}},{"difficulty":"Intermediate","lecture":"Palliative Care in Cancer Care","topic":"Opioid constipation","concept":"Opioids commonly cause constipation, so prophylactic laxatives are recommended rather than waiting for severe symptoms.","stem":"A patient begins scheduled opioid therapy for cancer pain. Which preventive measure should usually be started at the same time?","options":["A prophylactic bowel regimen with laxatives","Daily anticoagulation solely for opioid use","Routine high-dose steroids","Stop all oral fluids","Avoid any constipation treatment until obstruction occurs"],"answer":"A","explanation":"Opioids commonly cause constipation, so prophylactic laxatives are recommended rather than waiting for severe symptoms.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/13_Palliative_Care_in_Cancer_Care_Factoid.html","factoidLabel":"Palliative Care in Cancer Care","number":3,"reviewCheck":{"stem":"Which concept best matches this description: Poorly localized; may be referred.","options":["Palliative care","Hospice","Visceral pain","Dyspnea","Physical dependence"],"answer":"C","explanation":"Visceral pain: Poorly localized; may be referred."}},{"difficulty":"In-house","lecture":"Palliative Care in Cancer Care","topic":"Palliative care vs hospice","concept":"Palliative care focuses on quality of life throughout serious illness, while hospice is generally for patients with limited prognosis when burdens of life-prolonging therapy outweigh benefits.","stem":"Which statement best distinguishes palliative care from hospice?","options":["Palliative care begins only after all cancer treatment stops","Palliative care can accompany curative treatment at any stage; hospice is a form of palliative care for patients near the end of life","Hospice is required for every patient with cancer","Palliative care is limited to pain medication","Hospice is a curative treatment program"],"answer":"B","explanation":"Palliative care focuses on quality of life throughout serious illness, while hospice is generally for patients with limited prognosis when burdens of life-prolonging therapy outweigh benefits.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/13_Palliative_Care_in_Cancer_Care_Factoid.html","factoidLabel":"Palliative Care in Cancer Care","number":4,"reviewCheck":{"stem":"Which statement about Persistent opioid-treated pain is correct?","options":["Withdrawal if abruptly stopped.","Positioning/fan/reassurance, treat reversible cause, titrated opioids can reduce air hunger.","Poorly localized; may be referred.","Scheduled baseline therapy + short-acting breakthrough rescue; prophylactic bowel regimen.","End-of-life care when comfort is dominant and burdens of life-prolonging treatment outweigh likely benefit."],"answer":"D","explanation":"Persistent opioid-treated pain: Scheduled baseline therapy + short-acting breakthrough rescue; prophylactic bowel regimen."}},{"difficulty":"Intermediate","lecture":"Palliative Care in Cancer Care","topic":"Dyspnea","concept":"The PPI integrates PPS with clinical features such as intake, edema, resting dyspnea, and delirium to estimate survival.","stem":"Which factors are incorporated into the Palliative Prognostic Index described in the lecture?","options":["Only serum tumor markers","TNM stage alone","Performance status, oral intake, edema, dyspnea at rest, and delirium","Only age and sex","Only genetic mutation burden"],"answer":"C","explanation":"The PPI integrates PPS with clinical features such as intake, edema, resting dyspnea, and delirium to estimate survival.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/13_Palliative_Care_in_Cancer_Care_Factoid.html","factoidLabel":"Palliative Care in Cancer Care","number":5,"reviewCheck":{"stem":"Which term should be paired with the following fact: Scheduled baseline therapy + short-acting breakthrough rescue; prophylactic bowel regimen.","options":["Tolerance","Persistent opioid-treated pain","Somatic pain","Hospice","Palliative care"],"answer":"B","explanation":"Persistent opioid-treated pain: Scheduled baseline therapy + short-acting breakthrough rescue; prophylactic bowel regimen."}},{"difficulty":"Step 1-style","lecture":"Palliative Care in Cancer Care","topic":"Performance & prognosis","concept":"Good prognostic communication begins by exploring understanding and goals, then answering clearly and honestly.","stem":"A patient asks, 'How long do I have?' What is the best initial communication step based on the lecture?","options":["Use vague euphemisms to reduce discomfort","Give a precise number immediately without context","Avoid the question and change the subject","Clarify what the patient understands and what information they want before giving an honest answer","Tell the family first even if the patient wants direct information"],"answer":"D","explanation":"Good prognostic communication begins by exploring understanding and goals, then answering clearly and honestly.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/13_Palliative_Care_in_Cancer_Care_Factoid.html","factoidLabel":"Palliative Care in Cancer Care","number":6,"reviewCheck":{"stem":"Which concept best matches this description: Burning, electric, shooting.","options":["Dyspnea","Neuropathic pain","Hospice","Physical dependence","Visceral pain"],"answer":"B","explanation":"Neuropathic pain: Burning, electric, shooting."}},{"difficulty":"Step 1-style","lecture":"Palliative Care in Cancer Care","topic":"Dyspnea","concept":"Opioids, especially morphine, reduce the sensation of breathlessness even when the patient is not hypoxemic.","stem":"A terminal cancer patient is very dyspneic but has oxygen saturation of 96% on room air. Which therapy is the lecture's gold-standard symptomatic treatment?","options":["Warfarin","Aromatase inhibitor","High-flow oxygen solely because dyspnea is present","Prophylactic antibiotics","Low-dose morphine"],"answer":"E","explanation":"Opioids, especially morphine, reduce the sensation of breathlessness even when the patient is not hypoxemic.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/13_Palliative_Care_in_Cancer_Care_Factoid.html","factoidLabel":"Palliative Care in Cancer Care","number":7,"reviewCheck":{"stem":"For Delirium, which statement is most accurate?","options":["More drug needed for same effect.","Quiet familiar setting, evaluate reversible causes consistent with goals, relieve distress.","Localized/aching.","Scheduled baseline therapy + short-acting breakthrough rescue; prophylactic bowel regimen.","Symptom relief, quality of life, goals, communication throughout serious illness; can occur with chemotherapy/radiation/surgery."],"answer":"B","explanation":"Delirium: Quiet familiar setting, evaluate reversible causes consistent with goals, relieve distress."}},{"difficulty":"Intermediate","lecture":"Palliative Care in Cancer Care","topic":"Palliative care vs hospice","concept":"Poor performance status, distant metastases, and malignant complications are prognostic features supporting hospice consideration.","stem":"A patient with metastatic cancer has ECOG 3, Karnofsky 40, progressive complications, and wishes to avoid further disease-directed therapy. Which statement is most accurate?","options":["These features support serious consideration of hospice within a broader palliative-care plan","Good performance status argues strongly against palliation","Hospice requires a Karnofsky score above 90","Palliative care cannot be discussed until CPR is required","Metastatic disease never qualifies for hospice"],"answer":"A","explanation":"Poor performance status, distant metastases, and malignant complications are prognostic features supporting hospice consideration.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/13_Palliative_Care_in_Cancer_Care_Factoid.html","factoidLabel":"Palliative Care in Cancer Care","number":8,"reviewCheck":{"stem":"Which option correctly describes Physical dependence?","options":["Withdrawal if abruptly stopped.","End-of-life care when comfort is dominant and burdens of life-prolonging treatment outweigh likely benefit.","Poorly localized; may be referred.","Positioning/fan/reassurance, treat reversible cause, titrated opioids can reduce air hunger.","Symptom relief, quality of life, goals, communication throughout serious illness; can occur with chemotherapy/radiation/surgery."],"answer":"A","explanation":"Physical dependence: Withdrawal if abruptly stopped."}},{"difficulty":"Intermediate","lecture":"Palliative Care in Cancer Care","topic":"Concurrent palliative care","concept":"Palliative care can be delivered alongside disease-directed treatment.","stem":"A patient with metastatic breast cancer is receiving chemotherapy and has severe nausea, anxiety, and pain. Which statement about palliative-care referral is most accurate?","options":["Palliative care is restricted to the final 48 hours of life","Palliative care can be added now while chemotherapy continues","Only hospice can address symptoms in metastatic cancer","Referral is inappropriate until functional status reaches ECOG 4","Referral requires stopping chemotherapy"],"answer":"B","explanation":"Palliative care is needs-based and can coexist with active anticancer treatment.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/13_Palliative_Care_in_Cancer_Care_Factoid.html","factoidLabel":"Palliative Care in Cancer Care","number":9,"reviewCheck":{"stem":"Which label best fits this high-yield fact: Burning, electric, shooting.?","options":["Somatic pain","Persistent opioid-treated pain","Palliative care","Neuropathic pain","Tolerance"],"answer":"D","explanation":"Neuropathic pain: Burning, electric, shooting."}},{"difficulty":"Intermediate","lecture":"Palliative Care in Cancer Care","topic":"Referral triggers","concept":"Palliative-care referral is driven by symptom burden, trajectory, function, crises, and difficult decisions.","stem":"Which patient most clearly has a needs-based indication for specialty palliative care?","options":["A patient with an isolated ankle sprain","A patient with stable myopia","A patient with progressive cancer, repeated hospitalizations, uncontrolled symptoms, and difficult goals-of-care decisions","A healthy adult requesting routine vaccination","A patient with a small asymptomatic benign lipoma"],"answer":"C","explanation":"Progressive serious illness with high symptom burden, functional decline, recurrent crises, or complex decisions is a classic referral trigger.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/13_Palliative_Care_in_Cancer_Care_Factoid.html","factoidLabel":"Palliative Care in Cancer Care","number":10,"reviewCheck":{"stem":"Which term should be paired with the following fact: Localized/aching.","options":["Physical dependence","Visceral pain","Somatic pain","Dyspnea","Hospice"],"answer":"C","explanation":"Somatic pain: Localized/aching."}},{"difficulty":"Intermediate","lecture":"Palliative Care in Cancer Care","topic":"Somatic pain","concept":"Somatic pain is usually localized and aching from bone, muscle, skin, or connective tissue.","stem":"A patient with a painful vertebral metastasis points to one focal area and describes a constant aching pain. Which pain category best fits?","options":["Referred visceral","Psychogenic only","Visceral","Somatic","Neuropathic"],"answer":"D","explanation":"Localized aching pain from bone or soft tissue is characteristic of somatic nociceptive pain.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/13_Palliative_Care_in_Cancer_Care_Factoid.html","factoidLabel":"Palliative Care in Cancer Care","number":11,"reviewCheck":{"stem":"Which label best fits this high-yield fact: Burning, electric, shooting.?","options":["Somatic pain","Persistent opioid-treated pain","Palliative care","Neuropathic pain","Tolerance"],"answer":"D","explanation":"Neuropathic pain: Burning, electric, shooting."}},{"difficulty":"Intermediate","lecture":"Palliative Care in Cancer Care","topic":"Visceral pain","concept":"Visceral pain is often poorly localized and may be referred.","stem":"A patient with hepatic capsular distention describes a deep, poorly localized discomfort that is difficult to point to precisely. Which pain type is most likely?","options":["Phantom limb","Allodynia only","Somatic","Neuropathic","Visceral"],"answer":"E","explanation":"Visceral pain from internal organs tends to be diffuse or poorly localized and can be referred.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/13_Palliative_Care_in_Cancer_Care_Factoid.html","factoidLabel":"Palliative Care in Cancer Care","number":12,"reviewCheck":{"stem":"Which description best matches Hospice?","options":["Localized/aching.","More drug needed for same effect.","Scheduled baseline therapy + short-acting breakthrough rescue; prophylactic bowel regimen.","Symptom relief, quality of life, goals, communication throughout serious illness; can occur with chemotherapy/radiation/surgery.","End-of-life care when comfort is dominant and burdens of life-prolonging treatment outweigh likely benefit."],"answer":"E","explanation":"Hospice: End-of-life care when comfort is dominant and burdens of life-prolonging treatment outweigh likely benefit."}},{"difficulty":"Intermediate","lecture":"Palliative Care in Cancer Care","topic":"Neuropathic pain","concept":"Neuropathic pain is commonly burning, electric, shooting, or tingling.","stem":"A patient with tumor compression of a nerve root reports electric shocks and burning pain radiating down the arm. Which mechanism category best describes the pain?","options":["Neuropathic","Musculoskeletal strain only","Ischemic visceral","Somatic nociceptive","Visceral nociceptive"],"answer":"A","explanation":"Burning, electric, shooting pain in a nerve distribution is neuropathic.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/13_Palliative_Care_in_Cancer_Care_Factoid.html","factoidLabel":"Palliative Care in Cancer Care","number":13,"reviewCheck":{"stem":"What is the key high-yield point about Addiction?","options":["Withdrawal if abruptly stopped.","Compulsive use despite harm; distinct from expected dependence.","End-of-life care when comfort is dominant and burdens of life-prolonging treatment outweigh likely benefit.","Positioning/fan/reassurance, treat reversible cause, titrated opioids can reduce air hunger.","Poorly localized; may be referred."],"answer":"B","explanation":"Addiction: Compulsive use despite harm; distinct from expected dependence."}},{"difficulty":"Intermediate","lecture":"Palliative Care in Cancer Care","topic":"Breakthrough pain","concept":"Persistent cancer pain often uses scheduled baseline analgesia plus short-acting rescue medication for breakthrough episodes.","stem":"A patient has well-controlled baseline cancer pain on a long-acting opioid but develops brief predictable spikes of severe pain with movement. What is the best analgesic strategy?","options":["Stop the baseline opioid","Add an appropriate short-acting rescue dose for breakthrough pain","Wait until the next long-acting dose regardless of severity","Replace all analgesics with a sedative","Use only a nonpharmacologic intervention"],"answer":"B","explanation":"Breakthrough pain is treated with a rapid/short-acting rescue dose while maintaining baseline analgesia.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/13_Palliative_Care_in_Cancer_Care_Factoid.html","factoidLabel":"Palliative Care in Cancer Care","number":14,"reviewCheck":{"stem":"Which concept best matches this description: Positioning/fan/reassurance, treat reversible cause, titrated opioids can reduce air hunger.","options":["Dyspnea","Palliative care","Hospice","Visceral pain","Physical dependence"],"answer":"A","explanation":"Dyspnea: Positioning/fan/reassurance, treat reversible cause, titrated opioids can reduce air hunger."}},{"difficulty":"Intermediate","lecture":"Palliative Care in Cancer Care","topic":"Opioid constipation","concept":"Constipation prevention should begin when regular opioid therapy is started.","stem":"Why is a bowel regimen commonly prescribed proactively with ongoing opioid therapy?","options":["Constipation occurs only after opioid withdrawal","Opioids always cause infectious colitis","Constipation is common and tolerance to this effect is limited","Laxatives prevent respiratory depression","Bowel regimens eliminate physical dependence"],"answer":"C","explanation":"Opioid-induced constipation is common and does not reliably diminish with tolerance, so prevention is appropriate.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/13_Palliative_Care_in_Cancer_Care_Factoid.html","factoidLabel":"Palliative Care in Cancer Care","number":15,"reviewCheck":{"stem":"Which option correctly describes Visceral pain?","options":["Compulsive use despite harm; distinct from expected dependence.","Poorly localized; may be referred.","Burning, electric, shooting.","High symptom burden, progressive illness, functional decline, recurrent crises, difficult decisions.","Quiet familiar setting, evaluate reversible causes consistent with goals, relieve distress."],"answer":"B","explanation":"Visceral pain: Poorly localized; may be referred."}},{"difficulty":"Intermediate","lecture":"Palliative Care in Cancer Care","topic":"Dyspnea nonpharmacologic care","concept":"Simple measures such as upright positioning and airflow from a fan can reduce dyspnea distress.","stem":"A patient with advanced cancer has distressing breathlessness. In addition to evaluating reversible causes, which low-burden intervention can help reduce the sensation of dyspnea?","options":["Complete sensory isolation","Flat supine positioning","Routine paralysis","Directed cool airflow from a fan and upright positioning","Fluid restriction in every patient"],"answer":"D","explanation":"Upright positioning, reassurance, and airflow across the face are useful low-burden measures for air hunger.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/13_Palliative_Care_in_Cancer_Care_Factoid.html","factoidLabel":"Palliative Care in Cancer Care","number":16,"reviewCheck":{"stem":"What is being described here: More drug needed for same effect.","options":["Referral triggers","Addiction","Neuropathic pain","Tolerance","Delirium"],"answer":"D","explanation":"Tolerance: More drug needed for same effect."}},{"difficulty":"Intermediate","lecture":"Palliative Care in Cancer Care","topic":"Opioids for dyspnea","concept":"Appropriately titrated opioids can reduce the sensation of air hunger.","stem":"A patient with advanced lung cancer remains severely breathless despite treatment of reversible contributors. Oxygen saturation is acceptable. Which medication class can reduce the subjective sensation of air hunger?","options":["Anticoagulants regardless of diagnosis","Statins","Thiazide diuretics in every case","Bisphosphonates","Opioids"],"answer":"E","explanation":"Low-dose, carefully titrated opioids can relieve refractory dyspnea even when hypoxemia is not the primary problem.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/13_Palliative_Care_in_Cancer_Care_Factoid.html","factoidLabel":"Palliative Care in Cancer Care","number":17,"reviewCheck":{"stem":"Identify the concept described by this statement: Scheduled baseline therapy + short-acting breakthrough rescue; prophylactic bowel regimen.","options":["Delirium","Neuropathic pain","Referral triggers","Addiction","Persistent opioid-treated pain"],"answer":"E","explanation":"Persistent opioid-treated pain: Scheduled baseline therapy + short-acting breakthrough rescue; prophylactic bowel regimen."}},{"difficulty":"Intermediate","lecture":"Palliative Care in Cancer Care","topic":"Delirium environment","concept":"Delirium management includes a calm familiar environment and correction of reversible causes when consistent with goals.","stem":"An older patient with advanced cancer becomes acutely confused at night. Which initial supportive measure is most appropriate?","options":["A quiet familiar setting with orientation cues while reversible causes are assessed","Physical restraints as first-line therapy for all patients","Withhold family contact","Frequent room changes and sleep interruption","Assume the confusion is irreversible without evaluation"],"answer":"A","explanation":"Reducing environmental disruption and providing orientation are core supportive delirium measures while causes are evaluated.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/13_Palliative_Care_in_Cancer_Care_Factoid.html","factoidLabel":"Palliative Care in Cancer Care","number":18,"reviewCheck":{"stem":"For Referral triggers, which statement is most accurate?","options":["Compulsive use despite harm; distinct from expected dependence.","High symptom burden, progressive illness, functional decline, recurrent crises, difficult decisions.","Symptom relief, quality of life, goals, communication throughout serious illness; can occur with chemotherapy/radiation/surgery.","Quiet familiar setting, evaluate reversible causes consistent with goals, relieve distress.","Burning, electric, shooting."],"answer":"B","explanation":"Referral triggers: High symptom burden, progressive illness, functional decline, recurrent crises, difficult decisions."}},{"difficulty":"Intermediate","lecture":"Palliative Care in Cancer Care","topic":"Goals-concordant delirium care","concept":"The extent of diagnostic correction for delirium should be consistent with the patient's goals and burdens of intervention.","stem":"A dying patient with delirium has clearly stated comfort-only goals. Which approach best reflects palliative decision making?","options":["Ignore distress because delirium is expected","Address reversible contributors when low burden and focus on relief of distress consistent with the patient's goals","Stop all symptom medication","Pursue every invasive diagnostic test regardless of burden","Automatically transfer to intensive care"],"answer":"B","explanation":"Management should balance reversible causes, intervention burden, and the patient's goals while treating distress.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/13_Palliative_Care_in_Cancer_Care_Factoid.html","factoidLabel":"Palliative Care in Cancer Care","number":19,"reviewCheck":{"stem":"Identify the concept described by this statement: Positioning/fan/reassurance, treat reversible cause, titrated opioids can reduce air hunger.","options":["Delirium","Dyspnea","Neuropathic pain","Addiction","Referral triggers"],"answer":"B","explanation":"Dyspnea: Positioning/fan/reassurance, treat reversible cause, titrated opioids can reduce air hunger."}},{"difficulty":"Intermediate","lecture":"Palliative Care in Cancer Care","topic":"Tolerance","concept":"Tolerance means a reduced effect from the same dose over time, sometimes requiring a higher dose for the same effect.","stem":"A patient on long-term opioid therapy needs a larger dose than months ago to achieve the same analgesic effect. Which term best describes this physiologic change?","options":["Withdrawal","Delirium","Tolerance","Hyperalgesia by definition","Addiction"],"answer":"C","explanation":"Tolerance is diminished response to a drug effect after repeated exposure.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/13_Palliative_Care_in_Cancer_Care_Factoid.html","factoidLabel":"Palliative Care in Cancer Care","number":20,"reviewCheck":{"stem":"What is the key high-yield point about Neuropathic pain?","options":["Quiet familiar setting, evaluate reversible causes consistent with goals, relieve distress.","Burning, electric, shooting.","High symptom burden, progressive illness, functional decline, recurrent crises, difficult decisions.","Compulsive use despite harm; distinct from expected dependence.","Symptom relief, quality of life, goals, communication throughout serious illness; can occur with chemotherapy/radiation/surgery."],"answer":"B","explanation":"Neuropathic pain: Burning, electric, shooting."}},{"difficulty":"Intermediate","lecture":"Palliative Care in Cancer Care","topic":"Physical dependence","concept":"Physical dependence is an expected physiologic adaptation that can produce withdrawal if the drug is abruptly stopped.","stem":"A patient taking opioids appropriately for months develops sweating, diarrhea, and agitation after abrupt discontinuation. What does this most directly demonstrate?","options":["Drug diversion","Addiction","Placebo effect","Physical dependence","Tolerance alone"],"answer":"D","explanation":"Withdrawal after abrupt cessation reflects physical dependence and does not by itself establish addiction.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/13_Palliative_Care_in_Cancer_Care_Factoid.html","factoidLabel":"Palliative Care in Cancer Care","number":21,"reviewCheck":{"stem":"What is being described here: Withdrawal if abruptly stopped.","options":["Referral triggers","Neuropathic pain","Delirium","Physical dependence","Addiction"],"answer":"D","explanation":"Physical dependence: Withdrawal if abruptly stopped."}},{"difficulty":"Intermediate","lecture":"Palliative Care in Cancer Care","topic":"Addiction","concept":"Addiction involves compulsive drug use despite harm and is distinct from expected tolerance or dependence.","stem":"Which finding most strongly supports addiction rather than expected physical dependence during medically supervised opioid therapy?","options":["Constipation after starting therapy","Withdrawal after abrupt cessation","Need for dose adjustment as disease worsens","Use of a prescribed breakthrough dose","Compulsive use despite clear harm and loss of control"],"answer":"E","explanation":"Compulsive use despite harm and impaired control characterizes addiction; tolerance and dependence can occur with appropriate therapy.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/13_Palliative_Care_in_Cancer_Care_Factoid.html","factoidLabel":"Palliative Care in Cancer Care","number":22,"reviewCheck":{"stem":"Identify the concept described by this statement: Positioning/fan/reassurance, treat reversible cause, titrated opioids can reduce air hunger.","options":["Delirium","Dyspnea","Neuropathic pain","Addiction","Referral triggers"],"answer":"B","explanation":"Dyspnea: Positioning/fan/reassurance, treat reversible cause, titrated opioids can reduce air hunger."}},{"difficulty":"Intermediate","lecture":"Palliative Care in Cancer Care","topic":"Communication","concept":"Serious-illness conversations begin by exploring understanding, goals, and preferences before delivering information and recommendations.","stem":"Before discussing a major change in cancer treatment, which communication step is most useful?","options":["First explore the patient's understanding, priorities, and desired level of information","Promise a specific outcome","Avoid naming uncertainty","Speak only to the family","Begin with a long technical monologue"],"answer":"A","explanation":"Exploring what the patient understands and values creates a foundation for clear, goal-concordant communication.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/13_Palliative_Care_in_Cancer_Care_Factoid.html","factoidLabel":"Palliative Care in Cancer Care","number":23,"reviewCheck":{"stem":"Which statement about Persistent opioid-treated pain is correct?","options":["Compulsive use despite harm; distinct from expected dependence.","Burning, electric, shooting.","Scheduled baseline therapy + short-acting breakthrough rescue; prophylactic bowel regimen.","Quiet familiar setting, evaluate reversible causes consistent with goals, relieve distress.","High symptom burden, progressive illness, functional decline, recurrent crises, difficult decisions."],"answer":"C","explanation":"Persistent opioid-treated pain: Scheduled baseline therapy + short-acting breakthrough rescue; prophylactic bowel regimen."}},{"difficulty":"Intermediate","lecture":"Palliative Care in Cancer Care","topic":"Emotion validation","concept":"Responding explicitly to emotion supports serious-illness communication.","stem":"A patient begins crying after hearing that the cancer has progressed. Which response best supports a therapeutic conversation?","options":["Leave the room without explanation","Acknowledge and validate the emotion before continuing","Tell the patient not to worry","Immediately change the subject","Provide more statistics without pause"],"answer":"B","explanation":"Naming and validating emotion helps the patient feel heard and allows the conversation to proceed more effectively.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/13_Palliative_Care_in_Cancer_Care_Factoid.html","factoidLabel":"Palliative Care in Cancer Care","number":24,"reviewCheck":{"stem":"What is being described here: Scheduled baseline therapy + short-acting breakthrough rescue; prophylactic bowel regimen.","options":["Tolerance","Hospice","Somatic pain","Persistent opioid-treated pain","Palliative care"],"answer":"D","explanation":"Persistent opioid-treated pain: Scheduled baseline therapy + short-acting breakthrough rescue; prophylactic bowel regimen."}},{"difficulty":"Intermediate","lecture":"Palliative Care in Cancer Care","topic":"Hospice goals","concept":"Hospice emphasizes comfort near the end of life when disease-directed burdens outweigh expected benefit.","stem":"A patient with progressive cancer decides that avoiding hospitalization and maximizing comfort at home are now the dominant goals. Which service model most closely aligns with those priorities?","options":["Routine screening clinic","Occupational health surveillance","Hospice care","Preoperative clinic","Genetic cascade-testing program"],"answer":"C","explanation":"Hospice is an end-of-life model centered on comfort when life-prolonging treatment is no longer the dominant goal.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/13_Palliative_Care_in_Cancer_Care_Factoid.html","factoidLabel":"Palliative Care in Cancer Care","number":25,"reviewCheck":{"stem":"Identify the concept described by this statement: Quiet familiar setting, evaluate reversible causes consistent with goals, relieve distress.","options":["Referral triggers","Neuropathic pain","Delirium","Addiction","Palliative care"],"answer":"C","explanation":"Delirium: Quiet familiar setting, evaluate reversible causes consistent with goals, relieve distress."}},{"difficulty":"In-house","lecture":"Introduction to Developmental-Behavioral Pediatrics","topic":"Developmental sequence","concept":"Development follows a broadly predictable sequence while timing varies among children.","stem":"Which statement best describes normal child development?","options":["Every child reaches each milestone at exactly the same age","Development stops changing after infancy","Development is determined entirely by genetics","Development follows a general sequence but shows individual variability in timing","Environmental factors have no meaningful influence"],"answer":"D","explanation":"Development is patterned and sequential, but normal timing varies among children.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/14_Developmental_Behavioral_Pediatrics_Factoid.html","factoidLabel":"Introduction to Developmental-Behavioral Pediatrics","number":26,"reviewCheck":{"stem":"Which label best fits this high-yield fact: Predictable broad sequence with individual variability.?","options":["Toxic stress / ACEs","History","Proximodistal","Sequence","SHARE"],"answer":"D","explanation":"Sequence: Predictable broad sequence with individual variability."}},{"difficulty":"Intermediate","lecture":"Introduction to Developmental-Behavioral Pediatrics","topic":"Plasticity","concept":"Developmental plasticity means experience and environment can influence developmental trajectories.","stem":"A toddler's language skills improve substantially after hearing loss is treated and the child receives intensive language support. Which developmental principle is illustrated?","options":["Regression as a normal milestone","Genetic determinism","Cephalocaudal progression only","Irreversibility","Plasticity"],"answer":"E","explanation":"Plasticity reflects the capacity for developmental trajectories to change in response to experience and intervention.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/14_Developmental_Behavioral_Pediatrics_Factoid.html","factoidLabel":"Introduction to Developmental-Behavioral Pediatrics","number":27,"reviewCheck":{"stem":"Which description best matches Therapeutic alliance?","options":["Control develops center → distal extremities.","Set/support • Hear • Address/Allow • Reflect/Reframe/Revisit • Empower.","Shared goals + shared tasks + relational bond.","Use culturally and linguistically sensitive, patient- and family-centered communication.","Increase population-level lifelong risk; do not determine an individual child's destiny."],"answer":"C","explanation":"Therapeutic alliance: Shared goals + shared tasks + relational bond."}},{"difficulty":"Intermediate","lecture":"Introduction to Developmental-Behavioral Pediatrics","topic":"Cephalocaudal development","concept":"Cephalocaudal progression proceeds from head and upper-body control toward lower-body control.","stem":"An infant gains stable head control before independent standing. Which developmental direction does this pattern illustrate?","options":["Cephalocaudal","Distoproximal","Social-emotional sequencing","Random maturation","Proximodistal"],"answer":"A","explanation":"Cephalocaudal development proceeds from the head downward.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/14_Developmental_Behavioral_Pediatrics_Factoid.html","factoidLabel":"Introduction to Developmental-Behavioral Pediatrics","number":28,"reviewCheck":{"stem":"What is the key high-yield point about Toxic stress / ACEs?","options":["Set/support • Hear • Address/Allow • Reflect/Reframe/Revisit • Empower.","Control develops center → distal extremities.","Predictable broad sequence with individual variability.","Use culturally and linguistically sensitive, patient- and family-centered communication.","Increase population-level lifelong risk; do not determine an individual child's destiny."],"answer":"E","explanation":"Toxic stress / ACEs: Increase population-level lifelong risk; do not determine an individual child's destiny."}},{"difficulty":"Intermediate","lecture":"Introduction to Developmental-Behavioral Pediatrics","topic":"Proximodistal development","concept":"Proximodistal progression moves from central/proximal control toward distal fine control.","stem":"A child develops shoulder and arm control before precise finger movements. Which developmental principle best explains the sequence?","options":["Regression","Proximodistal","Critical-period closure","Cephalocaudal","Habituation"],"answer":"B","explanation":"Proximodistal development proceeds from the body's center toward distal structures such as the hands and fingers.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/14_Developmental_Behavioral_Pediatrics_Factoid.html","factoidLabel":"Introduction to Developmental-Behavioral Pediatrics","number":29,"reviewCheck":{"stem":"Identify the concept described by this statement: Predictable broad sequence with individual variability.","options":["Sequence","Social model of disability","Nature + nurture","Therapeutic alliance","Cephalocaudal"],"answer":"A","explanation":"Sequence: Predictable broad sequence with individual variability."}},{"difficulty":"In-house","lecture":"Introduction to Developmental-Behavioral Pediatrics","topic":"Gross motor domain","concept":"Gross motor development involves large-muscle movement, posture, and mobility.","stem":"Which skill belongs primarily to the gross motor developmental domain?","options":["Using a pincer grasp","Recognizing a familiar face","Running across a room","Combining two words","Feeding with a spoon independently"],"answer":"C","explanation":"Running is a large-muscle movement and therefore a gross motor skill.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/14_Developmental_Behavioral_Pediatrics_Factoid.html","factoidLabel":"Introduction to Developmental-Behavioral Pediatrics","number":30,"reviewCheck":{"stem":"Identify the concept described by this statement: Predictable broad sequence with individual variability.","options":["Sequence","Social model of disability","Nature + nurture","Therapeutic alliance","Cephalocaudal"],"answer":"A","explanation":"Sequence: Predictable broad sequence with individual variability."}},{"difficulty":"Intermediate","lecture":"Introduction to Developmental-Behavioral Pediatrics","topic":"Fine motor domain","concept":"Fine motor development involves precise hand and finger control.","stem":"Which milestone is most directly a fine motor skill?","options":["Following a two-step command","Engaging in pretend play","Walking upstairs","Using a pincer grasp to pick up a small object","Sitting without support"],"answer":"D","explanation":"The pincer grasp depends on refined distal hand and finger control.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/14_Developmental_Behavioral_Pediatrics_Factoid.html","factoidLabel":"Introduction to Developmental-Behavioral Pediatrics","number":31,"reviewCheck":{"stem":"Which label best fits this high-yield fact: Supportive adults, self-regulation/self-efficacy, hope/faith/culture, positive childhood experiences.?","options":["Resilience","Nature + nurture","Cephalocaudal","Social model of disability","Therapeutic alliance"],"answer":"A","explanation":"Resilience: Supportive adults, self-regulation/self-efficacy, hope/faith/culture, positive childhood experiences."}},{"difficulty":"Intermediate","lecture":"Introduction to Developmental-Behavioral Pediatrics","topic":"Speech and language domain","concept":"Speech/language development includes expressive and receptive communication.","stem":"A child can understand simple commands but has very limited spoken vocabulary. Which developmental domain is most directly being assessed?","options":["Visual acuity","Gross motor","Adaptive only","Fine motor","Speech/language"],"answer":"E","explanation":"Understanding and producing language are core components of the speech/language domain.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/14_Developmental_Behavioral_Pediatrics_Factoid.html","factoidLabel":"Introduction to Developmental-Behavioral Pediatrics","number":32,"reviewCheck":{"stem":"Which option correctly describes Social model of disability?","options":["Can change how disability, behavior, and opportunities are framed.","Disability can arise from person-environment mismatch; remove barriers and include the patient directly.","Predictable broad sequence with individual variability.","Supportive adults, self-regulation/self-efficacy, hope/faith/culture, positive childhood experiences.","Gross motor, fine motor, speech/language, cognitive, social-emotional, adaptive."],"answer":"B","explanation":"Social model of disability: Disability can arise from person-environment mismatch; remove barriers and include the patient directly."}},{"difficulty":"Intermediate","lecture":"Introduction to Developmental-Behavioral Pediatrics","topic":"Cognitive domain","concept":"Cognitive development includes problem solving, learning, memory, and reasoning.","stem":"A preschooler is asked to solve a simple matching and problem-solving task. Which developmental domain is being assessed most directly?","options":["Cognitive","Gross motor","Hearing only","Adaptive toileting","Fine motor"],"answer":"A","explanation":"Problem solving and reasoning are cognitive functions.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/14_Developmental_Behavioral_Pediatrics_Factoid.html","factoidLabel":"Introduction to Developmental-Behavioral Pediatrics","number":33,"reviewCheck":{"stem":"Which description best matches Therapeutic alliance?","options":["Can change how disability, behavior, and opportunities are framed.","Shared goals + shared tasks + relational bond.","Gross motor, fine motor, speech/language, cognitive, social-emotional, adaptive.","Predictable broad sequence with individual variability.","Supportive adults, self-regulation/self-efficacy, hope/faith/culture, positive childhood experiences."],"answer":"B","explanation":"Therapeutic alliance: Shared goals + shared tasks + relational bond."}},{"difficulty":"Intermediate","lecture":"Introduction to Developmental-Behavioral Pediatrics","topic":"Social-emotional domain","concept":"Social-emotional development includes relationships, emotional regulation, and social interaction.","stem":"Which observation most directly reflects the social-emotional developmental domain?","options":["Jumping with both feet","Seeking comfort from a caregiver after becoming frightened","Using a spoon","Stacking blocks","Naming colors"],"answer":"B","explanation":"Seeking and using relationships for emotional regulation is a social-emotional behavior.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/14_Developmental_Behavioral_Pediatrics_Factoid.html","factoidLabel":"Introduction to Developmental-Behavioral Pediatrics","number":34,"reviewCheck":{"stem":"What is being described here: Can change how disability, behavior, and opportunities are framed.","options":["Implicit bias","Sequence","Cephalocaudal","Domains","Resilience"],"answer":"A","explanation":"Implicit bias: Can change how disability, behavior, and opportunities are framed."}},{"difficulty":"Intermediate","lecture":"Introduction to Developmental-Behavioral Pediatrics","topic":"Adaptive domain","concept":"Adaptive skills are practical self-care and daily-living abilities.","stem":"Which behavior is primarily an adaptive developmental skill?","options":["Recognizing emotions in a story","Climbing stairs","Dressing with minimal assistance","Speaking in sentences","Copying a circle"],"answer":"C","explanation":"Dressing is a practical daily-living/self-care skill and therefore adaptive.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/14_Developmental_Behavioral_Pediatrics_Factoid.html","factoidLabel":"Introduction to Developmental-Behavioral Pediatrics","number":35,"reviewCheck":{"stem":"Which concept best matches this description: Set/support • Hear • Address/Allow • Reflect/Reframe/Revisit • Empower.","options":["Proximodistal","Sequence","History","Toxic stress / ACEs","SHARE"],"answer":"E","explanation":"SHARE: Set/support • Hear • Address/Allow • Reflect/Reframe/Revisit • Empower."}},{"difficulty":"Intermediate","lecture":"Introduction to Developmental-Behavioral Pediatrics","topic":"Nature and nurture","concept":"Development reflects interaction among genetic, biologic, relational, cultural, and environmental influences.","stem":"A clinician is explaining why two children with similar genetic risk can have different developmental outcomes. Which explanation is most consistent with developmental-behavioral pediatrics?","options":["Only prenatal exposures matter","Only school quality matters","Genes completely determine outcome","Development reflects ongoing interaction between biologic factors and environment","Environment completely determines outcome"],"answer":"D","explanation":"Development emerges from interacting biologic and environmental influences rather than a single deterministic cause.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/14_Developmental_Behavioral_Pediatrics_Factoid.html","factoidLabel":"Introduction to Developmental-Behavioral Pediatrics","number":36,"reviewCheck":{"stem":"Which statement about Resilience is correct?","options":["Supportive adults, self-regulation/self-efficacy, hope/faith/culture, positive childhood experiences.","Shared goals + shared tasks + relational bond.","Disability can arise from person-environment mismatch; remove barriers and include the patient directly.","Genes, epigenetics, prenatal factors, illness, family, culture, education, community, supports interact.","Development progresses head → lower body."],"answer":"A","explanation":"Resilience: Supportive adults, self-regulation/self-efficacy, hope/faith/culture, positive childhood experiences."}},{"difficulty":"Intermediate","lecture":"Introduction to Developmental-Behavioral Pediatrics","topic":"Epigenetics","concept":"Environmental influences can alter gene expression without changing DNA sequence.","stem":"Prenatal and early-life exposures alter patterns of gene expression without changing the child's nucleotide sequence. Which concept best describes this process?","options":["Somatic mosaicism only","Gene deletion","Aneuploidy","Nondisjunction","Epigenetic regulation"],"answer":"E","explanation":"Epigenetic mechanisms modify gene expression without changing the underlying DNA sequence.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/14_Developmental_Behavioral_Pediatrics_Factoid.html","factoidLabel":"Introduction to Developmental-Behavioral Pediatrics","number":37,"reviewCheck":{"stem":"Which statement about Resilience is correct?","options":["Supportive adults, self-regulation/self-efficacy, hope/faith/culture, positive childhood experiences.","Shared goals + shared tasks + relational bond.","Disability can arise from person-environment mismatch; remove barriers and include the patient directly.","Genes, epigenetics, prenatal factors, illness, family, culture, education, community, supports interact.","Development progresses head → lower body."],"answer":"A","explanation":"Resilience: Supportive adults, self-regulation/self-efficacy, hope/faith/culture, positive childhood experiences."}},{"difficulty":"Intermediate","lecture":"Introduction to Developmental-Behavioral Pediatrics","topic":"Toxic stress","concept":"Toxic stress is prolonged or excessive stress activation without adequate buffering support.","stem":"A child experiences chronic severe adversity with little stable adult support. Which developmental concern is most closely associated with this situation?","options":["Toxic stress","Protective buffering","Benign developmental variation only","Normal habituation only","Cephalocaudal delay by definition"],"answer":"A","explanation":"Persistent adversity without supportive buffering relationships can produce toxic stress and increase developmental and health risk.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/14_Developmental_Behavioral_Pediatrics_Factoid.html","factoidLabel":"Introduction to Developmental-Behavioral Pediatrics","number":38,"reviewCheck":{"stem":"Identify the concept described by this statement: Control develops center → distal extremities.","options":["Social model of disability","Nature + nurture","Cephalocaudal","Therapeutic alliance","Proximodistal"],"answer":"E","explanation":"Proximodistal: Control develops center → distal extremities."}},{"difficulty":"Intermediate","lecture":"Introduction to Developmental-Behavioral Pediatrics","topic":"ACEs","concept":"Adverse childhood experiences increase population-level risk but do not determine an individual's outcome.","stem":"A resident tells a family that a high ACE score guarantees the child will develop serious adult disease. What is the best correction?","options":["The statement is correct because ACEs are deterministic","ACE scores describe increased risk, not inevitable outcomes for an individual","ACEs matter only if genetic testing is positive","ACEs affect only physical health","Resilience cannot modify risk"],"answer":"B","explanation":"ACEs are associated with higher population-level risk, but they do not dictate an individual child's future.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/14_Developmental_Behavioral_Pediatrics_Factoid.html","factoidLabel":"Introduction to Developmental-Behavioral Pediatrics","number":39,"reviewCheck":{"stem":"Which term should be paired with the following fact: Development progresses head → lower body.","options":["Sequence","Domains","Cephalocaudal","Implicit bias","Resilience"],"answer":"C","explanation":"Cephalocaudal: Development progresses head → lower body."}},{"difficulty":"Intermediate","lecture":"Introduction to Developmental-Behavioral Pediatrics","topic":"Resilience","concept":"Supportive relationships and positive experiences can buffer adversity.","stem":"Which factor is most likely to promote resilience in a child exposed to significant adversity?","options":["Removal of all age-appropriate autonomy","Persistent sleep disruption","A stable supportive relationship with a caring adult","Repeated social isolation","Unpredictable caregiving"],"answer":"C","explanation":"A stable supportive adult relationship is one of the strongest resilience-promoting factors.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/14_Developmental_Behavioral_Pediatrics_Factoid.html","factoidLabel":"Introduction to Developmental-Behavioral Pediatrics","number":40,"reviewCheck":{"stem":"For Proximodistal, which statement is most accurate?","options":["Use culturally and linguistically sensitive, patient- and family-centered communication.","Control develops center → distal extremities.","Set/support • Hear • Address/Allow • Reflect/Reframe/Revisit • Empower.","Increase population-level lifelong risk; do not determine an individual child's destiny.","Predictable broad sequence with individual variability."],"answer":"B","explanation":"Proximodistal: Control develops center → distal extremities."}},{"difficulty":"Intermediate","lecture":"Introduction to Developmental-Behavioral Pediatrics","topic":"Self-efficacy","concept":"A child's belief that they can act effectively and develop coping skills can support resilience.","stem":"A clinician helps an adolescent identify problems they have successfully solved and lets the adolescent choose achievable next steps. Which resilience factor is being strengthened?","options":["Implicit bias","Developmental regression","Toxic stress","Self-efficacy","Learned helplessness"],"answer":"D","explanation":"Building a sense of competence and control strengthens self-efficacy, a resilience factor.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/14_Developmental_Behavioral_Pediatrics_Factoid.html","factoidLabel":"Introduction to Developmental-Behavioral Pediatrics","number":41,"reviewCheck":{"stem":"Which concept best matches this description: Predictable broad sequence with individual variability.","options":["Cephalocaudal","Sequence","Social model of disability","Nature + nurture","Therapeutic alliance"],"answer":"B","explanation":"Sequence: Predictable broad sequence with individual variability."}},{"difficulty":"Intermediate","lecture":"Introduction to Developmental-Behavioral Pediatrics","topic":"Positive childhood experiences","concept":"Positive relationships and experiences can buffer the effects of adversity.","stem":"Which intervention best reflects a resilience-oriented approach rather than merely counting adverse experiences?","options":["Focus only on the ACE score","Avoid discussing family strengths","Use the same plan regardless of context","Assume risk cannot be changed","Identify supportive relationships, strengths, and positive experiences that can be expanded"],"answer":"E","explanation":"Resilience-oriented care identifies and strengthens protective relationships, skills, and positive experiences.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/14_Developmental_Behavioral_Pediatrics_Factoid.html","factoidLabel":"Introduction to Developmental-Behavioral Pediatrics","number":42,"reviewCheck":{"stem":"Which label best fits this high-yield fact: Predictable broad sequence with individual variability.?","options":["Implicit bias","Domains","Sequence","Resilience","Cephalocaudal"],"answer":"C","explanation":"Sequence: Predictable broad sequence with individual variability."}},{"difficulty":"Intermediate","lecture":"Introduction to Developmental-Behavioral Pediatrics","topic":"Therapeutic alliance","concept":"A therapeutic alliance includes shared goals, shared tasks, and a relational bond.","stem":"A pediatrician and family agree on the child's priorities, decide together how to work toward them, and build trust. Which framework does this illustrate?","options":["Therapeutic alliance","Classical conditioning only","Diagnostic overshadowing","Lead-time bias","Cascade testing"],"answer":"A","explanation":"Shared goals, agreement on tasks, and relational bond are the core components of a therapeutic alliance.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/14_Developmental_Behavioral_Pediatrics_Factoid.html","factoidLabel":"Introduction to Developmental-Behavioral Pediatrics","number":43,"reviewCheck":{"stem":"Which fact should be associated with Implicit bias?","options":["Set/support • Hear • Address/Allow • Reflect/Reframe/Revisit • Empower.","Increase population-level lifelong risk; do not determine an individual child's destiny.","Use culturally and linguistically sensitive, patient- and family-centered communication.","Can change how disability, behavior, and opportunities are framed.","Control develops center → distal extremities."],"answer":"D","explanation":"Implicit bias: Can change how disability, behavior, and opportunities are framed."}},{"difficulty":"Intermediate","lecture":"Introduction to Developmental-Behavioral Pediatrics","topic":"SHARE: Set/Support","concept":"The first SHARE step involves setting/supporting a respectful environment for the conversation.","stem":"At the beginning of a difficult developmental conversation, the physician deliberately creates a supportive setting and signals partnership. Which SHARE element is being used?","options":["Reflect/Reframe/Revisit","Set/Support","Empower","Hear","Address/Allow"],"answer":"B","explanation":"The S in SHARE is Set/Support.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/14_Developmental_Behavioral_Pediatrics_Factoid.html","factoidLabel":"Introduction to Developmental-Behavioral Pediatrics","number":44,"reviewCheck":{"stem":"What is being described here: Control develops center → distal extremities.","options":["Toxic stress / ACEs","Proximodistal","SHARE","Sequence","History"],"answer":"B","explanation":"Proximodistal: Control develops center → distal extremities."}},{"difficulty":"Intermediate","lecture":"Introduction to Developmental-Behavioral Pediatrics","topic":"SHARE: Hear","concept":"The H in SHARE emphasizes listening to the patient and family's perspective.","stem":"A clinician asks the parent and child to describe their concerns in their own words and listens without interrupting. Which SHARE step is most directly demonstrated?","options":["Set/Support","Empower","Hear","Address/Allow","Reflect/Reframe/Revisit"],"answer":"C","explanation":"The H in SHARE is Hear.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/14_Developmental_Behavioral_Pediatrics_Factoid.html","factoidLabel":"Introduction to Developmental-Behavioral Pediatrics","number":45,"reviewCheck":{"stem":"What is being described here: Control develops center → distal extremities.","options":["Toxic stress / ACEs","Proximodistal","SHARE","Sequence","History"],"answer":"B","explanation":"Proximodistal: Control develops center → distal extremities."}},{"difficulty":"Intermediate","lecture":"Introduction to Developmental-Behavioral Pediatrics","topic":"SHARE: Address/Allow","concept":"Address/Allow means directly responding to concerns while allowing emotion, uncertainty, and perspective.","stem":"During a conversation about developmental disability, the clinician names the family's concern and gives space for emotion before moving to planning. Which SHARE element is most consistent?","options":["Empower","Reflect/Reframe/Revisit","Hear","Address/Allow","Set/Support"],"answer":"D","explanation":"Address/Allow includes directly addressing concerns while allowing emotion and discussion.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/14_Developmental_Behavioral_Pediatrics_Factoid.html","factoidLabel":"Introduction to Developmental-Behavioral Pediatrics","number":46,"reviewCheck":{"stem":"Which statement about Resilience is correct?","options":["Supportive adults, self-regulation/self-efficacy, hope/faith/culture, positive childhood experiences.","Genes, epigenetics, prenatal factors, illness, family, culture, education, community, supports interact.","Disability can arise from person-environment mismatch; remove barriers and include the patient directly.","Shared goals + shared tasks + relational bond.","Development progresses head → lower body."],"answer":"A","explanation":"Resilience: Supportive adults, self-regulation/self-efficacy, hope/faith/culture, positive childhood experiences."}},{"difficulty":"Intermediate","lecture":"Introduction to Developmental-Behavioral Pediatrics","topic":"SHARE: Reflect/Reframe/Revisit","concept":"Reflect/Reframe/Revisit checks understanding and helps reshape the conversation when needed.","stem":"A physician summarizes what the family has said, reframes a deficit-focused description around the child's needs and strengths, and checks whether the new framing fits. Which SHARE element is being used?","options":["Hear","Empower","Set/Support","Address/Allow","Reflect/Reframe/Revisit"],"answer":"E","explanation":"Reflect/Reframe/Revisit involves reflecting meaning, reframing when useful, and returning to understanding.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/14_Developmental_Behavioral_Pediatrics_Factoid.html","factoidLabel":"Introduction to Developmental-Behavioral Pediatrics","number":47,"reviewCheck":{"stem":"Which label best fits this high-yield fact: Use culturally and linguistically sensitive, patient- and family-centered communication.?","options":["Social model of disability","History","Cephalocaudal","Therapeutic alliance","Nature + nurture"],"answer":"B","explanation":"History: Use culturally and linguistically sensitive, patient- and family-centered communication."}},{"difficulty":"Intermediate","lecture":"Introduction to Developmental-Behavioral Pediatrics","topic":"SHARE: Empower","concept":"Empower supports participation, choice, strengths, and next steps.","stem":"The clinician ends a visit by asking the adolescent which goal feels most important and ensuring the family has concrete resources to act on the plan. Which SHARE element is most evident?","options":["Empower","Set/Support","Reflect/Reframe/Revisit","Hear","Address/Allow"],"answer":"A","explanation":"Empower emphasizes agency, participation, strengths, and actionable next steps.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/14_Developmental_Behavioral_Pediatrics_Factoid.html","factoidLabel":"Introduction to Developmental-Behavioral Pediatrics","number":48,"reviewCheck":{"stem":"Which concept best matches this description: Control develops center → distal extremities.","options":["Social model of disability","Proximodistal","Nature + nurture","Cephalocaudal","Therapeutic alliance"],"answer":"B","explanation":"Proximodistal: Control develops center → distal extremities."}},{"difficulty":"Step 1-style","lecture":"Introduction to Developmental-Behavioral Pediatrics","topic":"Implicit bias","concept":"Implicit bias can influence expectations, communication, referrals, and opportunities offered to patients with disabilities.","stem":"A clinician unconsciously assumes that a teenager with a neurodevelopmental disability cannot participate in decisions and directs every question to the parent. Which issue is illustrated?","options":["Confounding by indication","Implicit bias","Random variation","Genetic anticipation","Lead-time bias"],"answer":"B","explanation":"Unexamined assumptions can shape communication and opportunity, illustrating implicit bias.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/14_Developmental_Behavioral_Pediatrics_Factoid.html","factoidLabel":"Introduction to Developmental-Behavioral Pediatrics","number":49,"reviewCheck":{"stem":"What is being described here: Set/support • Hear • Address/Allow • Reflect/Reframe/Revisit • Empower.","options":["Social model of disability","Nature + nurture","Therapeutic alliance","SHARE","Cephalocaudal"],"answer":"D","explanation":"SHARE: Set/support • Hear • Address/Allow • Reflect/Reframe/Revisit • Empower."}},{"difficulty":"Intermediate","lecture":"Introduction to Developmental-Behavioral Pediatrics","topic":"Social model of disability","concept":"The social model emphasizes barriers and person-environment mismatch rather than locating all limitation within the individual.","stem":"A student with motor impairment cannot enter a clinic because the only entrance has stairs. Which response best reflects the social model of disability?","options":["Speak only to the caregiver","Assume the student cannot participate in care","Remove the environmental access barrier and include the student in planning","Focus only on changing the student's body","Describe the stairs as an unavoidable consequence of the student's diagnosis"],"answer":"C","explanation":"The social model directs attention to environmental and structural barriers that can be modified.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/14_Developmental_Behavioral_Pediatrics_Factoid.html","factoidLabel":"Introduction to Developmental-Behavioral Pediatrics","number":50,"reviewCheck":{"stem":"What is being described here: Genes, epigenetics, prenatal factors, illness, family, culture, education, community, supports interact.","options":["History","Toxic stress / ACEs","SHARE","Proximodistal","Nature + nurture"],"answer":"E","explanation":"Nature + nurture: Genes, epigenetics, prenatal factors, illness, family, culture, education, community, supports interact."}}];
+
+if(!window.ReviewBank){
+(function(){
+  const KEY='fom:review-bank:v1';
+  const AUTO_FLAG_MISSES=2;
+  const MASTERY_TARGET=3;
+
+  function load(){
+    try{
+      const parsed=JSON.parse(localStorage.getItem(KEY)||'{"items":{}}');
+      if(!parsed.items) parsed.items={};
+      return parsed;
+    }catch(e){ return {items:{}}; }
+  }
+  function save(bank){ localStorage.setItem(KEY,JSON.stringify(bank)); }
+  function idFor(item){
+    return [item.lecture||'',item.topic||'',item.concept||''].join('||').toLowerCase();
+  }
+  function base(item){
+    return {
+      id:idFor(item),
+      lecture:item.lecture||'',
+      topic:item.topic||'',
+      concept:item.concept||'',
+      difficulty:item.difficulty||'',
+      questionStem:item.stem||'',
+      choices:item.options||[],
+      answer:item.answer||'',
+      explanation:item.explanation||'',
+      transferCheck:item.reviewCheck||null,
+      sourceQuiz:item.sourceQuiz||'',
+      misses:0,
+      attempts:0,
+      manual:false,
+      active:false,
+      mastered:false,
+      masteryStreak:0,
+      lastConfidence:null,
+      updatedAt:new Date().toISOString()
+    };
+  }
+  function getEntry(bank,item){
+    const id=idFor(item);
+    if(!bank.items[id]) bank.items[id]=base(item);
+    const e=bank.items[id];
+    Object.assign(e,{
+      lecture:item.lecture||e.lecture,
+      topic:item.topic||e.topic,
+      concept:item.concept||e.concept,
+      difficulty:item.difficulty||e.difficulty,
+      questionStem:item.stem||e.questionStem,
+      choices:item.options||e.choices,
+      answer:item.answer||e.answer,
+      explanation:item.explanation||e.explanation,
+      transferCheck:item.reviewCheck||e.transferCheck,
+      sourceQuiz:item.sourceQuiz||e.sourceQuiz
+    });
+    return e;
+  }
+  function recordPrimaryOutcome(item,correct,confidence){
+    const bank=load(),e=getEntry(bank,item);
+    e.attempts=(e.attempts||0)+1;
+    e.lastConfidence=confidence||null;
+    if(!correct){
+      e.misses=(e.misses||0)+1;
+      e.masteryStreak=0;
+      if(e.mastered || e.misses>=AUTO_FLAG_MISSES) e.active=true;
+      if(e.mastered){ e.mastered=false; }
+    }
+    e.updatedAt=new Date().toISOString();
+    save(bank); return e;
+  }
+  function fileItem(item){
+    const bank=load(),e=getEntry(bank,item);
+    e.manual=true;
+    e.active=true;
+    e.mastered=false;
+    e.masteryStreak=0;
+    e.updatedAt=new Date().toISOString();
+    save(bank); return e;
+  }
+  function recordMastery(item,success){
+    const bank=load(),e=getEntry(bank,item);
+    if(success){
+      e.masteryStreak=(e.masteryStreak||0)+1;
+      if(e.masteryStreak>=MASTERY_TARGET){
+        e.active=false;
+        e.mastered=true;
+      }
+    }else{
+      e.masteryStreak=0;
+    }
+    e.updatedAt=new Date().toISOString();
+    save(bank); return e;
+  }
+  function getActive(){
+    return Object.values(load().items).filter(x=>x.active);
+  }
+  function getAll(){ return Object.values(load().items); }
+  window.ReviewBank={KEY,AUTO_FLAG_MISSES,MASTERY_TARGET,recordPrimaryOutcome,fileItem,recordMastery,getActive,getAll};
+})();
+}
+const QUIZ_KEY="week5-daily-thursday-50";
+const HIGHLIGHT_KEY='quiz-highlights:'+QUIZ_KEY;
+let pendingHighlightSelection=null;
+
+function loadHighlights(){
+  try{return JSON.parse(localStorage.getItem(HIGHLIGHT_KEY)||'{}')||{}}catch(e){return {}}
+}
+function saveHighlights(data){try{localStorage.setItem(HIGHLIGHT_KEY,JSON.stringify(data))}catch(e){}}
+function normalizeRanges(ranges){
+  const sorted=(ranges||[]).filter(r=>Number.isFinite(r.start)&&Number.isFinite(r.end)&&r.end>r.start).sort((a,b)=>a.start-b.start||a.end-b.end);
+  const out=[];
+  sorted.forEach(r=>{const last=out[out.length-1];if(last&&r.start<=last.end)last.end=Math.max(last.end,r.end);else out.push({start:r.start,end:r.end})});
+  return out;
+}
+function unwrapHighlights(scope=document){
+  scope.querySelectorAll('mark.study-highlight').forEach(mark=>{const p=mark.parentNode;while(mark.firstChild)p.insertBefore(mark.firstChild,mark);p.removeChild(mark);p.normalize()});
+}
+function textPoint(root,offset){
+  const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);let pos=0,node;
+  while(node=walker.nextNode()){
+    const next=pos+node.nodeValue.length;
+    if(offset<=next)return {node,offset:Math.max(0,offset-pos)};
+    pos=next;
+  }
+  return null;
+}
+function wrapOffsetRange(root,start,end){
+  if(end<=start)return;
+  const s=textPoint(root,start),e=textPoint(root,end);if(!s||!e)return;
+  const range=document.createRange();
+  try{range.setStart(s.node,s.offset);range.setEnd(e.node,e.offset)}catch(err){return}
+  if(range.collapsed)return;
+  const mark=document.createElement('mark');mark.className='study-highlight';
+  try{const frag=range.extractContents();mark.appendChild(frag);range.insertNode(mark)}catch(err){}
+}
+function refreshHighlights(scope=document){
+  unwrapHighlights(scope);
+  const data=loadHighlights();
+  scope.querySelectorAll('.highlightable[data-highlight-id]').forEach(el=>{
+    const ranges=normalizeRanges(data[el.dataset.highlightId]||[]).sort((a,b)=>b.start-a.start);
+    ranges.forEach(r=>wrapOffsetRange(el,r.start,r.end));
+  });
+}
+function offsetWithin(root,node,offset){
+  const r=document.createRange();r.selectNodeContents(root);r.setEnd(node,offset);return r.toString().length;
+}
+function captureHighlightSelection(){
+  const sel=window.getSelection();if(!sel||sel.rangeCount===0||sel.isCollapsed)return;
+  const range=sel.getRangeAt(0);let startEl=range.startContainer.nodeType===1?range.startContainer:range.startContainer.parentElement;let endEl=range.endContainer.nodeType===1?range.endContainer:range.endContainer.parentElement;
+  startEl=startEl?.closest?.('.highlightable[data-highlight-id]');endEl=endEl?.closest?.('.highlightable[data-highlight-id]');
+  if(!startEl||startEl!==endEl)return;
+  const start=offsetWithin(startEl,range.startContainer,range.startOffset),end=offsetWithin(startEl,range.endContainer,range.endOffset);
+  if(end<=start)return;
+  pendingHighlightSelection={id:startEl.dataset.highlightId,start,end,preview:sel.toString().trim().slice(0,55)};
+  const status=document.getElementById('highlightStatus');if(status)status.textContent=pendingHighlightSelection.preview?`Selected: “${pendingHighlightSelection.preview}${sel.toString().trim().length>55?'…':''}”`:'Selection ready.';
+}
+function hasTextSelectionInside(el){
+  const sel=window.getSelection();if(!sel||sel.isCollapsed||!sel.toString().trim())return false;
+  const a=sel.anchorNode,b=sel.focusNode;return !!(a&&b&&el.contains(a)&&el.contains(b));
+}
+function addPendingHighlight(){
+  const s=pendingHighlightSelection,status=document.getElementById('highlightStatus');
+  if(!s){if(status)status.textContent='Select text in a question stem or answer choice first.';return}
+  const data=loadHighlights();data[s.id]=normalizeRanges([...(data[s.id]||[]),{start:s.start,end:s.end}]);saveHighlights(data);refreshHighlights(document);if(status)status.textContent='Highlight saved. It will stay after reset or reopen.';pendingHighlightSelection=null;window.getSelection()?.removeAllRanges();
+}
+function erasePendingHighlight(){
+  const s=pendingHighlightSelection,status=document.getElementById('highlightStatus');
+  if(!s){if(status)status.textContent='Select part of a yellow highlight to erase it.';return}
+  const data=loadHighlights(),ranges=data[s.id]||[];const kept=ranges.filter(r=>r.end<=s.start||r.start>=s.end);if(kept.length)data[s.id]=kept;else delete data[s.id];saveHighlights(data);refreshHighlights(document);if(status)status.textContent=ranges.length!==kept.length?'Selected highlight erased.':'No saved highlight overlapped that selection.';pendingHighlightSelection=null;window.getSelection()?.removeAllRanges();
+}
+function clearAllHighlights(){
+  const data=loadHighlights();if(!Object.keys(data).length){document.getElementById('highlightStatus').textContent='There are no saved highlights to clear.';return}
+  if(!confirm('Clear every yellow highlight saved for this quiz?'))return;saveHighlights({});refreshHighlights(document);pendingHighlightSelection=null;document.getElementById('highlightStatus').textContent='All highlights cleared.';
+}
+document.addEventListener('selectionchange',()=>{clearTimeout(window.__hlTimer);window.__hlTimer=setTimeout(captureHighlightSelection,40)});
+document.getElementById('highlightBtn')?.addEventListener('click',addPendingHighlight);
+document.getElementById('eraseHighlightBtn')?.addEventListener('click',erasePendingHighlight);
+document.getElementById('clearHighlightsBtn')?.addEventListener('click',clearAllHighlights);
+
+let primaryRecorded={};
+
+function bankItem(q){
+  return Object.assign({},q,{sourceQuiz:QUIZ_KEY});
+}
+function recordPrimaryOnce(qn){
+  if(primaryRecorded[qn]) return;
+  const q=QUESTIONS.find(x=>x.number===qn);
+  if(!q || !responses[qn]) return;
+  ReviewBank.recordPrimaryOutcome(bankItem(q),responses[qn]===q.answer,confidence[qn]||null);
+  primaryRecorded[qn]=true;
+}
+function saveProgress(completed=false){
+  const answered=Object.keys(responses).length;
+  const correct=QUESTIONS.filter(q=>responses[q.number]===q.answer).length;
+  const scoreVisible=(mode!=='exam'||completed);
+  const data={
+    key:QUIZ_KEY,total:QUESTIONS.length,answered,
+    score:scoreVisible?correct:null,
+    percent:scoreVisible&&answered?Math.round(correct/answered*100):null,
+    completed:!!completed,mode,updatedAt:new Date().toISOString()
+  };
+  try{
+    localStorage.setItem('quiz-progress:'+QUIZ_KEY,JSON.stringify(data));
+    localStorage.setItem('med-quiz-folder:'+QUIZ_KEY,JSON.stringify(data));
+    if(completed){
+      const pct=Math.round(correct/QUESTIONS.length*100);
+      const prev=Number(localStorage.getItem('quiz-best:'+QUIZ_KEY)||'-1');
+      if(pct>prev) localStorage.setItem('quiz-best:'+QUIZ_KEY,String(pct));
+    }
+  }catch(e){}
+}
+
+let mode='practice',responses={},struck={},confidence={},locked={},resultsShown=false;
+let advancedIndex=0,advancedTransfer={},advancedDecision={},advancedFiled={};
+
+const quiz=document.getElementById('quiz'),advancedShell=document.getElementById('advancedShell'),advancedQuestionCard=document.getElementById('advancedQuestionCard'),advancedReviewCard=document.getElementById('advancedReviewCard');
+const practiceMode=document.getElementById('practiceMode'),examMode=document.getElementById('examMode'),advancedMode=document.getElementById('advancedMode'),modeNote=document.getElementById('modeNote'),gradeBtn=document.getElementById('gradeBtn'),resultOverlay=document.getElementById('resultOverlay');
+
+function letter(i){return String.fromCharCode(65+i)}
+
+
+function findReviewEntry(q){
+  try{
+    const key=(window.ReviewBank&&ReviewBank.KEY)||'fom:review-bank:v1';
+    const bank=JSON.parse(localStorage.getItem(key)||'{"items":{}}');
+    return Object.values((bank&&bank.items)||{}).find(e=>e&&e.sourceQuiz===QUIZ_KEY&&e.questionStem===q.stem)||null;
+  }catch(e){return null}
+}
+function isManualFlagged(q){
+  const e=findReviewEntry(q);
+  return !!(e&&e.manual);
+}
+function setManualFlag(qn,on){
+  const q=QUESTIONS.find(x=>x.number===qn);
+  if(!q)return;
+  if(on){
+    ReviewBank.fileItem(bankItem(q));
+  }else{
+    try{
+      const key=(window.ReviewBank&&ReviewBank.KEY)||'fom:review-bank:v1';
+      const bank=JSON.parse(localStorage.getItem(key)||'{"version":1,"items":{}}');
+      Object.values((bank&&bank.items)||{}).forEach(e=>{
+        if(e&&e.sourceQuiz===QUIZ_KEY&&e.questionStem===q.stem){
+          e.manual=false;
+          const autoMiss=(e.misses||0)>=((window.ReviewBank&&ReviewBank.AUTO_FLAG_MISSES)||2);
+          if(!autoMiss&&!e.mastered)e.active=false;
+          e.updatedAt=new Date().toISOString();
+        }
+      });
+      localStorage.setItem(key,JSON.stringify(bank));
+    }catch(e){}
+  }
+  if(mode==='advanced'){
+    if(Object.prototype.hasOwnProperty.call(responses,qn))renderAdvancedReview(qn);
+    else renderAdvancedQuestion();
+  }else{
+    paintState();
+  }
+}
+function flagButtonHTML(qn){
+  const q=QUESTIONS.find(x=>x.number===qn),on=q?isManualFlagged(q):false;
+  return `<button type="button" class="flag-btn ${on?'active':''}" data-flag-q="${qn}">${on?'Flagged ✓':'Flag for Review'}</button>`;
+}
+function bindFlagButtons(root){
+  (root||document).querySelectorAll('[data-flag-q]').forEach(btn=>btn.addEventListener('click',e=>{
+    e.preventDefault();e.stopPropagation();
+    const qn=Number(btn.dataset.flagQ),q=QUESTIONS.find(x=>x.number===qn);
+    if(q)setManualFlag(qn,!isManualFlagged(q));
+  }));
+}
+function factoidResourceHTML(q){
+  return `<div class="review-resource"><span>Lecture review resource</span><a href="${q.factoid}" target="_blank" rel="noopener">Open ${q.factoidLabel} Factoid Sheet ↗</a></div>`;
+}
+
+function confidenceHTML(qn){
+ const value=confidence[qn]||'';
+ return `<div class="confidence-wrap">
+   <div class="confidence-panel">
+     <div class="confidence-label">Confidence</div>
+     
+     <div class="confidence-buttons">
+       <button type="button" class="confidence-btn ${value==='guessing'?'active':''}" data-level="guessing">Guessing</button>
+       <button type="button" class="confidence-btn ${value==='unsure'?'active':''}" data-level="unsure">Unsure</button>
+       <button type="button" class="confidence-btn ${value==='confident'?'active':''}" data-level="confident">Confident</button>
+     </div>
+   </div>
+ </div>`;
+}
+
+function renderQuiz(){
+ quiz.innerHTML='';
+ QUESTIONS.forEach(q=>{
+  const article=document.createElement('article');article.className='question';article.id='q-'+q.number;
+  article.innerHTML=`<div class="qtop"><div class="qnum">Question ${q.number}</div>${flagButtonHTML(q.number)}</div><div class="stem highlightable" data-highlight-id="q${q.number}-stem">${q.stem}</div><div class="choices"></div><div class="feedback" id="feedback-${q.number}"></div>${confidenceHTML(q.number)}`;
+  const choices=article.querySelector('.choices');
+  q.options.forEach((opt,idx)=>{
+   const L=letter(idx),row=document.createElement('div');row.className='choice-row';
+   row.innerHTML=`<button type="button" class="choice" data-letter="${L}"><span class="choice-letter">${L}</span><span class="choice-copy highlightable" data-highlight-id="q${q.number}-opt-${L}">${opt}</span></button><button type="button" class="strike" title="Strike through choice ${L}">S̶</button>`;
+   row.querySelector('.choice').addEventListener('click',e=>{if(hasTextSelectionInside(e.currentTarget))return;choose(q.number,L)});
+   row.querySelector('.strike').addEventListener('click',e=>{e.stopPropagation();toggleStrike(q.number,L)});
+   choices.appendChild(row);
+  });
+  article.querySelectorAll('.confidence-btn').forEach(btn=>btn.addEventListener('click',()=>setConfidence(q.number,btn.dataset.level)));
+  bindFlagButtons(article);
+  quiz.appendChild(article);
+ });
+ refreshHighlights(quiz);
+ paintState();
+}
+
+function syncReviewBankConfidence(qn){
+ const q=QUESTIONS.find(x=>x.number===qn);
+ if(!q || !Object.prototype.hasOwnProperty.call(responses,qn)) return;
+ try{
+   const key=(window.ReviewBank&&ReviewBank.KEY)||'fom:review-bank:v1';
+   const raw=localStorage.getItem(key);
+   if(!raw)return;
+   const bank=JSON.parse(raw);
+   let changed=false;
+   Object.values((bank&&bank.items)||{}).forEach(e=>{
+     if(e && e.sourceQuiz===QUIZ_KEY && e.questionStem===q.stem){
+       e.lastConfidence=confidence[qn]||null;
+       e.updatedAt=new Date().toISOString();
+       changed=true;
+     }
+   });
+   if(changed)localStorage.setItem(key,JSON.stringify(bank));
+ }catch(e){}
+}
+
+function setConfidence(qn,level){
+ confidence[qn]=level;
+ syncReviewBankConfidence(qn);
+ if(mode==='advanced'){
+   if(Object.prototype.hasOwnProperty.call(responses,qn))renderAdvancedReview(qn);
+   else renderAdvancedQuestion();
+ }else paintState();
+}
+function choose(qn,L){if(mode==='practice'&&locked[qn])return;responses[qn]=L;if(mode==='practice'){locked[qn]=true;gradeQuestion(qn,true);recordPrimaryOnce(qn)}paintState();if(mode==='practice'&&Object.keys(responses).length===QUESTIONS.length&&!resultsShown)setTimeout(showResults,250)}
+function toggleStrike(qn,L){if(mode==='practice'&&locked[qn])return;struck[qn]??={};struck[qn][L]=!struck[qn][L];paintState()}
+
+function paintState(){
+ QUESTIONS.forEach(q=>{
+  const article=document.getElementById('q-'+q.number);if(!article)return;article.classList.remove('correct-q','wrong-q');
+  article.querySelectorAll('.choice').forEach(btn=>{const L=btn.dataset.letter;btn.classList.remove('selected','correct','wrong','struck');if(responses[q.number]===L)btn.classList.add('selected');if(struck[q.number]?.[L])btn.classList.add('struck');if(mode==='practice'&&locked[q.number]){if(L===q.answer)btn.classList.add('correct');if(responses[q.number]===L&&L!==q.answer)btn.classList.add('wrong')}});
+  article.querySelectorAll('.strike').forEach((btn,idx)=>{btn.classList.toggle('active',!!struck[q.number]?.[letter(idx)]);btn.disabled=mode==='practice'&&!!locked[q.number]});
+  article.querySelectorAll('.confidence-btn').forEach(btn=>{
+   btn.classList.toggle('active',confidence[q.number]===btn.dataset.level);
+   btn.disabled=false;
+  });
+  const flag=article.querySelector('[data-flag-q]');
+  if(flag){const on=isManualFlagged(q);flag.classList.toggle('active',on);flag.textContent=on?'Flagged ✓':'Flag for Review';}
+ });
+ updateProgress();
+}
+
+function gradeQuestion(qn,showFeedback){
+ const q=QUESTIONS.find(x=>x.number===qn),fb=document.getElementById('feedback-'+qn),isCorrect=responses[qn]===q.answer;
+ if(showFeedback&&fb){fb.className='feedback show '+(isCorrect?'good':'bad');fb.innerHTML=isCorrect?`<strong>Correct.</strong> ${q.explanation}`:`<strong>Not quite.</strong> Correct answer: <strong>${q.answer}</strong>. ${q.explanation}`}
+ const article=document.getElementById('q-'+qn);if(article){article.querySelectorAll('.choice').forEach(btn=>{const L=btn.dataset.letter;if(L===q.answer)btn.classList.add('correct');if(responses[qn]===L&&L!==q.answer)btn.classList.add('wrong')})}
+}
+
+function updateProgress(){
+ const answered=Object.keys(responses).length;
+ document.getElementById('answeredLabel').textContent=mode==='advanced'?`Question ${Math.min(advancedIndex+1,QUESTIONS.length)} of ${QUESTIONS.length} · ${answered} answered`:`${answered} of ${QUESTIONS.length} answered`;
+ document.getElementById('progressFill').style.width=`${answered/QUESTIONS.length*100}%`;
+ if(mode==='practice'){const correct=QUESTIONS.filter(q=>responses[q.number]===q.answer).length;document.getElementById('scoreLabel').textContent=answered?`Practice score: ${correct}/${answered}`:'Practice score: —'}
+ else if(mode==='advanced'){const transferDone=Object.keys(advancedTransfer).length;document.getElementById('scoreLabel').textContent=`Advanced review · ${transferDone} transfer checks completed`}
+ else document.getElementById('scoreLabel').textContent='Exam score hidden until grading';
+ saveProgress(false);
+}
+
+function setMode(next){
+ if(Object.keys(responses).length&&!confirm('Switching modes will reset this test run. Continue?'))return;
+ if(Object.keys(responses).length)resetState(false);
+ mode=next;
+ practiceMode.classList.toggle('active',mode==='practice');examMode.classList.toggle('active',mode==='exam');advancedMode.classList.toggle('active',mode==='advanced');
+ quiz.classList.toggle('hidden',mode==='advanced');advancedShell.classList.toggle('show',mode==='advanced');
+ gradeBtn.style.display=mode==='exam'?'inline-block':'none';
+ modeNote.textContent=mode==='practice'?'Immediate feedback is ON.':mode==='exam'?'Feedback is hidden until you grade the quiz.':'One question at a time. If you miss the primary question, Advanced Review is required. If you get it right, the review is optional.';
+ if(mode==='advanced'){advancedIndex=0;renderAdvancedQuestion()}else{renderQuiz()}
+ updateProgress();
+}
+practiceMode.addEventListener('click',()=>setMode('practice'));examMode.addEventListener('click',()=>setMode('exam'));advancedMode.addEventListener('click',()=>setMode('advanced'));
+
+function renderAdvancedQuestion(){
+ if(advancedIndex>=QUESTIONS.length){showResults();return}
+ const q=QUESTIONS[advancedIndex],qn=q.number;
+ advancedReviewCard.classList.remove('show');
+ advancedQuestionCard.style.display='block';
+ let choices='';
+ q.options.forEach((opt,idx)=>{const L=letter(idx),classes=['choice'];if(struck[qn]?.[L])classes.push('struck');choices+=`<div class="choice-row"><button type="button" class="${classes.join(' ')}" data-letter="${L}"><span class="choice-letter">${L}</span><span class="choice-copy highlightable" data-highlight-id="q${qn}-opt-${L}">${opt}</span></button><button type="button" class="strike ${struck[qn]?.[L]?'active':''}" data-strike="${L}">S̶</button></div>`});
+ advancedQuestionCard.innerHTML=`<div class="advanced-progress-label">Advanced Quiz Review · Primary Question</div><div class="qtop"><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><div class="qnum">Question ${qn}</div>${flagButtonHTML(qn)}</div><div class="tags"><span class="tag">Metadata hidden until review</span></div></div><div class="stem highlightable" data-highlight-id="q${qn}-stem">${q.stem}</div><div class="choices">${choices}</div>${confidenceHTML(qn)}`;
+ advancedQuestionCard.querySelectorAll('.choice').forEach(btn=>btn.addEventListener('click',e=>{if(hasTextSelectionInside(e.currentTarget))return;answerAdvancedPrimary(qn,btn.dataset.letter)}));
+ advancedQuestionCard.querySelectorAll('[data-strike]').forEach(btn=>btn.addEventListener('click',()=>{const L=btn.dataset.strike;struck[qn]??={};struck[qn][L]=!struck[qn][L];renderAdvancedQuestion()}));
+ advancedQuestionCard.querySelectorAll('.confidence-btn').forEach(btn=>btn.addEventListener('click',()=>setConfidence(qn,btn.dataset.level)));
+ bindFlagButtons(advancedQuestionCard);
+ refreshHighlights(advancedQuestionCard);
+ updateProgress();
+}
+
+function answerAdvancedPrimary(qn,L){
+ responses[qn]=L;locked[qn]=true;recordPrimaryOnce(qn);
+ renderAdvancedReview(qn);
+ updateProgress();
+}
+
+function renderAdvancedReview(qn){
+ const q=QUESTIONS.find(x=>x.number===qn),correct=responses[qn]===q.answer,rc=q.reviewCheck;
+ advancedQuestionCard.style.display='none';advancedReviewCard.classList.add('show');
+ let transferChoices='';rc.options.forEach((opt,idx)=>{const L=letter(idx),chosen=advancedTransfer[qn]===L,done=!!advancedTransfer[qn],classes=['choice'];if(chosen)classes.push('selected');if(done&&L===rc.answer)classes.push('correct');if(done&&chosen&&L!==rc.answer)classes.push('wrong');transferChoices+=`<div class="choice-row"><button type="button" class="${classes.join(' ')}" data-transfer="${L}" ${done?'disabled':''}><span class="choice-letter">${L}</span><span class="choice-copy highlightable" data-highlight-id="q${qn}-transfer-opt-${L}">${opt}</span></button></div>`});
+ const transferDone=!!advancedTransfer[qn],transferCorrect=advancedTransfer[qn]===rc.answer,decision=advancedDecision[qn]||'';
+ advancedReviewCard.innerHTML=`
+ <div class="qtop"><div class="advanced-progress-label">Advanced Review Screen</div>${flagButtonHTML(qn)}</div>
+ <h2 class="review-title">${correct?'Correct primary answer':'Primary answer missed'}</h2>
+ <div class="feedback show ${correct?'good':'bad'}">${correct?'<strong>Correct.</strong>':'<strong>Not quite.</strong> Correct answer: <strong>'+q.answer+'</strong>.'} ${q.explanation}</div>
+ ${confidenceHTML(qn)}
+ <div class="review-meta">
+   <div class="meta-card"><span>Difficulty</span><strong>${q.difficulty}</strong></div>
+   <div class="meta-card"><span>Lecture</span><strong>${q.lecture}</strong></div>
+   <div class="meta-card"><span>Topic</span><strong>${q.topic}</strong></div>
+ </div>
+ <div class="concept-box"><strong>Concept:</strong> ${q.concept}</div>
+ ${factoidResourceHTML(q)}
+ <div class="transfer"><h3>Transfer Check</h3><p>Apply the same concept to a similar stem before moving on.</p><div class="stem highlightable" data-highlight-id="q${qn}-transfer-stem">${rc.stem}</div><div class="choices">${transferChoices}</div>
+ <div class="transfer-status ${transferDone?'show '+(transferCorrect?'good':'bad'):''}">${transferDone?(transferCorrect?'<strong>Transfer check correct.</strong> ':'<strong>Transfer check missed.</strong> Correct answer: <strong>'+rc.answer+'</strong>. ')+rc.explanation:''}</div></div>
+ <div class="decision-box"><h3>Before continuing</h3>
+ <p>${correct?'Because you answered the primary question correctly, Advanced Review is optional. You may skip it, or complete the transfer check for deeper review.':'Because you missed the primary question, complete the transfer check and then either confirm understanding or file the concept for review.'}</p>
+ ${correct?`<div class="review-actions"><button type="button" class="secondary" id="skipAdvancedBtn">${advancedIndex===QUESTIONS.length-1?'Skip review & finish':'Skip Advanced Review'}</button></div>`:''}
+ <div class="review-actions"><button type="button" class="review-decision ${decision==='understand'?'active-understand':''}" id="understandBtn">I understand</button><button type="button" class="review-decision ${decision==='file'?'active-file':''}" id="fileBtn">File for review</button></div>
+ <button type="button" class="primary" id="continueAdvancedBtn" ${(!transferDone||!decision)?'disabled':''}>${advancedIndex===QUESTIONS.length-1?'Finish Advanced Review':'Continue to next question'}</button></div>`;
+ refreshHighlights(advancedReviewCard);
+ bindFlagButtons(advancedReviewCard);
+ advancedReviewCard.querySelectorAll('.confidence-btn').forEach(btn=>btn.addEventListener('click',()=>setConfidence(qn,btn.dataset.level)));
+ advancedReviewCard.querySelectorAll('[data-transfer]').forEach(btn=>btn.addEventListener('click',e=>{if(hasTextSelectionInside(e.currentTarget))return;advancedTransfer[qn]=btn.dataset.transfer;renderAdvancedReview(qn);updateProgress()}));
+ document.getElementById('understandBtn').addEventListener('click',()=>{advancedDecision[qn]='understand';advancedFiled[qn]=false;renderAdvancedReview(qn)});
+ document.getElementById('fileBtn').addEventListener('click',()=>{advancedDecision[qn]='file';advancedFiled[qn]=true;ReviewBank.fileItem(bankItem(q));renderAdvancedReview(qn)});
+ const skip=document.getElementById('skipAdvancedBtn');
+ if(skip)skip.addEventListener('click',()=>{
+   advancedDecision[qn]='understand';
+   advancedFiled[qn]=false;
+   advancedIndex++;
+   if(advancedIndex>=QUESTIONS.length)showResults();else renderAdvancedQuestion();
+   updateProgress();
+ });
+ const cont=document.getElementById('continueAdvancedBtn');if(cont)cont.addEventListener('click',()=>{if(!advancedTransfer[qn]||!advancedDecision[qn])return;const masterySuccess=(responses[qn]===q.answer&&advancedTransfer[qn]===rc.answer&&advancedDecision[qn]==='understand');ReviewBank.recordMastery(bankItem(q),masterySuccess);if(advancedDecision[qn]==='file')ReviewBank.fileItem(bankItem(q));advancedIndex++;if(advancedIndex>=QUESTIONS.length)showResults();else renderAdvancedQuestion();updateProgress()});
+}
+
+gradeBtn.addEventListener('click',()=>{if(Object.keys(responses).length<QUESTIONS.length){alert(`You still have ${QUESTIONS.length-Object.keys(responses).length} unanswered question(s).`);return}QUESTIONS.forEach(q=>{locked[q.number]=true;gradeQuestion(q.number,true);recordPrimaryOnce(q.number)});resultsShown=true;paintState();showResults()});
+
+function showResults(){
+ resultsShown=true;const correct=QUESTIONS.filter(q=>responses[q.number]===q.answer).length,pct=Math.round(correct/QUESTIONS.length*100),passed=pct>=70;saveProgress(true);
+ document.getElementById('hunterImg').src=passed?HUNTER_UP:HUNTER_DOWN;document.getElementById('resultTitle').textContent=passed?'Hunter is proud of you':'Hunter says boot up anki little bro';
+ let scoreText=`${pct}% · ${correct}/${QUESTIONS.length} primary questions correct`;
+ if(mode==='advanced'){const attemptedTransfers=QUESTIONS.filter(q=>advancedTransfer[q.number]).length,transferCorrect=QUESTIONS.filter(q=>advancedTransfer[q.number]===q.reviewCheck.answer).length;scoreText+=attemptedTransfers?` · ${transferCorrect}/${attemptedTransfers} transfer checks correct`:' · No transfer checks attempted'}
+ document.getElementById('finalScore').textContent=scoreText;
+ const missed=QUESTIONS.filter(q=>responses[q.number]!==q.answer),topicMap={};QUESTIONS.forEach(q=>{topicMap[q.topic]??={total:0,missed:0,concepts:[]};topicMap[q.topic].total++;if(responses[q.number]!==q.answer){topicMap[q.topic].missed++;topicMap[q.topic].concepts.push(q.concept)}});
+ const needs=Object.entries(topicMap).filter(([,v])=>v.missed>0).sort((a,b)=>(b[1].missed/b[1].total)-(a[1].missed/a[1].total)),strong=Object.entries(topicMap).filter(([,v])=>v.missed===0).map(([k])=>k);
+ let h='';if(!missed.length)h+='<p class="strong">No primary-question review topics flagged by score.</p>';else{h+='<div class="need">Needs the most review</div><ul class="review-list">';needs.slice(0,4).forEach(([topic,v])=>h+=`<li><strong>${topic}</strong> — ${v.missed} missed of ${v.total} tested</li>`);h+='</ul>'}
+ if(mode==='advanced'){const filed=QUESTIONS.filter(q=>advancedFiled[q.number]);if(filed.length){h+='<div class="need">You manually filed these for review</div><ul class="review-list">';filed.forEach(q=>h+=`<li><strong>${q.topic}</strong> — ${q.concept}</li>`);h+='</ul>'}const transferMissed=QUESTIONS.filter(q=>advancedTransfer[q.number]&&advancedTransfer[q.number]!==q.reviewCheck.answer);if(transferMissed.length){h+='<div class="need">Transfer checks to revisit</div><ul class="review-list">';transferMissed.forEach(q=>h+=`<li><strong>${q.topic}</strong> — apply the concept to a new stem</li>`);h+='</ul>'}}
+ if(strong.length){h+='<div class="strong">Strongest areas</div><ul class="review-list">';strong.slice(0,4).forEach(t=>h+=`<li>${t}</li>`);h+='</ul>'}
+ const confidentWrong=QUESTIONS.filter(q=>confidence[q.number]==='confident'&&responses[q.number]!==q.answer),
+ confidentRight=QUESTIONS.filter(q=>confidence[q.number]==='confident'&&responses[q.number]===q.answer),
+ unsureRight=QUESTIONS.filter(q=>confidence[q.number]==='unsure'&&responses[q.number]===q.answer),
+ guessingRight=QUESTIONS.filter(q=>confidence[q.number]==='guessing'&&responses[q.number]===q.answer),
+ rated=QUESTIONS.filter(q=>confidence[q.number]).length;
+ h+=`<div class="confidence-summary"><strong>Confidence analysis</strong><div style="font-size:11px;color:var(--muted);margin-top:3px">Your most recent confidence rating is used, whether you set it before or after answering.</div><div class="confidence-grid"><div class="conf-stat"><b>${confidentWrong.length}</b><span>CONFIDENTLY WRONG</span></div><div class="conf-stat"><b>${confidentRight.length}</b><span>CONFIDENT + CORRECT</span></div><div class="conf-stat"><b>${unsureRight.length}</b><span>UNSURE BUT CORRECT</span></div><div class="conf-stat"><b>${guessingRight.length}</b><span>GUESSES THAT LANDED</span></div></div>`;
+ if(confidentWrong.length){h+='<div class="need" style="margin-top:10px">Highest-priority review: confidently wrong</div><ul class="review-list">';confidentWrong.forEach(q=>h+=`<li><strong>${q.topic}</strong> — ${q.concept}</li>`);h+='</ul>'}
+ else if(rated)h+='<p class="strong" style="margin:10px 0 0">No confidently-wrong concepts this attempt.</p>';
+ else h+='<p style="margin:10px 0 0;color:var(--muted)">No confidence ratings were selected.</p>';
+ h+='</div>';
+ const manuallyFlagged=QUESTIONS.filter(q=>isManualFlagged(q));
+ if(manuallyFlagged.length){
+   h+='<div class="need">Flagged for Review</div><ul class="review-list">';
+   manuallyFlagged.forEach(q=>h+=`<li><strong>${q.topic}</strong> — ${q.concept}</li>`);
+   h+='</ul>';
+ }
+ h+=`<div class="factoid-links"><strong>Thursday Factoid Sheets</strong><div class="factoid-row">
+ <a href="../notes/Week%205/Week%205%20Note%20Hub/Factoids/13_Palliative_Care_in_Cancer_Care_Factoid.html" target="_blank" rel="noopener">Palliative Care in Cancer Care ↗</a>
+ <a href="../notes/Week%205/Week%205%20Note%20Hub/Factoids/14_Developmental_Behavioral_Pediatrics_Factoid.html" target="_blank" rel="noopener">Introduction to Developmental-Behavioral Pediatrics ↗</a>
+ </div></div>`;
+ const activeCount=ReviewBank.getActive().length;h+=`<p style="margin-top:12px;color:var(--muted);font-size:12px">Shared review bank: ${activeCount} active concept${activeCount===1?'':'s'}.</p>`;document.getElementById('reviewBody').innerHTML=h;resultOverlay.classList.add('show');
+}
+
+let hunterClicks=0,hunterBubbleTimer=null,lastHunterMessage=-1;
+const hunterMessages=["Why are you poking me?","You do know there are questions to review, right?","Hunter has documented this behavior.","Please return to Anki immediately.","This interaction is not improving your score.","I am literally just a results screen.","There are missed questions waiting for you.","Your persistence is medically concerning.","This counts as procrastination, by the way.","Achievement unlocked: Professional Hunter Annoyer."];
+document.getElementById('hunterImg').addEventListener('click',()=>{hunterClicks++;if(hunterClicks<3)return;let idx;do{idx=Math.floor(Math.random()*hunterMessages.length)}while(hunterMessages.length>1&&idx===lastHunterMessage);lastHunterMessage=idx;const bubble=document.getElementById('hunterBubble');bubble.textContent=hunterMessages[idx];bubble.classList.add('show');clearTimeout(hunterBubbleTimer);hunterBubbleTimer=setTimeout(()=>bubble.classList.remove('show'),2200)});
+
+document.getElementById('closeResultBtn').addEventListener('click',()=>resultOverlay.classList.remove('show'));const rbLink=document.getElementById('openReviewBankBtn');if(rbLink&&location.protocol==='file:')rbLink.style.display='none';
+document.getElementById('reviewMissedBtn').addEventListener('click',()=>{resultOverlay.classList.remove('show');if(mode==='advanced'){const first=QUESTIONS.find(q=>responses[q.number]!==q.answer||advancedFiled[q.number]||advancedTransfer[q.number]!==q.reviewCheck.answer);if(first){advancedIndex=first.number-1;renderAdvancedReview(first.number)}}else{const first=QUESTIONS.find(q=>responses[q.number]!==q.answer);if(first)document.getElementById('q-'+first.number)?.scrollIntoView({behavior:'smooth',block:'start'})}});
+
+function resetState(confirmFirst=true){
+ if(confirmFirst&&Object.keys(responses).length&&!confirm('Clear all responses, confidence ratings, strike-throughs, and advanced-review decisions? Your yellow highlights will be kept.'))return;
+ responses={};struck={};confidence={};locked={};primaryRecorded={};resultsShown=false;advancedIndex=0;advancedTransfer={};advancedDecision={};advancedFiled={};hunterClicks=0;lastHunterMessage=-1;resultOverlay.classList.remove('show');
+ if(mode==='advanced')renderAdvancedQuestion();else renderQuiz();updateProgress();
+}
+document.getElementById('resetBtn').addEventListener('click',()=>resetState(true));
+
+renderQuiz();
+updateProgress();
+</script>
+</body></html>

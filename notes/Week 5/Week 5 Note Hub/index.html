@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/><title>Week 5 Note Hub</title>
+<style>
+:root{--espresso:#46362d;--brown:#654c3d;--brown2:#7c604c;--paper:#fffdf9;--ink:#3e342e;--muted:#786b62;--border:#ddd1c5;--soft:#f3eee8}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f1ede8;color:var(--ink);line-height:1.5}
+.shell{max-width:1100px;margin:0 auto;padding:40px 28px 70px}.hero{background:var(--paper);border:1px solid var(--border);border-radius:18px;padding:30px 32px;box-shadow:0 10px 32px rgba(70,54,45,.08)}
+.kicker{text-transform:uppercase;letter-spacing:.12em;font-weight:800;font-size:.78rem;color:var(--brown2)}h1{margin:6px 0 8px;color:var(--espresso);font-size:2.25rem;letter-spacing:-.025em}
+.sub{color:var(--muted);margin:0;font-size:1rem}.toolbar{display:flex;gap:12px;flex-wrap:wrap;margin:24px 0 4px}
+input[type="search"]{flex:1 1 320px;border:1px solid var(--border);background:#fff;color:var(--ink);border-radius:10px;padding:12px 14px;font-size:1rem}
+.pill{display:inline-flex;align-items:center;border:1px solid var(--border);background:var(--soft);color:var(--brown);padding:9px 12px;border-radius:999px;font-size:.88rem;font-weight:700}
+.section{margin-top:30px}.section-head{display:flex;align-items:end;justify-content:space-between;gap:16px;margin-bottom:14px}
+.day{margin:0;color:var(--brown);font-size:1.55rem}.count{color:var(--muted);font-size:.9rem}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.card{background:var(--paper);border:1px solid var(--border);border-radius:14px;padding:20px;box-shadow:0 5px 18px rgba(70,54,45,.05)}.badges{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:12px}
+.badge{background:#eee6de;color:#614838;border-radius:999px;padding:4px 8px;font-size:.76rem;font-weight:800}.card h2{font-size:1.24rem;color:var(--espresso);margin:0 0 4px}
+.lecturer{color:var(--brown2);font-weight:700;margin-bottom:10px}.desc{color:#5f534b;min-height:84px;margin-bottom:16px}
+.meta{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:10px 0;margin:12px 0 16px;font-size:.9rem;color:var(--muted)}.actions{display:flex;gap:9px;flex-wrap:wrap;align-items:center}
+a.btn{text-decoration:none;background:var(--brown);color:white;padding:10px 13px;border-radius:9px;font-weight:800;font-size:.9rem}.read{margin-left:auto;display:flex;align-items:center;gap:7px;font-size:.86rem;color:var(--muted)}
+.progress{margin-top:24px;background:#ece7e0;border:1px solid var(--border);border-radius:12px;padding:15px 18px;color:var(--brown);font-weight:700}
+.empty{display:none;background:var(--paper);border:1px dashed var(--border);border-radius:12px;padding:24px;text-align:center;color:var(--muted);margin-top:16px}
+@media(max-width:760px){.grid{grid-template-columns:1fr}.shell{padding:22px 14px 50px}.hero{padding:22px 20px}h1{font-size:1.75rem}.read{margin-left:0;width:100%}}
+
+/* Week 5 retrofit: factoid button only; original lecture-hub architecture preserved */
+a.btn.factoid{background:#eee6de;color:var(--brown);border:1px solid var(--border)}
+</style></head><body><div class="shell"><div class="hero"><div class="kicker">Lecture Summary Directory</div>
+<h1>Week 5 Note Hub</h1><p class="sub">Foundations of Cancer Biology + Holistic Patient Care • Monday through Thursday • professor emphasis + clearly separated enrichment.</p>
+<div class="toolbar"><input id="search" placeholder="Search lecturer, lecture, or topic…" type="search"/>
+<span class="pill">Monday</span><span class="pill">Tuesday</span><span class="pill">Wednesday</span><span class="pill">Thursday</span>
+<span class="pill" id="visibleCount">14 summaries</span></div></div>
+<section class="section" data-day="Monday">
+<div class="section-head"><div><div class="kicker">Monday</div><h2 class="day">Monday Lectures</h2></div>
+<div class="count">4 lecture summaries</div></div>
+<div class="grid">
+<article class="card" data-search="Introduction to Neoplasia Zach Ramsey, MD Neoplasm terminology, benign vs malignant behavior, differentiation/anaplasia, invasion, metastasis, TNM staging, and grading.">
+<div class="badges"><span class="badge">Monday • 1</span><span class="badge">High-yield enriched</span></div>
+<h2>Introduction to Neoplasia</h2><div class="lecturer">Zach Ramsey, MD</div>
+<div class="desc">Neoplasm terminology, benign vs malignant behavior, differentiation/anaplasia, invasion, metastasis, TNM staging, and grading.</div>
+<div class="meta">Learning-objective based • Professor emphasis preserved • High-yield callouts</div>
+<div class="actions"><a class="btn" href="Monday/01_Ramsey_Introduction_to_Neoplasia.html">Open summary</a><a class="btn factoid" href="Factoids/01_Introduction_to_Neoplasia_Factoid.html">Factoid Sheet</a>
+<label class="read"><input data-id="ramsey-neoplasia" type="checkbox"/> Mark reviewed</label></div>
+</article>
+<article class="card" data-search="Genetic Testing for Familial Cancer Syndromes John W. Henson, MD Hereditary-cancer red flags, germline vs somatic testing, Lynch, FAP, HBOC/BRCA, variant classification, cascade testing, GeneReviews, and NCCN.">
+<div class="badges"><span class="badge">Monday • 2</span><span class="badge">High-yield enriched</span></div>
+<h2>Genetic Testing for Familial Cancer Syndromes</h2><div class="lecturer">John W. Henson, MD</div>
+<div class="desc">Hereditary-cancer red flags, germline vs somatic testing, Lynch, FAP, HBOC/BRCA, variant classification, cascade testing, GeneReviews, and NCCN.</div>
+<div class="meta">Learning-objective based • Professor emphasis preserved • High-yield callouts</div>
+<div class="actions"><a class="btn" href="Monday/02_Henson_Genetic_Testing_Familial_Cancer.html">Open summary</a><a class="btn factoid" href="Factoids/02_Genetic_Testing_Familial_Cancer_Factoid.html">Factoid Sheet</a>
+<label class="read"><input data-id="henson-genetics" type="checkbox"/> Mark reviewed</label></div>
+</article>
+<article class="card" data-search="Molecular Diagnostics Puttur D. Prasad, Ph.D. DNA amplification and cloning, PCR/RT-PCR, blotting, sequencing, RFLP/VNTR/STR analysis, and gene therapy.">
+<div class="badges"><span class="badge">Monday • 3</span><span class="badge">High-yield enriched</span></div>
+<h2>Molecular Diagnostics</h2><div class="lecturer">Puttur D. Prasad, Ph.D.</div>
+<div class="desc">DNA amplification and cloning, PCR/RT-PCR, blotting, sequencing, RFLP/VNTR/STR analysis, and gene therapy.</div>
+<div class="meta">Learning-objective based • Professor emphasis preserved • High-yield callouts</div>
+<div class="actions"><a class="btn" href="Monday/03_Prasad_Molecular_Diagnostics.html">Open summary</a><a class="btn factoid" href="Factoids/03_Molecular_Diagnostics_Factoid.html">Factoid Sheet</a>
+<label class="read"><input data-id="prasad-mdx" type="checkbox"/> Mark reviewed</label></div>
+</article>
+<article class="card" data-search="Molecular Cytogenetics Patricia Schoenlein, Ph.D. Chromosome structure, karyotyping vs FISH, trisomies, nondisjunction, Robertsonian translocations, mosaicism, and microdeletions.">
+<div class="badges"><span class="badge">Monday • 4</span><span class="badge">High-yield enriched</span></div>
+<h2>Molecular Cytogenetics</h2><div class="lecturer">Patricia Schoenlein, Ph.D.</div>
+<div class="desc">Chromosome structure, karyotyping vs FISH, trisomies, nondisjunction, Robertsonian translocations, mosaicism, and microdeletions.</div>
+<div class="meta">Learning-objective based • Professor emphasis preserved • High-yield callouts</div>
+<div class="actions"><a class="btn" href="Monday/04_Schoenlein_Molecular_Cytogenetics.html">Open summary</a><a class="btn factoid" href="Factoids/04_Molecular_Cytogenetics_Factoid.html">Factoid Sheet</a>
+<label class="read"><input data-id="schoenlein-cyto" type="checkbox"/> Mark reviewed</label></div>
+</article></div>
+</section>
+<section class="section" data-day="Tuesday">
+<div class="section-head"><div><div class="kicker">Tuesday</div><h2 class="day">Tuesday Lectures</h2></div>
+<div class="count">4 lecture summaries</div></div>
+<div class="grid">
+<article class="card" data-search="Carcinogenesis and Epidemiology Zach Ramsey, MD Oncogenes, tumor suppressors, apoptosis and DNA repair, chemical/radiation/microbial carcinogenesis, and cancer incidence/mortality.">
+<div class="badges"><span class="badge">Tuesday • 1</span><span class="badge">High-yield enriched</span></div>
+<h2>Carcinogenesis and Epidemiology</h2><div class="lecturer">Zach Ramsey, MD</div>
+<div class="desc">Oncogenes, tumor suppressors, apoptosis and DNA repair, chemical/radiation/microbial carcinogenesis, and cancer incidence/mortality.</div>
+<div class="meta">Learning-objective based • Professor emphasis preserved • High-yield callouts</div>
+<div class="actions"><a class="btn" href="Tuesday/01_Ramsey_Carcinogenesis_and_Epidemiology.html">Open summary</a><a class="btn factoid" href="Factoids/05_Carcinogenesis_and_Epidemiology_Factoid.html">Factoid Sheet</a>
+<label class="read"><input data-id="ramsey-carcinogenesis" type="checkbox"/> Mark reviewed</label></div>
+</article>
+<article class="card" data-search="Nucleotide Metabolism Puttur D. Prasad Purine synthesis/salvage, gout and tumor lysis, Lesch-Nyhan and ADA deficiency, pyrimidines/orotic aciduria, ribonucleotide reductase, and antimetabolite drugs.">
+<div class="badges"><span class="badge">Tuesday • 2</span><span class="badge">High-yield enriched</span></div>
+<h2>Nucleotide Metabolism</h2><div class="lecturer">Puttur D. Prasad</div>
+<div class="desc">Purine synthesis/salvage, gout and tumor lysis, Lesch-Nyhan and ADA deficiency, pyrimidines/orotic aciduria, ribonucleotide reductase, and antimetabolite drugs.</div>
+<div class="meta">Learning-objective based • Professor emphasis preserved • High-yield callouts</div>
+<div class="actions"><a class="btn" href="Tuesday/02_Prasad_Nucleotide_Metabolism.html">Open summary</a><a class="btn factoid" href="Factoids/06_Nucleotide_Metabolism_Factoid.html">Factoid Sheet</a>
+<label class="read"><input data-id="prasad-nucleotides" type="checkbox"/> Mark reviewed</label></div>
+</article>
+<article class="card" data-search="Molecular Cytogenetics of Cancer Pat Schoenlein, Ph.D. BCL2 and BCR-ABL rearrangements, genomic instability, p53, gene amplification, MYCN, MDM2, Cyclin D1, HER2, and cancer drug resistance.">
+<div class="badges"><span class="badge">Tuesday • 3</span><span class="badge">High-yield enriched</span></div>
+<h2>Molecular Cytogenetics of Cancer</h2><div class="lecturer">Pat Schoenlein, Ph.D.</div>
+<div class="desc">BCL2 and BCR-ABL rearrangements, genomic instability, p53, gene amplification, MYCN, MDM2, Cyclin D1, HER2, and cancer drug resistance.</div>
+<div class="meta">Learning-objective based • Professor emphasis preserved • High-yield callouts</div>
+<div class="actions"><a class="btn" href="Tuesday/03_Schoenlein_Molecular_Cytogenetics_of_Cancer.html">Open summary</a><a class="btn factoid" href="Factoids/07_Molecular_Cytogenetics_of_Cancer_Factoid.html">Factoid Sheet</a>
+<label class="read"><input data-id="schoenlein-cancer-cyto" type="checkbox"/> Mark reviewed</label></div>
+</article>
+<article class="card" data-search="Cancer Survival Mechanisms Vinata B. Lokeshwar, Ph.D. Cell-cycle escape, apoptosis resistance, telomerase, Warburg metabolism, mutant IDH, angiogenesis, metastasis, and treatment resistance.">
+<div class="badges"><span class="badge">Tuesday • 4</span><span class="badge">High-yield enriched</span></div>
+<h2>Cancer Survival Mechanisms</h2><div class="lecturer">Vinata B. Lokeshwar, Ph.D.</div>
+<div class="desc">Cell-cycle escape, apoptosis resistance, telomerase, Warburg metabolism, mutant IDH, angiogenesis, metastasis, and treatment resistance.</div>
+<div class="meta">Learning-objective based • Professor emphasis preserved • High-yield callouts</div>
+<div class="actions"><a class="btn" href="Tuesday/04_Lokeshwar_Cancer_Survival_Mechanisms.html">Open summary</a><a class="btn factoid" href="Factoids/08_Cancer_Survival_Mechanisms_Factoid.html">Factoid Sheet</a>
+<label class="read"><input data-id="lokeshwar-survival" type="checkbox"/> Mark reviewed</label></div>
+</article></div>
+</section>
+<section class="section" data-day="Wednesday">
+<div class="section-head"><div><div class="kicker">Wednesday</div><h2 class="day">Wednesday Lectures</h2></div>
+<div class="count">4 lecture summaries</div></div>
+<div class="grid">
+<article class="card" data-search="Foundations of Cancer Screening &amp; Diagnosis Giri Raval Screening risk/benefit, test characteristics and bias, major cancer screening approaches, clinical presentation, pathology, liquid biopsy, and staging.">
+<div class="badges"><span class="badge">Wednesday • 1</span><span class="badge">High-yield enriched</span></div>
+<h2>Foundations of Cancer Screening &amp; Diagnosis</h2><div class="lecturer">Giri Raval</div>
+<div class="desc">Screening risk/benefit, test characteristics and bias, major cancer screening approaches, clinical presentation, pathology, liquid biopsy, and staging.</div>
+<div class="meta">Learning-objective based • Professor emphasis preserved • High-yield callouts</div>
+<div class="actions"><a class="btn" href="Wednesday/01_Raval_Foundations_Cancer_Screening_Diagnosis.html">Open summary</a><a class="btn factoid" href="Factoids/09_Cancer_Screening_and_Diagnosis_Factoid.html">Factoid Sheet</a>
+<label class="read"><input data-id="raval-screening" type="checkbox"/> Mark reviewed</label></div>
+</article>
+<article class="card" data-search="Foundations of Cancer Treatment Priyanka Raval, MD Surgery, radiation biology and fractionation, chemotherapy rationale, pulsed intermittent therapy, drug classes, toxicities, and oncologic emergencies.">
+<div class="badges"><span class="badge">Wednesday • 2</span><span class="badge">High-yield enriched</span></div>
+<h2>Foundations of Cancer Treatment</h2><div class="lecturer">Priyanka Raval, MD</div>
+<div class="desc">Surgery, radiation biology and fractionation, chemotherapy rationale, pulsed intermittent therapy, drug classes, toxicities, and oncologic emergencies.</div>
+<div class="meta">Learning-objective based • Professor emphasis preserved • High-yield callouts</div>
+<div class="actions"><a class="btn" href="Wednesday/02_Raval_Foundations_Cancer_Treatment.html">Open summary</a><a class="btn factoid" href="Factoids/10_Foundations_of_Cancer_Treatment_Factoid.html">Factoid Sheet</a>
+<label class="read"><input data-id="raval-treatment" type="checkbox"/> Mark reviewed</label></div>
+</article>
+<article class="card" data-search="Individualizing Care of the Cancer Patient Giri Raval Clonal selection, precision medicine, molecular profiling, pharmacogenetics, actionable somatic mutations, endocrine therapy, targeted therapy, and immunotherapy.">
+<div class="badges"><span class="badge">Wednesday • 3</span><span class="badge">High-yield enriched</span></div>
+<h2>Individualizing Care of the Cancer Patient</h2><div class="lecturer">Giri Raval</div>
+<div class="desc">Clonal selection, precision medicine, molecular profiling, pharmacogenetics, actionable somatic mutations, endocrine therapy, targeted therapy, and immunotherapy.</div>
+<div class="meta">Learning-objective based • Professor emphasis preserved • High-yield callouts</div>
+<div class="actions"><a class="btn" href="Wednesday/03_Raval_Individualizing_Care_Cancer_Patient.html">Open summary</a><a class="btn factoid" href="Factoids/11_Individualizing_Cancer_Care_Factoid.html">Factoid Sheet</a>
+<label class="read"><input data-id="raval-personalized" type="checkbox"/> Mark reviewed</label></div>
+</article>
+<article class="card" data-search="Genetic Counseling for Familial Cancers Charlaine Conger, NP-C Hereditary-cancer referral, pedigree assessment, pretest considerations, benign/VUS/pathogenic results, cascade testing, NCCN, and GeneReviews.">
+<div class="badges"><span class="badge">Wednesday • 4</span><span class="badge">High-yield enriched</span></div>
+<h2>Genetic Counseling for Familial Cancers</h2><div class="lecturer">Charlaine Conger, NP-C</div>
+<div class="desc">Hereditary-cancer referral, pedigree assessment, pretest considerations, benign/VUS/pathogenic results, cascade testing, NCCN, and GeneReviews.</div>
+<div class="meta">Learning-objective based • Professor emphasis preserved • High-yield callouts</div>
+<div class="actions"><a class="btn" href="Wednesday/04_Conger_Genetic_Counseling_Familial_Cancers.html">Open summary</a><a class="btn factoid" href="Factoids/12_Genetic_Counseling_Familial_Cancers_Factoid.html">Factoid Sheet</a>
+<label class="read"><input data-id="conger-genetics" type="checkbox"/> Mark reviewed</label></div>
+</article></div>
+</section>
+<section class="section" data-day="Thursday">
+<div class="section-head"><div><div class="kicker">Thursday</div><h2 class="day">Thursday Lectures</h2></div>
+<div class="count">2 lecture summaries</div></div>
+<div class="grid">
+<article class="card" data-search="Palliative Care in Cancer Care Pamela Tipler, DO, FACP, DTM&amp;H Palliative care vs hospice, referral triggers, goals-of-care communication, cancer pain, opioids, dyspnea, delirium, and end-of-life symptom management.">
+<div class="badges"><span class="badge">Thursday • 1</span><span class="badge">High-yield enriched</span></div>
+<h2>Palliative Care in Cancer Care</h2><div class="lecturer">Pamela Tipler, DO, FACP, DTM&amp;H</div>
+<div class="desc">Palliative care vs hospice, referral triggers, goals-of-care communication, cancer pain, opioids, dyspnea, delirium, and end-of-life symptom management.</div>
+<div class="meta">Learning-objective based • Professor emphasis preserved • High-yield callouts</div>
+<div class="actions"><a class="btn" href="Thursday/01_Tipler_Palliative_Care_in_Cancer_Care.html">Open summary</a><a class="btn factoid" href="Factoids/13_Palliative_Care_in_Cancer_Care_Factoid.html">Factoid Sheet</a>
+<label class="read"><input data-id="tipler-palliative" type="checkbox"/> Mark reviewed</label></div>
+</article>
+<article class="card" data-search="Introduction to Developmental-Behavioral Pediatrics Kendall Abbas, MD Developmental domains, nature and nurture, epigenetics, toxic stress and ACEs, resilience, therapeutic alliance, SHARE, implicit bias, and disability-inclusive care.">
+<div class="badges"><span class="badge">Thursday • 2</span><span class="badge">High-yield enriched</span></div>
+<h2>Introduction to Developmental-Behavioral Pediatrics</h2><div class="lecturer">Kendall Abbas, MD</div>
+<div class="desc">Developmental domains, nature and nurture, epigenetics, toxic stress and ACEs, resilience, therapeutic alliance, SHARE, implicit bias, and disability-inclusive care.</div>
+<div class="meta">Learning-objective based • Professor emphasis preserved • High-yield callouts</div>
+<div class="actions"><a class="btn" href="Thursday/02_Abbas_Introduction_to_Developmental_Behavioral_Pediatrics.html">Open summary</a><a class="btn factoid" href="Factoids/14_Developmental_Behavioral_Pediatrics_Factoid.html">Factoid Sheet</a>
+<label class="read"><input data-id="abbas-dbp" type="checkbox"/> Mark reviewed</label></div>
+</article></div>
+</section>
+<div class="empty" id="emptyState">No lecture summaries match your search.</div>
+<div class="progress">Progress: <span id="progressText">0 of 14 reviewed</span></div></div>
+<script>
+const search=document.getElementById('search');const cards=[...document.querySelectorAll('.card')];const sections=[...document.querySelectorAll('.section')];
+const emptyState=document.getElementById('emptyState');const visibleCount=document.getElementById('visibleCount');const checks=[...document.querySelectorAll('input[type="checkbox"][data-id]')];
+const progressText=document.getElementById('progressText');
+function refreshSearch(){const q=search.value.trim().toLowerCase();let visible=0;cards.forEach(card=>{const hay=(card.dataset.search+' '+card.innerText).toLowerCase();const show=!q||hay.includes(q);card.style.display=show?'':'none';if(show)visible++;});
+sections.forEach(section=>{const sectionCards=[...section.querySelectorAll('.card')];section.style.display=sectionCards.some(c=>c.style.display!=='none')?'':'none';});
+visibleCount.textContent=visible+(visible===1?' summary':' summaries');emptyState.style.display=visible?'none':'block';}
+function refreshProgress(){const done=checks.filter(c=>c.checked).length;progressText.textContent=`${done} of ${checks.length} reviewed`;}
+checks.forEach(c=>{const key='w5-summary-'+c.dataset.id;c.checked=localStorage.getItem(key)==='1';c.addEventListener('change',()=>{localStorage.setItem(key,c.checked?'1':'0');refreshProgress();});});
+search.addEventListener('input',refreshSearch);refreshSearch();refreshProgress();
+</script></body></html>

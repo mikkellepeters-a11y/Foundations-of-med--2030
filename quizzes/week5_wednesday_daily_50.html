@@ -1,0 +1,644 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Week 5 Wednesday Daily Quiz — Foundations of Cancer</title>
+<style>
+:root{
+  --bg:#f3ece3;--paper:#fffaf4;--paper2:#f8f1e9;--ink:#3e3028;--muted:#78695f;
+  --line:#dccfc3;--brown:#694a39;--brown-dark:#4a3428;--brown-soft:#8a654f;
+  --tan:#eee5dc;--tan2:#e8ddd1;--good:#55704e;--goodbg:#e9f1e5;
+  --bad:#92584f;--badbg:#f6e6e3;--gold:#9d7c45;--goldbg:#f5ecdb;
+  --highlight:#f6dd74;--shadow:0 14px 34px rgba(65,43,31,.08)
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(circle at top left,rgba(255,255,255,.55),transparent 30%),var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+button{font:inherit}a{text-decoration:none;color:inherit}
+.hero{background:linear-gradient(135deg,var(--brown-dark),var(--brown),var(--brown-soft));color:#fff;padding:20px 22px 32px}
+.hero-inner,main{max-width:1040px;margin:auto}
+.hero-top{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:24px}
+.back-link{display:inline-flex;align-items:center;gap:8px;padding:8px 11px;border:1px solid rgba(255,255,255,.17);border-radius:999px;background:rgba(255,255,255,.08);color:rgba(255,255,255,.88);font-size:12px;font-weight:800}
+.quiz-kicker{font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;opacity:.7}
+.hero-main{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center}
+.hero-icon{width:70px;height:70px;border-radius:21px;display:grid;place-items:center;background:radial-gradient(circle at 32% 24%,rgba(255,255,255,.96),rgba(244,229,218,.9) 48%,rgba(223,204,190,.92));border:1px solid rgba(255,255,255,.25);box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 10px 22px rgba(35,22,15,.14)}
+.hero-icon svg{width:49px;height:49px}.hero h1{margin:0;font-size:clamp(30px,5vw,48px);line-height:1.03;letter-spacing:-.035em}
+.hero p{margin:9px 0 0;color:rgba(255,255,255,.8);max-width:800px;font-size:14px;line-height:1.55}
+.modebar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:19px}.modebtn{border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.08);color:white;border-radius:12px;padding:9px 12px;font-weight:800;font-size:12px;cursor:pointer;transition:.16s}
+.modebtn:hover{background:rgba(255,255,255,.12)}.modebtn.active{background:white;color:var(--brown);border-color:white}.mode-note{font-size:11px;color:rgba(255,255,255,.72);flex-basis:100%;margin-top:1px}
+main{padding:20px 18px 60px}.progress-shell{position:sticky;top:0;z-index:20;background:rgba(243,236,227,.94);backdrop-filter:blur(12px);padding:10px 0 12px}
+.progress-card{background:rgba(255,250,244,.94);border:1px solid var(--line);border-radius:17px;padding:12px 14px;box-shadow:0 7px 20px rgba(65,43,31,.06)}
+.progress-row{display:flex;justify-content:space-between;gap:10px;font-size:12px;font-weight:850}.progress-track{height:7px;background:#e5d9ce;border-radius:999px;overflow:hidden;margin-top:9px}.progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--brown-soft),var(--brown));transition:.2s}
+.study-tools{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-top:10px;padding-top:10px;border-top:1px solid #eadfd6}.tool-label{font-size:10px;font-weight:900;color:var(--brown-soft);text-transform:uppercase;letter-spacing:.08em;margin-right:2px}
+.tool-btn{border:1px solid var(--line);background:var(--paper2);color:var(--brown);border-radius:10px;padding:7px 9px;font-size:11px;font-weight:800;cursor:pointer}.tool-btn:hover{background:#efe4da}.tool-btn.danger{color:#81554f}.tool-status{font-size:10px;color:var(--muted);margin-left:auto;max-width:330px;text-align:right}
+mark.study-highlight{background:var(--highlight);color:inherit;border-radius:3px;padding:0 .06em;box-shadow:inset 0 -1px 0 rgba(122,91,37,.12)}
+.highlightable{user-select:text;-webkit-user-select:text}.choice-copy{user-select:text;-webkit-user-select:text}
+.question,.advanced-card,.review-card{background:linear-gradient(180deg,var(--paper),#fdf7f0);border:1px solid var(--line);border-radius:20px;padding:21px;margin:0 0 15px;box-shadow:var(--shadow);scroll-margin-top:132px}
+.qtop{display:flex;justify-content:space-between;gap:12px;align-items:center}.qnum{display:inline-flex;align-items:center;padding:6px 9px;border-radius:999px;background:var(--tan);border:1px solid var(--tan2);font-size:11px;font-weight:900;color:var(--brown);letter-spacing:.02em}.tags{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.tag{font-size:9px;font-weight:850;padding:5px 7px;border-radius:999px;border:1px solid var(--line);background:var(--paper2);color:var(--muted)}
+.stem{font-size:17px;line-height:1.58;margin:15px 0 15px;font-weight:600}.choices{display:grid;gap:9px}.choice-row{display:grid;grid-template-columns:1fr auto;gap:8px}
+.choice{width:100%;text-align:left;border:1px solid var(--line);background:#fffdfa;border-radius:14px;padding:11px 13px;cursor:pointer;color:var(--ink);line-height:1.45;display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:start;transition:border-color .14s,background .14s,transform .14s}
+.choice:hover{border-color:#c9b7a8;background:#fffaf5}.choice-letter{width:28px;height:28px;border-radius:9px;display:grid;place-items:center;background:#f1e7de;border:1px solid #e1d4c9;color:var(--brown);font-size:11px;font-weight:900;user-select:none}.choice-copy{padding-top:4px}
+.choice.selected{border:2px solid var(--brown-soft);background:#f3e8df}.choice.selected .choice-letter{background:var(--brown);border-color:var(--brown);color:#fff}.choice.correct{border:2px solid var(--good);background:var(--goodbg);color:#30442d}.choice.correct .choice-letter{background:var(--good);border-color:var(--good);color:#fff}.choice.wrong{border:2px solid var(--bad);background:var(--badbg);color:#6f3f39}.choice.wrong .choice-letter{background:var(--bad);border-color:var(--bad);color:#fff}
+.choice.struck{text-decoration:line-through;opacity:.52;background:#f0ece8}.strike{min-width:43px;border:1px solid var(--line);background:var(--paper2);border-radius:13px;cursor:pointer;font-weight:900;color:var(--muted)}.strike.active{background:#e7ddd4}
+.feedback{display:none;margin-top:12px;padding:12px 13px;border-radius:12px;font-size:13px;line-height:1.52}.feedback.show.good{display:block;background:var(--goodbg);border:1px solid #c7d6c1;color:#355231}.feedback.show.bad{display:block;background:var(--badbg);border:1px solid #dfc1bb;color:#713f39}
+.confidence-wrap{margin-top:14px;padding-top:13px;border-top:1px dashed var(--line)}
+.confidence-panel{padding:11px 12px;border:1px solid var(--line);border-radius:13px;background:#fffaf5}
+.confidence-label{font-size:10px;font-weight:900;color:var(--muted);margin-bottom:3px;text-transform:uppercase;letter-spacing:.07em}
+.confidence-note{font-size:10px;color:#907f73;margin-bottom:8px;line-height:1.35}
+.confidence-buttons{display:flex;gap:6px;flex-wrap:wrap}
+.confidence-btn{border:1px solid var(--line);background:var(--paper2);color:var(--muted);border-radius:999px;padding:7px 10px;font-size:10px;font-weight:800;cursor:pointer}
+.confidence-btn:hover{border-color:#c9b7a8;background:#f8eee6}
+.confidence-btn.active{background:var(--brown);color:#fff;border-color:var(--brown)}
+.bottom-actions,.review-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:24px 0}.primary,.secondary,.review-decision{border-radius:12px;padding:11px 16px;font-weight:850;cursor:pointer;font-size:12px}.primary{border:none;background:var(--brown);color:white}.secondary{border:1px solid var(--line);background:var(--paper);color:var(--brown)}.primary:disabled{opacity:.45;cursor:not-allowed}#gradeBtn{display:none}
+.advanced-shell{display:none}.advanced-shell.show{display:block}#quiz.hidden{display:none}.advanced-progress-label{font-size:10px;font-weight:900;color:var(--brown-soft);text-transform:uppercase;letter-spacing:.08em;margin-bottom:7px}.review-card{display:none;border-color:#c8b18f;background:linear-gradient(180deg,#fffaf4,#f7eee2)}.review-card.show{display:block}.review-title{font-size:24px;font-weight:900;color:var(--brown);margin:0 0 8px}.review-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}.meta-card{border:1px solid var(--line);border-radius:11px;padding:10px;background:#fffaf4}.meta-card span{display:block;font-size:9px;font-weight:850;letter-spacing:.07em;color:var(--muted);text-transform:uppercase;margin-bottom:4px}.meta-card strong{font-size:13px;color:var(--brown)}.concept-box{padding:12px 14px;border-radius:11px;background:var(--goldbg);border:1px solid #dfcda9;line-height:1.45;margin:12px 0}.concept-box strong{color:#735b2c}.transfer{margin-top:18px;padding-top:17px;border-top:1px solid var(--line)}.transfer h3{margin:0 0 8px;color:var(--brown)}.transfer-status{margin:10px 0;padding:10px 12px;border-radius:10px;display:none;font-size:13px;line-height:1.45}.transfer-status.show.good{display:block;background:var(--goodbg);border:1px solid #c7d6c1;color:#355231}.transfer-status.show.bad{display:block;background:var(--badbg);border:1px solid #dfc1bb;color:#713f39}.decision-box{margin-top:18px;padding:14px;border:1px solid var(--line);border-radius:12px;background:#fffaf4}.decision-box h3{margin:0 0 5px;font-size:16px}.decision-box p{margin:0 0 10px;color:var(--muted);font-size:12px}.review-decision{border:1px solid var(--line);background:var(--paper2);color:var(--brown)}.review-decision.active-understand{background:var(--goodbg);border-color:#adc3a5;color:#355231}.review-decision.active-file{background:var(--badbg);border-color:#d6ada5;color:#713f39}
+.result-overlay{position:fixed;inset:0;background:rgba(45,31,24,.70);z-index:100;display:none;align-items:flex-start;justify-content:center;padding:30px 14px;overflow:auto}.result-overlay.show{display:flex}.result-card{width:min(760px,100%);background:var(--paper);border-radius:22px;border:1px solid var(--line);box-shadow:0 26px 80px rgba(0,0,0,.25);overflow:hidden}.result-grid{display:grid;grid-template-columns:240px 1fr}.hunter-wrap{position:relative;min-height:320px;background:#ddd}.hunter-img{width:100%;height:100%;min-height:320px;object-fit:cover;cursor:pointer;user-select:none;-webkit-user-drag:none}.hunter-bubble{position:absolute;left:12px;right:12px;bottom:12px;background:rgba(255,250,244,.96);border:1px solid var(--line);border-radius:12px;padding:10px 12px;color:var(--brown);font-size:13px;font-weight:850;text-align:center;opacity:0;transform:translateY(8px);transition:.18s;pointer-events:none}.hunter-bubble.show{opacity:1;transform:translateY(0)}.result-content{padding:24px}.result-content h2{margin:0 0 5px;color:var(--brown);font-size:29px}.score-big{font-size:24px;font-weight:900;margin:6px 0 14px}.review-box{border-top:1px solid var(--line);margin-top:15px;padding-top:15px}.review-list{margin:6px 0 14px;padding-left:20px}.review-list li{margin:5px 0;line-height:1.35}.strong{color:var(--good);font-weight:800}.need{color:var(--bad);font-weight:800}.confidence-summary{margin-top:10px;padding:10px 12px;border-radius:10px;background:#f5ede4;border:1px solid var(--line)}.confidence-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:8px}.conf-stat{padding:9px 10px;border:1px solid var(--line);border-radius:9px;background:#fffaf4}.conf-stat b{display:block;font-size:18px;color:var(--brown)}.conf-stat span{font-size:10px;color:var(--muted)}.result-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.footer-note{max-width:1040px;margin:-34px auto 42px;padding:0 18px;color:var(--muted);font-size:11px;line-height:1.5}
+@media(max-width:720px){.hero-main{grid-template-columns:1fr}.hero-icon{width:60px;height:60px}.hero-top{align-items:flex-start}.qtop{flex-direction:column;align-items:flex-start}.tags{justify-content:flex-start}.review-meta{grid-template-columns:1fr}.result-grid{grid-template-columns:1fr}.hunter-wrap,.hunter-img{min-height:260px;height:260px}.confidence-grid{grid-template-columns:1fr}.tool-status{flex-basis:100%;max-width:none;text-align:left;margin-left:0}}
+</style>
+
+<style>
+.flag-btn{border:1px solid var(--line);background:var(--paper2);color:var(--brown);border-radius:999px;padding:7px 10px;font-size:10px;font-weight:900;cursor:pointer;white-space:nowrap}
+.flag-btn:hover{background:#f2e7de;border-color:#c8b5a6}
+.flag-btn.active{background:var(--brown);color:#fff;border-color:var(--brown)}
+.review-resource{margin:14px 0 4px;padding:12px 13px;border:1px solid #dfd0c3;border-radius:13px;background:#fff8ef;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.review-resource span{font-size:10px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.review-resource a,.factoid-links a{color:var(--brown);font-weight:900;text-decoration:none}
+.review-resource a:hover,.factoid-links a:hover{text-decoration:underline}
+.factoid-links{margin-top:14px;padding:12px 13px;border:1px solid var(--line);border-radius:13px;background:#fffaf5}
+.factoid-links strong{display:block;margin-bottom:7px}
+.factoid-row{display:flex;gap:8px;flex-wrap:wrap}
+.factoid-row a{display:inline-flex;padding:7px 9px;border-radius:9px;background:var(--tan);font-size:11px}
+@media(max-width:560px){.qtop{align-items:flex-start}.flag-btn{font-size:9.5px;padding:6px 8px}}
+</style>
+
+</head>
+<body>
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-top">
+      <a class="back-link" href="../notes/Week%205/Week%205%20Note%20Hub/index.html">← Week 5 Hub</a>
+      <div class="quiz-kicker">FOUNDATIONS OF MEDICINE · WEEK 5</div>
+    </div>
+    <div class="hero-main">
+      <div class="hero-icon" aria-hidden="true">
+        <svg viewBox="0 0 48 48" role="img" aria-label="Cancer biology cell symbol">
+          <circle cx="24" cy="24" r="15" fill="#e8d5c7" stroke="#654735" stroke-width="1.8"/>
+          <circle cx="21" cy="22" r="6.2" fill="#f7eee7" stroke="#8a654f" stroke-width="1.5"/>
+          <circle cx="31.5" cy="17" r="2.1" fill="#b98f72"/><circle cx="32" cy="30" r="2.6" fill="#c99b7c"/>
+          <path d="M10 13l4.2 3.2M36 9l-2.8 5M39 35l-4.2-3.1M9 34l4.8-2.3" fill="none" stroke="#8a654f" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div><div><h1>Wednesday Daily Quiz</h1><p>Foundations of Cancer Screening &amp; Diagnosis · Foundations of Cancer Treatment · Individualizing Care of the Cancer Patient · Genetic Counseling for Familial Cancers · 50 mixed questions</p></div>
+    </div>
+    <div class="modebar">
+      <button class="modebtn active" id="practiceMode" type="button">Practice</button>
+      <button class="modebtn" id="examMode" type="button">Exam</button>
+      <button class="modebtn" id="advancedMode" type="button">Advanced Review</button>
+      <span class="mode-note" id="modeNote">Immediate feedback is ON.</span>
+    </div>
+  </div>
+</header>
+<main>
+  <div class="progress-shell">
+    <div class="progress-card">
+      <div class="progress-row"><span id="answeredLabel">0 of 50 answered</span><span id="scoreLabel">Practice score: —</span></div>
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="study-tools" aria-label="Study tools">
+        <span class="tool-label">Highlight</span>
+        <button class="tool-btn" id="highlightBtn" type="button">Highlight selection</button>
+        <button class="tool-btn" id="eraseHighlightBtn" type="button">Erase selected highlight</button>
+        <button class="tool-btn danger" id="clearHighlightsBtn" type="button">Clear all</button>
+        <span class="tool-status" id="highlightStatus">Select text in a question stem or answer choice.</span>
+      </div>
+    </div>
+  </div>
+
+<div id="quiz"></div>
+
+<div class="advanced-shell" id="advancedShell">
+  <div class="advanced-card" id="advancedQuestionCard"></div>
+  <div class="review-card" id="advancedReviewCard"></div>
+</div>
+
+<div class="bottom-actions">
+<button class="primary" id="gradeBtn" type="button">Grade Quiz</button>
+<button class="secondary" id="resetBtn" type="button">Reset Quiz</button>
+</div>
+<footer class="footer-note">Source basis: the Week 5 lecture companions, official Week 5 objectives, and Week 5 high-yield review for this day. Yellow highlights are stored in this browser and are intentionally preserved when the quiz is reset.</footer>
+</main>
+
+<div class="result-overlay" id="resultOverlay" role="dialog" aria-modal="true" aria-labelledby="resultTitle">
+<div class="result-card"><div class="result-grid">
+<div class="hunter-wrap"><img class="hunter-img" id="hunterImg" alt="Hunter result reaction"><div class="hunter-bubble" id="hunterBubble" aria-live="polite"></div></div>
+<div class="result-content"><h2 id="resultTitle"></h2><div class="score-big" id="finalScore"></div><div class="review-box"><h3>Hunter's Review</h3><div id="reviewBody"></div></div>
+<div class="result-actions"><button class="primary" id="reviewMissedBtn" type="button">Review missed questions</button><a class="secondary" id="openReviewBankBtn" href="../notes/review/Review_the_Module_COMPLETE_WEEK8.html" style="text-decoration:none;display:inline-flex;align-items:center;justify-content:center">Open Highly Missed Quiz</a><button class="secondary" id="closeResultBtn" type="button">Close</button></div>
+</div></div></div></div>
+
+<script>
+const QUESTIONS=[{"difficulty":"Intermediate","lecture":"Foundations of Cancer Screening & Diagnosis","topic":"Lung screening","concept":"Low-dose CT is the established screening modality for appropriate high-risk smokers and reduced lung-cancer mortality in the NLST.","stem":"A 63-year-old current smoker with a 35 pack-year history asks about lung-cancer screening. Which modality is specifically recommended for high-risk smokers in the lecture?","options":["Annual chest x-ray","PET scan every two years","Annual low-dose CT","Bronchoscopy every year","Serum tumor-marker testing alone"],"answer":"C","explanation":"Low-dose CT is the established screening modality for appropriate high-risk smokers and reduced lung-cancer mortality in the NLST.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/09_Cancer_Screening_and_Diagnosis_Factoid.html","factoidLabel":"Foundations of Cancer Screening & Diagnosis","number":1,"reviewCheck":{"stem":"What is being described here: Identifies molecular alterations.","options":["Liquid biopsy","NGS","Diagnose","Lead-time bias","Specificity"],"answer":"B","explanation":"NGS: Identifies molecular alterations."}},{"difficulty":"Step 1-style","lecture":"Foundations of Cancer Screening & Diagnosis","topic":"Colorectal screening","concept":"Liquid biopsy uses blood to detect circulating tumor material and can help monitor recurrence or molecular evolution.","stem":"A patient with treated lung adenocarcinoma requires serial molecular monitoring for emerging mutations without repeated tissue biopsies. Which technique best fits the purpose described in the lecture?","options":["Pap cytology","Conventional karyotype of normal skin cells","Colonoscopy","Liquid biopsy for circulating tumor cells or cell-free tumor DNA","Bone scan only"],"answer":"D","explanation":"Liquid biopsy uses blood to detect circulating tumor material and can help monitor recurrence or molecular evolution.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/09_Cancer_Screening_and_Diagnosis_Factoid.html","factoidLabel":"Foundations of Cancer Screening & Diagnosis","number":2,"reviewCheck":{"stem":"Which option correctly describes Liquid biopsy?","options":["P(test + | disease); high sensitivity → few false negatives.","Asymptomatic population.","Circulating tumor-derived information; not a universal replacement for tissue.","P(no disease | negative); generally decreases as prevalence increases.","Identifies molecular alterations."],"answer":"C","explanation":"Liquid biopsy: Circulating tumor-derived information; not a universal replacement for tissue."}},{"difficulty":"Step 1-style","lecture":"Foundations of Cancer Screening & Diagnosis","topic":"Lead-time bias","concept":"Detecting the cancer earlier starts the survival clock earlier without actually delaying death.","stem":"A screening program increases measured 5-year survival from diagnosis, but the age at death from the cancer is unchanged. Which bias best explains the apparent benefit?","options":["Recall bias","Length-time bias","Spectrum bias","Observer bias","Lead-time bias"],"answer":"E","explanation":"Detecting the cancer earlier starts the survival clock earlier without actually delaying death.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/09_Cancer_Screening_and_Diagnosis_Factoid.html","factoidLabel":"Foundations of Cancer Screening & Diagnosis","number":3,"reviewCheck":{"stem":"What is the key high-yield point about Stage?","options":["Determine anatomic extent after diagnosis.","P(test − | no disease); high specificity → few false positives.","Circulating tumor-derived information; not a universal replacement for tissue.","Establish what the lesion is; pathology is the anchor.","Earlier diagnosis makes survival-from-diagnosis look longer without changing time of death."],"answer":"A","explanation":"Stage: Determine anatomic extent after diagnosis."}},{"difficulty":"Step 1-style","lecture":"Foundations of Cancer Screening & Diagnosis","topic":"Sensitivity","concept":"As disease prevalence rises, a positive result is more likely to be a true positive, increasing PPV.","stem":"The same cancer screening test is used in a high-risk clinic and in a low-risk general population. Sensitivity and specificity are unchanged. Which value should be higher in the high-risk clinic?","options":["Positive predictive value","Sensitivity","Lead-time bias","Specificity","False-negative rate necessarily"],"answer":"A","explanation":"As disease prevalence rises, a positive result is more likely to be a true positive, increasing PPV.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/09_Cancer_Screening_and_Diagnosis_Factoid.html","factoidLabel":"Foundations of Cancer Screening & Diagnosis","number":4,"reviewCheck":{"stem":"Which label best fits this high-yield fact: P(no disease | negative); generally decreases as prevalence increases.?","options":["NPV","NGS","Specificity","Sensitivity","Screen"],"answer":"A","explanation":"NPV: P(no disease | negative); generally decreases as prevalence increases."}},{"difficulty":"Intermediate","lecture":"Foundations of Cancer Screening & Diagnosis","topic":"Colorectal screening","concept":"After diagnosis, staging defines primary tumor extent, regional nodes, and distant metastasis and is the major prognostic determinant.","stem":"A patient presents with weight loss, hematochezia, and iron-deficiency anemia. Biopsy confirms colon adenocarcinoma. What should be prioritized next to estimate prognosis and guide treatment?","options":["Measure histologic grade and ignore spread","Determine the TNM stage","Rename the tumor based only on its color","Classify the cancer solely by patient age","Repeat the screening test that found it"],"answer":"B","explanation":"After diagnosis, staging defines primary tumor extent, regional nodes, and distant metastasis and is the major prognostic determinant.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/09_Cancer_Screening_and_Diagnosis_Factoid.html","factoidLabel":"Foundations of Cancer Screening & Diagnosis","number":5,"reviewCheck":{"stem":"Which description best matches Diagnose?","options":["Refines lineage/marker expression.","Establish what the lesion is; pathology is the anchor.","Screening preferentially detects slower-growing tumors with longer detectable phases.","P(disease | positive); increases as prevalence increases.","Determine anatomic extent after diagnosis."],"answer":"B","explanation":"Diagnose: Establish what the lesion is; pathology is the anchor."}},{"difficulty":"Intermediate","lecture":"Foundations of Cancer Screening & Diagnosis","topic":"Breast screening","concept":"The lecture lists yearly mammography beginning at age 45 for average-risk women, with later option to extend the interval.","stem":"A 47-year-old woman at average breast-cancer risk asks about screening according to the lecture's ACS summary. Which plan best fits?","options":["No breast screening until age 55","Screen only if a breast lump develops","Yearly mammography","Mammography every 10 years","Annual breast MRI alone for all average-risk women"],"answer":"C","explanation":"The lecture lists yearly mammography beginning at age 45 for average-risk women, with later option to extend the interval.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/09_Cancer_Screening_and_Diagnosis_Factoid.html","factoidLabel":"Foundations of Cancer Screening & Diagnosis","number":6,"reviewCheck":{"stem":"Which option correctly describes Liquid biopsy?","options":["P(disease | positive); increases as prevalence increases.","Refines lineage/marker expression.","Circulating tumor-derived information; not a universal replacement for tissue.","Determine anatomic extent after diagnosis.","Screening preferentially detects slower-growing tumors with longer detectable phases."],"answer":"C","explanation":"Liquid biopsy: Circulating tumor-derived information; not a universal replacement for tissue."}},{"difficulty":"Intermediate","lecture":"Foundations of Cancer Screening & Diagnosis","topic":"Sensitivity","concept":"Specificity is TN/(TN+FP), so few false positives imply high specificity.","stem":"A new screening assay produces very few false-positive results among people without cancer. Which test characteristic is high?","options":["Prevalence","Lead time","Sensitivity","Specificity","Positive predictive value by definition"],"answer":"D","explanation":"Specificity is TN/(TN+FP), so few false positives imply high specificity.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/09_Cancer_Screening_and_Diagnosis_Factoid.html","factoidLabel":"Foundations of Cancer Screening & Diagnosis","number":7,"reviewCheck":{"stem":"Which concept best matches this description: P(test + | disease); high sensitivity → few false negatives.","options":["Length-time bias","Sensitivity","Stage","PPV","IHC"],"answer":"B","explanation":"Sensitivity: P(test + | disease); high sensitivity → few false negatives."}},{"difficulty":"Step 1-style","lecture":"Foundations of Cancer Screening & Diagnosis","topic":"Lead-time bias","concept":"Slow-growing cancers remain in the detectable preclinical phase longer and are more likely to be found by periodic screening.","stem":"A screening program disproportionately finds indolent tumors, while aggressive tumors frequently become symptomatic between screening rounds. Which bias is operating?","options":["Lead-time bias","Publication bias","Verification bias","Recall bias","Length-time bias"],"answer":"E","explanation":"Slow-growing cancers remain in the detectable preclinical phase longer and are more likely to be found by periodic screening.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/09_Cancer_Screening_and_Diagnosis_Factoid.html","factoidLabel":"Foundations of Cancer Screening & Diagnosis","number":8,"reviewCheck":{"stem":"Which concept best matches this description: Circulating tumor-derived information; not a universal replacement for tissue.","options":["NPV","Liquid biopsy","Screen","Sensitivity","NGS"],"answer":"B","explanation":"Liquid biopsy: Circulating tumor-derived information; not a universal replacement for tissue."}},{"difficulty":"In-house","lecture":"Foundations of Cancer Screening & Diagnosis","topic":"Sensitivity","concept":"Sensitivity is TP/(TP+FN) and measures how well a test detects disease when disease is actually present.","stem":"Which definition best describes sensitivity?","options":["The proportion of people with disease who test positive","The probability that a negative test reflects absence of disease","The prevalence of disease among those screened","The probability that a positive test reflects true disease","The proportion without disease who test negative"],"answer":"A","explanation":"Sensitivity is TP/(TP+FN) and measures how well a test detects disease when disease is actually present.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/09_Cancer_Screening_and_Diagnosis_Factoid.html","factoidLabel":"Foundations of Cancer Screening & Diagnosis","number":9,"reviewCheck":{"stem":"For PPV, which statement is most accurate?","options":["Screening preferentially detects slower-growing tumors with longer detectable phases.","Refines lineage/marker expression.","P(test + | disease); high sensitivity → few false negatives.","P(disease | positive); increases as prevalence increases.","Determine anatomic extent after diagnosis."],"answer":"D","explanation":"PPV: P(disease | positive); increases as prevalence increases."}},{"difficulty":"Intermediate","lecture":"Foundations of Cancer Screening & Diagnosis","topic":"Specificity","concept":"Earlier diagnosis alone is not enough; a worthwhile screening program must improve meaningful outcomes such as cancer-specific mortality.","stem":"A proposed population screening program detects a cancer years before symptoms, but no effective therapy exists and disease-specific mortality is unchanged. Which core requirement of an effective screening program is most clearly unmet?","options":["The disease must have no latent phase","Screening must lead to improved outcomes, especially reduced cancer-specific mortality","Every positive test must represent metastatic disease","The screening test must be invasive","The screened population must have zero false positives"],"answer":"B","explanation":"Earlier diagnosis alone is not enough; a worthwhile screening program must improve meaningful outcomes such as cancer-specific mortality.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/09_Cancer_Screening_and_Diagnosis_Factoid.html","factoidLabel":"Foundations of Cancer Screening & Diagnosis","number":10,"reviewCheck":{"stem":"Which fact should be associated with NGS?","options":["P(no disease | negative); generally decreases as prevalence increases.","Asymptomatic population.","P(test + | disease); high sensitivity → few false negatives.","Identifies molecular alterations.","P(test − | no disease); high specificity → few false positives."],"answer":"D","explanation":"NGS: Identifies molecular alterations."}},{"difficulty":"Intermediate","lecture":"Foundations of Cancer Screening & Diagnosis","topic":"Lung screening","concept":"The lecture describes HPV-based strategies or co-testing for ages 30-65, reflecting persistent HPV as the key causal driver.","stem":"Which cervical-cancer screening approach is consistent with the lecture for a woman aged 30-65?","options":["Low-dose chest CT","PSA testing every year","HPV testing alone or Pap plus HPV co-testing at longer intervals","Annual CT imaging","No screening after age 30"],"answer":"C","explanation":"The lecture describes HPV-based strategies or co-testing for ages 30-65, reflecting persistent HPV as the key causal driver.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/09_Cancer_Screening_and_Diagnosis_Factoid.html","factoidLabel":"Foundations of Cancer Screening & Diagnosis","number":11,"reviewCheck":{"stem":"What is being described here: Establish what the lesion is; pathology is the anchor.","options":["PPV","Stage","Length-time bias","Diagnose","IHC"],"answer":"D","explanation":"Diagnose: Establish what the lesion is; pathology is the anchor."}},{"difficulty":"Intermediate","lecture":"Foundations of Cancer Screening & Diagnosis","topic":"Specificity","concept":"The lecture emphasizes the controversy around PSA and recommends discussion of benefits and harms.","stem":"A 52-year-old average-risk man asks whether he should have PSA testing. Which principle best reflects the lecture?","options":["Only men with symptoms should ever discuss PSA","PSA is never used for screening","PSA screening is mandatory for every man","Use shared decision-making because benefits must be weighed against false positives, overdiagnosis, and overtreatment","A positive PSA definitively proves cancer"],"answer":"D","explanation":"The lecture emphasizes the controversy around PSA and recommends discussion of benefits and harms.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/09_Cancer_Screening_and_Diagnosis_Factoid.html","factoidLabel":"Foundations of Cancer Screening & Diagnosis","number":12,"reviewCheck":{"stem":"Which concept best matches this description: Determine anatomic extent after diagnosis.","options":["NGS","NPV","Stage","Sensitivity","Screen"],"answer":"C","explanation":"Stage: Determine anatomic extent after diagnosis."}},{"difficulty":"Intermediate","lecture":"Foundations of Cancer Screening & Diagnosis","topic":"Colorectal screening","concept":"The lecture summarizes average-risk colorectal screening beginning at 45, with colonoscopy or stool-based options.","stem":"A healthy 46-year-old at average colorectal-cancer risk has never been screened. Which statement is most accurate based on the lecture?","options":["Digital rectal examination is the preferred colorectal screening test","Screening begins only at age 60","Colonoscopy can diagnose but cannot remove precancerous polyps","Screening is unnecessary without a family history","Screening should already have begun at age 45"],"answer":"E","explanation":"The lecture summarizes average-risk colorectal screening beginning at 45, with colonoscopy or stool-based options.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/09_Cancer_Screening_and_Diagnosis_Factoid.html","factoidLabel":"Foundations of Cancer Screening & Diagnosis","number":13,"reviewCheck":{"stem":"What is being described here: P(no disease | negative); generally decreases as prevalence increases.","options":["Screen","NGS","NPV","Specificity","Sensitivity"],"answer":"C","explanation":"NPV: P(no disease | negative); generally decreases as prevalence increases."}},{"difficulty":"In-house","lecture":"Foundations of Cancer Screening & Diagnosis","topic":"Tissue diagnosis & pathology","concept":"Histopathologic examination of tissue confirms cancer type and grade.","stem":"What establishes the definitive diagnosis of most solid cancers?","options":["Biopsy with pathologic examination","Screening test alone","PET uptake alone","Family history alone","Elevated tumor marker alone"],"answer":"A","explanation":"Histopathologic examination of tissue confirms cancer type and grade.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/09_Cancer_Screening_and_Diagnosis_Factoid.html","factoidLabel":"Foundations of Cancer Screening & Diagnosis","number":14,"reviewCheck":{"stem":"Which statement about Screen is correct?","options":["P(test − | no disease); high specificity → few false positives.","Establish what the lesion is; pathology is the anchor.","Circulating tumor-derived information; not a universal replacement for tissue.","Earlier diagnosis makes survival-from-diagnosis look longer without changing time of death.","Asymptomatic population."],"answer":"E","explanation":"Screen: Asymptomatic population."}},{"difficulty":"Step 1-style","lecture":"Foundations of Cancer Treatment","topic":"CAR-T","concept":"CAR-T is an adoptive cellular therapy using a patient's own engineered T cells.","stem":"A patient with refractory B-cell malignancy has T cells removed, genetically engineered to recognize a tumor antigen, expanded, and reinfused. Which treatment is being used?","options":["Alkylating chemotherapy","CAR-T cell therapy","Brachytherapy","Radioiodine therapy","Aromatase inhibition"],"answer":"B","explanation":"CAR-T is an adoptive cellular therapy using a patient's own engineered T cells.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/10_Foundations_of_Cancer_Treatment_Factoid.html","factoidLabel":"Foundations of Cancer Treatment","number":15,"reviewCheck":{"stem":"Which concept best matches this description: Permits normal-tissue repair, redistribution, reoxygenation, repopulation effects.","options":["Vincristine","Log-kill","Fractionation","Radiosensitive phase","Surgery"],"answer":"C","explanation":"Fractionation: Permits normal-tissue repair, redistribution, reoxygenation, repopulation effects."}},{"difficulty":"Intermediate","lecture":"Foundations of Cancer Treatment","topic":"Radiation biology","concept":"Surgery is best suited to localized solid tumors with low metastatic potential and relatively low growth fraction.","stem":"Which tumor profile is most favorable for curative surgery as described in the lecture?","options":["Rapidly progressive tumor with occult dissemination","Multiple distant metastases with high Ki-67","Localized, slow-growing, low-grade tumor with a low growth fraction","Diffuse leukemia","Widely metastatic high-grade tumor"],"answer":"C","explanation":"Surgery is best suited to localized solid tumors with low metastatic potential and relatively low growth fraction.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/10_Foundations_of_Cancer_Treatment_Factoid.html","factoidLabel":"Foundations of Cancer Treatment","number":16,"reviewCheck":{"stem":"Which fact should be associated with Vincristine?","options":["↑ K/phosphate/uric acid, ↓ Ca.","Peripheral neuropathy.","Nephrotoxicity + ototoxicity.","Cardiotoxicity.","Permits normal-tissue repair, redistribution, reoxygenation, repopulation effects."],"answer":"B","explanation":"Vincristine: Peripheral neuropathy."}},{"difficulty":"Step 1-style","lecture":"Foundations of Cancer Treatment","topic":"Radiation biology","concept":"Neutropenic fever is an oncologic emergency because infection can progress rapidly in a patient without adequate neutrophils.","stem":"A patient receiving cytotoxic chemotherapy has a fever of 39°C and profound neutropenia. What is the key management principle emphasized in the lecture?","options":["Treat with radiation","Give only an antipyretic","Wait for culture results before therapy","Treat as a medical emergency requiring immediate antibiotics","Delay evaluation until the next clinic visit"],"answer":"D","explanation":"Neutropenic fever is an oncologic emergency because infection can progress rapidly in a patient without adequate neutrophils.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/10_Foundations_of_Cancer_Treatment_Factoid.html","factoidLabel":"Foundations of Cancer Treatment","number":17,"reviewCheck":{"stem":"What is being described here: Local/regional; direct DNA damage + ROS-mediated damage.","options":["Pulsed therapy","Relatively radioresistant","Radiation","Bleomycin","Neutropenic fever"],"answer":"C","explanation":"Radiation: Local/regional; direct DNA damage + ROS-mediated damage."}},{"difficulty":"Step 1-style","lecture":"Foundations of Cancer Treatment","topic":"Radiation biology","concept":"Cells are most radiosensitive in late G2 and M and most resistant in S phase, when homologous recombination repair is active.","stem":"A tumor cell population is synchronized experimentally. During which phase should radiation produce the greatest killing?","options":["G0","All phases equally","Early G1 only","S phase","Late G2/M"],"answer":"E","explanation":"Cells are most radiosensitive in late G2 and M and most resistant in S phase, when homologous recombination repair is active.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/10_Foundations_of_Cancer_Treatment_Factoid.html","factoidLabel":"Foundations of Cancer Treatment","number":18,"reviewCheck":{"stem":"Identify the concept described by this statement: Nephrotoxicity + ototoxicity.","options":["Tumor lysis","Fractionation","Cisplatin","Doxorubicin","Chemotherapy"],"answer":"C","explanation":"Cisplatin: Nephrotoxicity + ototoxicity."}},{"difficulty":"Step 1-style","lecture":"Foundations of Cancer Treatment","topic":"Foundations of Cancer Treatment","concept":"Aromatase inhibitors reduce estrogen production in postmenopausal women and are used in hormone-sensitive breast cancer.","stem":"A postmenopausal woman with ER-positive breast cancer is started on anastrozole. Which mechanism is expected?","options":["Inhibition of aromatase with reduced estrogen synthesis","Binding to BCR-ABL","Inhibition of thymidylate synthase","Direct blockade of PD-1","Crosslinking of tumor DNA"],"answer":"A","explanation":"Aromatase inhibitors reduce estrogen production in postmenopausal women and are used in hormone-sensitive breast cancer.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/10_Foundations_of_Cancer_Treatment_Factoid.html","factoidLabel":"Foundations of Cancer Treatment","number":19,"reviewCheck":{"stem":"For Tumor lysis, which statement is most accurate?","options":["Primarily local; diagnostic, curative, cytoreductive, prophylactic, palliative, reconstructive roles.","↑ K/phosphate/uric acid, ↓ Ca.","Hemorrhagic cystitis.","Each cycle kills a constant fraction, not a constant number.","Late G2/M."],"answer":"B","explanation":"Tumor lysis: ↑ K/phosphate/uric acid, ↓ Ca."}},{"difficulty":"Step 1-style","lecture":"Foundations of Cancer Treatment","topic":"Radiation biology","concept":"A 3-log kill removes 99.9% of cells, reducing 10^12 to 10^9; chemotherapy kills a constant fraction, not a constant number.","stem":"A chemotherapy cycle produces a 3-log kill in a tumor containing 10^12 cells. Approximately how many cells remain?","options":["10^3","10^9","Zero","10^12","10^6"],"answer":"B","explanation":"A 3-log kill removes 99.9% of cells, reducing 10^12 to 10^9; chemotherapy kills a constant fraction, not a constant number.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/10_Foundations_of_Cancer_Treatment_Factoid.html","factoidLabel":"Foundations of Cancer Treatment","number":20,"reviewCheck":{"stem":"Which description best matches Pulsed therapy?","options":["Permits normal-tissue repair, redistribution, reoxygenation, repopulation effects.","↑ K/phosphate/uric acid, ↓ Ca.","Cardiotoxicity.","Treatment cycles separated by recovery periods.","Nephrotoxicity + ototoxicity."],"answer":"D","explanation":"Pulsed therapy: Treatment cycles separated by recovery periods."}},{"difficulty":"Intermediate","lecture":"Foundations of Cancer Treatment","topic":"Foundations of Cancer Treatment","concept":"Imatinib targets the molecular abnormality created by the Philadelphia chromosome.","stem":"A patient with CML receives imatinib. What makes this an example of molecularly targeted therapy?","options":["It blocks estrogen production","It acts only through DNA alkylation","It inhibits the specific BCR-ABL tyrosine kinase driving the cancer","It kills all rapidly dividing cells indiscriminately","It stimulates generalized T-cell activation"],"answer":"C","explanation":"Imatinib targets the molecular abnormality created by the Philadelphia chromosome.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/10_Foundations_of_Cancer_Treatment_Factoid.html","factoidLabel":"Foundations of Cancer Treatment","number":21,"reviewCheck":{"stem":"Identify the concept described by this statement: Urgent broad antipseudomonal coverage.","options":["Radiosensitive phase","Surgery","Cyclophosphamide","Neutropenic fever","Log-kill"],"answer":"D","explanation":"Neutropenic fever: Urgent broad antipseudomonal coverage."}},{"difficulty":"Intermediate","lecture":"Foundations of Cancer Treatment","topic":"Surgery","concept":"Palliative surgery relieves symptoms such as obstruction without intending to eradicate all cancer.","stem":"A patient with unresectable metastatic colon cancer undergoes surgery to bypass a malignant bowel obstruction and improve eating. What is the intent of the surgery?","options":["Definitive curative","Diagnostic","Prophylactic","Palliative","Reconstructive only"],"answer":"D","explanation":"Palliative surgery relieves symptoms such as obstruction without intending to eradicate all cancer.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/10_Foundations_of_Cancer_Treatment_Factoid.html","factoidLabel":"Foundations of Cancer Treatment","number":22,"reviewCheck":{"stem":"What is the key high-yield point about Doxorubicin?","options":["Cardiotoxicity.","Late G2/M.","Hemorrhagic cystitis.","Primarily local; diagnostic, curative, cytoreductive, prophylactic, palliative, reconstructive roles.","Peripheral neuropathy."],"answer":"A","explanation":"Doxorubicin: Cardiotoxicity."}},{"difficulty":"Step 1-style","lecture":"Foundations of Cancer Treatment","topic":"Radiation biology","concept":"Reoxygenation is one of the 5 R's and increases sensitivity of previously hypoxic tumor regions.","stem":"Which benefit of fractionated radiotherapy depends on hypoxic tumor cells becoming better oxygenated as the tumor shrinks?","options":["Repair","Repopulation","Radiosensitivity","Redistribution","Reoxygenation"],"answer":"E","explanation":"Reoxygenation is one of the 5 R's and increases sensitivity of previously hypoxic tumor regions.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/10_Foundations_of_Cancer_Treatment_Factoid.html","factoidLabel":"Foundations of Cancer Treatment","number":23,"reviewCheck":{"stem":"Identify the concept described by this statement: Urgent broad antipseudomonal coverage.","options":["Radiosensitive phase","Surgery","Cyclophosphamide","Neutropenic fever","Log-kill"],"answer":"D","explanation":"Neutropenic fever: Urgent broad antipseudomonal coverage."}},{"difficulty":"Intermediate","lecture":"Foundations of Cancer Treatment","topic":"Radiation biology","concept":"Brachytherapy positions the radiation source within or next to the tumor.","stem":"A radiation source is placed directly adjacent to a cervical tumor inside the body. Which modality is this?","options":["Brachytherapy","Chemotherapy","Systemic radioisotope therapy","Stereotactic radiosurgery only","External-beam radiation"],"answer":"A","explanation":"Brachytherapy positions the radiation source within or next to the tumor.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/10_Foundations_of_Cancer_Treatment_Factoid.html","factoidLabel":"Foundations of Cancer Treatment","number":24,"reviewCheck":{"stem":"What is the key high-yield point about Fractionation?","options":["↑ K/phosphate/uric acid, ↓ Ca.","Systemic; especially central in hematologic/metastatic disease.","Cardiotoxicity.","Permits normal-tissue repair, redistribution, reoxygenation, repopulation effects.","Nephrotoxicity + ototoxicity."],"answer":"D","explanation":"Fractionation: Permits normal-tissue repair, redistribution, reoxygenation, repopulation effects."}},{"difficulty":"Intermediate","lecture":"Foundations of Cancer Treatment","topic":"Radiation biology","concept":"Pulsed intermittent therapy exploits recovery of normal marrow and GI epithelium while repeatedly reducing tumor burden.","stem":"Why are many cytotoxic regimens given in cycles separated by rest periods?","options":["To prevent any tumor cell from entering S phase","To allow normal rapidly dividing tissues to recover between high-dose exposures","Because chemotherapy acts only after radiation","Because tumor cells can only be killed once","To eliminate the need for supportive care"],"answer":"B","explanation":"Pulsed intermittent therapy exploits recovery of normal marrow and GI epithelium while repeatedly reducing tumor burden.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/10_Foundations_of_Cancer_Treatment_Factoid.html","factoidLabel":"Foundations of Cancer Treatment","number":25,"reviewCheck":{"stem":"Which statement about Cyclophosphamide is correct?","options":["Peripheral neuropathy.","Late G2/M.","Hemorrhagic cystitis.","Each cycle kills a constant fraction, not a constant number.","Primarily local; diagnostic, curative, cytoreductive, prophylactic, palliative, reconstructive roles."],"answer":"C","explanation":"Cyclophosphamide: Hemorrhagic cystitis."}},{"difficulty":"Intermediate","lecture":"Foundations of Cancer Treatment","topic":"Radiation biology","concept":"Indirect free-radical injury from water is the more common mechanism of radiation-induced DNA damage.","stem":"Why does ionizing radiation damage tumor DNA even when the radiation beam does not directly strike the DNA molecule?","options":["Radiation converts all RNA to DNA","Radiation activates telomerase","Radiolysis of water generates reactive oxygen species that damage DNA","Radiation blocks only ribosomal translation","Radiation selectively removes histones"],"answer":"C","explanation":"Indirect free-radical injury from water is the more common mechanism of radiation-induced DNA damage.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/10_Foundations_of_Cancer_Treatment_Factoid.html","factoidLabel":"Foundations of Cancer Treatment","number":26,"reviewCheck":{"stem":"Which label best fits this high-yield fact: Late S.?","options":["Relatively radioresistant","Cisplatin","Doxorubicin","Fractionation","Tumor lysis"],"answer":"A","explanation":"Relatively radioresistant: Late S."}},{"difficulty":"Intermediate","lecture":"Foundations of Cancer Treatment","topic":"Radiation biology","concept":"Antimetabolites interfere with DNA/RNA synthesis and are S-phase specific; microtubule agents are M-phase specific.","stem":"Which drug class is most characteristically cell-cycle phase specific in the lecture?","options":["Alkylating agents as a class","Hormone therapy only in M phase","Checkpoint inhibitors only in S phase","Antimetabolites acting during S phase","All anthracyclines exclusively in G0"],"answer":"D","explanation":"Antimetabolites interfere with DNA/RNA synthesis and are S-phase specific; microtubule agents are M-phase specific.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/10_Foundations_of_Cancer_Treatment_Factoid.html","factoidLabel":"Foundations of Cancer Treatment","number":27,"reviewCheck":{"stem":"What is being described here: Cardiotoxicity.","options":["Doxorubicin","Radiosensitive phase","Log-kill","Cyclophosphamide","Surgery"],"answer":"A","explanation":"Doxorubicin: Cardiotoxicity."}},{"difficulty":"Intermediate","lecture":"Foundations of Cancer Treatment","topic":"Radiation biology","concept":"Fibrosis and secondary cancers are classic late radiation effects occurring months to years after treatment.","stem":"A patient develops fibrosis in an irradiated field two years after therapy. How should this toxicity be classified?","options":["Acute radiation effect","Tumor lysis syndrome","Immediate hypersensitivity","Neutropenic fever","Late radiation effect"],"answer":"E","explanation":"Fibrosis and secondary cancers are classic late radiation effects occurring months to years after treatment.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/10_Foundations_of_Cancer_Treatment_Factoid.html","factoidLabel":"Foundations of Cancer Treatment","number":28,"reviewCheck":{"stem":"Which fact should be associated with Radiosensitive phase?","options":["Late G2/M.","Cardiotoxicity.","Permits normal-tissue repair, redistribution, reoxygenation, repopulation effects.","↑ K/phosphate/uric acid, ↓ Ca.","Nephrotoxicity + ototoxicity."],"answer":"A","explanation":"Radiosensitive phase: Late G2/M."}},{"difficulty":"Step 1-style","lecture":"Individualizing Care of the Cancer Patient","topic":"HER2 targeted therapy","concept":"STK11 and KEAP1 alterations are associated with poorer immunotherapy response and a more immunoresistant tumor biology.","stem":"A metastatic NSCLC harbors an STK11 loss-of-function mutation. Which implication is most consistent with the lecture?","options":["Reduced sensitivity to anti-PD-1/PD-L1 immunotherapy","Obligate HER2 amplification","Inability to undergo angiogenesis","Markedly improved checkpoint-inhibitor response","Automatic sensitivity to RET inhibition"],"answer":"A","explanation":"STK11 and KEAP1 alterations are associated with poorer immunotherapy response and a more immunoresistant tumor biology.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/11_Individualizing_Cancer_Care_Factoid.html","factoidLabel":"Individualizing Care of the Cancer Patient","number":29,"reviewCheck":{"stem":"For Hormone receptor, which statement is most accurate?","options":["Creates endocrine-therapy vulnerability; tamoxifen antagonizes estrogen in breast.","Predicts response to a specific therapy.","Tumor gene-expression assay for recurrence/chemo-benefit in selected HR+/HER2− early breast cancer; not hereditary BRCA testing.","Treatment removes sensitive clones and favors resistant subclones.","Oxidant hemolysis risk; rasburicase is a classic concern."],"answer":"A","explanation":"Hormone receptor: Creates endocrine-therapy vulnerability; tamoxifen antagonizes estrogen in breast."}},{"difficulty":"Step 1-style","lecture":"Individualizing Care of the Cancer Patient","topic":"DPYD / fluoropyrimidine toxicity","concept":"DPD is responsible for 5-FU breakdown; deficiency markedly increases exposure and toxicity.","stem":"A patient develops unexpectedly severe toxicity after standard-dose 5-fluorouracil. Which inherited metabolic deficiency should be considered?","options":["VHL deficiency","Dihydropyrimidine dehydrogenase deficiency","HGPRT deficiency","ADA deficiency","CYP2C19 ultrarapid metabolism"],"answer":"B","explanation":"DPD is responsible for 5-FU breakdown; deficiency markedly increases exposure and toxicity.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/11_Individualizing_Cancer_Care_Factoid.html","factoidLabel":"Individualizing Care of the Cancer Patient","number":30,"reviewCheck":{"stem":"For Oncotype DX, which statement is most accurate?","options":["Tumor gene-expression assay for recurrence/chemo-benefit in selected HR+/HER2− early breast cancer; not hereditary BRCA testing.","Cytokine-release syndrome + neurotoxicity are classic toxicities.","Predicts outcome independent of a specific therapy.","Trastuzumab-class targeting.","Higher irinotecan/SN-38 toxicity."],"answer":"A","explanation":"Oncotype DX: Tumor gene-expression assay for recurrence/chemo-benefit in selected HR+/HER2− early breast cancer; not hereditary BRCA testing."}},{"difficulty":"Step 1-style","lecture":"Individualizing Care of the Cancer Patient","topic":"Hormone-directed therapy","concept":"The lecture emphasizes matching EGFR mutations to osimertinib and ALK rearrangements to alectinib.","stem":"Tumor NGS shows an EGFR-sensitizing mutation in metastatic lung adenocarcinoma. Which treatment strategy best illustrates precision oncology?","options":["Avoid targeted therapy because genomic data are not actionable","Give alectinib because it targets ALK regardless of genotype","Use an EGFR-targeted agent such as osimertinib","Choose therapy without regard to the mutation","Use only palliative radiation because all stage IV lung cancers are treated identically"],"answer":"C","explanation":"The lecture emphasizes matching EGFR mutations to osimertinib and ALK rearrangements to alectinib.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/11_Individualizing_Cancer_Care_Factoid.html","factoidLabel":"Individualizing Care of the Cancer Patient","number":31,"reviewCheck":{"stem":"Which description best matches Prognostic?","options":["Severe fluoropyrimidine toxicity risk.","Predicts response to a specific therapy.","Can cause autoimmune-like immune-related adverse events.","Imatinib-class tyrosine-kinase targeting.","Predicts outcome independent of a specific therapy."],"answer":"E","explanation":"Prognostic: Predicts outcome independent of a specific therapy."}},{"difficulty":"Intermediate","lecture":"Individualizing Care of the Cancer Patient","topic":"DPYD / fluoropyrimidine toxicity","concept":"CYP2C19 activates clopidogrel; poor metabolizers generate less active drug and face increased thrombotic risk.","stem":"A patient with a coronary stent is a CYP2C19 poor metabolizer. Why is standard clopidogrel less effective?","options":["VKORC1 becomes overactive","DPD converts clopidogrel into 5-FU","The patient overproduces active SN-38","Clopidogrel is a prodrug that cannot be activated efficiently","Clopidogrel is cleared too quickly by UGT1A1"],"answer":"D","explanation":"CYP2C19 activates clopidogrel; poor metabolizers generate less active drug and face increased thrombotic risk.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/11_Individualizing_Cancer_Care_Factoid.html","factoidLabel":"Individualizing Care of the Cancer Patient","number":32,"reviewCheck":{"stem":"What is being described here: Higher irinotecan/SN-38 toxicity.","options":["CAR-T","Prognostic","HER2","UGT1A1 reduced activity","Predictive"],"answer":"D","explanation":"UGT1A1 reduced activity: Higher irinotecan/SN-38 toxicity."}},{"difficulty":"In-house","lecture":"Individualizing Care of the Cancer Patient","topic":"Hormone-directed therapy","concept":"Precision medicine extends beyond one-size-fits-all care by integrating molecular and patient-specific information.","stem":"Which statement best captures precision medicine as described in the lecture?","options":["One standard regimen is used for every patient with the same organ-site cancer","Patients are grouped only by age and sex with no molecular data","Precision medicine refers only to surgery","Therapy is selected without considering biomarkers","Treatment is individualized using a patient's genomics, lifestyle, preferences, and other biologic factors"],"answer":"E","explanation":"Precision medicine extends beyond one-size-fits-all care by integrating molecular and patient-specific information.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/11_Individualizing_Cancer_Care_Factoid.html","factoidLabel":"Individualizing Care of the Cancer Patient","number":33,"reviewCheck":{"stem":"Which concept best matches this description: Severe fluoropyrimidine toxicity risk.","options":["Prognostic","Checkpoint inhibitors","Predictive","DPYD/DPD deficiency","BCR-ABL"],"answer":"D","explanation":"DPYD/DPD deficiency: Severe fluoropyrimidine toxicity risk."}},{"difficulty":"Intermediate","lecture":"Individualizing Care of the Cancer Patient","topic":"Hormone-directed therapy","concept":"NGS can survey a large number of protein-coding genes and reveal driver alterations that guide targeted treatment.","stem":"A patient with metastatic lung adenocarcinoma undergoes next-generation sequencing to guide treatment. What is the principal clinical value of this test in the lecture?","options":["Rapid identification of many potentially targetable genomic alterations","Replacement of all histopathology","Determination of Karnofsky performance status","Direct measurement of tumor oxygen tension","Measurement of only one inherited variant"],"answer":"A","explanation":"NGS can survey a large number of protein-coding genes and reveal driver alterations that guide targeted treatment.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/11_Individualizing_Cancer_Care_Factoid.html","factoidLabel":"Individualizing Care of the Cancer Patient","number":34,"reviewCheck":{"stem":"Which term should be paired with the following fact: Cytokine-release syndrome + neurotoxicity are classic toxicities.","options":["UGT1A1 reduced activity","Predictive","Prognostic","HER2","CAR-T"],"answer":"E","explanation":"CAR-T: Cytokine-release syndrome + neurotoxicity are classic toxicities."}},{"difficulty":"Intermediate","lecture":"Individualizing Care of the Cancer Patient","topic":"UGT1A1 / irinotecan","concept":"Warfarin targets VKORC1 and is metabolized by CYP2C9, so variants in either can alter dose needs.","stem":"A patient requires an unusually low warfarin dose to avoid bleeding. Which pair of genes can influence dose requirement as emphasized in the lecture?","options":["CYP2C19 and UGT1A1","VKORC1 and CYP2C9","MLH1 and MSH2","VHL and HIF1A","BRCA1 and BRCA2"],"answer":"B","explanation":"Warfarin targets VKORC1 and is metabolized by CYP2C9, so variants in either can alter dose needs.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/11_Individualizing_Cancer_Care_Factoid.html","factoidLabel":"Individualizing Care of the Cancer Patient","number":35,"reviewCheck":{"stem":"Which statement about Predictive is correct?","options":["Higher irinotecan/SN-38 toxicity.","Predicts response to a specific therapy.","Cytokine-release syndrome + neurotoxicity are classic toxicities.","Trastuzumab-class targeting.","Predicts outcome independent of a specific therapy."],"answer":"B","explanation":"Predictive: Predicts response to a specific therapy."}},{"difficulty":"Step 1-style","lecture":"Individualizing Care of the Cancer Patient","topic":"Hormone-directed therapy","concept":"TP53 mutation and complex karyotype are listed as adverse-risk features in AML stratification.","stem":"An AML patient has a complex karyotype and a TP53 mutation. Which risk category best fits the lecture's summary?","options":["Benign-risk category","Low-risk because TP53 improves DNA repair","Adverse risk","Intermediate risk by definition","Favorable risk"],"answer":"C","explanation":"TP53 mutation and complex karyotype are listed as adverse-risk features in AML stratification.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/11_Individualizing_Cancer_Care_Factoid.html","factoidLabel":"Individualizing Care of the Cancer Patient","number":36,"reviewCheck":{"stem":"What is being described here: Predicts response to a specific therapy.","options":["Oncotype DX","Predictive","Hormone receptor","Clonal selection","G6PD deficiency"],"answer":"B","explanation":"Predictive: Predicts response to a specific therapy."}},{"difficulty":"Step 1-style","lecture":"Individualizing Care of the Cancer Patient","topic":"DPYD / fluoropyrimidine toxicity","concept":"UGT1A1*28 reduces glucuronidation/inactivation of SN-38, increasing irinotecan toxicity.","stem":"A patient with Gilbert syndrome develops severe diarrhea and neutropenia after irinotecan. Which pharmacogenomic mechanism best explains the reaction?","options":["Excess CYP2C19 activation of irinotecan","Increased VKORC1 sensitivity","Loss of DPD-mediated 5-FU breakdown","Reduced UGT1A1 activity impairs inactivation of SN-38","Failure of HGPRT to activate irinotecan"],"answer":"D","explanation":"UGT1A1*28 reduces glucuronidation/inactivation of SN-38, increasing irinotecan toxicity.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/11_Individualizing_Cancer_Care_Factoid.html","factoidLabel":"Individualizing Care of the Cancer Patient","number":37,"reviewCheck":{"stem":"Which fact should be associated with DPYD/DPD deficiency?","options":["Can cause autoimmune-like immune-related adverse events.","Severe fluoropyrimidine toxicity risk.","Predicts outcome independent of a specific therapy.","Predicts response to a specific therapy.","Imatinib-class tyrosine-kinase targeting."],"answer":"B","explanation":"DPYD/DPD deficiency: Severe fluoropyrimidine toxicity risk."}},{"difficulty":"Intermediate","lecture":"Individualizing Care of the Cancer Patient","topic":"Hormone-directed therapy","concept":"CAR-T therapy involves leukapheresis, genetic engineering, expansion, lymphodepletion, and reinfusion.","stem":"Which step occurs after collection of a patient's T cells but before reinfusion during CAR-T therapy?","options":["Permanent suppression of T-cell proliferation","Immediate radiation of the collected cells to destroy them","Conversion of T cells into B cells","Removal of all tumor antigens from the patient","Genetic engineering and ex vivo expansion of T cells expressing a tumor-specific chimeric antigen receptor"],"answer":"E","explanation":"CAR-T therapy involves leukapheresis, genetic engineering, expansion, lymphodepletion, and reinfusion.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/11_Individualizing_Cancer_Care_Factoid.html","factoidLabel":"Individualizing Care of the Cancer Patient","number":38,"reviewCheck":{"stem":"For Oncotype DX, which statement is most accurate?","options":["Predicts response to a specific therapy.","Tumor gene-expression assay for recurrence/chemo-benefit in selected HR+/HER2− early breast cancer; not hereditary BRCA testing.","Treatment removes sensitive clones and favors resistant subclones.","Creates endocrine-therapy vulnerability; tamoxifen antagonizes estrogen in breast.","Oxidant hemolysis risk; rasburicase is a classic concern."],"answer":"B","explanation":"Oncotype DX: Tumor gene-expression assay for recurrence/chemo-benefit in selected HR+/HER2− early breast cancer; not hereditary BRCA testing."}},{"difficulty":"Intermediate","lecture":"Individualizing Care of the Cancer Patient","topic":"Predictive vs prognostic biomarkers","concept":"Companion diagnostics link a biomarker or molecular result to selection or safe use of a specific drug.","stem":"What is a companion diagnostic?","options":["A test that provides information essential for the safe and effective use of a corresponding therapy","A prognostic scale for hospice eligibility","A screening test used only in healthy populations","A test that never changes treatment","An imaging study used only after therapy fails"],"answer":"A","explanation":"Companion diagnostics link a biomarker or molecular result to selection or safe use of a specific drug.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/11_Individualizing_Cancer_Care_Factoid.html","factoidLabel":"Individualizing Care of the Cancer Patient","number":39,"reviewCheck":{"stem":"Identify the concept described by this statement: Creates endocrine-therapy vulnerability; tamoxifen antagonizes estrogen in breast.","options":["Predictive","BCR-ABL","DPYD/DPD deficiency","Checkpoint inhibitors","Hormone receptor"],"answer":"E","explanation":"Hormone receptor: Creates endocrine-therapy vulnerability; tamoxifen antagonizes estrogen in breast."}},{"difficulty":"Step 1-style","lecture":"Individualizing Care of the Cancer Patient","topic":"Oncotype DX","concept":"For women with scores 11-25, endocrine therapy alone was noninferior overall; the younger subgroup age 50 or less with scores 16-25 may benefit from chemotherapy.","stem":"A postmenopausal woman with early-stage ER-positive, HER2-negative breast cancer has an Oncotype DX recurrence score of 22. Which treatment approach is most consistent with the TAILORx summary in the lecture?","options":["BCR-ABL inhibition","Endocrine therapy alone is generally appropriate","Mandatory chemotherapy for every recurrence score above 10","No endocrine therapy","CAR-T therapy"],"answer":"B","explanation":"For women with scores 11-25, endocrine therapy alone was noninferior overall; the younger subgroup age 50 or less with scores 16-25 may benefit from chemotherapy.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/11_Individualizing_Cancer_Care_Factoid.html","factoidLabel":"Individualizing Care of the Cancer Patient","number":40,"reviewCheck":{"stem":"Which fact should be associated with DPYD/DPD deficiency?","options":["Can cause autoimmune-like immune-related adverse events.","Severe fluoropyrimidine toxicity risk.","Predicts outcome independent of a specific therapy.","Predicts response to a specific therapy.","Imatinib-class tyrosine-kinase targeting."],"answer":"B","explanation":"DPYD/DPD deficiency: Severe fluoropyrimidine toxicity risk."}},{"difficulty":"Intermediate","lecture":"Genetic Counseling for Familial Cancers","topic":"VUS interpretation","concept":"Pathogenic variants trigger gene- and syndrome-specific screening, surveillance, and risk-reduction strategies.","stem":"A patient is found to carry a clearly pathogenic cancer-predisposition variant. What should guide the next surveillance and risk-reduction recommendations?","options":["The presence or absence of a VUS in another gene","No follow-up until cancer develops","Evidence-based syndrome-specific guidelines such as NCCN recommendations","Only the patient's current symptoms","The same plan used for every hereditary syndrome"],"answer":"C","explanation":"Pathogenic variants trigger gene- and syndrome-specific screening, surveillance, and risk-reduction strategies.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/12_Genetic_Counseling_Familial_Cancers_Factoid.html","factoidLabel":"Genetic Counseling for Familial Cancers","number":41,"reviewCheck":{"stem":"Which concept best matches this description: Public archive of variant interpretations.","options":["Clues","ClinVar","Pathogenic germline variant","GeneReviews","Cascade testing"],"answer":"B","explanation":"ClinVar: Public archive of variant interpretations."}},{"difficulty":"In-house","lecture":"Genetic Counseling for Familial Cancers","topic":"Genetic Counseling for Familial Cancers","concept":"Blood is the most common germline testing specimen, with saliva and buccal swab as alternatives.","stem":"Which specimen is most commonly used for germline genetic testing in the lecture?","options":["Bone biopsy only","CSF only","Urine only","Blood","Formalin-fixed tumor tissue only"],"answer":"D","explanation":"Blood is the most common germline testing specimen, with saliva and buccal swab as alternatives.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/12_Genetic_Counseling_Familial_Cancers_Factoid.html","factoidLabel":"Genetic Counseling for Familial Cancers","number":42,"reviewCheck":{"stem":"Identify the concept described by this statement: Early age, rare tumor, multiple/bilateral primaries, strong family clustering, suggestive tumor testing, known familial variant, high-risk ancestry.","options":["Pathogenic germline variant","VUS","Pretest discussion","GeneReviews","Clues"],"answer":"E","explanation":"Clues: Early age, rare tumor, multiple/bilateral primaries, strong family clustering, suggestive tumor testing, known familial variant, high-risk ancestry."}},{"difficulty":"Intermediate","lecture":"Genetic Counseling for Familial Cancers","topic":"Pedigree & risk assessment","concept":"Triple-negative breast cancer is specifically listed as a genetic-testing indication; early onset, multiple primaries, and strong family history are additional red flags.","stem":"Which patient most clearly meets a red-flag indication for hereditary cancer assessment based on the lecture?","options":["An adult with a normal screening colonoscopy","An 88-year-old with a single sporadic basal-cell carcinoma","A patient with a benign skin tag","A patient with no personal or family history of cancer","A woman diagnosed with triple-negative breast cancer"],"answer":"E","explanation":"Triple-negative breast cancer is specifically listed as a genetic-testing indication; early onset, multiple primaries, and strong family history are additional red flags.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/12_Genetic_Counseling_Familial_Cancers_Factoid.html","factoidLabel":"Genetic Counseling for Familial Cancers","number":43,"reviewCheck":{"stem":"Which fact should be associated with VUS?","options":["Allows targeted cascade testing in relatives.","Goals, anxiety, privacy, family impact, insurance/discrimination concerns, incomplete pedigree.","Not a positive result; do not use alone for prophylactic surgery or predictive testing of relatives.","Early age, rare tumor, multiple/bilateral primaries, strong family clustering, suggestive tumor testing, known familial variant, high-risk ancestry.","Syndrome overview and inheritance."],"answer":"C","explanation":"VUS: Not a positive result; do not use alone for prophylactic surgery or predictive testing of relatives."}},{"difficulty":"In-house","lecture":"Genetic Counseling for Familial Cancers","topic":"VUS interpretation","concept":"Genetic counseling integrates family history, risk assessment, education, testing decisions, interpretation, and support.","stem":"Which activity is a core function of cancer genetic counseling?","options":["Constructing a detailed pedigree and assessing inherited cancer risk","Ordering prophylactic surgery before risk assessment","Guaranteeing that a VUS is pathogenic","Selecting chemotherapy without discussing testing","Replacing all oncology follow-up"],"answer":"A","explanation":"Genetic counseling integrates family history, risk assessment, education, testing decisions, interpretation, and support.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/12_Genetic_Counseling_Familial_Cancers_Factoid.html","factoidLabel":"Genetic Counseling for Familial Cancers","number":44,"reviewCheck":{"stem":"For Pathogenic germline variant, which statement is most accurate?","options":["Testing/management algorithms.","Allows targeted cascade testing in relatives.","Usually the most informative person to test.","Targeted testing for the known familial pathogenic variant.","Public archive of variant interpretations."],"answer":"B","explanation":"Pathogenic germline variant: Allows targeted cascade testing in relatives."}},{"difficulty":"Step 1-style","lecture":"Genetic Counseling for Familial Cancers","topic":"Pretest counseling considerations","concept":"GINA provides important but limited protections focused on health insurance and employment.","stem":"A patient is worried that genetic testing could affect insurance. Which statement best reflects the lecture's summary of GINA?","options":["It protects only people who already have cancer","It protects against genetic discrimination in health insurance and employment, but not all forms such as life or long-term-care insurance","It applies only to children","It prevents employers from knowing any medical information whatsoever","It prohibits all genetic discrimination in every insurance product"],"answer":"B","explanation":"GINA provides important but limited protections focused on health insurance and employment.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/12_Genetic_Counseling_Familial_Cancers_Factoid.html","factoidLabel":"Genetic Counseling for Familial Cancers","number":45,"reviewCheck":{"stem":"Which statement about NCCN is correct?","options":["Usually the most informative person to test.","Not a positive result; do not use alone for prophylactic surgery or predictive testing of relatives.","Syndrome overview and inheritance.","Goals, anxiety, privacy, family impact, insurance/discrimination concerns, incomplete pedigree.","Testing/management algorithms."],"answer":"E","explanation":"NCCN: Testing/management algorithms."}},{"difficulty":"Intermediate","lecture":"Genetic Counseling for Familial Cancers","topic":"Pathogenic-variant counseling","concept":"Most hereditary cancer syndromes discussed are autosomal dominant, so each child has a 1-in-2 chance regardless of sex.","stem":"A parent has a heterozygous pathogenic BRCA2 variant. What is the probability that each child inherits the variant?","options":["25%","75%","50%","100%","0% for daughters"],"answer":"C","explanation":"Most hereditary cancer syndromes discussed are autosomal dominant, so each child has a 1-in-2 chance regardless of sex.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/12_Genetic_Counseling_Familial_Cancers_Factoid.html","factoidLabel":"Genetic Counseling for Familial Cancers","number":46,"reviewCheck":{"stem":"What is being described here: Early age, rare tumor, multiple/bilateral primaries, strong family clustering, suggestive tumor testing, known familial variant, high-risk ancestry.","options":["Pathogenic germline variant","Clues","Cascade testing","Pretest discussion","GeneReviews"],"answer":"B","explanation":"Clues: Early age, rare tumor, multiple/bilateral primaries, strong family clustering, suggestive tumor testing, known familial variant, high-risk ancestry."}},{"difficulty":"Intermediate","lecture":"Genetic Counseling for Familial Cancers","topic":"Pedigree & risk assessment","concept":"Medullary thyroid carcinoma is strongly associated with MEN2 and should prompt germline evaluation.","stem":"A 28-year-old is diagnosed with medullary thyroid carcinoma despite no known family history. Which hereditary syndrome should be specifically considered because this is an 'always tumor' in the lecture?","options":["FAP","HBOC","Lynch syndrome","MEN2","Lesch-Nyhan syndrome"],"answer":"D","explanation":"Medullary thyroid carcinoma is strongly associated with MEN2 and should prompt germline evaluation.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/12_Genetic_Counseling_Familial_Cancers_Factoid.html","factoidLabel":"Genetic Counseling for Familial Cancers","number":47,"reviewCheck":{"stem":"Which concept best matches this description: Targeted testing for the known familial pathogenic variant.","options":["Clues","Cascade testing","NCCN","ClinVar","Pathogenic germline variant"],"answer":"B","explanation":"Cascade testing: Targeted testing for the known familial pathogenic variant."}},{"difficulty":"Step 1-style","lecture":"Genetic Counseling for Familial Cancers","topic":"VUS interpretation","concept":"Once a pathogenic familial variant is known, cascade testing can directly determine which relatives inherited it.","stem":"A pathogenic familial RET variant is identified in one family member. Which approach is most efficient for evaluating adult first-degree relatives?","options":["Perform unrelated broad tumor-marker panels only","Assume all relatives are affected","Use a VUS as the family testing target","Wait for medullary thyroid cancer to develop","Offer targeted testing for the known familial variant"],"answer":"E","explanation":"Once a pathogenic familial variant is known, cascade testing can directly determine which relatives inherited it.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/12_Genetic_Counseling_Familial_Cancers_Factoid.html","factoidLabel":"Genetic Counseling for Familial Cancers","number":48,"reviewCheck":{"stem":"Which label best fits this high-yield fact: Not a positive result; do not use alone for prophylactic surgery or predictive testing of relatives.?","options":["GeneReviews","ClinVar","VUS","Pretest discussion","Affected relative first"],"answer":"C","explanation":"VUS: Not a positive result; do not use alone for prophylactic surgery or predictive testing of relatives."}},{"difficulty":"Intermediate","lecture":"Genetic Counseling for Familial Cancers","topic":"Pretest counseling considerations","concept":"Genetic counseling prepares patients for benign, pathogenic, or uncertain results and supports informed choices.","stem":"A patient requests immediate BRCA testing after hearing about it online. Why is pre-test counseling valuable before ordering the assay?","options":["It clarifies possible results, limitations, psychological implications, and how findings could affect the patient and family","It guarantees a pathogenic result","It makes personal and family history irrelevant","It prevents all future anxiety","It eliminates the need for informed decision-making"],"answer":"A","explanation":"Genetic counseling prepares patients for benign, pathogenic, or uncertain results and supports informed choices.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/12_Genetic_Counseling_Familial_Cancers_Factoid.html","factoidLabel":"Genetic Counseling for Familial Cancers","number":49,"reviewCheck":{"stem":"What is being described here: Syndrome overview and inheritance.","options":["Pathogenic germline variant","Cascade testing","Clues","Pretest discussion","GeneReviews"],"answer":"E","explanation":"GeneReviews: Syndrome overview and inheritance."}},{"difficulty":"Step 1-style","lecture":"Genetic Counseling for Familial Cancers","topic":"VUS interpretation","concept":"A VUS lacks sufficient evidence for classification, so management should rely on personal/family risk rather than treating the variant as pathogenic.","stem":"A healthy woman with strong family history has a BRCA2 variant of uncertain significance. What is the best interpretation?","options":["Every relative should be treated as a confirmed carrier","The result is not known to be benign or pathogenic and should not by itself guide irreversible management","The variant proves hereditary breast and ovarian cancer syndrome","Prophylactic mastectomy is automatically indicated","The variant is equivalent to a negative test"],"answer":"B","explanation":"A VUS lacks sufficient evidence for classification, so management should rely on personal/family risk rather than treating the variant as pathogenic.","factoid":"../notes/Week%205/Week%205%20Note%20Hub/Factoids/12_Genetic_Counseling_Familial_Cancers_Factoid.html","factoidLabel":"Genetic Counseling for Familial Cancers","number":50,"reviewCheck":{"stem":"For ClinVar, which statement is most accurate?","options":["Allows targeted cascade testing in relatives.","Early age, rare tumor, multiple/bilateral primaries, strong family clustering, suggestive tumor testing, known familial variant, high-risk ancestry.","Public archive of variant interpretations.","Syndrome overview and inheritance.","Goals, anxiety, privacy, family impact, insurance/discrimination concerns, incomplete pedigree."],"answer":"C","explanation":"ClinVar: Public archive of variant interpretations."}}];
+
+if(!window.ReviewBank){
+(function(){
+  const KEY='fom:review-bank:v1';
+  const AUTO_FLAG_MISSES=2;
+  const MASTERY_TARGET=3;
+
+  function load(){
+    try{
+      const parsed=JSON.parse(localStorage.getItem(KEY)||'{"items":{}}');
+      if(!parsed.items) parsed.items={};
+      return parsed;
+    }catch(e){ return {items:{}}; }
+  }
+  function save(bank){ localStorage.setItem(KEY,JSON.stringify(bank)); }
+  function idFor(item){
+    return [item.lecture||'',item.topic||'',item.concept||''].join('||').toLowerCase();
+  }
+  function base(item){
+    return {
+      id:idFor(item),
+      lecture:item.lecture||'',
+      topic:item.topic||'',
+      concept:item.concept||'',
+      difficulty:item.difficulty||'',
+      questionStem:item.stem||'',
+      choices:item.options||[],
+      answer:item.answer||'',
+      explanation:item.explanation||'',
+      transferCheck:item.reviewCheck||null,
+      sourceQuiz:item.sourceQuiz||'',
+      misses:0,
+      attempts:0,
+      manual:false,
+      active:false,
+      mastered:false,
+      masteryStreak:0,
+      lastConfidence:null,
+      updatedAt:new Date().toISOString()
+    };
+  }
+  function getEntry(bank,item){
+    const id=idFor(item);
+    if(!bank.items[id]) bank.items[id]=base(item);
+    const e=bank.items[id];
+    Object.assign(e,{
+      lecture:item.lecture||e.lecture,
+      topic:item.topic||e.topic,
+      concept:item.concept||e.concept,
+      difficulty:item.difficulty||e.difficulty,
+      questionStem:item.stem||e.questionStem,
+      choices:item.options||e.choices,
+      answer:item.answer||e.answer,
+      explanation:item.explanation||e.explanation,
+      transferCheck:item.reviewCheck||e.transferCheck,
+      sourceQuiz:item.sourceQuiz||e.sourceQuiz
+    });
+    return e;
+  }
+  function recordPrimaryOutcome(item,correct,confidence){
+    const bank=load(),e=getEntry(bank,item);
+    e.attempts=(e.attempts||0)+1;
+    e.lastConfidence=confidence||null;
+    if(!correct){
+      e.misses=(e.misses||0)+1;
+      e.masteryStreak=0;
+      if(e.mastered || e.misses>=AUTO_FLAG_MISSES) e.active=true;
+      if(e.mastered){ e.mastered=false; }
+    }
+    e.updatedAt=new Date().toISOString();
+    save(bank); return e;
+  }
+  function fileItem(item){
+    const bank=load(),e=getEntry(bank,item);
+    e.manual=true;
+    e.active=true;
+    e.mastered=false;
+    e.masteryStreak=0;
+    e.updatedAt=new Date().toISOString();
+    save(bank); return e;
+  }
+  function recordMastery(item,success){
+    const bank=load(),e=getEntry(bank,item);
+    if(success){
+      e.masteryStreak=(e.masteryStreak||0)+1;
+      if(e.masteryStreak>=MASTERY_TARGET){
+        e.active=false;
+        e.mastered=true;
+      }
+    }else{
+      e.masteryStreak=0;
+    }
+    e.updatedAt=new Date().toISOString();
+    save(bank); return e;
+  }
+  function getActive(){
+    return Object.values(load().items).filter(x=>x.active);
+  }
+  function getAll(){ return Object.values(load().items); }
+  window.ReviewBank={KEY,AUTO_FLAG_MISSES,MASTERY_TARGET,recordPrimaryOutcome,fileItem,recordMastery,getActive,getAll};
+})();
+}
+const QUIZ_KEY="week5-daily-wednesday-50";
+const HIGHLIGHT_KEY='quiz-highlights:'+QUIZ_KEY;
+let pendingHighlightSelection=null;
+
+function loadHighlights(){
+  try{return JSON.parse(localStorage.getItem(HIGHLIGHT_KEY)||'{}')||{}}catch(e){return {}}
+}
+function saveHighlights(data){try{localStorage.setItem(HIGHLIGHT_KEY,JSON.stringify(data))}catch(e){}}
+function normalizeRanges(ranges){
+  const sorted=(ranges||[]).filter(r=>Number.isFinite(r.start)&&Number.isFinite(r.end)&&r.end>r.start).sort((a,b)=>a.start-b.start||a.end-b.end);
+  const out=[];
+  sorted.forEach(r=>{const last=out[out.length-1];if(last&&r.start<=last.end)last.end=Math.max(last.end,r.end);else out.push({start:r.start,end:r.end})});
+  return out;
+}
+function unwrapHighlights(scope=document){
+  scope.querySelectorAll('mark.study-highlight').forEach(mark=>{const p=mark.parentNode;while(mark.firstChild)p.insertBefore(mark.firstChild,mark);p.removeChild(mark);p.normalize()});
+}
+function textPoint(root,offset){
+  const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);let pos=0,node;
+  while(node=walker.nextNode()){
+    const next=pos+node.nodeValue.length;
+    if(offset<=next)return {node,offset:Math.max(0,offset-pos)};
+    pos=next;
+  }
+  return null;
+}
+function wrapOffsetRange(root,start,end){
+  if(end<=start)return;
+  const s=textPoint(root,start),e=textPoint(root,end);if(!s||!e)return;
+  const range=document.createRange();
+  try{range.setStart(s.node,s.offset);range.setEnd(e.node,e.offset)}catch(err){return}
+  if(range.collapsed)return;
+  const mark=document.createElement('mark');mark.className='study-highlight';
+  try{const frag=range.extractContents();mark.appendChild(frag);range.insertNode(mark)}catch(err){}
+}
+function refreshHighlights(scope=document){
+  unwrapHighlights(scope);
+  const data=loadHighlights();
+  scope.querySelectorAll('.highlightable[data-highlight-id]').forEach(el=>{
+    const ranges=normalizeRanges(data[el.dataset.highlightId]||[]).sort((a,b)=>b.start-a.start);
+    ranges.forEach(r=>wrapOffsetRange(el,r.start,r.end));
+  });
+}
+function offsetWithin(root,node,offset){
+  const r=document.createRange();r.selectNodeContents(root);r.setEnd(node,offset);return r.toString().length;
+}
+function captureHighlightSelection(){
+  const sel=window.getSelection();if(!sel||sel.rangeCount===0||sel.isCollapsed)return;
+  const range=sel.getRangeAt(0);let startEl=range.startContainer.nodeType===1?range.startContainer:range.startContainer.parentElement;let endEl=range.endContainer.nodeType===1?range.endContainer:range.endContainer.parentElement;
+  startEl=startEl?.closest?.('.highlightable[data-highlight-id]');endEl=endEl?.closest?.('.highlightable[data-highlight-id]');
+  if(!startEl||startEl!==endEl)return;
+  const start=offsetWithin(startEl,range.startContainer,range.startOffset),end=offsetWithin(startEl,range.endContainer,range.endOffset);
+  if(end<=start)return;
+  pendingHighlightSelection={id:startEl.dataset.highlightId,start,end,preview:sel.toString().trim().slice(0,55)};
+  const status=document.getElementById('highlightStatus');if(status)status.textContent=pendingHighlightSelection.preview?`Selected: “${pendingHighlightSelection.preview}${sel.toString().trim().length>55?'…':''}”`:'Selection ready.';
+}
+function hasTextSelectionInside(el){
+  const sel=window.getSelection();if(!sel||sel.isCollapsed||!sel.toString().trim())return false;
+  const a=sel.anchorNode,b=sel.focusNode;return !!(a&&b&&el.contains(a)&&el.contains(b));
+}
+function addPendingHighlight(){
+  const s=pendingHighlightSelection,status=document.getElementById('highlightStatus');
+  if(!s){if(status)status.textContent='Select text in a question stem or answer choice first.';return}
+  const data=loadHighlights();data[s.id]=normalizeRanges([...(data[s.id]||[]),{start:s.start,end:s.end}]);saveHighlights(data);refreshHighlights(document);if(status)status.textContent='Highlight saved. It will stay after reset or reopen.';pendingHighlightSelection=null;window.getSelection()?.removeAllRanges();
+}
+function erasePendingHighlight(){
+  const s=pendingHighlightSelection,status=document.getElementById('highlightStatus');
+  if(!s){if(status)status.textContent='Select part of a yellow highlight to erase it.';return}
+  const data=loadHighlights(),ranges=data[s.id]||[];const kept=ranges.filter(r=>r.end<=s.start||r.start>=s.end);if(kept.length)data[s.id]=kept;else delete data[s.id];saveHighlights(data);refreshHighlights(document);if(status)status.textContent=ranges.length!==kept.length?'Selected highlight erased.':'No saved highlight overlapped that selection.';pendingHighlightSelection=null;window.getSelection()?.removeAllRanges();
+}
+function clearAllHighlights(){
+  const data=loadHighlights();if(!Object.keys(data).length){document.getElementById('highlightStatus').textContent='There are no saved highlights to clear.';return}
+  if(!confirm('Clear every yellow highlight saved for this quiz?'))return;saveHighlights({});refreshHighlights(document);pendingHighlightSelection=null;document.getElementById('highlightStatus').textContent='All highlights cleared.';
+}
+document.addEventListener('selectionchange',()=>{clearTimeout(window.__hlTimer);window.__hlTimer=setTimeout(captureHighlightSelection,40)});
+document.getElementById('highlightBtn')?.addEventListener('click',addPendingHighlight);
+document.getElementById('eraseHighlightBtn')?.addEventListener('click',erasePendingHighlight);
+document.getElementById('clearHighlightsBtn')?.addEventListener('click',clearAllHighlights);
+
+let primaryRecorded={};
+
+function bankItem(q){
+  return Object.assign({},q,{sourceQuiz:QUIZ_KEY});
+}
+function recordPrimaryOnce(qn){
+  if(primaryRecorded[qn]) return;
+  const q=QUESTIONS.find(x=>x.number===qn);
+  if(!q || !responses[qn]) return;
+  ReviewBank.recordPrimaryOutcome(bankItem(q),responses[qn]===q.answer,confidence[qn]||null);
+  primaryRecorded[qn]=true;
+}
+function saveProgress(completed=false){
+  const answered=Object.keys(responses).length;
+  const correct=QUESTIONS.filter(q=>responses[q.number]===q.answer).length;
+  const scoreVisible=(mode!=='exam'||completed);
+  const data={
+    key:QUIZ_KEY,total:QUESTIONS.length,answered,
+    score:scoreVisible?correct:null,
+    percent:scoreVisible&&answered?Math.round(correct/answered*100):null,
+    completed:!!completed,mode,updatedAt:new Date().toISOString()
+  };
+  try{
+    localStorage.setItem('quiz-progress:'+QUIZ_KEY,JSON.stringify(data));
+    localStorage.setItem('med-quiz-folder:'+QUIZ_KEY,JSON.stringify(data));
+    if(completed){
+      const pct=Math.round(correct/QUESTIONS.length*100);
+      const prev=Number(localStorage.getItem('quiz-best:'+QUIZ_KEY)||'-1');
+      if(pct>prev) localStorage.setItem('quiz-best:'+QUIZ_KEY,String(pct));
+    }
+  }catch(e){}
+}
+
+let mode='practice',responses={},struck={},confidence={},locked={},resultsShown=false;
+let advancedIndex=0,advancedTransfer={},advancedDecision={},advancedFiled={};
+
+const quiz=document.getElementById('quiz'),advancedShell=document.getElementById('advancedShell'),advancedQuestionCard=document.getElementById('advancedQuestionCard'),advancedReviewCard=document.getElementById('advancedReviewCard');
+const practiceMode=document.getElementById('practiceMode'),examMode=document.getElementById('examMode'),advancedMode=document.getElementById('advancedMode'),modeNote=document.getElementById('modeNote'),gradeBtn=document.getElementById('gradeBtn'),resultOverlay=document.getElementById('resultOverlay');
+
+function letter(i){return String.fromCharCode(65+i)}
+
+
+function findReviewEntry(q){
+  try{
+    const key=(window.ReviewBank&&ReviewBank.KEY)||'fom:review-bank:v1';
+    const bank=JSON.parse(localStorage.getItem(key)||'{"items":{}}');
+    return Object.values((bank&&bank.items)||{}).find(e=>e&&e.sourceQuiz===QUIZ_KEY&&e.questionStem===q.stem)||null;
+  }catch(e){return null}
+}
+function isManualFlagged(q){
+  const e=findReviewEntry(q);
+  return !!(e&&e.manual);
+}
+function setManualFlag(qn,on){
+  const q=QUESTIONS.find(x=>x.number===qn);
+  if(!q)return;
+  if(on){
+    ReviewBank.fileItem(bankItem(q));
+  }else{
+    try{
+      const key=(window.ReviewBank&&ReviewBank.KEY)||'fom:review-bank:v1';
+      const bank=JSON.parse(localStorage.getItem(key)||'{"version":1,"items":{}}');
+      Object.values((bank&&bank.items)||{}).forEach(e=>{
+        if(e&&e.sourceQuiz===QUIZ_KEY&&e.questionStem===q.stem){
+          e.manual=false;
+          const autoMiss=(e.misses||0)>=((window.ReviewBank&&ReviewBank.AUTO_FLAG_MISSES)||2);
+          if(!autoMiss&&!e.mastered)e.active=false;
+          e.updatedAt=new Date().toISOString();
+        }
+      });
+      localStorage.setItem(key,JSON.stringify(bank));
+    }catch(e){}
+  }
+  if(mode==='advanced'){
+    if(Object.prototype.hasOwnProperty.call(responses,qn))renderAdvancedReview(qn);
+    else renderAdvancedQuestion();
+  }else{
+    paintState();
+  }
+}
+function flagButtonHTML(qn){
+  const q=QUESTIONS.find(x=>x.number===qn),on=q?isManualFlagged(q):false;
+  return `<button type="button" class="flag-btn ${on?'active':''}" data-flag-q="${qn}">${on?'Flagged ✓':'Flag for Review'}</button>`;
+}
+function bindFlagButtons(root){
+  (root||document).querySelectorAll('[data-flag-q]').forEach(btn=>btn.addEventListener('click',e=>{
+    e.preventDefault();e.stopPropagation();
+    const qn=Number(btn.dataset.flagQ),q=QUESTIONS.find(x=>x.number===qn);
+    if(q)setManualFlag(qn,!isManualFlagged(q));
+  }));
+}
+function factoidResourceHTML(q){
+  return `<div class="review-resource"><span>Lecture review resource</span><a href="${q.factoid}" target="_blank" rel="noopener">Open ${q.factoidLabel} Factoid Sheet ↗</a></div>`;
+}
+
+function confidenceHTML(qn){
+ const value=confidence[qn]||'';
+ return `<div class="confidence-wrap">
+   <div class="confidence-panel">
+     <div class="confidence-label">Confidence</div>
+     
+     <div class="confidence-buttons">
+       <button type="button" class="confidence-btn ${value==='guessing'?'active':''}" data-level="guessing">Guessing</button>
+       <button type="button" class="confidence-btn ${value==='unsure'?'active':''}" data-level="unsure">Unsure</button>
+       <button type="button" class="confidence-btn ${value==='confident'?'active':''}" data-level="confident">Confident</button>
+     </div>
+   </div>
+ </div>`;
+}
+
+function renderQuiz(){
+ quiz.innerHTML='';
+ QUESTIONS.forEach(q=>{
+  const article=document.createElement('article');article.className='question';article.id='q-'+q.number;
+  article.innerHTML=`<div class="qtop"><div class="qnum">Question ${q.number}</div>${flagButtonHTML(q.number)}</div><div class="stem highlightable" data-highlight-id="q${q.number}-stem">${q.stem}</div><div class="choices"></div><div class="feedback" id="feedback-${q.number}"></div>${confidenceHTML(q.number)}`;
+  const choices=article.querySelector('.choices');
+  q.options.forEach((opt,idx)=>{
+   const L=letter(idx),row=document.createElement('div');row.className='choice-row';
+   row.innerHTML=`<button type="button" class="choice" data-letter="${L}"><span class="choice-letter">${L}</span><span class="choice-copy highlightable" data-highlight-id="q${q.number}-opt-${L}">${opt}</span></button><button type="button" class="strike" title="Strike through choice ${L}">S̶</button>`;
+   row.querySelector('.choice').addEventListener('click',e=>{if(hasTextSelectionInside(e.currentTarget))return;choose(q.number,L)});
+   row.querySelector('.strike').addEventListener('click',e=>{e.stopPropagation();toggleStrike(q.number,L)});
+   choices.appendChild(row);
+  });
+  article.querySelectorAll('.confidence-btn').forEach(btn=>btn.addEventListener('click',()=>setConfidence(q.number,btn.dataset.level)));
+  bindFlagButtons(article);
+  quiz.appendChild(article);
+ });
+ refreshHighlights(quiz);
+ paintState();
+}
+
+function syncReviewBankConfidence(qn){
+ const q=QUESTIONS.find(x=>x.number===qn);
+ if(!q || !Object.prototype.hasOwnProperty.call(responses,qn)) return;
+ try{
+   const key=(window.ReviewBank&&ReviewBank.KEY)||'fom:review-bank:v1';
+   const raw=localStorage.getItem(key);
+   if(!raw)return;
+   const bank=JSON.parse(raw);
+   let changed=false;
+   Object.values((bank&&bank.items)||{}).forEach(e=>{
+     if(e && e.sourceQuiz===QUIZ_KEY && e.questionStem===q.stem){
+       e.lastConfidence=confidence[qn]||null;
+       e.updatedAt=new Date().toISOString();
+       changed=true;
+     }
+   });
+   if(changed)localStorage.setItem(key,JSON.stringify(bank));
+ }catch(e){}
+}
+
+function setConfidence(qn,level){
+ confidence[qn]=level;
+ syncReviewBankConfidence(qn);
+ if(mode==='advanced'){
+   if(Object.prototype.hasOwnProperty.call(responses,qn))renderAdvancedReview(qn);
+   else renderAdvancedQuestion();
+ }else paintState();
+}
+function choose(qn,L){if(mode==='practice'&&locked[qn])return;responses[qn]=L;if(mode==='practice'){locked[qn]=true;gradeQuestion(qn,true);recordPrimaryOnce(qn)}paintState();if(mode==='practice'&&Object.keys(responses).length===QUESTIONS.length&&!resultsShown)setTimeout(showResults,250)}
+function toggleStrike(qn,L){if(mode==='practice'&&locked[qn])return;struck[qn]??={};struck[qn][L]=!struck[qn][L];paintState()}
+
+function paintState(){
+ QUESTIONS.forEach(q=>{
+  const article=document.getElementById('q-'+q.number);if(!article)return;article.classList.remove('correct-q','wrong-q');
+  article.querySelectorAll('.choice').forEach(btn=>{const L=btn.dataset.letter;btn.classList.remove('selected','correct','wrong','struck');if(responses[q.number]===L)btn.classList.add('selected');if(struck[q.number]?.[L])btn.classList.add('struck');if(mode==='practice'&&locked[q.number]){if(L===q.answer)btn.classList.add('correct');if(responses[q.number]===L&&L!==q.answer)btn.classList.add('wrong')}});
+  article.querySelectorAll('.strike').forEach((btn,idx)=>{btn.classList.toggle('active',!!struck[q.number]?.[letter(idx)]);btn.disabled=mode==='practice'&&!!locked[q.number]});
+  article.querySelectorAll('.confidence-btn').forEach(btn=>{
+   btn.classList.toggle('active',confidence[q.number]===btn.dataset.level);
+   btn.disabled=false;
+  });
+  const flag=article.querySelector('[data-flag-q]');
+  if(flag){const on=isManualFlagged(q);flag.classList.toggle('active',on);flag.textContent=on?'Flagged ✓':'Flag for Review';}
+ });
+ updateProgress();
+}
+
+function gradeQuestion(qn,showFeedback){
+ const q=QUESTIONS.find(x=>x.number===qn),fb=document.getElementById('feedback-'+qn),isCorrect=responses[qn]===q.answer;
+ if(showFeedback&&fb){fb.className='feedback show '+(isCorrect?'good':'bad');fb.innerHTML=isCorrect?`<strong>Correct.</strong> ${q.explanation}`:`<strong>Not quite.</strong> Correct answer: <strong>${q.answer}</strong>. ${q.explanation}`}
+ const article=document.getElementById('q-'+qn);if(article){article.querySelectorAll('.choice').forEach(btn=>{const L=btn.dataset.letter;if(L===q.answer)btn.classList.add('correct');if(responses[qn]===L&&L!==q.answer)btn.classList.add('wrong')})}
+}
+
+function updateProgress(){
+ const answered=Object.keys(responses).length;
+ document.getElementById('answeredLabel').textContent=mode==='advanced'?`Question ${Math.min(advancedIndex+1,QUESTIONS.length)} of ${QUESTIONS.length} · ${answered} answered`:`${answered} of ${QUESTIONS.length} answered`;
+ document.getElementById('progressFill').style.width=`${answered/QUESTIONS.length*100}%`;
+ if(mode==='practice'){const correct=QUESTIONS.filter(q=>responses[q.number]===q.answer).length;document.getElementById('scoreLabel').textContent=answered?`Practice score: ${correct}/${answered}`:'Practice score: —'}
+ else if(mode==='advanced'){const transferDone=Object.keys(advancedTransfer).length;document.getElementById('scoreLabel').textContent=`Advanced review · ${transferDone} transfer checks completed`}
+ else document.getElementById('scoreLabel').textContent='Exam score hidden until grading';
+ saveProgress(false);
+}
+
+function setMode(next){
+ if(Object.keys(responses).length&&!confirm('Switching modes will reset this test run. Continue?'))return;
+ if(Object.keys(responses).length)resetState(false);
+ mode=next;
+ practiceMode.classList.toggle('active',mode==='practice');examMode.classList.toggle('active',mode==='exam');advancedMode.classList.toggle('active',mode==='advanced');
+ quiz.classList.toggle('hidden',mode==='advanced');advancedShell.classList.toggle('show',mode==='advanced');
+ gradeBtn.style.display=mode==='exam'?'inline-block':'none';
+ modeNote.textContent=mode==='practice'?'Immediate feedback is ON.':mode==='exam'?'Feedback is hidden until you grade the quiz.':'One question at a time. If you miss the primary question, Advanced Review is required. If you get it right, the review is optional.';
+ if(mode==='advanced'){advancedIndex=0;renderAdvancedQuestion()}else{renderQuiz()}
+ updateProgress();
+}
+practiceMode.addEventListener('click',()=>setMode('practice'));examMode.addEventListener('click',()=>setMode('exam'));advancedMode.addEventListener('click',()=>setMode('advanced'));
+
+function renderAdvancedQuestion(){
+ if(advancedIndex>=QUESTIONS.length){showResults();return}
+ const q=QUESTIONS[advancedIndex],qn=q.number;
+ advancedReviewCard.classList.remove('show');
+ advancedQuestionCard.style.display='block';
+ let choices='';
+ q.options.forEach((opt,idx)=>{const L=letter(idx),classes=['choice'];if(struck[qn]?.[L])classes.push('struck');choices+=`<div class="choice-row"><button type="button" class="${classes.join(' ')}" data-letter="${L}"><span class="choice-letter">${L}</span><span class="choice-copy highlightable" data-highlight-id="q${qn}-opt-${L}">${opt}</span></button><button type="button" class="strike ${struck[qn]?.[L]?'active':''}" data-strike="${L}">S̶</button></div>`});
+ advancedQuestionCard.innerHTML=`<div class="advanced-progress-label">Advanced Quiz Review · Primary Question</div><div class="qtop"><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><div class="qnum">Question ${qn}</div>${flagButtonHTML(qn)}</div><div class="tags"><span class="tag">Metadata hidden until review</span></div></div><div class="stem highlightable" data-highlight-id="q${qn}-stem">${q.stem}</div><div class="choices">${choices}</div>${confidenceHTML(qn)}`;
+ advancedQuestionCard.querySelectorAll('.choice').forEach(btn=>btn.addEventListener('click',e=>{if(hasTextSelectionInside(e.currentTarget))return;answerAdvancedPrimary(qn,btn.dataset.letter)}));
+ advancedQuestionCard.querySelectorAll('[data-strike]').forEach(btn=>btn.addEventListener('click',()=>{const L=btn.dataset.strike;struck[qn]??={};struck[qn][L]=!struck[qn][L];renderAdvancedQuestion()}));
+ advancedQuestionCard.querySelectorAll('.confidence-btn').forEach(btn=>btn.addEventListener('click',()=>setConfidence(qn,btn.dataset.level)));
+ bindFlagButtons(advancedQuestionCard);
+ refreshHighlights(advancedQuestionCard);
+ updateProgress();
+}
+
+function answerAdvancedPrimary(qn,L){
+ responses[qn]=L;locked[qn]=true;recordPrimaryOnce(qn);
+ renderAdvancedReview(qn);
+ updateProgress();
+}
+
+function renderAdvancedReview(qn){
+ const q=QUESTIONS.find(x=>x.number===qn),correct=responses[qn]===q.answer,rc=q.reviewCheck;
+ advancedQuestionCard.style.display='none';advancedReviewCard.classList.add('show');
+ let transferChoices='';rc.options.forEach((opt,idx)=>{const L=letter(idx),chosen=advancedTransfer[qn]===L,done=!!advancedTransfer[qn],classes=['choice'];if(chosen)classes.push('selected');if(done&&L===rc.answer)classes.push('correct');if(done&&chosen&&L!==rc.answer)classes.push('wrong');transferChoices+=`<div class="choice-row"><button type="button" class="${classes.join(' ')}" data-transfer="${L}" ${done?'disabled':''}><span class="choice-letter">${L}</span><span class="choice-copy highlightable" data-highlight-id="q${qn}-transfer-opt-${L}">${opt}</span></button></div>`});
+ const transferDone=!!advancedTransfer[qn],transferCorrect=advancedTransfer[qn]===rc.answer,decision=advancedDecision[qn]||'';
+ advancedReviewCard.innerHTML=`
+ <div class="qtop"><div class="advanced-progress-label">Advanced Review Screen</div>${flagButtonHTML(qn)}</div>
+ <h2 class="review-title">${correct?'Correct primary answer':'Primary answer missed'}</h2>
+ <div class="feedback show ${correct?'good':'bad'}">${correct?'<strong>Correct.</strong>':'<strong>Not quite.</strong> Correct answer: <strong>'+q.answer+'</strong>.'} ${q.explanation}</div>
+ ${confidenceHTML(qn)}
+ <div class="review-meta">
+   <div class="meta-card"><span>Difficulty</span><strong>${q.difficulty}</strong></div>
+   <div class="meta-card"><span>Lecture</span><strong>${q.lecture}</strong></div>
+   <div class="meta-card"><span>Topic</span><strong>${q.topic}</strong></div>
+ </div>
+ <div class="concept-box"><strong>Concept:</strong> ${q.concept}</div>
+ ${factoidResourceHTML(q)}
+ <div class="transfer"><h3>Transfer Check</h3><p>Apply the same concept to a similar stem before moving on.</p><div class="stem highlightable" data-highlight-id="q${qn}-transfer-stem">${rc.stem}</div><div class="choices">${transferChoices}</div>
+ <div class="transfer-status ${transferDone?'show '+(transferCorrect?'good':'bad'):''}">${transferDone?(transferCorrect?'<strong>Transfer check correct.</strong> ':'<strong>Transfer check missed.</strong> Correct answer: <strong>'+rc.answer+'</strong>. ')+rc.explanation:''}</div></div>
+ <div class="decision-box"><h3>Before continuing</h3>
+ <p>${correct?'Because you answered the primary question correctly, Advanced Review is optional. You may skip it, or complete the transfer check for deeper review.':'Because you missed the primary question, complete the transfer check and then either confirm understanding or file the concept for review.'}</p>
+ ${correct?`<div class="review-actions"><button type="button" class="secondary" id="skipAdvancedBtn">${advancedIndex===QUESTIONS.length-1?'Skip review & finish':'Skip Advanced Review'}</button></div>`:''}
+ <div class="review-actions"><button type="button" class="review-decision ${decision==='understand'?'active-understand':''}" id="understandBtn">I understand</button><button type="button" class="review-decision ${decision==='file'?'active-file':''}" id="fileBtn">File for review</button></div>
+ <button type="button" class="primary" id="continueAdvancedBtn" ${(!transferDone||!decision)?'disabled':''}>${advancedIndex===QUESTIONS.length-1?'Finish Advanced Review':'Continue to next question'}</button></div>`;
+ refreshHighlights(advancedReviewCard);
+ bindFlagButtons(advancedReviewCard);
+ advancedReviewCard.querySelectorAll('.confidence-btn').forEach(btn=>btn.addEventListener('click',()=>setConfidence(qn,btn.dataset.level)));
+ advancedReviewCard.querySelectorAll('[data-transfer]').forEach(btn=>btn.addEventListener('click',e=>{if(hasTextSelectionInside(e.currentTarget))return;advancedTransfer[qn]=btn.dataset.transfer;renderAdvancedReview(qn);updateProgress()}));
+ document.getElementById('understandBtn').addEventListener('click',()=>{advancedDecision[qn]='understand';advancedFiled[qn]=false;renderAdvancedReview(qn)});
+ document.getElementById('fileBtn').addEventListener('click',()=>{advancedDecision[qn]='file';advancedFiled[qn]=true;ReviewBank.fileItem(bankItem(q));renderAdvancedReview(qn)});
+ const skip=document.getElementById('skipAdvancedBtn');
+ if(skip)skip.addEventListener('click',()=>{
+   advancedDecision[qn]='understand';
+   advancedFiled[qn]=false;
+   advancedIndex++;
+   if(advancedIndex>=QUESTIONS.length)showResults();else renderAdvancedQuestion();
+   updateProgress();
+ });
+ const cont=document.getElementById('continueAdvancedBtn');if(cont)cont.addEventListener('click',()=>{if(!advancedTransfer[qn]||!advancedDecision[qn])return;const masterySuccess=(responses[qn]===q.answer&&advancedTransfer[qn]===rc.answer&&advancedDecision[qn]==='understand');ReviewBank.recordMastery(bankItem(q),masterySuccess);if(advancedDecision[qn]==='file')ReviewBank.fileItem(bankItem(q));advancedIndex++;if(advancedIndex>=QUESTIONS.length)showResults();else renderAdvancedQuestion();updateProgress()});
+}
+
+gradeBtn.addEventListener('click',()=>{if(Object.keys(responses).length<QUESTIONS.length){alert(`You still have ${QUESTIONS.length-Object.keys(responses).length} unanswered question(s).`);return}QUESTIONS.forEach(q=>{locked[q.number]=true;gradeQuestion(q.number,true);recordPrimaryOnce(q.number)});resultsShown=true;paintState();showResults()});
+
+function showResults(){
+ resultsShown=true;const correct=QUESTIONS.filter(q=>responses[q.number]===q.answer).length,pct=Math.round(correct/QUESTIONS.length*100),passed=pct>=70;saveProgress(true);
+ document.getElementById('hunterImg').src=passed?HUNTER_UP:HUNTER_DOWN;document.getElementById('resultTitle').textContent=passed?'Hunter is proud of you':'Hunter says boot up anki little bro';
+ let scoreText=`${pct}% · ${correct}/${QUESTIONS.length} primary questions correct`;
+ if(mode==='advanced'){const attemptedTransfers=QUESTIONS.filter(q=>advancedTransfer[q.number]).length,transferCorrect=QUESTIONS.filter(q=>advancedTransfer[q.number]===q.reviewCheck.answer).length;scoreText+=attemptedTransfers?` · ${transferCorrect}/${attemptedTransfers} transfer checks correct`:' · No transfer checks attempted'}
+ document.getElementById('finalScore').textContent=scoreText;
+ const missed=QUESTIONS.filter(q=>responses[q.number]!==q.answer),topicMap={};QUESTIONS.forEach(q=>{topicMap[q.topic]??={total:0,missed:0,concepts:[]};topicMap[q.topic].total++;if(responses[q.number]!==q.answer){topicMap[q.topic].missed++;topicMap[q.topic].concepts.push(q.concept)}});
+ const needs=Object.entries(topicMap).filter(([,v])=>v.missed>0).sort((a,b)=>(b[1].missed/b[1].total)-(a[1].missed/a[1].total)),strong=Object.entries(topicMap).filter(([,v])=>v.missed===0).map(([k])=>k);
+ let h='';if(!missed.length)h+='<p class="strong">No primary-question review topics flagged by score.</p>';else{h+='<div class="need">Needs the most review</div><ul class="review-list">';needs.slice(0,4).forEach(([topic,v])=>h+=`<li><strong>${topic}</strong> — ${v.missed} missed of ${v.total} tested</li>`);h+='</ul>'}
+ if(mode==='advanced'){const filed=QUESTIONS.filter(q=>advancedFiled[q.number]);if(filed.length){h+='<div class="need">You manually filed these for review</div><ul class="review-list">';filed.forEach(q=>h+=`<li><strong>${q.topic}</strong> — ${q.concept}</li>`);h+='</ul>'}const transferMissed=QUESTIONS.filter(q=>advancedTransfer[q.number]&&advancedTransfer[q.number]!==q.reviewCheck.answer);if(transferMissed.length){h+='<div class="need">Transfer checks to revisit</div><ul class="review-list">';transferMissed.forEach(q=>h+=`<li><strong>${q.topic}</strong> — apply the concept to a new stem</li>`);h+='</ul>'}}
+ if(strong.length){h+='<div class="strong">Strongest areas</div><ul class="review-list">';strong.slice(0,4).forEach(t=>h+=`<li>${t}</li>`);h+='</ul>'}
+ const confidentWrong=QUESTIONS.filter(q=>confidence[q.number]==='confident'&&responses[q.number]!==q.answer),
+ confidentRight=QUESTIONS.filter(q=>confidence[q.number]==='confident'&&responses[q.number]===q.answer),
+ unsureRight=QUESTIONS.filter(q=>confidence[q.number]==='unsure'&&responses[q.number]===q.answer),
+ guessingRight=QUESTIONS.filter(q=>confidence[q.number]==='guessing'&&responses[q.number]===q.answer),
+ rated=QUESTIONS.filter(q=>confidence[q.number]).length;
+ h+=`<div class="confidence-summary"><strong>Confidence analysis</strong><div style="font-size:11px;color:var(--muted);margin-top:3px">Your most recent confidence rating is used, whether you set it before or after answering.</div><div class="confidence-grid"><div class="conf-stat"><b>${confidentWrong.length}</b><span>CONFIDENTLY WRONG</span></div><div class="conf-stat"><b>${confidentRight.length}</b><span>CONFIDENT + CORRECT</span></div><div class="conf-stat"><b>${unsureRight.length}</b><span>UNSURE BUT CORRECT</span></div><div class="conf-stat"><b>${guessingRight.length}</b><span>GUESSES THAT LANDED</span></div></div>`;
+ if(confidentWrong.length){h+='<div class="need" style="margin-top:10px">Highest-priority review: confidently wrong</div><ul class="review-list">';confidentWrong.forEach(q=>h+=`<li><strong>${q.topic}</strong> — ${q.concept}</li>`);h+='</ul>'}
+ else if(rated)h+='<p class="strong" style="margin:10px 0 0">No confidently-wrong concepts this attempt.</p>';
+ else h+='<p style="margin:10px 0 0;color:var(--muted)">No confidence ratings were selected.</p>';
+ h+='</div>';
+ const manuallyFlagged=QUESTIONS.filter(q=>isManualFlagged(q));
+ if(manuallyFlagged.length){
+   h+='<div class="need">Flagged for Review</div><ul class="review-list">';
+   manuallyFlagged.forEach(q=>h+=`<li><strong>${q.topic}</strong> — ${q.concept}</li>`);
+   h+='</ul>';
+ }
+ h+=`<div class="factoid-links"><strong>Wednesday Factoid Sheets</strong><div class="factoid-row">
+ <a href="../notes/Week%205/Week%205%20Note%20Hub/Factoids/09_Cancer_Screening_and_Diagnosis_Factoid.html" target="_blank" rel="noopener">Foundations of Cancer Screening &amp; Diagnosis ↗</a>
+ <a href="../notes/Week%205/Week%205%20Note%20Hub/Factoids/10_Foundations_of_Cancer_Treatment_Factoid.html" target="_blank" rel="noopener">Foundations of Cancer Treatment ↗</a>
+ <a href="../notes/Week%205/Week%205%20Note%20Hub/Factoids/11_Individualizing_Cancer_Care_Factoid.html" target="_blank" rel="noopener">Individualizing Care of the Cancer Patient ↗</a>
+ <a href="../notes/Week%205/Week%205%20Note%20Hub/Factoids/12_Genetic_Counseling_Familial_Cancers_Factoid.html" target="_blank" rel="noopener">Genetic Counseling for Familial Cancers ↗</a>
+ </div></div>`;
+ const activeCount=ReviewBank.getActive().length;h+=`<p style="margin-top:12px;color:var(--muted);font-size:12px">Shared review bank: ${activeCount} active concept${activeCount===1?'':'s'}.</p>`;document.getElementById('reviewBody').innerHTML=h;resultOverlay.classList.add('show');
+}
+
+let hunterClicks=0,hunterBubbleTimer=null,lastHunterMessage=-1;
+const hunterMessages=["Why are you poking me?","You do know there are questions to review, right?","Hunter has documented this behavior.","Please return to Anki immediately.","This interaction is not improving your score.","I am literally just a results screen.","There are missed questions waiting for you.","Your persistence is medically concerning.","This counts as procrastination, by the way.","Achievement unlocked: Professional Hunter Annoyer."];
+document.getElementById('hunterImg').addEventListener('click',()=>{hunterClicks++;if(hunterClicks<3)return;let idx;do{idx=Math.floor(Math.random()*hunterMessages.length)}while(hunterMessages.length>1&&idx===lastHunterMessage);lastHunterMessage=idx;const bubble=document.getElementById('hunterBubble');bubble.textContent=hunterMessages[idx];bubble.classList.add('show');clearTimeout(hunterBubbleTimer);hunterBubbleTimer=setTimeout(()=>bubble.classList.remove('show'),2200)});
+
+document.getElementById('closeResultBtn').addEventListener('click',()=>resultOverlay.classList.remove('show'));const rbLink=document.getElementById('openReviewBankBtn');if(rbLink&&location.protocol==='file:')rbLink.style.display='none';
+document.getElementById('reviewMissedBtn').addEventListener('click',()=>{resultOverlay.classList.remove('show');if(mode==='advanced'){const first=QUESTIONS.find(q=>responses[q.number]!==q.answer||advancedFiled[q.number]||advancedTransfer[q.number]!==q.reviewCheck.answer);if(first){advancedIndex=first.number-1;renderAdvancedReview(first.number)}}else{const first=QUESTIONS.find(q=>responses[q.number]!==q.answer);if(first)document.getElementById('q-'+first.number)?.scrollIntoView({behavior:'smooth',block:'start'})}});
+
+function resetState(confirmFirst=true){
+ if(confirmFirst&&Object.keys(responses).length&&!confirm('Clear all responses, confidence ratings, strike-throughs, and advanced-review decisions? Your yellow highlights will be kept.'))return;
+ responses={};struck={};confidence={};locked={};primaryRecorded={};resultsShown=false;advancedIndex=0;advancedTransfer={};advancedDecision={};advancedFiled={};hunterClicks=0;lastHunterMessage=-1;resultOverlay.classList.remove('show');
+ if(mode==='advanced')renderAdvancedQuestion();else renderQuiz();updateProgress();
+}
+document.getElementById('resetBtn').addEventListener('click',()=>resetState(true));
+
+renderQuiz();
+updateProgress();
+</script>
+</body></html>
