@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Drug Practice Quiz 03 · Foundations Drug Hub</title>
+<style>
+:root{
+  --bg:#f5efe8;--paper:#fffaf5;--paper2:#fff;--ink:#382c26;--muted:#75665d;
+  --brown:#684938;--brown2:#4d3529;--tan:#eadfd4;--line:#dacbbf;
+  --sage:#dfe8dc;--gold:#f1e5be;--rose:#f1dcd7;--blue:#dfe7ed;
+  --good:#356646;--goodbg:#edf6ef;--bad:#8c3f37;--badbg:#faeeec;
+  --shadow:0 18px 45px rgba(73,47,32,.10);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(circle at top left,#fff 0,transparent 27%),var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+button,a{font:inherit}
+a{color:inherit;text-decoration:none}
+.topbar{background:linear-gradient(135deg,var(--brown2),var(--brown) 62%,#8b6953);color:#fff;padding:18px 20px 22px}
+.topbar-inner{max-width:980px;margin:auto}
+.crumbs{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;font-size:12px;font-weight:800;color:rgba(255,255,255,.86)}
+.crumbs a{border:1px solid rgba(255,255,255,.18);padding:7px 10px;border-radius:999px;background:rgba(255,255,255,.08)}
+.title-row{margin-top:18px;display:flex;gap:16px;align-items:center}
+.pillmark{width:62px;height:62px;border-radius:18px;background:#fffaf5;display:grid;place-items:center;color:var(--brown);box-shadow:0 10px 22px rgba(20,10,5,.18);flex:0 0 auto}
+.pillmark svg{width:38px;height:38px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+h1{margin:0;font-size:clamp(28px,5vw,44px);letter-spacing:-.04em;line-height:1}
+.subtitle{margin:7px 0 0;color:rgba(255,255,255,.82);font-size:13px;line-height:1.5}
+.shell{max-width:980px;margin:0 auto;padding:18px 20px 60px}
+.progress-shell{position:sticky;top:0;z-index:8;background:rgba(245,239,232,.94);backdrop-filter:blur(12px);padding:12px 0 10px}
+.progress-top{display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:12px;font-weight:850;color:var(--muted);margin-bottom:7px}
+.progress{height:9px;background:#e5d8ce;border-radius:999px;overflow:hidden;border:1px solid #d8c8bb}
+.progress>div{height:100%;width:0;background:linear-gradient(90deg,var(--brown),#9a755f);transition:width .25s ease}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);overflow:hidden}
+.qhead{padding:17px 20px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
+.qnum{font-size:12px;font-weight:900;color:var(--brown);letter-spacing:.04em;text-transform:uppercase}
+.qtools{display:flex;gap:7px;flex-wrap:wrap}
+.toolbtn,.flagbtn,.ghostbtn{border:1px solid var(--line);background:#fff;color:var(--brown);font-weight:850;font-size:11px;padding:8px 10px;border-radius:10px;cursor:pointer}
+.flagbtn.active{background:var(--gold);border-color:#d3bd77}
+.qbody{padding:24px 22px 22px}
+.stem{font-family:Georgia,"Times New Roman",serif;font-size:19px;line-height:1.62;color:#2f2723;margin-bottom:20px}
+mark.user-highlight{background:#f7df7d;padding:0 .04em;border-radius:2px}
+.hintbox{display:none;margin:0 0 16px;padding:12px 14px;border-radius:13px;background:#fbf1cf;border:1px solid #e7d59a;color:#55472d;font-size:13px;line-height:1.55}
+.hintbox.show{display:block}
+.options{display:grid;gap:10px}
+.choice-row{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:stretch}
+.choice{width:100%;text-align:left;border:1px solid #d8cabf;background:#fff;border-radius:14px;padding:13px 14px;display:flex;gap:11px;align-items:flex-start;cursor:pointer;color:var(--ink);transition:.12s ease}
+.choice:hover:not(:disabled){border-color:#a98974;transform:translateY(-1px)}
+.choice.selected{border-color:var(--brown);box-shadow:0 0 0 2px rgba(104,73,56,.11);background:#fbf5ef}
+.choice.correct{border-color:#84ad90;background:var(--goodbg)}
+.choice.wrong{border-color:#c9877f;background:var(--badbg)}
+.choice.struck .choice-copy{text-decoration:line-through;opacity:.5}
+.choice:disabled{cursor:default}
+.letter{width:27px;height:27px;display:grid;place-items:center;border-radius:999px;background:var(--tan);color:var(--brown);font-size:12px;font-weight:950;flex:0 0 auto}
+.choice.correct .letter{background:#cae2d0;color:var(--good)}
+.choice.wrong .letter{background:#efd0cb;color:var(--bad)}
+.choice-copy{font-size:14px;line-height:1.48;font-weight:650;padding-top:2px}
+.strike{width:42px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--muted);font-weight:900;cursor:pointer}
+.strike.active{background:#eee2d8;color:var(--brown)}
+.confidence{margin-top:20px;padding:14px;border:1px solid var(--line);border-radius:14px;background:#fcf7f2}
+.conf-title{font-size:11px;font-weight:900;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
+.conf-buttons{display:flex;gap:8px;flex-wrap:wrap}
+.confbtn{border:1px solid var(--line);background:#fff;color:var(--brown);font-weight:850;font-size:12px;padding:8px 12px;border-radius:999px;cursor:pointer}
+.confbtn.active{background:var(--brown);color:#fff;border-color:var(--brown)}
+.confbtn:disabled{opacity:.7;cursor:default}
+.actions{margin-top:20px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center}
+.left-actions,.right-actions{display:flex;gap:8px;flex-wrap:wrap}
+.primary{border:0;background:var(--brown);color:#fff;font-weight:900;padding:11px 16px;border-radius:12px;cursor:pointer}
+.primary:disabled{opacity:.4;cursor:not-allowed}
+.secondary{border:1px solid var(--line);background:#fff;color:var(--brown);font-weight:850;padding:10px 14px;border-radius:12px;cursor:pointer}
+.feedback{margin-top:20px;display:none}
+.feedback.show{display:block}
+.answer-banner{padding:13px 15px;border-radius:14px;font-weight:900;margin-bottom:12px}
+.answer-banner.good{background:var(--goodbg);color:var(--good);border:1px solid #b8d1bf}
+.answer-banner.bad{background:var(--badbg);color:var(--bad);border:1px solid #e0b7b1}
+.meta-after{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 14px}
+.meta-pill{font-size:10px;font-weight:900;background:var(--tan);color:var(--brown);padding:5px 8px;border-radius:999px}
+.explain{border:1px solid var(--line);border-radius:16px;background:#fff;padding:15px;margin-bottom:12px}
+.explain h3{margin:0 0 8px;font-size:15px}
+.explain p{margin:0;line-height:1.58;font-size:13px;color:#554a43}
+.why-list{display:grid;gap:8px;margin-top:10px}
+.why-item{border:1px solid #e6dbd2;border-radius:12px;padding:11px 12px;background:#fff}
+.why-item.good{border-left:4px solid #6d9b79}
+.why-item.bad{border-left:4px solid #c78279}
+.why-label{font-weight:900;font-size:12px;margin-bottom:4px}
+.why-copy{font-size:12px;line-height:1.5;color:var(--muted)}
+details.advanced{border:1px solid var(--line);border-radius:14px;background:#faf3ec;padding:12px 14px}
+details.advanced summary{cursor:pointer;font-weight:900;color:var(--brown);font-size:13px}
+.advanced-body{margin-top:10px;font-size:13px;line-height:1.58;color:#52453e}
+.review-mode-note{display:none;margin:0 0 12px;padding:10px 12px;border-radius:12px;background:var(--blue);border:1px solid #c7d3dc;color:#45535d;font-size:12px;font-weight:850}
+.review-mode-note.show{display:block}
+.results{display:none;background:var(--paper);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);padding:24px}
+.results.show{display:block}
+.result-kicker{text-transform:uppercase;letter-spacing:.08em;font-size:11px;font-weight:950;color:var(--brown)}
+.results h2{font-size:32px;margin:5px 0 8px;letter-spacing:-.04em}
+.motivation{color:var(--muted);font-size:14px;line-height:1.5;margin-bottom:20px}
+.score-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:16px 0}
+.stat{background:#fff;border:1px solid var(--line);border-radius:15px;padding:14px;text-align:center}
+.stat b{display:block;font-size:24px;color:var(--brown)}
+.stat span{font-size:10px;font-weight:900;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.conf-summary{margin-top:18px;border:1px solid var(--line);border-radius:16px;background:#fff;padding:15px}
+.conf-summary h3{margin:0 0 10px}
+.conf-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.confstat{background:#fcf7f2;border-radius:12px;padding:10px;text-align:center}
+.confstat b{display:block;color:var(--brown);font-size:20px}
+.confstat span{font-size:9px;font-weight:850;color:var(--muted);text-transform:uppercase}
+.review-list{margin:12px 0 0;padding:0;list-style:none;display:grid;gap:7px}
+.review-list li{border:1px solid #e5d9cf;background:#fff;border-radius:11px;padding:10px 12px;font-size:12px;line-height:1.45}
+.result-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.hidden{display:none!important}
+@media(max-width:720px){
+  .qbody{padding:19px 15px}.qhead{padding:14px 15px}.stem{font-size:17px}
+  .score-grid,.conf-grid{grid-template-columns:1fr 1fr}
+  .choice-copy{font-size:13px}.shell{padding-left:12px;padding-right:12px}
+  .title-row{align-items:flex-start}.pillmark{width:52px;height:52px}
+}
+</style>
+</head>
+<body>
+<header class="topbar">
+ <div class="topbar-inner">
+  <div class="crumbs"><div>Foundations of Medicine · Drug Hub</div><div style="display:flex;gap:7px"><a href="index.html">Quiz Directory</a><a href="../index.html#drug-practice">Drug Hub</a></div></div>
+  <div class="title-row">
+   <div class="pillmark" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M15 7h18a8 8 0 0 1 8 8v18a8 8 0 0 1-8 8H15a8 8 0 0 1-8-8V15a8 8 0 0 1 8-8Z"/><path d="m13 30 17-17a7 7 0 0 1 10 10L23 40a7 7 0 0 1-10-10Z"/><path d="m21.5 21.5 10 10"/></svg></div>
+   <div><h1>Drug Practice Quiz 03</h1><p class="subtitle">10 mixed pharmacology vignettes · explicit submit-before-grading · 1 in-house · 7 intermediate · 2 Step 1</p></div>
+  </div>
+ </div>
+</header>
+<main class="shell">
+ <div class="progress-shell">
+  <div class="progress-top"><span id="progressText">0 of 10 submitted</span><span id="progressScore">One-by-one grading</span></div>
+  <div class="progress"><div id="progressFill"></div></div>
+ </div>
+
+ <section class="card" id="questionCard">
+  <div class="qhead">
+   <div class="qnum" id="qnum">Question 1 of 10</div>
+   <div class="qtools">
+    <button class="toolbtn" id="highlightBtn" type="button">Highlight selection</button>
+    <button class="toolbtn" id="clearHighlightsBtn" type="button">Clear highlights</button>
+    <button class="flagbtn" id="flagBtn" type="button">Flag for Review</button>
+   </div>
+  </div>
+  <div class="qbody">
+   <div class="review-mode-note" id="reviewNote"></div>
+   <div class="stem highlightable" id="stem" data-highlight-id=""></div>
+   <div class="hintbox" id="hintBox"></div>
+   <div class="options" id="options"></div>
+   <div class="confidence">
+    <div class="conf-title">Confidence before submitting</div>
+    <div class="conf-buttons" id="confidenceButtons"></div>
+   </div>
+   <div class="feedback" id="feedback"></div>
+   <div class="actions">
+    <div class="left-actions">
+     <button class="secondary" id="prevBtn" type="button">← Previous</button>
+     <button class="secondary" id="hintBtn" type="button">Show Hint</button>
+    </div>
+    <div class="right-actions">
+     <button class="primary" id="submitBtn" type="button" disabled>Submit Answer</button>
+     <button class="primary hidden" id="nextBtn" type="button">Next Question</button>
+    </div>
+   </div>
+  </div>
+ </section>
+
+ <section class="results" id="results">
+  <div class="result-kicker">Drug Practice Quiz 03 Complete</div>
+  <h2 id="resultTitle">0/10</h2>
+  <div class="motivation" id="motivation"></div>
+  <div class="score-grid" id="scoreGrid"></div>
+  <div class="conf-summary" id="confidenceSummary"></div>
+  <div class="conf-summary"><h3>Missed / flagged review</h3><ul class="review-list" id="reviewList"></ul></div>
+  <div style="margin-top:12px;color:var(--muted);font-size:12px;font-weight:800" id="attemptSummary"></div>
+  <div class="result-actions">
+   <button class="primary" id="reviewBtn" type="button">Review missed & flagged</button>
+   <button class="secondary" id="retakeBtn" type="button">Retake Quiz</button>
+   <a class="secondary" href="index.html">Quiz Directory</a>
+   <a class="secondary" href="../index.html#drug-practice">Return to Drug Hub</a>
+  </div>
+ </section>
+</main>
+<script>
+const QUESTIONS = [{"number": 1, "globalId": 3, "stem": "A patient receiving chemotherapy develops microscopic hematuria and painful urination. Urinalysis shows blood without evidence of infection. The oncology team identifies a toxic metabolite of one alkylating agent and adds a protective medication to bind it in the urinary tract. Which chemotherapy drug most likely caused this complication?", "options": ["Bleomycin", "5-Fluorouracil", "Paclitaxel", "Etoposide", "Cyclophosphamide"], "answer": "E", "feedback": ["Bleomycin is a Antitumor antibiotic. Its characteristic mechanism/clinical profile is Generates free radicals causing DNA strand breaks; G2-specific. Major toxicity: Pulmonary fibrosis, skin changes; minimal myelosuppression. That profile does not best match this vignette.", "5-Fluorouracil is a Pyrimidine antimetabolite. Its characteristic mechanism/clinical profile is Converted to 5-FdUMP → inhibits thymidylate synthase; also disrupts RNA processing. Major toxicity: Myelosuppression, mucositis, hand-foot syndrome; severe toxicity with DPD deficiency. That profile does not best match this vignette.", "Paclitaxel is a Taxane. Its characteristic mechanism/clinical profile is Stabilizes microtubules and prevents depolymerization → mitotic arrest. Major toxicity: Peripheral neuropathy, myelosuppression; hypersensitivity reactions. That profile does not best match this vignette.", "Etoposide is a Topoisomerase II inhibitor. Its characteristic mechanism/clinical profile is Inhibits topoisomerase II → DNA strand breaks. Major toxicity: Myelosuppression; secondary AML risk. That profile does not best match this vignette.", "Cyclophosphamide produces acrolein, which can cause hemorrhagic cystitis; MESNA binds the toxic metabolite in urine."], "hint": "Focus on the alkylating agent classically linked to hemorrhagic cystitis and MESNA.", "topic": "Alkylating-agent toxicity", "difficulty": "Step 1", "drug": "Cyclophosphamide", "week": "5", "advanced": "\u003cb\u003eCyclophosphamide\u003c/b\u003e\u003cbr\u003e\u003cb\u003eClass:\u003c/b\u003e Alkylating agent\u003cbr\u003e\u003cb\u003eMechanism:\u003c/b\u003e Nitrogen mustard prodrug that cross-links DNA, especially at guanine N7.\u003cbr\u003e\u003cb\u003eClinical use:\u003c/b\u003e Broad antineoplastic use; also immunosuppression in selected diseases.\u003cbr\u003e\u003cb\u003eKey toxicity:\u003c/b\u003e Hemorrhagic cystitis, myelosuppression, infertility; MESNA protects bladder.\u003cbr\u003e\u003cb\u003ePearl:\u003c/b\u003e Think DNA cross-linking + acrolein cystitis.", "tags": ["Oncology", "Alkylating agent"]}, {"number": 2, "globalId": 18, "stem": "A teenager develops diffuse urticaria, wheezing, hypotension, and lip swelling minutes after eating a food containing peanuts. Which medication should be administered first?", "options": ["Rituximab", "Diphenhydramine", "Epinephrine", "Tacrolimus", "Infliximab"], "answer": "C", "feedback": ["Rituximab is a Anti-CD20 monoclonal antibody. Its characteristic mechanism/clinical profile is Binds CD20 on B cells → complement/ADCC-mediated B-cell depletion. Major toxicity: Infusion reactions, infections, HBV reactivation, PML risk. That profile does not best match this vignette.", "Diphenhydramine is a First-generation H1 blocker. Its characteristic mechanism/clinical profile is Inverse agonist at H1 histamine receptors. Major toxicity: Sedation, anticholinergic effects. That profile does not best match this vignette.", "Intramuscular epinephrine is first-line therapy for anaphylaxis because α1, β1, and β2 effects rapidly address vasodilation, edema, and bronchospasm.", "Tacrolimus is a Calcineurin inhibitor. Its characteristic mechanism/clinical profile is Binds FKBP → inhibits calcineurin → ↓ IL-2 transcription and T-cell activation. Major toxicity: Nephrotoxicity, neurotoxicity, hyperglycemia; no gingival hyperplasia/hirsutism emphasis. That profile does not best match this vignette.", "Infliximab is a Anti-TNF monoclonal antibody. Its characteristic mechanism/clinical profile is Neutralizes TNF-α. Major toxicity: Serious infections, TB/HBV reactivation, infusion reactions; avoid in severe heart failure. That profile does not best match this vignette."], "hint": "Prioritize the medication that treats airway, breathing, and circulatory collapse simultaneously.", "topic": "Anaphylaxis treatment", "difficulty": "In-House", "drug": "Epinephrine", "week": "6", "advanced": "\u003cb\u003eEpinephrine\u003c/b\u003e\u003cbr\u003e\u003cb\u003eClass:\u003c/b\u003e Adrenergic agonist\u003cbr\u003e\u003cb\u003eMechanism:\u003c/b\u003e α1, β1, β2 agonist → vasoconstriction, cardiac stimulation and bronchodilation.\u003cbr\u003e\u003cb\u003eClinical use:\u003c/b\u003e First-line treatment for anaphylaxis.\u003cbr\u003e\u003cb\u003eKey toxicity:\u003c/b\u003e Tachycardia, tremor, anxiety, arrhythmia.\u003cbr\u003e\u003cb\u003ePearl:\u003c/b\u003e Anaphylaxis = IM epinephrine first.", "tags": ["Immunology / Emergency", "Adrenergic agonist"]}, {"number": 3, "globalId": 33, "stem": "A woman with severe menorrhagia is prescribed a medication that stabilizes formed clots and substantially decreases menstrual blood loss. The drug does not increase platelet production or replace a deficient coagulation factor. Instead, it prevents premature breakdown of fibrin after a clot has formed. Which physiologic process is being suppressed by this medication?", "options": ["Thrombin generation", "Fibrinolysis", "Fibrin polymerization", "Primary platelet adhesion", "Vitamin K recycling"], "answer": "B", "feedback": ["Tranexamic acid does not primarily inhibit thrombin formation.", "Tranexamic acid suppresses fibrinolysis by blocking lysine-binding sites involved in plasminogen activation and fibrin binding.", "The drug preserves formed fibrin rather than blocking its polymerization.", "This depends mainly on vWF and platelet GPIb and is not the target of tranexamic acid.", "Warfarin inhibits vitamin K recycling; tranexamic acid does not."], "hint": "Identify the pathway responsible for breaking down an already formed fibrin clot.", "topic": "Tranexamic acid mechanism", "difficulty": "Intermediate", "drug": "Tranexamic acid", "week": "7", "advanced": "\u003cb\u003eTranexamic acid:\u003c/b\u003e A lysine analogue that inhibits plasminogen activation and plasmin binding to fibrin, thereby reducing fibrinolysis. It is useful in heavy menstrual bleeding and other bleeding settings, with thrombosis as an important risk consideration.", "tags": ["Tranexamic acid mechanism"]}, {"number": 4, "globalId": 48, "stem": "A treatment-experienced patient with HIV requires a protease inhibitor with a relatively high barrier to resistance. The selected medication is typically given with a pharmacokinetic booster. Which medication is most appropriate?", "options": ["Lenacapavir", "Emtricitabine", "Lamivudine", "Darunavir", "Zidovudine"], "answer": "D", "feedback": ["Lenacapavir is a Capsid inhibitor. Its characteristic mechanism/clinical profile is Disrupts capsid-dependent nuclear transport and viral/capsid assembly steps. Major toxicity: Injection-site reactions, nausea, headache. That profile does not best match this vignette.", "Emtricitabine is a NRTI. Its characteristic mechanism/clinical profile is Cytidine analog → reverse-transcriptase chain termination. Major toxicity: Generally well tolerated; M184V resistance clue. That profile does not best match this vignette.", "Lamivudine is a NRTI. Its characteristic mechanism/clinical profile is Cytidine analog → reverse-transcriptase chain termination. Major toxicity: Generally well tolerated; M184V resistance clue. That profile does not best match this vignette.", "Darunavir is a potent HIV protease inhibitor with a relatively high barrier to resistance and is commonly boosted with ritonavir or cobicistat.", "Zidovudine is a NRTI. Its characteristic mechanism/clinical profile is Thymidine analog → reverse-transcriptase chain termination. Major toxicity: Macrocytic anemia, marrow suppression, mitochondrial toxicity. That profile does not best match this vignette."], "hint": "The agent is a boosted protease inhibitor favored in many treatment-experienced settings.", "topic": "HIV protease inhibitors", "difficulty": "Intermediate", "drug": "Darunavir", "week": "8", "advanced": "\u003cb\u003eDarunavir\u003c/b\u003e\u003cbr\u003e\u003cb\u003eClass:\u003c/b\u003e HIV protease inhibitor\u003cbr\u003e\u003cb\u003eMechanism:\u003c/b\u003e Blocks HIV protease cleavage of viral polyproteins → immature nonfunctional virions.\u003cbr\u003e\u003cb\u003eClinical use:\u003c/b\u003e HIV therapy, often boosted.\u003cbr\u003e\u003cb\u003eKey toxicity:\u003c/b\u003e Metabolic effects, GI intolerance, CYP interactions; sulfonamide-moiety caution.\u003cbr\u003e\u003cb\u003ePearl:\u003c/b\u003e Protease inhibitor = maturation blocker.", "tags": ["HIV / Antiviral", "HIV protease inhibitor"]}, {"number": 5, "globalId": 63, "stem": "A college student presents within the first day of influenza symptoms and is prescribed a single-dose oral antiviral. The clinician explains that the medication acts differently from neuraminidase inhibitors by blocking a viral endonuclease required to generate capped primers for influenza mRNA synthesis. Which medication is being used?", "options": ["Baloxavir", "Zanamivir", "Nirmatrelvir / ritonavir", "Cidofovir", "Ganciclovir"], "answer": "A", "feedback": ["Baloxavir marboxil inhibits the influenza cap-dependent endonuclease and can be given as a single oral dose for uncomplicated influenza.", "Zanamivir is a Neuraminidase inhibitor. Its characteristic mechanism/clinical profile is Blocks influenza neuraminidase. Major toxicity: Bronchospasm; avoid/caution in asthma/COPD. That profile does not best match this vignette.", "Nirmatrelvir / ritonavir is a SARS-CoV-2 protease inhibitor + booster. Its characteristic mechanism/clinical profile is Nirmatrelvir inhibits viral protease; ritonavir inhibits CYP3A to increase exposure. Major toxicity: Dysgeusia, GI effects; major CYP3A drug interactions. That profile does not best match this vignette.", "Cidofovir is a Nucleotide analog. Its characteristic mechanism/clinical profile is Cytidine-monophosphate-like nucleotide analog; does not require viral kinase. Major toxicity: Nephrotoxicity/Fanconi syndrome; give probenecid + hydration. That profile does not best match this vignette.", "Ganciclovir is a Anti-CMV nucleoside analog. Its characteristic mechanism/clinical profile is Guanosine analog activated by CMV UL97 → inhibits viral DNA polymerase. Major toxicity: Myelosuppression/leukopenia. That profile does not best match this vignette."], "hint": "This is the single-dose influenza drug that blocks cap-snatching.", "topic": "Baloxavir mechanism", "difficulty": "Intermediate", "drug": "Baloxavir", "week": "8", "advanced": "\u003cb\u003eBaloxavir\u003c/b\u003e\u003cbr\u003e\u003cb\u003eClass:\u003c/b\u003e Cap-dependent endonuclease inhibitor\u003cbr\u003e\u003cb\u003eMechanism:\u003c/b\u003e Inhibits influenza polymerase acidic protein endonuclease → blocks cap-snatching.\u003cbr\u003e\u003cb\u003eClinical use:\u003c/b\u003e Influenza.\u003cbr\u003e\u003cb\u003eKey toxicity:\u003c/b\u003e Generally mild adverse-effect profile.\u003cbr\u003e\u003cb\u003ePearl:\u003c/b\u003e Different influenza target from neuraminidase inhibitors.", "tags": ["Antiviral", "Cap-dependent endonuclease inhibitor"]}, {"number": 6, "globalId": 78, "stem": "A patient undergoing induction therapy for acute myeloid leukemia is expected to have profound, prolonged neutropenia. The oncology team begins antifungal prophylaxis with an azole chosen for broad activity against both yeasts and invasive molds, including Aspergillus. Which medication is commonly used for this purpose?", "options": ["Fluconazole", "Micafungin", "Voriconazole", "Posaconazole", "Nystatin"], "answer": "D", "feedback": ["Fluconazole is a Azole antifungal. Its characteristic mechanism/clinical profile is Inhibits fungal CYP-dependent 14-α-demethylase → ↓ ergosterol synthesis. Major toxicity: Hepatotoxicity, CYP interactions, QT prolongation. That profile does not best match this vignette.", "Micafungin is a Echinocandin. Its characteristic mechanism/clinical profile is Inhibits β-1,3-D-glucan synthase (Fks) → defective fungal cell wall. Major toxicity: Hepatotoxicity; poor urine/CNS/eye penetration. That profile does not best match this vignette.", "Voriconazole is a Azole antifungal. Its characteristic mechanism/clinical profile is Inhibits 14-α-demethylase → ↓ ergosterol. Major toxicity: Visual color changes, hallucinations/nightmares, photosensitivity, hepatotoxicity. That profile does not best match this vignette.", "Posaconazole is a broad-spectrum triazole with mold activity and is commonly used for antifungal prophylaxis in patients with prolonged high-risk neutropenia.", "Nystatin is a Polyene antifungal. Its characteristic mechanism/clinical profile is Binds ergosterol → membrane pores. Major toxicity: Minimal systemic toxicity when used topically/orally without absorption. That profile does not best match this vignette."], "hint": "Choose the broad mold-active azole commonly used for prophylaxis during prolonged neutropenia.", "topic": "Antifungal prophylaxis", "difficulty": "Intermediate", "drug": "Posaconazole", "week": "8", "advanced": "\u003cb\u003ePosaconazole\u003c/b\u003e\u003cbr\u003e\u003cb\u003eClass:\u003c/b\u003e Azole antifungal\u003cbr\u003e\u003cb\u003eMechanism:\u003c/b\u003e Inhibits 14-α-demethylase.\u003cbr\u003e\u003cb\u003eClinical use:\u003c/b\u003e Candida, Aspergillus, Mucorales; prophylaxis in high-risk hosts.\u003cbr\u003e\u003cb\u003eKey toxicity:\u003c/b\u003e GI effects, hepatotoxicity, drug interactions; TDM in selected use.\u003cbr\u003e\u003cb\u003ePearl:\u003c/b\u003e Broad mold azole.", "tags": ["Antifungal", "Azole antifungal"]}, {"number": 7, "globalId": 93, "stem": "A patient with von Willebrand disease is scheduled for a minor surgical procedure. A medication is given before the procedure and successfully improves hemostasis. Several hours later, the patient develops headache, confusion, and a low serum sodium concentration. Which medication most likely caused this complication?", "options": ["Warfarin", "Desmopressin", "Alteplase", "Caplacizumab", "Tranexamic acid"], "answer": "B", "feedback": ["Warfarin is a Vitamin K antagonist. Its characteristic mechanism/clinical profile is Inhibits vitamin K epoxide reductase → ↓ γ-carboxylation of II, VII, IX, X, protein C and S. Major toxicity: Bleeding, skin necrosis; teratogenic. Vitamin K ± PCC reverses. That profile does not best match this vignette.", "Desmopressin increases release of von Willebrand factor and factor VIII but also has antidiuretic activity that can cause water retention and hyponatremia.", "Alteplase is a Thrombolytic (tPA). Its characteristic mechanism/clinical profile is Converts plasminogen to plasmin → fibrin clot breakdown. Major toxicity: Major bleeding, intracranial hemorrhage. That profile does not best match this vignette.", "Caplacizumab is a Anti-vWF nanobody. Its characteristic mechanism/clinical profile is Blocks vWF–platelet interaction. Major toxicity: Bleeding. That profile does not best match this vignette.", "Tranexamic acid is a Antifibrinolytic. Its characteristic mechanism/clinical profile is Lysine analog that blocks plasminogen binding/activation → stabilizes fibrin. Major toxicity: Thrombotic risk concern; seizures at high doses. That profile does not best match this vignette."], "hint": "Which hemostatic drug also acts like vasopressin at renal V2 receptors?", "topic": "Desmopressin hyponatremia", "difficulty": "Intermediate", "drug": "Desmopressin", "week": "7", "advanced": "\u003cb\u003eDesmopressin\u003c/b\u003e\u003cbr\u003e\u003cb\u003eClass:\u003c/b\u003e V2 agonist / hemostatic\u003cbr\u003e\u003cb\u003eMechanism:\u003c/b\u003e Promotes endothelial release of vWF and factor VIII; also increases renal water reabsorption.\u003cbr\u003e\u003cb\u003eClinical use:\u003c/b\u003e Type 1 von Willebrand disease; mild hemophilia A; central DI.\u003cbr\u003e\u003cb\u003eKey toxicity:\u003c/b\u003e Hyponatremia, water intoxication.\u003cbr\u003e\u003cb\u003ePearl:\u003c/b\u003e Raises vWF + VIII.", "tags": ["Hematology / Coagulation", "V2 agonist / hemostatic"]}, {"number": 8, "globalId": 108, "stem": "A patient with hospital-acquired pneumonia has cultures growing a susceptible strain of Pseudomonas aeruginosa. The treatment team selects a third-generation cephalosporin with strong antipseudomonal activity but less gram-positive activity than ceftriaxone. Which drug is most likely being used?", "options": ["Aztreonam", "Bacitracin", "Ceftazidime", "Trimethoprim-sulfamethoxazole", "Piperacillin / tazobactam"], "answer": "C", "feedback": ["Aztreonam is a Monobactam. Its characteristic mechanism/clinical profile is β-lactam PBP inhibitor targeting aerobic Gram-negative organisms. Major toxicity: Generally low cross-reactivity; GI/LFT effects. That profile does not best match this vignette.", "Bacitracin is a Cell-wall antibiotic. Its characteristic mechanism/clinical profile is Blocks dephosphorylation/recycling of bactoprenol carrier needed for peptidoglycan transport. Major toxicity: Nephrotoxic if systemic, so mainly topical. That profile does not best match this vignette.", "Ceftazidime is a third-generation cephalosporin distinguished by strong antipseudomonal activity and comparatively weaker gram-positive activity.", "Trimethoprim-sulfamethoxazole is a Folate-pathway antibacterial. Its characteristic mechanism/clinical profile is Sequential folate blockade: sulfamethoxazole inhibits dihydropteroate synthase; trimethoprim inhibits bacterial DHFR. Major toxicity: Rash/SJS, hyperkalemia, marrow suppression, hemolysis in G6PD deficiency, kernicterus risk. That profile does not best match this vignette.", "Piperacillin / tazobactam is a Antipseudomonal penicillin + β-lactamase inhibitor. Its characteristic mechanism/clinical profile is Piperacillin blocks PBPs; tazobactam inhibits many β-lactamases. Major toxicity: Hypersensitivity, cytopenias/electrolyte issues with prolonged therapy. That profile does not best match this vignette."], "hint": "Among third-generation cephalosporins, identify the one classically associated with Pseudomonas coverage.", "topic": "Ceftazidime spectrum", "difficulty": "Intermediate", "drug": "Ceftazidime", "week": "9", "advanced": "\u003cb\u003eCeftazidime\u003c/b\u003e\u003cbr\u003e\u003cb\u003eClass:\u003c/b\u003e 3rd-generation cephalosporin\u003cbr\u003e\u003cb\u003eMechanism:\u003c/b\u003e β-lactam PBP inhibitor.\u003cbr\u003e\u003cb\u003eClinical use:\u003c/b\u003e Pseudomonas coverage.\u003cbr\u003e\u003cb\u003eKey toxicity:\u003c/b\u003e Hypersensitivity, C. difficile risk.\u003cbr\u003e\u003cb\u003ePearl:\u003c/b\u003e 3rd gen with Pseudomonas.", "tags": ["Antibacterial", "3rd-generation cephalosporin"]}, {"number": 9, "globalId": 123, "stem": "A patient with severe sepsis receives an antipseudomonal penicillin combined with a beta-lactamase inhibitor. During prolonged therapy, the platelet count decreases and the patient develops electrolyte abnormalities. Which antibiotic combination is most likely being administered?", "options": ["Piperacillin / tazobactam", "Azithromycin", "Ceftriaxone", "Aztreonam", "Bacitracin"], "answer": "A", "feedback": ["Piperacillin/tazobactam is a broad antipseudomonal penicillin/beta-lactamase inhibitor combination; prolonged therapy can be associated with cytopenias and electrolyte disturbances.", "Azithromycin is a Macrolide. Its characteristic mechanism/clinical profile is Binds 50S ribosomal subunit → inhibits translocation. Major toxicity: QT prolongation, GI effects; fewer CYP interactions than erythromycin. That profile does not best match this vignette.", "Ceftriaxone is a 3rd-generation cephalosporin. Its characteristic mechanism/clinical profile is β-lactam PBP inhibitor. Major toxicity: Biliary sludging; avoid mixing with calcium in neonates. That profile does not best match this vignette.", "Aztreonam is a Monobactam. Its characteristic mechanism/clinical profile is β-lactam PBP inhibitor targeting aerobic Gram-negative organisms. Major toxicity: Generally low cross-reactivity; GI/LFT effects. That profile does not best match this vignette.", "Bacitracin is a Cell-wall antibiotic. Its characteristic mechanism/clinical profile is Blocks dephosphorylation/recycling of bactoprenol carrier needed for peptidoglycan transport. Major toxicity: Nephrotoxic if systemic, so mainly topical. That profile does not best match this vignette."], "hint": "Identify the broad-spectrum antipseudomonal penicillin/beta-lactamase inhibitor pair.", "topic": "Piperacillin/tazobactam adverse effects", "difficulty": "Intermediate", "drug": "Piperacillin / tazobactam", "week": "9", "advanced": "\u003cb\u003ePiperacillin / tazobactam\u003c/b\u003e\u003cbr\u003e\u003cb\u003eClass:\u003c/b\u003e Antipseudomonal penicillin + β-lactamase inhibitor\u003cbr\u003e\u003cb\u003eMechanism:\u003c/b\u003e Piperacillin blocks PBPs; tazobactam inhibits many β-lactamases.\u003cbr\u003e\u003cb\u003eClinical use:\u003c/b\u003e Broad severe infections including Pseudomonas and anaerobic coverage frameworks.\u003cbr\u003e\u003cb\u003eKey toxicity:\u003c/b\u003e Hypersensitivity, cytopenias/electrolyte issues with prolonged therapy.\u003cbr\u003e\u003cb\u003ePearl:\u003c/b\u003e Broad hospital β-lactam combination.", "tags": ["Antibacterial", "Antipseudomonal penicillin + β-lactamase inhibitor"]}, {"number": 10, "globalId": 138, "stem": "A patient with cryptococcal meningitis begins induction therapy and develops both rising creatinine with potassium wasting and progressive cytopenias. The team suspects that the two toxicities are coming from different components of the regimen. Which pairing is most consistent?", "options": ["Itraconazole → Fanconi syndrome; micafungin → pancytopenia", "Flucytosine → nephrotoxicity/electrolyte wasting; amphotericin B → marrow suppression", "Caspofungin → renal salt wasting; terbinafine → aplastic anemia", "Fluconazole → severe nephrotoxicity; nystatin → marrow suppression", "Amphotericin B → nephrotoxicity/electrolyte wasting; flucytosine → bone marrow suppression"], "answer": "E", "feedback": ["This pairing does not match the standard induction regimen or expected adverse effects.", "This reverses the characteristic toxicities of the two induction agents.", "These are not the characteristic paired agents/toxicities in cryptococcal induction.", "Neither pairing matches the classic cryptococcal induction regimen or toxicity profile.", "Amphotericin B classically causes renal injury with potassium and magnesium wasting, while flucytosine can cause dose-related cytopenias and hepatotoxicity."], "hint": "Separate the polyene's renal toxicity from the antimetabolite's marrow toxicity.", "topic": "Cryptococcal induction toxicities", "difficulty": "Step 1", "drug": "Amphotericin B", "week": "8", "advanced": "\u003cb\u003eInduction toxicity map:\u003c/b\u003e Amphotericin B damages renal tubular membranes and causes nephrotoxicity, hypokalemia, and hypomagnesemia. Flucytosine exposure rises in renal impairment and can cause leukopenia, thrombocytopenia, and hepatotoxicity.", "tags": ["Cryptococcal induction toxicities"]}];
+const QUIZ_NUM = 3;
+const QUIZ_KEY = `drug-practice:v1:quiz${String(QUIZ_NUM).padStart(2,'0')}`;
+const ATTEMPT_KEY = QUIZ_KEY + ':attempt';
+const SUMMARY_KEY = QUIZ_KEY + ':summary';
+const REVIEW_BANK_KEY = 'drug-practice:review-bank:v1';
+
+const defaultState=()=>({
+  idx:0,answers:{},submitted:{},confidence:{},strikes:{},hints:{},highlights:{},
+  completed:false,completionRecorded:false
+});
+let state=loadState();
+let reviewMode=false,reviewQueue=[],reviewPos=0;
+
+const $=id=>document.getElementById(id);
+function loadState(){
+  try{const x=JSON.parse(localStorage.getItem(ATTEMPT_KEY)||'null');return x&&typeof x==='object'?Object.assign(defaultState(),x):defaultState()}
+  catch(e){return defaultState()}
+}
+function saveState(){try{localStorage.setItem(ATTEMPT_KEY,JSON.stringify(state))}catch(e){}}
+function loadReviewBank(){try{return new Set(JSON.parse(localStorage.getItem(REVIEW_BANK_KEY)||'[]'))}catch(e){return new Set()}}
+function saveReviewBank(s){try{localStorage.setItem(REVIEW_BANK_KEY,JSON.stringify([...s]))}catch(e){}}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function qIndex(){return reviewMode?reviewQueue[reviewPos]:state.idx}
+function q(){return QUESTIONS[qIndex()]}
+function isFlagged(question){return loadReviewBank().has(question.globalId)}
+function toggleFlag(){
+  const s=loadReviewBank(),id=q().globalId;
+  s.has(id)?s.delete(id):s.add(id); saveReviewBank(s); renderQuestion();
+}
+function submittedCount(){return QUESTIONS.filter(x=>state.submitted[x.globalId]).length}
+function correctCount(){return QUESTIONS.filter(x=>state.submitted[x.globalId]&&state.answers[x.globalId]===x.answer).length}
+function progress(){
+  const n=submittedCount();
+  $('progressText').textContent=reviewMode?`Review ${reviewPos+1} of ${reviewQueue.length}`:`${n} of ${QUESTIONS.length} submitted`;
+  $('progressScore').textContent=state.completed?`Latest: ${Math.round(correctCount()/QUESTIONS.length*100)}%`:'One-by-one grading';
+  $('progressFill').style.width=`${n/QUESTIONS.length*100}%`;
+}
+function highlightHTML(key,fallback){return state.highlights[key]||esc(fallback)}
+function addHighlight(){
+  const sel=window.getSelection();
+  if(!sel||sel.rangeCount===0||sel.isCollapsed){alert('Select text in the vignette or an answer choice first.');return}
+  const range=sel.getRangeAt(0);
+  const start=(range.startContainer.nodeType===1?range.startContainer:range.startContainer.parentElement)?.closest?.('.highlightable');
+  const end=(range.endContainer.nodeType===1?range.endContainer:range.endContainer.parentElement)?.closest?.('.highlightable');
+  if(!start||start!==end){alert('Keep the selection within one vignette or one answer choice.');return}
+  const mark=document.createElement('mark');mark.className='user-highlight';
+  try{range.surroundContents(mark)}catch(e){const frag=range.extractContents();mark.appendChild(frag);range.insertNode(mark)}
+  state.highlights[start.dataset.highlightId]=start.innerHTML; sel.removeAllRanges(); saveState();
+}
+function clearCurrentHighlights(){
+  const current=q();
+  Object.keys(state.highlights).filter(k=>k.startsWith(`q${current.globalId}-`)).forEach(k=>delete state.highlights[k]);
+  saveState();renderQuestion()
+}
+function setAnswer(letter){
+  const current=q(),id=current.globalId;
+  if(state.submitted[id]||reviewMode)return;
+  const sel=window.getSelection();if(sel&&sel.toString().trim())return;
+  state.answers[id]=letter;saveState();renderQuestion()
+}
+function toggleStrike(letter){
+  const current=q(),id=current.globalId;if(state.submitted[id]||reviewMode)return;
+  const arr=new Set(state.strikes[id]||[]);arr.has(letter)?arr.delete(letter):arr.add(letter);state.strikes[id]=[...arr];saveState();renderQuestion()
+}
+function setConfidence(level){
+  const id=q().globalId;if(state.submitted[id]||reviewMode)return;
+  state.confidence[id]=level;saveState();renderQuestion()
+}
+function useHint(){
+  const id=q().globalId;if(state.submitted[id]||reviewMode)return;
+  state.hints[id]=true;saveState();renderQuestion()
+}
+function submitAnswer(){
+  const current=q(),id=current.globalId;if(!state.answers[id]||state.submitted[id]||reviewMode)return;
+  state.submitted[id]=true;saveState();renderQuestion();window.scrollTo({top:Math.max(0,$('questionCard').offsetTop-85),behavior:'smooth'})
+}
+function move(delta){
+  if(reviewMode){
+    reviewPos=Math.max(0,Math.min(reviewQueue.length-1,reviewPos+delta));renderQuestion();window.scrollTo({top:0,behavior:'smooth'});return
+  }
+  state.idx=Math.max(0,Math.min(QUESTIONS.length-1,state.idx+delta));saveState();renderQuestion();window.scrollTo({top:0,behavior:'smooth'})
+}
+function nextOrFinish(){
+  if(reviewMode){
+    if(reviewPos>=reviewQueue.length-1){reviewMode=false;showResults()}else move(1);
+    return;
+  }
+  if(state.idx===QUESTIONS.length-1){completeQuiz()}else move(1)
+}
+function completeQuiz(){
+  if(submittedCount()<QUESTIONS.length){alert('Submit all 10 questions before finishing the quiz.');return}
+  state.completed=true;
+  if(!state.completionRecorded){
+    const pct=Math.round(correctCount()/QUESTIONS.length*100);
+    let s={attempts:0,best:null,latest:null,completed:false,lastCompletedAt:null};
+    try{s=Object.assign(s,JSON.parse(localStorage.getItem(SUMMARY_KEY)||'{}'))}catch(e){}
+    s.attempts=(Number(s.attempts)||0)+1;s.latest=pct;s.best=s.best==null?pct:Math.max(Number(s.best),pct);s.completed=true;s.lastCompletedAt=new Date().toISOString();
+    try{localStorage.setItem(SUMMARY_KEY,JSON.stringify(s))}catch(e){}
+    state.completionRecorded=true;
+  }
+  saveState();showResults()
+}
+function feedbackHTML(current){
+  const id=current.globalId,chosen=state.answers[id],correct=current.answer,isCorrect=chosen===correct;
+  let rows=current.options.map((opt,i)=>{
+    const L='ABCDE'[i],cls=L===correct?'good':'bad';
+    return `<div class="why-item ${cls}"><div class="why-label">${L}. ${esc(opt)}</div><div class="why-copy">${esc(current.feedback[i])}</div></div>`;
+  }).join('');
+  return `<div class="answer-banner ${isCorrect?'good':'bad'}">${isCorrect?'Correct.':'Not quite.'} The best answer is <strong>${correct}. ${esc(current.options['ABCDE'.indexOf(correct)])}</strong>.</div>
+    <div class="meta-after"><span class="meta-pill">${esc(current.difficulty)}</span><span class="meta-pill">Week ${esc(current.week)}</span><span class="meta-pill">${esc(current.topic)}</span></div>
+    <div class="explain"><h3>Why this answer?</h3><p>${esc(current.feedback['ABCDE'.indexOf(correct)])}</p><div class="why-list">${rows}</div></div>
+    <details class="advanced"><summary>Advanced Explanation</summary><div class="advanced-body">${current.advanced}</div></details>`;
+}
+function renderQuestion(){
+  $('results').classList.remove('show');$('questionCard').classList.remove('hidden');
+  const current=q(),id=current.globalId,submitted=!!state.submitted[id],selected=state.answers[id]||'',strikes=new Set(state.strikes[id]||[]);
+  $('reviewNote').classList.toggle('show',reviewMode);
+  $('reviewNote').textContent=reviewMode?`Reviewing missed / flagged questions · ${reviewPos+1} of ${reviewQueue.length}`:'';
+  $('qnum').textContent=reviewMode?`Original Question ${current.number} · Drug Practice Quiz ${String(QUIZ_NUM).padStart(2,'0')}`:`Question ${current.number} of ${QUESTIONS.length}`;
+  $('flagBtn').classList.toggle('active',isFlagged(current));$('flagBtn').textContent=isFlagged(current)?'Flagged ✓':'Flag for Review';
+  $('stem').innerHTML=highlightHTML(`q${id}-stem`,current.stem);$('stem').dataset.highlightId=`q${id}-stem`;
+  $('hintBox').classList.toggle('show',!!state.hints[id]&&!reviewMode);$('hintBox').textContent=state.hints[id]?current.hint:'';
+  $('hintBtn').disabled=submitted||reviewMode||!!state.hints[id];$('hintBtn').textContent=state.hints[id]?'Hint shown':'Show Hint';
+  $('options').innerHTML=current.options.map((opt,i)=>{
+    const L='ABCDE'[i],isSel=selected===L,isCorrect=L===current.answer;
+    let cls='choice';if(isSel)cls+=' selected';if(strikes.has(L))cls+=' struck';if(submitted||reviewMode){if(isCorrect)cls+=' correct';else if(isSel)cls+=' wrong'}
+    const key=`q${id}-opt-${L}`;
+    return `<div class="choice-row"><button class="${cls}" data-letter="${L}" ${submitted||reviewMode?'disabled':''}><span class="letter">${L}</span><span class="choice-copy highlightable" data-highlight-id="${key}">${highlightHTML(key,opt)}</span></button><button class="strike ${strikes.has(L)?'active':''}" data-strike="${L}" ${submitted||reviewMode?'disabled':''} title="Strike out ${L}">S̶</button></div>`;
+  }).join('');
+  document.querySelectorAll('.choice[data-letter]').forEach(b=>b.addEventListener('click',()=>setAnswer(b.dataset.letter)));
+  document.querySelectorAll('.strike[data-strike]').forEach(b=>b.addEventListener('click',()=>toggleStrike(b.dataset.strike)));
+  const conf=state.confidence[id]||'';
+  $('confidenceButtons').innerHTML=['guessing','unsure','confident'].map(x=>`<button class="confbtn ${conf===x?'active':''}" data-conf="${x}" ${submitted||reviewMode?'disabled':''}>${x[0].toUpperCase()+x.slice(1)}</button>`).join('');
+  document.querySelectorAll('[data-conf]').forEach(b=>b.addEventListener('click',()=>setConfidence(b.dataset.conf)));
+  $('feedback').classList.toggle('show',submitted||reviewMode);
+  $('feedback').innerHTML=(submitted||reviewMode)?feedbackHTML(current):'';
+  $('submitBtn').classList.toggle('hidden',submitted||reviewMode);
+  $('submitBtn').disabled=!selected;$('submitBtn').textContent='Submit Answer';
+  $('prevBtn').disabled=reviewMode?reviewPos===0:state.idx===0;
+  $('nextBtn').classList.toggle('hidden',!(submitted||reviewMode));
+  $('nextBtn').textContent=reviewMode?(reviewPos===reviewQueue.length-1?'Return to Results':'Next Review Question'):(state.idx===QUESTIONS.length-1?'Finish Quiz':'Next Question');
+  progress();
+}
+function resultMessage(pct){
+  const pools=pct>=90?[
+    'Excellent control of the pharmacology. Keep the mechanisms attached to the clinical clues.',
+    'Strong run. The remaining misses are exactly the ones worth turning into durable recall.',
+    'That is a high-yield performance. Review the few weak links, then move forward.'
+  ]:pct>=80?[
+    'Strong pass. Clean up the missed distinctions and this bank becomes much easier on the next run.',
+    'Good clinical recognition. Focus next on the toxicities and interactions that separated the close choices.',
+    'The framework is working. Use the misses to tighten drug-versus-drug discrimination.'
+  ]:pct>=70?[
+    'Passing foundation. Review the misses now while the vignette clues are still fresh.',
+    'You have the core map. The next gain comes from mechanism, toxicity, and contraindication details.',
+    'Solid base. A focused review of the missed drugs should move the score quickly.'
+  ]:[
+    'Use this attempt diagnostically: work through the missed explanations, then retake the set.',
+    'The score is useful data. Start with the high-confidence misses and rebuild those drug associations first.',
+    'This bank is doing its job: it found the weak links. Review them before moving to the next quiz.'
+  ];
+  return pools[Math.floor(Math.random()*pools.length)]
+}
+function showResults(){
+  $('questionCard').classList.add('hidden');$('results').classList.add('show');reviewMode=false;
+  const correct=correctCount(),pct=Math.round(correct/QUESTIONS.length*100);
+  const missed=QUESTIONS.filter(x=>state.answers[x.globalId]!==x.answer);
+  const flagged=QUESTIONS.filter(x=>isFlagged(x));
+  const highMiss=missed.filter(x=>state.confidence[x.globalId]==='confident');
+  const hints=QUESTIONS.filter(x=>state.hints[x.globalId]).length;
+  const confCorrect={guessing:0,unsure:0,confident:0};
+  QUESTIONS.forEach(x=>{if(state.answers[x.globalId]===x.answer&&state.confidence[x.globalId])confCorrect[state.confidence[x.globalId]]++});
+  $('resultTitle').textContent=`${correct}/10 · ${pct}%`;
+  $('motivation').textContent=resultMessage(pct);
+  $('scoreGrid').innerHTML=`<div class="stat"><b>${correct}</b><span>Correct</span></div><div class="stat"><b>${10-correct}</b><span>Missed</span></div><div class="stat"><b>${hints}</b><span>Hints Used</span></div><div class="stat"><b>${flagged.length}</b><span>Flagged</span></div>`;
+  $('confidenceSummary').innerHTML=`<h3>Confidence analysis</h3><div class="conf-grid"><div class="confstat"><b>${highMiss.length}</b><span>High-confidence misses</span></div><div class="confstat"><b>${confCorrect.confident}</b><span>Confident + correct</span></div><div class="confstat"><b>${confCorrect.unsure}</b><span>Unsure + correct</span></div><div class="confstat"><b>${confCorrect.guessing}</b><span>Guesses that landed</span></div></div>`;
+  const review=[...new Map([...missed,...flagged].map(x=>[x.globalId,x])).values()];
+  $('reviewList').innerHTML=review.length?review.map(x=>{
+    const reasons=[missed.some(m=>m.globalId===x.globalId)?'missed':'',flagged.some(f=>f.globalId===x.globalId)?'flagged':''].filter(Boolean).join(' + ');
+    return `<li><strong>Q${x.number}: ${esc(x.topic)}</strong><br><span style="color:var(--muted)">${esc(x.drug||'Pharmacology concept')} · ${reasons}</span></li>`;
+  }).join(''):'<li>No missed or flagged questions in this set.</li>';
+  $('reviewBtn').disabled=!review.length;$('reviewBtn').dataset.queue=JSON.stringify(review.map(x=>QUESTIONS.findIndex(q=>q.globalId===x.globalId)));
+  let s={};try{s=JSON.parse(localStorage.getItem(SUMMARY_KEY)||'{}')}catch(e){}
+  $('attemptSummary').textContent=`Latest ${s.latest??pct}% · Best ${s.best??pct}% · ${s.attempts||1} completed attempt${(s.attempts||1)===1?'':'s'}`;
+  window.scrollTo({top:0,behavior:'smooth'})
+}
+function startReview(){
+  try{reviewQueue=JSON.parse($('reviewBtn').dataset.queue||'[]')}catch(e){reviewQueue=[]}
+  if(!reviewQueue.length)return;reviewMode=true;reviewPos=0;$('results').classList.remove('show');$('questionCard').classList.remove('hidden');renderQuestion()
+}
+function retake(){
+  if(!confirm('Start a fresh attempt? Your best score will be kept.'))return;
+  state=defaultState();reviewMode=false;reviewQueue=[];reviewPos=0;saveState();renderQuestion()
+}
+$('flagBtn').addEventListener('click',toggleFlag);
+$('highlightBtn').addEventListener('click',addHighlight);
+$('clearHighlightsBtn').addEventListener('click',clearCurrentHighlights);
+$('hintBtn').addEventListener('click',useHint);
+$('submitBtn').addEventListener('click',submitAnswer);
+$('prevBtn').addEventListener('click',()=>move(-1));
+$('nextBtn').addEventListener('click',nextOrFinish);
+$('reviewBtn').addEventListener('click',startReview);
+$('retakeBtn').addEventListener('click',retake);
+
+if(state.completed)showResults();else renderQuestion();
+</script>
+</body>
+</html>

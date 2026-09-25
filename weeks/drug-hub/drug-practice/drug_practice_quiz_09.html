@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Drug Practice Quiz 09 · Foundations Drug Hub</title>
+<style>
+:root{
+  --bg:#f5efe8;--paper:#fffaf5;--paper2:#fff;--ink:#382c26;--muted:#75665d;
+  --brown:#684938;--brown2:#4d3529;--tan:#eadfd4;--line:#dacbbf;
+  --sage:#dfe8dc;--gold:#f1e5be;--rose:#f1dcd7;--blue:#dfe7ed;
+  --good:#356646;--goodbg:#edf6ef;--bad:#8c3f37;--badbg:#faeeec;
+  --shadow:0 18px 45px rgba(73,47,32,.10);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(circle at top left,#fff 0,transparent 27%),var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+button,a{font:inherit}
+a{color:inherit;text-decoration:none}
+.topbar{background:linear-gradient(135deg,var(--brown2),var(--brown) 62%,#8b6953);color:#fff;padding:18px 20px 22px}
+.topbar-inner{max-width:980px;margin:auto}
+.crumbs{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;font-size:12px;font-weight:800;color:rgba(255,255,255,.86)}
+.crumbs a{border:1px solid rgba(255,255,255,.18);padding:7px 10px;border-radius:999px;background:rgba(255,255,255,.08)}
+.title-row{margin-top:18px;display:flex;gap:16px;align-items:center}
+.pillmark{width:62px;height:62px;border-radius:18px;background:#fffaf5;display:grid;place-items:center;color:var(--brown);box-shadow:0 10px 22px rgba(20,10,5,.18);flex:0 0 auto}
+.pillmark svg{width:38px;height:38px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+h1{margin:0;font-size:clamp(28px,5vw,44px);letter-spacing:-.04em;line-height:1}
+.subtitle{margin:7px 0 0;color:rgba(255,255,255,.82);font-size:13px;line-height:1.5}
+.shell{max-width:980px;margin:0 auto;padding:18px 20px 60px}
+.progress-shell{position:sticky;top:0;z-index:8;background:rgba(245,239,232,.94);backdrop-filter:blur(12px);padding:12px 0 10px}
+.progress-top{display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:12px;font-weight:850;color:var(--muted);margin-bottom:7px}
+.progress{height:9px;background:#e5d8ce;border-radius:999px;overflow:hidden;border:1px solid #d8c8bb}
+.progress>div{height:100%;width:0;background:linear-gradient(90deg,var(--brown),#9a755f);transition:width .25s ease}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);overflow:hidden}
+.qhead{padding:17px 20px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
+.qnum{font-size:12px;font-weight:900;color:var(--brown);letter-spacing:.04em;text-transform:uppercase}
+.qtools{display:flex;gap:7px;flex-wrap:wrap}
+.toolbtn,.flagbtn,.ghostbtn{border:1px solid var(--line);background:#fff;color:var(--brown);font-weight:850;font-size:11px;padding:8px 10px;border-radius:10px;cursor:pointer}
+.flagbtn.active{background:var(--gold);border-color:#d3bd77}
+.qbody{padding:24px 22px 22px}
+.stem{font-family:Georgia,"Times New Roman",serif;font-size:19px;line-height:1.62;color:#2f2723;margin-bottom:20px}
+mark.user-highlight{background:#f7df7d;padding:0 .04em;border-radius:2px}
+.hintbox{display:none;margin:0 0 16px;padding:12px 14px;border-radius:13px;background:#fbf1cf;border:1px solid #e7d59a;color:#55472d;font-size:13px;line-height:1.55}
+.hintbox.show{display:block}
+.options{display:grid;gap:10px}
+.choice-row{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:stretch}
+.choice{width:100%;text-align:left;border:1px solid #d8cabf;background:#fff;border-radius:14px;padding:13px 14px;display:flex;gap:11px;align-items:flex-start;cursor:pointer;color:var(--ink);transition:.12s ease}
+.choice:hover:not(:disabled){border-color:#a98974;transform:translateY(-1px)}
+.choice.selected{border-color:var(--brown);box-shadow:0 0 0 2px rgba(104,73,56,.11);background:#fbf5ef}
+.choice.correct{border-color:#84ad90;background:var(--goodbg)}
+.choice.wrong{border-color:#c9877f;background:var(--badbg)}
+.choice.struck .choice-copy{text-decoration:line-through;opacity:.5}
+.choice:disabled{cursor:default}
+.letter{width:27px;height:27px;display:grid;place-items:center;border-radius:999px;background:var(--tan);color:var(--brown);font-size:12px;font-weight:950;flex:0 0 auto}
+.choice.correct .letter{background:#cae2d0;color:var(--good)}
+.choice.wrong .letter{background:#efd0cb;color:var(--bad)}
+.choice-copy{font-size:14px;line-height:1.48;font-weight:650;padding-top:2px}
+.strike{width:42px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--muted);font-weight:900;cursor:pointer}
+.strike.active{background:#eee2d8;color:var(--brown)}
+.confidence{margin-top:20px;padding:14px;border:1px solid var(--line);border-radius:14px;background:#fcf7f2}
+.conf-title{font-size:11px;font-weight:900;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
+.conf-buttons{display:flex;gap:8px;flex-wrap:wrap}
+.confbtn{border:1px solid var(--line);background:#fff;color:var(--brown);font-weight:850;font-size:12px;padding:8px 12px;border-radius:999px;cursor:pointer}
+.confbtn.active{background:var(--brown);color:#fff;border-color:var(--brown)}
+.confbtn:disabled{opacity:.7;cursor:default}
+.actions{margin-top:20px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center}
+.left-actions,.right-actions{display:flex;gap:8px;flex-wrap:wrap}
+.primary{border:0;background:var(--brown);color:#fff;font-weight:900;padding:11px 16px;border-radius:12px;cursor:pointer}
+.primary:disabled{opacity:.4;cursor:not-allowed}
+.secondary{border:1px solid var(--line);background:#fff;color:var(--brown);font-weight:850;padding:10px 14px;border-radius:12px;cursor:pointer}
+.feedback{margin-top:20px;display:none}
+.feedback.show{display:block}
+.answer-banner{padding:13px 15px;border-radius:14px;font-weight:900;margin-bottom:12px}
+.answer-banner.good{background:var(--goodbg);color:var(--good);border:1px solid #b8d1bf}
+.answer-banner.bad{background:var(--badbg);color:var(--bad);border:1px solid #e0b7b1}
+.meta-after{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 14px}
+.meta-pill{font-size:10px;font-weight:900;background:var(--tan);color:var(--brown);padding:5px 8px;border-radius:999px}
+.explain{border:1px solid var(--line);border-radius:16px;background:#fff;padding:15px;margin-bottom:12px}
+.explain h3{margin:0 0 8px;font-size:15px}
+.explain p{margin:0;line-height:1.58;font-size:13px;color:#554a43}
+.why-list{display:grid;gap:8px;margin-top:10px}
+.why-item{border:1px solid #e6dbd2;border-radius:12px;padding:11px 12px;background:#fff}
+.why-item.good{border-left:4px solid #6d9b79}
+.why-item.bad{border-left:4px solid #c78279}
+.why-label{font-weight:900;font-size:12px;margin-bottom:4px}
+.why-copy{font-size:12px;line-height:1.5;color:var(--muted)}
+details.advanced{border:1px solid var(--line);border-radius:14px;background:#faf3ec;padding:12px 14px}
+details.advanced summary{cursor:pointer;font-weight:900;color:var(--brown);font-size:13px}
+.advanced-body{margin-top:10px;font-size:13px;line-height:1.58;color:#52453e}
+.review-mode-note{display:none;margin:0 0 12px;padding:10px 12px;border-radius:12px;background:var(--blue);border:1px solid #c7d3dc;color:#45535d;font-size:12px;font-weight:850}
+.review-mode-note.show{display:block}
+.results{display:none;background:var(--paper);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);padding:24px}
+.results.show{display:block}
+.result-kicker{text-transform:uppercase;letter-spacing:.08em;font-size:11px;font-weight:950;color:var(--brown)}
+.results h2{font-size:32px;margin:5px 0 8px;letter-spacing:-.04em}
+.motivation{color:var(--muted);font-size:14px;line-height:1.5;margin-bottom:20px}
+.score-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:16px 0}
+.stat{background:#fff;border:1px solid var(--line);border-radius:15px;padding:14px;text-align:center}
+.stat b{display:block;font-size:24px;color:var(--brown)}
+.stat span{font-size:10px;font-weight:900;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.conf-summary{margin-top:18px;border:1px solid var(--line);border-radius:16px;background:#fff;padding:15px}
+.conf-summary h3{margin:0 0 10px}
+.conf-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.confstat{background:#fcf7f2;border-radius:12px;padding:10px;text-align:center}
+.confstat b{display:block;color:var(--brown);font-size:20px}
+.confstat span{font-size:9px;font-weight:850;color:var(--muted);text-transform:uppercase}
+.review-list{margin:12px 0 0;padding:0;list-style:none;display:grid;gap:7px}
+.review-list li{border:1px solid #e5d9cf;background:#fff;border-radius:11px;padding:10px 12px;font-size:12px;line-height:1.45}
+.result-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.hidden{display:none!important}
+@media(max-width:720px){
+  .qbody{padding:19px 15px}.qhead{padding:14px 15px}.stem{font-size:17px}
+  .score-grid,.conf-grid{grid-template-columns:1fr 1fr}
+  .choice-copy{font-size:13px}.shell{padding-left:12px;padding-right:12px}
+  .title-row{align-items:flex-start}.pillmark{width:52px;height:52px}
+}
+</style>
+</head>
+<body>
+<header class="topbar">
+ <div class="topbar-inner">
+  <div class="crumbs"><div>Foundations of Medicine · Drug Hub</div><div style="display:flex;gap:7px"><a href="index.html">Quiz Directory</a><a href="../index.html#drug-practice">Drug Hub</a></div></div>
+  <div class="title-row">
+   <div class="pillmark" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M15 7h18a8 8 0 0 1 8 8v18a8 8 0 0 1-8 8H15a8 8 0 0 1-8-8V15a8 8 0 0 1 8-8Z"/><path d="m13 30 17-17a7 7 0 0 1 10 10L23 40a7 7 0 0 1-10-10Z"/><path d="m21.5 21.5 10 10"/></svg></div>
+   <div><h1>Drug Practice Quiz 09</h1><p class="subtitle">10 mixed pharmacology vignettes · explicit submit-before-grading · 3 in-house · 7 intermediate · 0 Step 1</p></div>
+  </div>
+ </div>
+</header>
+<main class="shell">
+ <div class="progress-shell">
+  <div class="progress-top"><span id="progressText">0 of 10 submitted</span><span id="progressScore">One-by-one grading</span></div>
+  <div class="progress"><div id="progressFill"></div></div>
+ </div>
+
+ <section class="card" id="questionCard">
+  <div class="qhead">
+   <div class="qnum" id="qnum">Question 1 of 10</div>
+   <div class="qtools">
+    <button class="toolbtn" id="highlightBtn" type="button">Highlight selection</button>
+    <button class="toolbtn" id="clearHighlightsBtn" type="button">Clear highlights</button>
+    <button class="flagbtn" id="flagBtn" type="button">Flag for Review</button>
+   </div>
+  </div>
+  <div class="qbody">
+   <div class="review-mode-note" id="reviewNote"></div>
+   <div class="stem highlightable" id="stem" data-highlight-id=""></div>
+   <div class="hintbox" id="hintBox"></div>
+   <div class="options" id="options"></div>
+   <div class="confidence">
+    <div class="conf-title">Confidence before submitting</div>
+    <div class="conf-buttons" id="confidenceButtons"></div>
+   </div>
+   <div class="feedback" id="feedback"></div>
+   <div class="actions">
+    <div class="left-actions">
+     <button class="secondary" id="prevBtn" type="button">← Previous</button>
+     <button class="secondary" id="hintBtn" type="button">Show Hint</button>
+    </div>
+    <div class="right-actions">
+     <button class="primary" id="submitBtn" type="button" disabled>Submit Answer</button>
+     <button class="primary hidden" id="nextBtn" type="button">Next Question</button>
+    </div>
+   </div>
+  </div>
+ </section>
+
+ <section class="results" id="results">
+  <div class="result-kicker">Drug Practice Quiz 09 Complete</div>
+  <h2 id="resultTitle">0/10</h2>
+  <div class="motivation" id="motivation"></div>
+  <div class="score-grid" id="scoreGrid"></div>
+  <div class="conf-summary" id="confidenceSummary"></div>
+  <div class="conf-summary"><h3>Missed / flagged review</h3><ul class="review-list" id="reviewList"></ul></div>
+  <div style="margin-top:12px;color:var(--muted);font-size:12px;font-weight:800" id="attemptSummary"></div>
+  <div class="result-actions">
+   <button class="primary" id="reviewBtn" type="button">Review missed & flagged</button>
+   <button class="secondary" id="retakeBtn" type="button">Retake Quiz</button>
+   <a class="secondary" href="index.html">Quiz Directory</a>
+   <a class="secondary" href="../index.html#drug-practice">Return to Drug Hub</a>
+  </div>
+ </section>
+</main>
+<script>
+const QUESTIONS = [{"number": 1, "globalId": 9, "stem": "A man treated for Hodgkin lymphoma develops a persistent dry cough and progressive exertional dyspnea. Pulmonary function testing shows reduced diffusion capacity, and chest imaging demonstrates interstitial fibrosis. Which chemotherapy drug is the most likely cause?", "options": ["Bleomycin", "Cisplatin", "Cyclophosphamide", "Carboplatin", "Paclitaxel"], "answer": "A", "feedback": ["Bleomycin is strongly associated with pulmonary toxicity and fibrosis while producing relatively little myelosuppression.", "Cisplatin is a Platinum agent. Its characteristic mechanism/clinical profile is Forms DNA cross-links → inhibits replication and transcription. Major toxicity: Nephrotoxicity, ototoxicity, peripheral neuropathy; severe nausea/vomiting. That profile does not best match this vignette.", "Cyclophosphamide is a Alkylating agent. Its characteristic mechanism/clinical profile is Nitrogen mustard prodrug that cross-links DNA, especially at guanine N7. Major toxicity: Hemorrhagic cystitis, myelosuppression, infertility; MESNA protects bladder. That profile does not best match this vignette.", "Carboplatin is a Platinum agent. Its characteristic mechanism/clinical profile is Forms DNA cross-links. Major toxicity: Myelosuppression, especially thrombocytopenia; less nephro/ototoxic than cisplatin. That profile does not best match this vignette.", "Paclitaxel is a Taxane. Its characteristic mechanism/clinical profile is Stabilizes microtubules and prevents depolymerization → mitotic arrest. Major toxicity: Peripheral neuropathy, myelosuppression; hypersensitivity reactions. That profile does not best match this vignette."], "hint": "This antitumor antibiotic is remembered more for lung toxicity than marrow suppression.", "topic": "Bleomycin toxicity", "difficulty": "In-House", "drug": "Bleomycin", "week": "5", "advanced": "\u003cb\u003eBleomycin\u003c/b\u003e\u003cbr\u003e\u003cb\u003eClass:\u003c/b\u003e Antitumor antibiotic\u003cbr\u003e\u003cb\u003eMechanism:\u003c/b\u003e Generates free radicals causing DNA strand breaks; G2-specific.\u003cbr\u003e\u003cb\u003eClinical use:\u003c/b\u003e Testicular cancer and Hodgkin lymphoma regimens.\u003cbr\u003e\u003cb\u003eKey toxicity:\u003c/b\u003e Pulmonary fibrosis, skin changes; minimal myelosuppression.\u003cbr\u003e\u003cb\u003ePearl:\u003c/b\u003e Bleomycin = lungs.", "tags": ["Oncology", "Antitumor antibiotic"]}, {"number": 2, "globalId": 24, "stem": "A patient with coronary artery disease takes low-dose aspirin for secondary prevention. Which platelet enzyme is irreversibly inhibited by this medication?", "options": ["Thrombin", "Adenylate cyclase", "Phosphodiesterase-5", "Cyclooxygenase-1", "P2Y12 receptor"], "answer": "D", "feedback": ["Aspirin does not directly inhibit thrombin.", "Aspirin does not exert its antiplatelet effect by directly inhibiting adenylate cyclase.", "PDE-5 is inhibited by sildenafil, not aspirin.", "Aspirin irreversibly acetylates platelet COX-1, decreasing thromboxane A2 synthesis for the life of the platelet.", "Clopidogrel blocks the ADP P2Y12 receptor; aspirin acts through COX-1."], "hint": "Recall the pathway responsible for platelet thromboxane A2 synthesis.", "topic": "Aspirin mechanism", "difficulty": "Intermediate", "drug": "Aspirin", "week": "7", "advanced": "\u003cb\u003eAspirin:\u003c/b\u003e Irreversibly acetylates platelet COX-1, reducing thromboxane A2. Because platelets cannot synthesize new enzyme, the antiplatelet effect persists for the platelet lifespan.", "tags": ["Aspirin mechanism"]}, {"number": 3, "globalId": 39, "stem": "A patient with cryptococcal meningitis receives combination induction therapy. After several days, leukopenia and thrombocytopenia develop. Which antifungal component is most likely responsible for the bone marrow suppression?", "options": ["Amphotericin B", "Fluconazole", "Flucytosine", "Nystatin", "Voriconazole"], "answer": "C", "feedback": ["Amphotericin B is a Polyene antifungal. Its characteristic mechanism/clinical profile is Binds ergosterol → membrane pores and depolarization. Major toxicity: Nephrotoxicity, K/Mg wasting, anemia, infusion reactions. That profile does not best match this vignette.", "Fluconazole is a Azole antifungal. Its characteristic mechanism/clinical profile is Inhibits fungal CYP-dependent 14-α-demethylase → ↓ ergosterol synthesis. Major toxicity: Hepatotoxicity, CYP interactions, QT prolongation. That profile does not best match this vignette.", "Flucytosine is converted within fungal cells to 5-fluorouracil metabolites; systemic therapy can cause bone marrow suppression and hepatotoxicity.", "Nystatin is a Polyene antifungal. Its characteristic mechanism/clinical profile is Binds ergosterol → membrane pores. Major toxicity: Minimal systemic toxicity when used topically/orally without absorption. That profile does not best match this vignette.", "Voriconazole is a Azole antifungal. Its characteristic mechanism/clinical profile is Inhibits 14-α-demethylase → ↓ ergosterol. Major toxicity: Visual color changes, hallucinations/nightmares, photosensitivity, hepatotoxicity. That profile does not best match this vignette."], "hint": "One component is a pyrimidine analogue whose metabolites interfere with fungal nucleic-acid synthesis.", "topic": "Flucytosine toxicity", "difficulty": "Intermediate", "drug": "Flucytosine", "week": "8", "advanced": "\u003cb\u003eFlucytosine\u003c/b\u003e\u003cbr\u003e\u003cb\u003eClass:\u003c/b\u003e Antimetabolite antifungal\u003cbr\u003e\u003cb\u003eMechanism:\u003c/b\u003e Fungal uptake → conversion to 5-FU → disrupts RNA/protein and DNA synthesis.\u003cbr\u003e\u003cb\u003eClinical use:\u003c/b\u003e Candida/Cryptococcus, usually in combination.\u003cbr\u003e\u003cb\u003eKey toxicity:\u003c/b\u003e Bone marrow suppression, hepatotoxicity.\u003cbr\u003e\u003cb\u003ePearl:\u003c/b\u003e 5-FU-like antifungal = marrow toxicity.", "tags": ["Antifungal", "Antimetabolite antifungal"]}, {"number": 4, "globalId": 54, "stem": "A patient with multidrug-resistant HIV receives an injectable antiretroviral that acts before viral contents enter the host cell. The medication is a synthetic peptide and commonly causes painful injection-site reactions. Which medication is being used?", "options": ["Dolutegravir", "Abacavir", "Raltegravir", "Tenofovir (TDF/TAF)", "Enfuvirtide"], "answer": "E", "feedback": ["Dolutegravir is a INSTI. Its characteristic mechanism/clinical profile is Integrase strand-transfer inhibition. Major toxicity: CPK/myositis, headache, hepatotoxicity; cation chelation. That profile does not best match this vignette.", "Abacavir is a NRTI. Its characteristic mechanism/clinical profile is Nucleoside analog → reverse-transcriptase chain termination after phosphorylation. Major toxicity: Potentially fatal hypersensitivity associated with HLA-B*57:01; never rechallenge. That profile does not best match this vignette.", "Raltegravir is a INSTI. Its characteristic mechanism/clinical profile is Integrase strand-transfer inhibition. Major toxicity: Headache, nausea, CPK elevation/myopathy. That profile does not best match this vignette.", "Tenofovir (TDF/TAF) is a NRTI / nucleotide analog. Its characteristic mechanism/clinical profile is Phosphorylated nucleotide analog → inhibits reverse transcriptase / viral polymerases → chain termination. Major toxicity: TDF: nephrotoxicity/Fanconi + ↓ bone density; TAF less severe kidney/bone pattern. That profile does not best match this vignette.", "Enfuvirtide binds gp41 and prevents fusion of the HIV envelope with the host-cell membrane; it is given subcutaneously and frequently causes injection-site reactions."], "hint": "Think of the injectable peptide entry inhibitor that acts at gp41.", "topic": "HIV fusion inhibition", "difficulty": "Intermediate", "drug": "Enfuvirtide", "week": "8", "advanced": "\u003cb\u003eEnfuvirtide\u003c/b\u003e\u003cbr\u003e\u003cb\u003eClass:\u003c/b\u003e Fusion inhibitor\u003cbr\u003e\u003cb\u003eMechanism:\u003c/b\u003e Binds gp41 → blocks fusion of HIV envelope with host cell.\u003cbr\u003e\u003cb\u003eClinical use:\u003c/b\u003e Resistant HIV; injectable salvage therapy.\u003cbr\u003e\u003cb\u003eKey toxicity:\u003c/b\u003e Injection-site reactions.\u003cbr\u003e\u003cb\u003ePearl:\u003c/b\u003e gp41 fusion blocker.", "tags": ["HIV / Antiviral", "Fusion inhibitor"]}, {"number": 5, "globalId": 69, "stem": "A patient with chronic hepatitis C is treated with an all-oral regimen containing sofosbuvir. The active metabolite directly interferes with the viral enzyme responsible for synthesizing new RNA genomes. Which viral target is inhibited?", "options": ["Host CCR5 coreceptor", "NS5B RNA-dependent RNA polymerase", "HCV E2 envelope glycoprotein", "NS3/4A protease", "NS5A replication-complex protein"], "answer": "B", "feedback": ["CCR5 is relevant to HIV entry, not HCV replication.", "Sofosbuvir is a nucleotide analogue that inhibits the HCV NS5B RNA-dependent RNA polymerase and causes chain termination.", "Direct-acting antivirals in this regimen do not work by targeting E2.", "NS3/4A is targeted by the -previr protease inhibitors, not sofosbuvir.", "NS5A is targeted by -asvir agents such as pibrentasvir."], "hint": "Match sofosbuvir to the standard HCV direct-acting antiviral naming/target pattern.", "topic": "Sofosbuvir target", "difficulty": "Intermediate", "drug": "Sofosbuvir", "week": "8", "advanced": "\u003cb\u003eSofosbuvir:\u003c/b\u003e After intracellular activation, its nucleotide analogue is incorporated by HCV NS5B polymerase and terminates RNA synthesis.", "tags": ["Sofosbuvir target"]}, {"number": 6, "globalId": 84, "stem": "A patient with HIV who tested negative for HLA-B*57:01 begins a regimen containing abacavir, lamivudine, and a once-daily integrase inhibitor. Months later, the patient starts taking a magnesium- and aluminum-containing antacid simultaneously with the HIV medications. Reduced antiretroviral exposure is suspected because polyvalent cations can chelate the integrase inhibitor. Which third antiretroviral is in this regimen?", "options": ["Ritonavir", "Rilpivirine", "Maraviroc", "Tenofovir (TDF/TAF)", "Dolutegravir"], "answer": "E", "feedback": ["Ritonavir is a Protease inhibitor / pharmacokinetic booster. Its characteristic mechanism/clinical profile is Strong CYP3A inhibition used to boost exposure of other antiretrovirals; also PI activity. Major toxicity: Many drug interactions, GI effects, metabolic toxicity. That profile does not best match this vignette.", "Rilpivirine is a NNRTI. Its characteristic mechanism/clinical profile is Allosteric reverse-transcriptase inhibitor. Major toxicity: Depression/headache/rash/QTc; acid suppression reduces absorption. That profile does not best match this vignette.", "Maraviroc is a CCR5 antagonist. Its characteristic mechanism/clinical profile is Blocks CCR5 coreceptor → prevents HIV entry. Major toxicity: Hepatotoxicity, orthostatic effects; interaction burden. That profile does not best match this vignette.", "Tenofovir (TDF/TAF) is a NRTI / nucleotide analog. Its characteristic mechanism/clinical profile is Phosphorylated nucleotide analog → inhibits reverse transcriptase / viral polymerases → chain termination. Major toxicity: TDF: nephrotoxicity/Fanconi + ↓ bone density; TAF less severe kidney/bone pattern. That profile does not best match this vignette.", "Dolutegravir is a once-daily integrase strand transfer inhibitor whose absorption can be reduced by chelation with polyvalent cations in antacids and supplements."], "hint": "Identify the once-daily integrase inhibitor commonly paired with abacavir/lamivudine.", "topic": "Dolutegravir cation chelation", "difficulty": "Intermediate", "drug": "Dolutegravir", "week": "8", "advanced": "\u003cb\u003eDolutegravir\u003c/b\u003e\u003cbr\u003e\u003cb\u003eClass:\u003c/b\u003e INSTI\u003cbr\u003e\u003cb\u003eMechanism:\u003c/b\u003e Integrase strand-transfer inhibition.\u003cbr\u003e\u003cb\u003eClinical use:\u003c/b\u003e Preferred modern ART.\u003cbr\u003e\u003cb\u003eKey toxicity:\u003c/b\u003e CPK/myositis, headache, hepatotoxicity; cation chelation.\u003cbr\u003e\u003cb\u003ePearl:\u003c/b\u003e Separate from polyvalent cations.", "tags": ["HIV / Antiviral", "INSTI"]}, {"number": 7, "globalId": 99, "stem": "A patient with plasma cell myeloma begins an immunomodulatory medication subject to exceptionally strict pregnancy-prevention requirements. Counseling emphasizes its historical association with severe limb-reduction defects after fetal exposure. Peripheral neuropathy and venous thrombosis are also important adverse effects. Which medication is being used?", "options": ["Methotrexate", "Valproate", "Thalidomide", "Isotretinoin", "Cyclophosphamide"], "answer": "C", "feedback": ["Methotrexate is a Antimetabolite / folate antagonist. Its characteristic mechanism/clinical profile is Inhibits dihydrofolate reductase → ↓ THF → impaired thymidylate/purine synthesis. Major toxicity: Myelosuppression, mucositis, hepatotoxicity; teratogenic. Leucovorin rescue in high-dose therapy. That profile does not best match this vignette.", "Valproate is a Antiseizure / mood stabilizer. Its characteristic mechanism/clinical profile is Multiple actions including increased GABA and ion-channel effects. Major toxicity: Neural tube defects, hepatotoxicity, pancreatitis, thrombocytopenia. That profile does not best match this vignette.", "Thalidomide is profoundly teratogenic, classically causing limb-reduction defects, and can also cause peripheral neuropathy, sedation, constipation, and venous thromboembolism.", "Isotretinoin is a Retinoid. Its characteristic mechanism/clinical profile is Retinoic-acid receptor agonism alters gene transcription and epithelial differentiation. Major toxicity: Profound teratogenicity; mucocutaneous dryness, hyperlipidemia, hepatotoxicity. That profile does not best match this vignette.", "Cyclophosphamide is a Alkylating agent. Its characteristic mechanism/clinical profile is Nitrogen mustard prodrug that cross-links DNA, especially at guanine N7. Major toxicity: Hemorrhagic cystitis, myelosuppression, infertility; MESNA protects bladder. That profile does not best match this vignette."], "hint": "The historic teratogen causing phocomelia is also used as an immunomodulatory oncology drug.", "topic": "Thalidomide teratogenicity", "difficulty": "In-House", "drug": "Thalidomide", "week": "10", "advanced": "\u003cb\u003eThalidomide\u003c/b\u003e\u003cbr\u003e\u003cb\u003eClass:\u003c/b\u003e Immunomodulatory agent\u003cbr\u003e\u003cb\u003eMechanism:\u003c/b\u003e Immunomodulatory/antiangiogenic effects including cereblon binding.\u003cbr\u003e\u003cb\u003eClinical use:\u003c/b\u003e Multiple myeloma and selected inflammatory disease.\u003cbr\u003e\u003cb\u003eKey toxicity:\u003c/b\u003e Severe limb-reduction teratogenicity, neuropathy, thrombosis.\u003cbr\u003e\u003cb\u003ePearl:\u003c/b\u003e Classic phocomelia teratogen.", "tags": ["Pregnancy / Teratology", "Immunomodulatory agent"]}, {"number": 8, "globalId": 114, "stem": "A patient with a urinary tract infection is prescribed an oral combination antimicrobial. Several days later, the patient develops a diffuse rash and laboratory testing shows hyperkalemia. The two components inhibit sequential steps in bacterial folate metabolism. Which medication is most likely responsible?", "options": ["Meropenem", "Vancomycin", "Cefazolin", "Trimethoprim-sulfamethoxazole", "Cefepime"], "answer": "D", "feedback": ["Meropenem is a Carbapenem. Its characteristic mechanism/clinical profile is Broad β-lactam PBP inhibition; stable to many β-lactamases. Major toxicity: Hypersensitivity, seizures (less than imipenem). That profile does not best match this vignette.", "Vancomycin is a Glycopeptide. Its characteristic mechanism/clinical profile is Binds D-Ala-D-Ala → blocks peptidoglycan polymerization/cross-linking. Major toxicity: Nephrotoxicity, infusion reaction ('red man' syndrome), rare ototoxicity. That profile does not best match this vignette.", "Cefazolin is a 1st-generation cephalosporin. Its characteristic mechanism/clinical profile is β-lactam PBP inhibitor. Major toxicity: Hypersensitivity, GI effects. That profile does not best match this vignette.", "Trimethoprim-sulfamethoxazole sequentially blocks folate synthesis and can cause rash, hyperkalemia, cytopenias, and other adverse effects.", "Cefepime is a 4th-generation cephalosporin. Its characteristic mechanism/clinical profile is β-lactam PBP inhibitor; broad Gram+ and Gram− activity including Pseudomonas. Major toxicity: Neurotoxicity/encephalopathy, especially with renal dysfunction. That profile does not best match this vignette."], "hint": "Look for the two-drug folate-pathway combination commonly used for UTIs.", "topic": "TMP-SMX pharmacology", "difficulty": "In-House", "drug": "Trimethoprim-sulfamethoxazole", "week": "9", "advanced": "\u003cb\u003eTrimethoprim-sulfamethoxazole\u003c/b\u003e\u003cbr\u003e\u003cb\u003eClass:\u003c/b\u003e Folate-pathway antibacterial\u003cbr\u003e\u003cb\u003eMechanism:\u003c/b\u003e Sequential folate blockade: sulfamethoxazole inhibits dihydropteroate synthase; trimethoprim inhibits bacterial DHFR.\u003cbr\u003e\u003cb\u003eClinical use:\u003c/b\u003e UTI, MRSA skin infection, Pneumocystis prophylaxis/treatment, toxoplasmosis prophylaxis.\u003cbr\u003e\u003cb\u003eKey toxicity:\u003c/b\u003e Rash/SJS, hyperkalemia, marrow suppression, hemolysis in G6PD deficiency, kernicterus risk.\u003cbr\u003e\u003cb\u003ePearl:\u003c/b\u003e HIV OI prophylaxis powerhouse.", "tags": ["Antibacterial / OI Prophylaxis", "Folate-pathway antibacterial"]}, {"number": 9, "globalId": 129, "stem": "A woman with HER2-positive breast cancer previously received an anthracycline-containing chemotherapy regimen. Before beginning additional targeted therapy, echocardiography shows a substantially reduced left ventricular ejection fraction. Which HER2-directed medication would require particular caution because it can further impair cardiac function?", "options": ["Ondansetron", "Trastuzumab", "Vincristine", "5-Fluorouracil", "Rituximab"], "answer": "B", "feedback": ["Ondansetron is a 5-HT3 antagonist. Its characteristic mechanism/clinical profile is Blocks serotonin 5-HT3 receptors in vagal afferents and chemoreceptor trigger zone. Major toxicity: QT prolongation, constipation, headache. That profile does not best match this vignette.", "Trastuzumab targets HER2 and can cause cardiomyopathy, particularly in patients with prior anthracycline exposure or reduced baseline ventricular function.", "Vincristine is a Vinca alkaloid. Its characteristic mechanism/clinical profile is Binds β-tubulin → prevents microtubule polymerization → metaphase arrest. Major toxicity: Peripheral neuropathy, ileus; relatively less marrow suppression. That profile does not best match this vignette.", "5-Fluorouracil is a Pyrimidine antimetabolite. Its characteristic mechanism/clinical profile is Converted to 5-FdUMP → inhibits thymidylate synthase; also disrupts RNA processing. Major toxicity: Myelosuppression, mucositis, hand-foot syndrome; severe toxicity with DPD deficiency. That profile does not best match this vignette.", "Rituximab is a Anti-CD20 monoclonal antibody. Its characteristic mechanism/clinical profile is Binds CD20 on B cells → complement/ADCC-mediated B-cell depletion. Major toxicity: Infusion reactions, infections, HBV reactivation, PML risk. That profile does not best match this vignette."], "hint": "Choose the HER2 monoclonal antibody associated with potentially reversible cardiotoxicity.", "topic": "Trastuzumab cardiotoxicity", "difficulty": "Intermediate", "drug": "Trastuzumab", "week": "5,6", "advanced": "\u003cb\u003eTrastuzumab\u003c/b\u003e\u003cbr\u003e\u003cb\u003eClass:\u003c/b\u003e HER2 monoclonal antibody\u003cbr\u003e\u003cb\u003eMechanism:\u003c/b\u003e Binds HER2 receptor → suppresses HER2 signaling and promotes immune-mediated tumor killing.\u003cbr\u003e\u003cb\u003eClinical use:\u003c/b\u003e HER2-positive breast/gastric cancers.\u003cbr\u003e\u003cb\u003eKey toxicity:\u003c/b\u003e Cardiomyopathy; infusion reactions.\u003cbr\u003e\u003cb\u003ePearl:\u003c/b\u003e Test HER2 before using; cardiac monitoring matters.", "tags": ["Oncology", "HER2 monoclonal antibody"]}, {"number": 10, "globalId": 144, "stem": "A patient with chronic hepatitis B has progressive chronic kidney disease and cannot tolerate tenofovir-based therapy. The clinician selects an alternative oral guanosine nucleoside analogue with potent HBV activity and a high barrier to resistance in nucleoside-naive patients. Which medication is most appropriate?", "options": ["Entecavir", "Glecaprevir / pibrentasvir", "Baloxavir", "Tenofovir (HBV)", "Remdesivir"], "answer": "A", "feedback": ["Entecavir is a potent oral guanosine nucleoside analogue for HBV and is a standard alternative when tenofovir cannot be used, provided resistance history is considered.", "Glecaprevir / pibrentasvir is a HCV protease inhibitor + NS5A inhibitor. Its characteristic mechanism/clinical profile is Glecaprevir inhibits NS3/4A protease; pibrentasvir inhibits NS5A. Major toxicity: Drug interactions; monitor liver disease context. That profile does not best match this vignette.", "Baloxavir is a Cap-dependent endonuclease inhibitor. Its characteristic mechanism/clinical profile is Inhibits influenza polymerase acidic protein endonuclease → blocks cap-snatching. Major toxicity: Generally mild adverse-effect profile. That profile does not best match this vignette.", "Tenofovir (HBV) is a HBV nucleotide analog. Its characteristic mechanism/clinical profile is Inhibits HBV reverse transcriptase/DNA polymerase → chain termination. Major toxicity: Renal toxicity and bone-density loss, especially TDF. That profile does not best match this vignette.", "Remdesivir is a Adenosine nucleotide analog. Its characteristic mechanism/clinical profile is Inhibits viral RNA-dependent RNA polymerase. Major toxicity: Transaminase elevation; infusion reactions. That profile does not best match this vignette."], "hint": "Choose the potent non-tenofovir oral HBV nucleoside analogue.", "topic": "HBV alternative therapy", "difficulty": "Intermediate", "drug": "Entecavir", "week": "8", "advanced": "\u003cb\u003eEntecavir\u003c/b\u003e\u003cbr\u003e\u003cb\u003eClass:\u003c/b\u003e HBV nucleoside analog\u003cbr\u003e\u003cb\u003eMechanism:\u003c/b\u003e Guanosine analog that inhibits HBV polymerase steps and terminates DNA elongation.\u003cbr\u003e\u003cb\u003eClinical use:\u003c/b\u003e Chronic HBV suppression.\u003cbr\u003e\u003cb\u003eKey toxicity:\u003c/b\u003e Headache, fatigue, nausea, LFT changes.\u003cbr\u003e\u003cb\u003ePearl:\u003c/b\u003e Major HBV suppressive nucleoside option.", "tags": ["Antiviral", "HBV nucleoside analog"]}];
+const QUIZ_NUM = 9;
+const QUIZ_KEY = `drug-practice:v1:quiz${String(QUIZ_NUM).padStart(2,'0')}`;
+const ATTEMPT_KEY = QUIZ_KEY + ':attempt';
+const SUMMARY_KEY = QUIZ_KEY + ':summary';
+const REVIEW_BANK_KEY = 'drug-practice:review-bank:v1';
+
+const defaultState=()=>({
+  idx:0,answers:{},submitted:{},confidence:{},strikes:{},hints:{},highlights:{},
+  completed:false,completionRecorded:false
+});
+let state=loadState();
+let reviewMode=false,reviewQueue=[],reviewPos=0;
+
+const $=id=>document.getElementById(id);
+function loadState(){
+  try{const x=JSON.parse(localStorage.getItem(ATTEMPT_KEY)||'null');return x&&typeof x==='object'?Object.assign(defaultState(),x):defaultState()}
+  catch(e){return defaultState()}
+}
+function saveState(){try{localStorage.setItem(ATTEMPT_KEY,JSON.stringify(state))}catch(e){}}
+function loadReviewBank(){try{return new Set(JSON.parse(localStorage.getItem(REVIEW_BANK_KEY)||'[]'))}catch(e){return new Set()}}
+function saveReviewBank(s){try{localStorage.setItem(REVIEW_BANK_KEY,JSON.stringify([...s]))}catch(e){}}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function qIndex(){return reviewMode?reviewQueue[reviewPos]:state.idx}
+function q(){return QUESTIONS[qIndex()]}
+function isFlagged(question){return loadReviewBank().has(question.globalId)}
+function toggleFlag(){
+  const s=loadReviewBank(),id=q().globalId;
+  s.has(id)?s.delete(id):s.add(id); saveReviewBank(s); renderQuestion();
+}
+function submittedCount(){return QUESTIONS.filter(x=>state.submitted[x.globalId]).length}
+function correctCount(){return QUESTIONS.filter(x=>state.submitted[x.globalId]&&state.answers[x.globalId]===x.answer).length}
+function progress(){
+  const n=submittedCount();
+  $('progressText').textContent=reviewMode?`Review ${reviewPos+1} of ${reviewQueue.length}`:`${n} of ${QUESTIONS.length} submitted`;
+  $('progressScore').textContent=state.completed?`Latest: ${Math.round(correctCount()/QUESTIONS.length*100)}%`:'One-by-one grading';
+  $('progressFill').style.width=`${n/QUESTIONS.length*100}%`;
+}
+function highlightHTML(key,fallback){return state.highlights[key]||esc(fallback)}
+function addHighlight(){
+  const sel=window.getSelection();
+  if(!sel||sel.rangeCount===0||sel.isCollapsed){alert('Select text in the vignette or an answer choice first.');return}
+  const range=sel.getRangeAt(0);
+  const start=(range.startContainer.nodeType===1?range.startContainer:range.startContainer.parentElement)?.closest?.('.highlightable');
+  const end=(range.endContainer.nodeType===1?range.endContainer:range.endContainer.parentElement)?.closest?.('.highlightable');
+  if(!start||start!==end){alert('Keep the selection within one vignette or one answer choice.');return}
+  const mark=document.createElement('mark');mark.className='user-highlight';
+  try{range.surroundContents(mark)}catch(e){const frag=range.extractContents();mark.appendChild(frag);range.insertNode(mark)}
+  state.highlights[start.dataset.highlightId]=start.innerHTML; sel.removeAllRanges(); saveState();
+}
+function clearCurrentHighlights(){
+  const current=q();
+  Object.keys(state.highlights).filter(k=>k.startsWith(`q${current.globalId}-`)).forEach(k=>delete state.highlights[k]);
+  saveState();renderQuestion()
+}
+function setAnswer(letter){
+  const current=q(),id=current.globalId;
+  if(state.submitted[id]||reviewMode)return;
+  const sel=window.getSelection();if(sel&&sel.toString().trim())return;
+  state.answers[id]=letter;saveState();renderQuestion()
+}
+function toggleStrike(letter){
+  const current=q(),id=current.globalId;if(state.submitted[id]||reviewMode)return;
+  const arr=new Set(state.strikes[id]||[]);arr.has(letter)?arr.delete(letter):arr.add(letter);state.strikes[id]=[...arr];saveState();renderQuestion()
+}
+function setConfidence(level){
+  const id=q().globalId;if(state.submitted[id]||reviewMode)return;
+  state.confidence[id]=level;saveState();renderQuestion()
+}
+function useHint(){
+  const id=q().globalId;if(state.submitted[id]||reviewMode)return;
+  state.hints[id]=true;saveState();renderQuestion()
+}
+function submitAnswer(){
+  const current=q(),id=current.globalId;if(!state.answers[id]||state.submitted[id]||reviewMode)return;
+  state.submitted[id]=true;saveState();renderQuestion();window.scrollTo({top:Math.max(0,$('questionCard').offsetTop-85),behavior:'smooth'})
+}
+function move(delta){
+  if(reviewMode){
+    reviewPos=Math.max(0,Math.min(reviewQueue.length-1,reviewPos+delta));renderQuestion();window.scrollTo({top:0,behavior:'smooth'});return
+  }
+  state.idx=Math.max(0,Math.min(QUESTIONS.length-1,state.idx+delta));saveState();renderQuestion();window.scrollTo({top:0,behavior:'smooth'})
+}
+function nextOrFinish(){
+  if(reviewMode){
+    if(reviewPos>=reviewQueue.length-1){reviewMode=false;showResults()}else move(1);
+    return;
+  }
+  if(state.idx===QUESTIONS.length-1){completeQuiz()}else move(1)
+}
+function completeQuiz(){
+  if(submittedCount()<QUESTIONS.length){alert('Submit all 10 questions before finishing the quiz.');return}
+  state.completed=true;
+  if(!state.completionRecorded){
+    const pct=Math.round(correctCount()/QUESTIONS.length*100);
+    let s={attempts:0,best:null,latest:null,completed:false,lastCompletedAt:null};
+    try{s=Object.assign(s,JSON.parse(localStorage.getItem(SUMMARY_KEY)||'{}'))}catch(e){}
+    s.attempts=(Number(s.attempts)||0)+1;s.latest=pct;s.best=s.best==null?pct:Math.max(Number(s.best),pct);s.completed=true;s.lastCompletedAt=new Date().toISOString();
+    try{localStorage.setItem(SUMMARY_KEY,JSON.stringify(s))}catch(e){}
+    state.completionRecorded=true;
+  }
+  saveState();showResults()
+}
+function feedbackHTML(current){
+  const id=current.globalId,chosen=state.answers[id],correct=current.answer,isCorrect=chosen===correct;
+  let rows=current.options.map((opt,i)=>{
+    const L='ABCDE'[i],cls=L===correct?'good':'bad';
+    return `<div class="why-item ${cls}"><div class="why-label">${L}. ${esc(opt)}</div><div class="why-copy">${esc(current.feedback[i])}</div></div>`;
+  }).join('');
+  return `<div class="answer-banner ${isCorrect?'good':'bad'}">${isCorrect?'Correct.':'Not quite.'} The best answer is <strong>${correct}. ${esc(current.options['ABCDE'.indexOf(correct)])}</strong>.</div>
+    <div class="meta-after"><span class="meta-pill">${esc(current.difficulty)}</span><span class="meta-pill">Week ${esc(current.week)}</span><span class="meta-pill">${esc(current.topic)}</span></div>
+    <div class="explain"><h3>Why this answer?</h3><p>${esc(current.feedback['ABCDE'.indexOf(correct)])}</p><div class="why-list">${rows}</div></div>
+    <details class="advanced"><summary>Advanced Explanation</summary><div class="advanced-body">${current.advanced}</div></details>`;
+}
+function renderQuestion(){
+  $('results').classList.remove('show');$('questionCard').classList.remove('hidden');
+  const current=q(),id=current.globalId,submitted=!!state.submitted[id],selected=state.answers[id]||'',strikes=new Set(state.strikes[id]||[]);
+  $('reviewNote').classList.toggle('show',reviewMode);
+  $('reviewNote').textContent=reviewMode?`Reviewing missed / flagged questions · ${reviewPos+1} of ${reviewQueue.length}`:'';
+  $('qnum').textContent=reviewMode?`Original Question ${current.number} · Drug Practice Quiz ${String(QUIZ_NUM).padStart(2,'0')}`:`Question ${current.number} of ${QUESTIONS.length}`;
+  $('flagBtn').classList.toggle('active',isFlagged(current));$('flagBtn').textContent=isFlagged(current)?'Flagged ✓':'Flag for Review';
+  $('stem').innerHTML=highlightHTML(`q${id}-stem`,current.stem);$('stem').dataset.highlightId=`q${id}-stem`;
+  $('hintBox').classList.toggle('show',!!state.hints[id]&&!reviewMode);$('hintBox').textContent=state.hints[id]?current.hint:'';
+  $('hintBtn').disabled=submitted||reviewMode||!!state.hints[id];$('hintBtn').textContent=state.hints[id]?'Hint shown':'Show Hint';
+  $('options').innerHTML=current.options.map((opt,i)=>{
+    const L='ABCDE'[i],isSel=selected===L,isCorrect=L===current.answer;
+    let cls='choice';if(isSel)cls+=' selected';if(strikes.has(L))cls+=' struck';if(submitted||reviewMode){if(isCorrect)cls+=' correct';else if(isSel)cls+=' wrong'}
+    const key=`q${id}-opt-${L}`;
+    return `<div class="choice-row"><button class="${cls}" data-letter="${L}" ${submitted||reviewMode?'disabled':''}><span class="letter">${L}</span><span class="choice-copy highlightable" data-highlight-id="${key}">${highlightHTML(key,opt)}</span></button><button class="strike ${strikes.has(L)?'active':''}" data-strike="${L}" ${submitted||reviewMode?'disabled':''} title="Strike out ${L}">S̶</button></div>`;
+  }).join('');
+  document.querySelectorAll('.choice[data-letter]').forEach(b=>b.addEventListener('click',()=>setAnswer(b.dataset.letter)));
+  document.querySelectorAll('.strike[data-strike]').forEach(b=>b.addEventListener('click',()=>toggleStrike(b.dataset.strike)));
+  const conf=state.confidence[id]||'';
+  $('confidenceButtons').innerHTML=['guessing','unsure','confident'].map(x=>`<button class="confbtn ${conf===x?'active':''}" data-conf="${x}" ${submitted||reviewMode?'disabled':''}>${x[0].toUpperCase()+x.slice(1)}</button>`).join('');
+  document.querySelectorAll('[data-conf]').forEach(b=>b.addEventListener('click',()=>setConfidence(b.dataset.conf)));
+  $('feedback').classList.toggle('show',submitted||reviewMode);
+  $('feedback').innerHTML=(submitted||reviewMode)?feedbackHTML(current):'';
+  $('submitBtn').classList.toggle('hidden',submitted||reviewMode);
+  $('submitBtn').disabled=!selected;$('submitBtn').textContent='Submit Answer';
+  $('prevBtn').disabled=reviewMode?reviewPos===0:state.idx===0;
+  $('nextBtn').classList.toggle('hidden',!(submitted||reviewMode));
+  $('nextBtn').textContent=reviewMode?(reviewPos===reviewQueue.length-1?'Return to Results':'Next Review Question'):(state.idx===QUESTIONS.length-1?'Finish Quiz':'Next Question');
+  progress();
+}
+function resultMessage(pct){
+  const pools=pct>=90?[
+    'Excellent control of the pharmacology. Keep the mechanisms attached to the clinical clues.',
+    'Strong run. The remaining misses are exactly the ones worth turning into durable recall.',
+    'That is a high-yield performance. Review the few weak links, then move forward.'
+  ]:pct>=80?[
+    'Strong pass. Clean up the missed distinctions and this bank becomes much easier on the next run.',
+    'Good clinical recognition. Focus next on the toxicities and interactions that separated the close choices.',
+    'The framework is working. Use the misses to tighten drug-versus-drug discrimination.'
+  ]:pct>=70?[
+    'Passing foundation. Review the misses now while the vignette clues are still fresh.',
+    'You have the core map. The next gain comes from mechanism, toxicity, and contraindication details.',
+    'Solid base. A focused review of the missed drugs should move the score quickly.'
+  ]:[
+    'Use this attempt diagnostically: work through the missed explanations, then retake the set.',
+    'The score is useful data. Start with the high-confidence misses and rebuild those drug associations first.',
+    'This bank is doing its job: it found the weak links. Review them before moving to the next quiz.'
+  ];
+  return pools[Math.floor(Math.random()*pools.length)]
+}
+function showResults(){
+  $('questionCard').classList.add('hidden');$('results').classList.add('show');reviewMode=false;
+  const correct=correctCount(),pct=Math.round(correct/QUESTIONS.length*100);
+  const missed=QUESTIONS.filter(x=>state.answers[x.globalId]!==x.answer);
+  const flagged=QUESTIONS.filter(x=>isFlagged(x));
+  const highMiss=missed.filter(x=>state.confidence[x.globalId]==='confident');
+  const hints=QUESTIONS.filter(x=>state.hints[x.globalId]).length;
+  const confCorrect={guessing:0,unsure:0,confident:0};
+  QUESTIONS.forEach(x=>{if(state.answers[x.globalId]===x.answer&&state.confidence[x.globalId])confCorrect[state.confidence[x.globalId]]++});
+  $('resultTitle').textContent=`${correct}/10 · ${pct}%`;
+  $('motivation').textContent=resultMessage(pct);
+  $('scoreGrid').innerHTML=`<div class="stat"><b>${correct}</b><span>Correct</span></div><div class="stat"><b>${10-correct}</b><span>Missed</span></div><div class="stat"><b>${hints}</b><span>Hints Used</span></div><div class="stat"><b>${flagged.length}</b><span>Flagged</span></div>`;
+  $('confidenceSummary').innerHTML=`<h3>Confidence analysis</h3><div class="conf-grid"><div class="confstat"><b>${highMiss.length}</b><span>High-confidence misses</span></div><div class="confstat"><b>${confCorrect.confident}</b><span>Confident + correct</span></div><div class="confstat"><b>${confCorrect.unsure}</b><span>Unsure + correct</span></div><div class="confstat"><b>${confCorrect.guessing}</b><span>Guesses that landed</span></div></div>`;
+  const review=[...new Map([...missed,...flagged].map(x=>[x.globalId,x])).values()];
+  $('reviewList').innerHTML=review.length?review.map(x=>{
+    const reasons=[missed.some(m=>m.globalId===x.globalId)?'missed':'',flagged.some(f=>f.globalId===x.globalId)?'flagged':''].filter(Boolean).join(' + ');
+    return `<li><strong>Q${x.number}: ${esc(x.topic)}</strong><br><span style="color:var(--muted)">${esc(x.drug||'Pharmacology concept')} · ${reasons}</span></li>`;
+  }).join(''):'<li>No missed or flagged questions in this set.</li>';
+  $('reviewBtn').disabled=!review.length;$('reviewBtn').dataset.queue=JSON.stringify(review.map(x=>QUESTIONS.findIndex(q=>q.globalId===x.globalId)));
+  let s={};try{s=JSON.parse(localStorage.getItem(SUMMARY_KEY)||'{}')}catch(e){}
+  $('attemptSummary').textContent=`Latest ${s.latest??pct}% · Best ${s.best??pct}% · ${s.attempts||1} completed attempt${(s.attempts||1)===1?'':'s'}`;
+  window.scrollTo({top:0,behavior:'smooth'})
+}
+function startReview(){
+  try{reviewQueue=JSON.parse($('reviewBtn').dataset.queue||'[]')}catch(e){reviewQueue=[]}
+  if(!reviewQueue.length)return;reviewMode=true;reviewPos=0;$('results').classList.remove('show');$('questionCard').classList.remove('hidden');renderQuestion()
+}
+function retake(){
+  if(!confirm('Start a fresh attempt? Your best score will be kept.'))return;
+  state=defaultState();reviewMode=false;reviewQueue=[];reviewPos=0;saveState();renderQuestion()
+}
+$('flagBtn').addEventListener('click',toggleFlag);
+$('highlightBtn').addEventListener('click',addHighlight);
+$('clearHighlightsBtn').addEventListener('click',clearCurrentHighlights);
+$('hintBtn').addEventListener('click',useHint);
+$('submitBtn').addEventListener('click',submitAnswer);
+$('prevBtn').addEventListener('click',()=>move(-1));
+$('nextBtn').addEventListener('click',nextOrFinish);
+$('reviewBtn').addEventListener('click',startReview);
+$('retakeBtn').addEventListener('click',retake);
+
+if(state.completed)showResults();else renderQuestion();
+</script>
+</body>
+</html>
