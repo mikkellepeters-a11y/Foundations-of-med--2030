@@ -16,7 +16,7 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Point Week 5 quizzes back to the Week 5 hub
+      - name: Point every Week 5 quiz back to the Week 5 hub
         shell: bash
         run: |
           python - <<'PY'
@@ -32,8 +32,10 @@ jobs:
               'quizzes/week5_structured_active_learning_cancer_40_redesigned.html',
           ]
 
-          old = '../notes/Week%205/Week%205%20Note%20Hub/index.html'
-          new = '../weeks/week5/index.html'
+          old_href = '../notes/Week%205/Week%205%20Note%20Hub/index.html'
+          new_href = '../weeks/week5/index.html'
+          old_button = '<button class="back" type="button" onclick="history.back()">← Week 5 Hub</button>'
+          new_button = '<button class="back" type="button" onclick="window.location.href=\'../weeks/week5/index.html\'">← Week 5 Hub</button>'
 
           changed = 0
           for filename in files:
@@ -42,12 +44,14 @@ jobs:
                   print(f'MISSING: {filename}')
                   continue
               text = path.read_text(encoding='utf-8')
-              count = text.count(old)
-              if count:
-                  path.write_text(text.replace(old, new), encoding='utf-8')
+              original = text
+              text = text.replace(old_href, new_href)
+              text = text.replace(old_button, new_button)
+              if text != original:
+                  path.write_text(text, encoding='utf-8')
                   changed += 1
-                  print(f'FIXED: {filename} ({count} link replacement(s))')
-              elif new in text:
+                  print(f'FIXED: {filename}')
+              elif new_href in text:
                   print(f'ALREADY FIXED: {filename}')
               else:
                   print(f'NO MATCH: {filename}')
@@ -72,5 +76,5 @@ jobs:
             echo "No quiz files needed changes."
             exit 0
           fi
-          git commit -m "Fix Week 5 quiz back links"
+          git commit -m "Fix remaining Week 5 quiz navigation"
           git push
