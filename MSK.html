@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Musculoskeletal-Skin · Private Beta</title>
+<style>
+:root{
+  --bg:#edf3ef;--paper:#fbfdfb;--ink:#21362b;--muted:#63736a;--line:#ceddd3;
+  --accent:#28543d;--accent-dark:#183b2a;--accent-mid:#527761;--soft:#e3ece6;
+  --soft-2:#cdded3;--tint:#f6faf7;--shadow:0 14px 34px rgba(24,59,42,.09)
+}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(circle at top left,rgba(255,255,255,.7),transparent 32%),var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.site-header{background:linear-gradient(135deg,var(--accent-dark),var(--accent),var(--accent-mid));color:white;padding:26px 22px 24px}
+.header-inner,main,footer{max-width:1120px;margin:auto}
+.brand-row{display:flex;align-items:stretch;justify-content:space-between;gap:28px;margin-bottom:0}
+.header-copy{min-width:0;flex:1;display:flex;flex-direction:column;justify-content:center}.brand{display:flex;align-items:center;gap:12px;margin-bottom:18px}.brand-mark{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18)}
+.brand-mark svg{width:25px;height:25px}.brand-copy strong{display:block;font-size:15px}.brand-copy span{display:block;margin-top:2px;font-size:12px;opacity:.72}
+.header-badge{padding:8px 11px;border-radius:999px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.09);font-size:12px;font-weight:750}
+.header-actions{display:flex;flex-direction:column;align-items:stretch;gap:6px;justify-content:center;width:220px;flex:0 0 220px}.header-actions .header-badge{align-self:stretch;text-align:center;margin-bottom:2px}
+.header-link{display:inline-flex;align-items:center;color:#fff;text-decoration:none;transition:.15s ease}
+.top-hub-button{min-height:46px;width:220px;padding:10px 18px;border-radius:14px;background:rgba(255,255,255,.16);border:1.5px solid rgba(255,255,255,.30);font-size:18px;font-weight:900;box-shadow:0 8px 22px rgba(10,35,23,.18);justify-content:center;text-align:center}
+.header-link:hover{background:rgba(255,255,255,.24);border-color:rgba(255,255,255,.48);transform:translateY(-2px)}
+.eyebrow{margin:0 0 6px;font-size:11px;text-transform:uppercase;letter-spacing:.12em;font-weight:850;opacity:.72}
+h1{margin:0;max-width:800px;font-size:clamp(34px,5vw,52px);line-height:1.02;letter-spacing:-.035em}
+.lede{max-width:760px;margin:9px 0 0;font-size:14px;line-height:1.45;color:rgba(255,255,255,.82)}
+main{padding:34px 22px 64px}.section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:18px}.section-kicker{display:block;margin-bottom:5px;color:var(--accent-mid);font-size:11px;font-weight:850;text-transform:uppercase;letter-spacing:.11em}.section-head h2{margin:0;font-size:26px;letter-spacing:-.02em}.section-note{margin:0;color:var(--muted);font-size:13px}
+.week-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.week-card{position:relative;display:block;color:inherit;text-decoration:none;min-height:260px;padding:24px;background:linear-gradient(180deg,var(--paper),var(--tint));border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow);overflow:hidden;transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease;cursor:pointer}.week-card::after{content:"";position:absolute;width:180px;height:180px;border-radius:50%;right:-90px;top:-80px;background:rgba(40,84,61,.05)}.week-card:hover{transform:translateY(-3px);border-color:#b8cebf;box-shadow:0 18px 42px rgba(24,59,42,.13)}
+.card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:18px}.icon-wrap{width:62px;height:62px;flex:0 0 62px;display:grid;place-items:center;border-radius:19px;background:radial-gradient(circle at 32% 24%,#fff 0,#eef5f0 42%,#dbe8df 100%);border:1px solid var(--line);box-shadow:inset 0 1px 0 rgba(255,255,255,.85),0 7px 16px rgba(24,59,42,.08);color:var(--accent);position:relative;overflow:hidden}.icon-wrap svg{width:42px;height:42px;position:relative;z-index:1;overflow:visible}.week-label{padding:7px 10px;border-radius:999px;background:var(--soft);border:1px solid var(--soft-2);color:var(--accent);font-size:11px;font-weight:850;text-transform:uppercase;letter-spacing:.08em}.week-card h3{position:relative;z-index:1;margin:0;font-size:24px;line-height:1.15;letter-spacing:-.025em}.desc{position:relative;z-index:1;margin:10px 0 22px;color:var(--muted);font-size:14px;line-height:1.58;max-width:92%}.card-footer{position:absolute;left:24px;right:24px;bottom:22px;display:flex;align-items:center;justify-content:space-between;gap:14px}.content-tags{display:flex;flex-wrap:wrap;gap:7px}.content-tag{padding:6px 8px;border-radius:999px;background:#edf4ef;color:#53675b;border:1px solid #dae7de;font-size:11px;font-weight:750}.arrow{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;color:var(--accent);background:var(--soft);border:1px solid var(--soft-2);font-size:17px;font-weight:800}
+.feedback-panel{margin-top:28px;background:linear-gradient(180deg,var(--paper),var(--tint));border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow);padding:20px}.feedback-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:14px}.feedback-card{border:1px solid #d9e6dd;background:#fbfdfb;border-radius:16px;padding:18px}.feedback-card h3{margin:4px 0 7px;font-size:18px}.feedback-card p{margin:0;color:var(--muted);font-size:12px;line-height:1.55}.feedback-badge{display:inline-flex;padding:5px 8px;border-radius:999px;background:var(--soft);border:1px solid var(--soft-2);color:var(--accent);font-size:9.5px;font-weight:850;text-transform:uppercase;letter-spacing:.05em}
+.mockup-note{margin:24px 0 0;padding:14px 16px;border:1px dashed #b9cfc0;border-radius:15px;background:rgba(251,253,251,.72);color:var(--muted);font-size:12px;line-height:1.55}.mockup-note strong{color:var(--accent)}
+footer{padding:0 22px 34px;color:#74847a;font-size:12px}.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,18px);opacity:0;pointer-events:none;background:var(--accent-dark);color:white;padding:11px 14px;border-radius:12px;font-size:12px;font-weight:750;box-shadow:0 10px 30px rgba(20,48,34,.25);transition:.2s ease;z-index:20}.toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* --- Private beta gate --- */
+body.beta-locked{overflow:hidden}
+.beta-gate{
+  position:fixed;inset:0;z-index:9999;display:grid;place-items:center;padding:22px;
+  background:
+    radial-gradient(circle at 18% 14%,rgba(255,255,255,.10),transparent 28%),
+    linear-gradient(135deg,#122d20,#214a35 55%,#527761);
+}
+.beta-gate-card{
+  width:min(460px,100%);background:rgba(251,253,251,.97);color:var(--ink);
+  border:1px solid rgba(255,255,255,.45);border-radius:24px;padding:30px;
+  box-shadow:0 28px 70px rgba(7,27,18,.34);text-align:center
+}
+.beta-lock-mark{
+  width:62px;height:62px;margin:0 auto 16px;border-radius:20px;display:grid;place-items:center;
+  background:var(--soft);border:1px solid var(--soft-2);color:var(--accent)
+}
+.beta-lock-mark svg{width:31px;height:31px}
+.beta-gate-kicker{
+  margin:0 0 7px;color:var(--accent-mid);font-size:10px;font-weight:900;
+  letter-spacing:.13em;text-transform:uppercase
+}
+.beta-gate-card h2{margin:0;font-size:30px;letter-spacing:-.03em}
+.beta-gate-card p{margin:9px auto 18px;max-width:350px;color:var(--muted);font-size:13px;line-height:1.55}
+.beta-password-row{display:flex;gap:9px}
+.beta-password-row input{
+  min-width:0;flex:1;border:1px solid var(--line);background:#fff;color:var(--ink);
+  border-radius:13px;padding:13px 14px;font:inherit;font-size:14px;outline:none
+}
+.beta-password-row input:focus{border-color:#8fb09b;box-shadow:0 0 0 4px rgba(40,84,61,.09)}
+.beta-password-row button{
+  border:0;border-radius:13px;padding:0 18px;background:var(--accent);color:#fff;
+  font:inherit;font-size:13px;font-weight:900;cursor:pointer
+}
+.beta-password-row button:hover{background:var(--accent-dark)}
+.beta-error{min-height:20px;margin:12px 0 0!important;color:#8c4f47!important;font-weight:800}
+.beta-site{display:none}
+body.beta-open .beta-site{display:block}
+body.beta-open .beta-gate{display:none}
+
+/* --- Locked module cards --- */
+.week-card.locked-card{cursor:not-allowed}
+.week-card.locked-card:hover{transform:none;border-color:var(--line);box-shadow:var(--shadow)}
+.week-card.locked-card .icon-wrap{filter:saturate(.7);opacity:.72}
+.week-card.locked-card .desc,.week-card.locked-card .card-footer{opacity:.48}
+.locked-badge{
+  display:inline-flex;align-items:center;gap:6px;background:#e8efea!important;
+  border-color:#cbdacf!important;color:#365743!important
+}
+.locked-badge svg{width:12px;height:12px;stroke-width:2.2}
+.locked-card::before{
+  content:"LOCKED";position:absolute;z-index:3;right:18px;bottom:18px;
+  padding:6px 9px;border-radius:999px;background:rgba(24,59,42,.92);color:#fff;
+  font-size:9px;font-weight:950;letter-spacing:.12em;box-shadow:0 6px 16px rgba(24,59,42,.18)
+}
+
+@media(max-width:760px){.site-header{padding:24px 18px}.brand-row,.section-head{align-items:flex-start;flex-direction:column}.brand{margin-bottom:14px}.header-actions{width:100%;flex-basis:auto;align-items:stretch}.header-actions .header-badge{align-self:stretch}.top-hub-button{width:100%}.week-grid{grid-template-columns:1fr}.week-card{min-height:280px}.desc{max-width:100%}.feedback-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body class="beta-locked">
+
+<div class="beta-gate" id="betaGate" aria-label="Private beta access">
+  <div class="beta-gate-card">
+    <div class="beta-lock-mark" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="5" y="10" width="14" height="10" rx="2"></rect>
+        <path d="M8 10V7a4 4 0 0 1 8 0v3"></path>
+      </svg>
+    </div>
+    <p class="beta-gate-kicker">Module II · Private Beta</p>
+    <h2>MSK-Skin Beta Access</h2>
+    <p>This part of the MegaHub is still under wraps. Enter the admin password to preview it.</p>
+    <form class="beta-password-row" id="betaForm">
+      <input id="betaPassword" type="password" autocomplete="current-password" placeholder="Password" aria-label="Password">
+      <button type="submit">Enter</button>
+    </form>
+    <p class="beta-error" id="betaError" role="status" aria-live="polite"></p>
+  </div>
+</div>
+<div class="beta-site" id="betaSite">
+
+<header class="site-header"><div class="header-inner">
+  <div class="brand-row">
+    <div class="header-copy">
+      <div class="brand">
+        <div aria-hidden="true" class="brand-mark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18.6 9.82c-.52-.21-1.15-.25-1.54.15l-7.07 7.06c-.39.39-.36 1.03-.15 1.54.12.3.16.6.16.93a2.5 2.5 0 0 1-5 0c0-.26-.24-.5-.5-.5a2.5 2.5 0 1 1 .96-4.82c.5.21 1.14.25 1.53-.15l7.07-7.06c.39-.39.36-1.03.15-1.54-.12-.3-.21-.6-.21-.93a2.5 2.5 0 0 1 5 0c.01.26.24.49.5.5a2.5 2.5 0 1 1-.9 4.82Z"/>
+          </svg>
+        </div>
+        <div class="brand-copy"><strong>Musculoskeletal-Skin</strong><span>Study Hub</span></div>
+      </div>
+      <p class="eyebrow">Master Study Directory</p>
+      <h1>Choose a week to study.</h1>
+      <p class="lede">Module II · Weeks 13–21 · weekly lecture hubs, quizzes, review tools, and module-wide resources.</p>
+    </div>
+    <div class="header-actions"><div class="header-badge">Notes · Quizzes · Review</div><a class="header-link top-hub-button placeholder" href="#" data-name="MSK-Skin Drug Hub">Drug Hub</a><a class="header-link top-hub-button placeholder" href="#" data-name="MSK-Skin Review the Mod">Review the Mod</a><a class="header-link top-hub-button placeholder" href="#" data-name="MSK-Skin Pathology Hub">Pathology Hub</a></div>
+  </div>
+</div></header>
+<main>
+  <div class="section-head"><div><span class="section-kicker">Course Weeks</span><h2>Musculoskeletal-Skin</h2></div><p class="section-note">Gross Anatomy Lab + Weeks 13–21 + CBL + Practice Vignettes</p></div>
+  <section class="week-grid">
+
+    <a class="week-card placeholder locked-card" href="#" data-name="Gross Anatomy Lab"><div class="card-top"><div class="icon-wrap">
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M24 7c-3.7 0-6.5 2.9-6.5 6.5S20.3 20 24 20s6.5-2.9 6.5-6.5S27.7 7 24 7Z"/><path d="M16.5 38v-8.5c0-4.7 3.4-8.5 7.5-8.5s7.5 3.8 7.5 8.5V38"/><path d="M16.5 29.5 11 34m20.5-4.5L37 34M20 38v-7m8 7v-7"/><path d="m35.5 8.5 4 4M32.5 11.5l7-7M36.5 15.5l7-7"/></svg>
+    </div><span class="week-label locked-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10" width="14" height="10" rx="2"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path></svg>Locked</span></div><h3>Gross Anatomy Lab</h3><p class="desc">Central lab workspace for cadaver-based gross anatomy, regional dissections, structure identification, lab guides, and practical-exam review throughout the MSK-Skin module.</p><div class="card-footer"><div class="content-tags"><span class="content-tag">Lab Guides</span><span class="content-tag">Structures</span><span class="content-tag">Practical Review</span></div><div class="arrow">→</div></div></a>
+
+    <a class="week-card placeholder locked-card" href="#" data-name="MSK-Skin Week 13"><div class="card-top"><div class="icon-wrap">
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M34 10 15 29c-1.7 1.7-4.3 1.8-6 .2-1.6-1.6-1.5-4.3.2-6l19-19c1.7-1.7 4.3-1.8 6-.2 1.6 1.6 1.5 4.3-.2 6Z"/><path d="M11 25c-3-1.4-6 .3-6 3.4A4.6 4.6 0 0 0 9.6 33c.6 0 1.1-.1 1.6-.3M37 15c3 1.4 6-.3 6-3.4A4.6 4.6 0 0 0 38.4 7c-.6 0-1.1.1-1.6.3"/></svg>
+    </div><span class="week-label locked-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10" width="14" height="10" rx="2"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path></svg>Locked</span></div><h3>MSK Foundations</h3><p class="desc">Sample organization for skeletal anatomy, bone structure, connective tissue, cartilage, joints, and the core physiology that supports movement.</p><div class="card-footer"><div class="content-tags"><span class="content-tag">Lectures</span><span class="content-tag">Quizzes</span><span class="content-tag">Review</span></div><div class="arrow">→</div></div></a>
+
+    <a class="week-card placeholder locked-card" href="#" data-name="MSK-Skin Week 14"><div class="card-top"><div class="icon-wrap">
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 30c7-2 11-8 13-17 2 9 6 15 17 17"/><path d="M11 34h26M15 39h18"/><path d="M22 13v25"/></svg>
+    </div><span class="week-label locked-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10" width="14" height="10" rx="2"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path></svg>Locked</span></div><h3>Muscle & Movement</h3><p class="desc">Sample organization for skeletal muscle physiology, neuromuscular transmission, biomechanics, motor units, and functional movement.</p><div class="card-footer"><div class="content-tags"><span class="content-tag">Lectures</span><span class="content-tag">Quizzes</span><span class="content-tag">Review</span></div><div class="arrow">→</div></div></a>
+
+    <a class="week-card placeholder locked-card" href="#" data-name="MSK-Skin Week 15"><div class="card-top"><div class="icon-wrap">
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="24" cy="24" r="14"/><path d="M16 24h16M24 16v16"/><path d="M12 12l6 6M36 12l-6 6M12 36l6-6M36 36l-6-6"/></svg>
+    </div><span class="week-label locked-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10" width="14" height="10" rx="2"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path></svg>Locked</span></div><h3>Bone & Mineral Biology</h3><p class="desc">Sample organization for bone remodeling, calcium and phosphate regulation, metabolic bone disease, fractures, and skeletal repair.</p><div class="card-footer"><div class="content-tags"><span class="content-tag">Lectures</span><span class="content-tag">Quizzes</span><span class="content-tag">Review</span></div><div class="arrow">→</div></div></a>
+
+    <a class="week-card placeholder locked-card" href="#" data-name="MSK-Skin Week 16"><div class="card-top"><div class="icon-wrap">
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M11 29c5-10 10-15 13-15s8 5 13 15"/><path d="M8 33h32M12 38h24"/><circle cx="24" cy="15" r="4"/></svg>
+    </div><span class="week-label locked-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10" width="14" height="10" rx="2"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path></svg>Locked</span></div><h3>Joint & Rheumatic Disease</h3><p class="desc">Sample organization for inflammatory and degenerative joint disease, connective-tissue disorders, crystal arthropathies, and rheumatologic mechanisms.</p><div class="card-footer"><div class="content-tags"><span class="content-tag">Lectures</span><span class="content-tag">Quizzes</span><span class="content-tag">Review</span></div><div class="arrow">→</div></div></a>
+
+    <a class="week-card placeholder locked-card" href="#" data-name="MSK-Skin Week 17"><div class="card-top"><div class="icon-wrap">
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 15c6-4 11-4 17 0s11 4 17 0"/><path d="M7 23c6-4 11-4 17 0s11 4 17 0"/><path d="M7 31c6-4 11-4 17 0s11 4 17 0"/><path d="M10 39h28"/></svg>
+    </div><span class="week-label locked-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10" width="14" height="10" rx="2"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path></svg>Locked</span></div><h3>Skin Structure & Inflammation</h3><p class="desc">Sample organization for epidermal and dermal biology, barrier function, inflammatory dermatoses, hypersensitivity, and common skin findings.</p><div class="card-footer"><div class="content-tags"><span class="content-tag">Lectures</span><span class="content-tag">Quizzes</span><span class="content-tag">Review</span></div><div class="arrow">→</div></div></a>
+
+    <a class="week-card placeholder locked-card" href="#" data-name="MSK-Skin Week 18"><div class="card-top"><div class="icon-wrap">
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="24" cy="24" r="15"/><path d="M24 12v24M12 24h24"/><circle cx="18" cy="18" r="2"/><circle cx="30" cy="30" r="2"/></svg>
+    </div><span class="week-label locked-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10" width="14" height="10" rx="2"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path></svg>Locked</span></div><h3>Infection & Soft Tissue Disease</h3><p class="desc">Sample organization for bone, joint, muscle, and skin infections plus soft-tissue pathology and clinically important infectious patterns.</p><div class="card-footer"><div class="content-tags"><span class="content-tag">Lectures</span><span class="content-tag">Quizzes</span><span class="content-tag">Review</span></div><div class="arrow">→</div></div></a>
+
+    <a class="week-card placeholder locked-card" href="#" data-name="MSK-Skin Week 19"><div class="card-top"><div class="icon-wrap">
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 36 20 25l7 7 12-17"/><circle cx="20" cy="25" r="3"/><circle cx="27" cy="32" r="3"/></svg>
+    </div><span class="week-label locked-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10" width="14" height="10" rx="2"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path></svg>Locked</span></div><h3>Neoplasia & Systemic Disease</h3><p class="desc">Sample organization for bone and soft-tissue tumors, cutaneous neoplasms, metastatic patterns, and systemic disease presenting through skin or MSK findings.</p><div class="card-footer"><div class="content-tags"><span class="content-tag">Lectures</span><span class="content-tag">Quizzes</span><span class="content-tag">Review</span></div><div class="arrow">→</div></div></a>
+
+    <a class="week-card placeholder locked-card" href="#" data-name="MSK-Skin Week 20"><div class="card-top"><div class="icon-wrap">
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M11 10h26v28H11z"/><path d="M16 17h16M16 23h16M16 29h10"/><path d="M31 32l3 3 6-7"/></svg>
+    </div><span class="week-label locked-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10" width="14" height="10" rx="2"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path></svg>Locked</span></div><h3>Clinical Integration & Imaging</h3><p class="desc">Sample organization for integrated musculoskeletal and dermatologic clinical reasoning, diagnostic imaging, pathology correlation, pharmacology, and rehabilitation.</p><div class="card-footer"><div class="content-tags"><span class="content-tag">Lectures</span><span class="content-tag">Quizzes</span><span class="content-tag">Review</span></div><div class="arrow">→</div></div></a>
+
+    <a class="week-card placeholder locked-card" href="#" data-name="MSK-Skin Week 21"><div class="card-top"><div class="icon-wrap">
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M11 10h26v28H11z"/><path d="M16 17h16M16 23h16M16 29h10"/><path d="M31 32l3 3 6-7"/></svg>
+    </div><span class="week-label locked-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10" width="14" height="10" rx="2"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path></svg>Locked</span></div><h3>Integrated MSK-Skin</h3><p class="desc">Sample capstone week for integrated clinical reasoning, imaging, pathology, pharmacology, rehabilitation, and high-yield module review.</p><div class="card-footer"><div class="content-tags"><span class="content-tag">Lectures</span><span class="content-tag">Quizzes</span><span class="content-tag">Review</span></div><div class="arrow">→</div></div></a>
+
+    <a class="week-card placeholder locked-card" href="#" data-name="MSK-Skin CBL"><div class="card-top"><div class="icon-wrap">
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="10" width="30" height="29" rx="5"/><path d="M18 10V9a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v1"/><path d="M15 19h18M15 25h12M15 31h15"/><circle cx="34" cy="32" r="5"/><path d="M31.5 32h5M34 29.5v5"/></svg>
+    </div><span class="week-label locked-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10" width="14" height="10" rx="2"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path></svg>Locked</span></div><h3>Case-Based Learning</h3><p class="desc">MSK-Skin cases paired with concise quick guides and case-specific quizzes, matching the CBL workflow used in Foundations.</p><div class="card-footer"><div class="content-tags"><span class="content-tag">CBL Cases</span><span class="content-tag">Quick Guides</span><span class="content-tag">Case Quizzes</span></div><div class="arrow">→</div></div></a>
+
+    <a class="week-card placeholder locked-card" href="#" data-name="MSK-Skin Practice Vignettes"><div class="card-top"><div class="icon-wrap">
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="8" width="30" height="32" rx="6"/><path d="M17 19c0-4 3-7 7-7s7 2 7 6c0 3-1 4-4 6-2 1-3 3-3 5"/><circle cx="24" cy="34" r="1.5"/></svg>
+    </div><span class="week-label locked-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10" width="14" height="10" rx="2"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path></svg>Locked</span></div><h3>MSK-Skin Practice Vignettes</h3><p class="desc">A mixed-topic Step-style practice bank for anatomy, physiology, pathology, pharmacology, dermatology, rheumatology, and integrated clinical reasoning.</p><div class="card-footer"><div class="content-tags"><span class="content-tag">USMLE-Style</span><span class="content-tag">Confidence</span><span class="content-tag">Advanced Review</span></div><div class="arrow">→</div></div></a>
+
+  </section>
+
+  <div class="mockup-note"><strong>Private beta:</strong> The MSK-Skin structure is online for testing, but the module cards are intentionally locked until their content is ready to be revealed.</div>
+
+  <section class="feedback-panel">
+    <div class="section-head" style="margin-bottom:14px"><div><span class="section-kicker">Module Tools</span><h2>Help Improve the MegaHub</h2></div><p class="section-note">Feedback + future features</p></div>
+    <div class="feedback-grid"><article class="feedback-card"><span class="feedback-badge">Leave Me Feedback</span><h3>Found something confusing, broken, or worth adding?</h3><p>Keep the same feedback workflow as Foundations for corrections, quiz issues, missing content, and feature requests.</p></article><article class="feedback-card"><span class="feedback-badge">Future Feature</span><h3>Module Analytics</h3><p>The same browser-local performance tools can later feed MSK-Skin weakness tracking, quiz completion, confidence calibration, and longitudinal concept review.</p></article></div>
+  </section>
+</main>
+<footer>Musculoskeletal-Skin · Module II · Private Beta</footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+const BETA_PASSWORD='mikkelleadmin11';
+const gate=document.getElementById('betaGate');
+const form=document.getElementById('betaForm');
+const input=document.getElementById('betaPassword');
+const error=document.getElementById('betaError');
+const toast=document.getElementById('toast');
+let timer;
+
+const wrongPasswordMessages=[
+  'Nope. The femur is disappointed.',
+  'Access denied. Please consult the brachial plexus and try again.',
+  'Incorrect. That password has less support than an ACL tear.',
+  'Nice try. The cadaver lab remains classified.',
+  'Wrong password. Somewhere, an anatomist just sighed.'
+];
+
+function unlockBeta(){
+  document.body.classList.remove('beta-locked');
+  document.body.classList.add('beta-open');
+  sessionStorage.setItem('mskBetaUnlocked','yes');
+}
+
+if(sessionStorage.getItem('mskBetaUnlocked')==='yes'){
+  unlockBeta();
+}else{
+  setTimeout(()=>input.focus(),80);
+}
+
+form.addEventListener('submit',e=>{
+  e.preventDefault();
+  if(input.value===BETA_PASSWORD){
+    error.textContent='Access granted. Welcome to the secret lab.';
+    setTimeout(unlockBeta,220);
+  }else{
+    error.textContent=wrongPasswordMessages[Math.floor(Math.random()*wrongPasswordMessages.length)];
+    input.value='';
+    input.focus();
+  }
+});
+
+document.querySelectorAll('.locked-card').forEach(el=>el.addEventListener('click',e=>{
+  e.preventDefault();
+  toast.textContent=(el.dataset.name||'This section')+' is still locked. Reveal day is not today.';
+  toast.classList.add('show');
+  clearTimeout(timer);
+  timer=setTimeout(()=>toast.classList.remove('show'),1800);
+}));
+
+document.querySelectorAll('.top-hub-button.placeholder').forEach(el=>el.addEventListener('click',e=>{
+  e.preventDefault();
+  toast.textContent=(el.dataset.name||'This section')+' is still under wraps.';
+  toast.classList.add('show');
+  clearTimeout(timer);
+  timer=setTimeout(()=>toast.classList.remove('show'),1800);
+}));
+</script>
+</div>
+</body>
+</html>
