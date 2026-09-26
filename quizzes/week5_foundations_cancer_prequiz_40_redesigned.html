@@ -139,7 +139,7 @@ async function saveQuestionAttemptsToCloud(){
     if(error){
       console.error("MegaHub question-level sync failed:",error);
       const status=document.getElementById('cloudSyncStatus');
-      if(status && !status.classList.contains('error')){
+      if(status){
         status.textContent='Quiz score saved, but question-level sync failed: '+error.message;
         status.className='cloud-sync-status error';
       }
@@ -147,6 +147,11 @@ async function saveQuestionAttemptsToCloud(){
     }
 
     console.log("MegaHub question attempts saved to Supabase.");
+    const status=document.getElementById('cloudSyncStatus');
+    if(status){
+      status.textContent='✓ Quiz score saved. Question tracking complete: '+rows.length+' question rows saved.';
+      status.className='cloud-sync-status ok';
+    }
   }catch(err){
     console.error("MegaHub question-level sync failed:",err);
   }
