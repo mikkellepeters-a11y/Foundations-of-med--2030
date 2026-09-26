@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>MCG Class of 2030 Hub</title>
+<style>
+:root{
+  --bg:#f3ece3;
+  --paper:#fffaf4;
+  --ink:#3e3028;
+  --muted:#78695f;
+  --line:#dccfc3;
+  --brown:#694a39;
+  --brown-dark:#4a3428;
+  --brown-soft:#8a654f;
+  --tan:#eee5dc;
+  --shadow:0 14px 34px rgba(65,43,31,.08);
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:radial-gradient(circle at top left,rgba(255,255,255,.55),transparent 32%),var(--bg);
+  color:var(--ink);
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+a{color:inherit}
+.site-header{
+  background:linear-gradient(135deg,var(--brown-dark),var(--brown),var(--brown-soft));
+  color:white;
+  padding:44px 22px 38px;
+}
+.header-inner,main,footer{max-width:1120px;margin:auto}
+.brand-row{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:26px}
+.brand{display:flex;align-items:center;gap:12px}
+.brand-mark{
+  width:40px;height:40px;border-radius:12px;display:grid;place-items:center;
+  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18)
+}
+.brand-mark svg{width:23px;height:23px}
+.brand-copy strong{display:block;font-size:15px}
+.brand-copy span{display:block;margin-top:2px;font-size:12px;opacity:.72}
+.header-badge{
+  padding:8px 11px;border-radius:999px;border:1px solid rgba(255,255,255,.18);
+  background:rgba(255,255,255,.09);font-size:12px;font-weight:750
+}
+.eyebrow{margin:0 0 10px;font-size:12px;text-transform:uppercase;letter-spacing:.12em;font-weight:850;opacity:.72}
+h1{margin:0;max-width:880px;font-size:clamp(36px,6vw,62px);line-height:1.02;letter-spacing:-.035em}
+.lede{max-width:760px;margin:14px 0 0;font-size:16px;line-height:1.6;color:rgba(255,255,255,.82)}
+.designer-credit{display:inline-flex;align-items:center;gap:6px;margin:17px 0 0;padding:7px 11px;border-radius:999px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.16);font-size:11px;letter-spacing:.025em;color:rgba(255,255,255,.76)}
+.designer-credit strong{color:#fff;font-weight:800}
+main{padding:34px 22px 64px}
+.section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:18px}
+.section-kicker{display:block;margin-bottom:5px;color:var(--brown-soft);font-size:11px;font-weight:850;text-transform:uppercase;letter-spacing:.11em}
+.section-head h2{margin:0;font-size:26px;letter-spacing:-.02em}
+.section-note{margin:0;color:var(--muted);font-size:13px}
+.module-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.module-card{
+  --accent:#694a39;
+  --accent-dark:#4a3428;
+  --accent-mid:#8a654f;
+  --soft:#f0e8df;
+  --soft-2:#e8ddd1;
+  --tint:#fbf5ee;
+  --card-border:#dccfc3;
+  position:relative;min-height:285px;padding:24px;
+  background:linear-gradient(180deg,var(--paper),var(--tint));
+  border:1px solid var(--card-border);border-radius:22px;box-shadow:var(--shadow);
+  overflow:hidden;transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease;
+  display:block;color:inherit;text-decoration:none
+}
+.module-card::before{
+  content:"";position:absolute;inset:0 0 auto 0;height:5px;
+  background:linear-gradient(90deg,var(--accent-dark),var(--accent),var(--accent-mid));
+}
+.module-card::after{
+  content:"";position:absolute;width:210px;height:210px;border-radius:50%;right:-104px;top:-94px;
+  background:color-mix(in srgb,var(--accent) 7%,transparent)
+}
+.module-card:hover{transform:translateY(-3px);border-color:var(--accent-mid);box-shadow:0 18px 42px rgba(65,43,31,.12)}
+.module-card:focus-visible{outline:3px solid color-mix(in srgb,var(--accent) 30%,transparent);outline-offset:4px}
+.module-card.foundations{--accent:#6f4e37;--accent-dark:#4a3426;--accent-mid:#9a735a;--soft:#efe5dc;--soft-2:#dfd0c2;--tint:#fbf6f1;--card-border:#ddcec1}
+.module-card.module2{--accent:#28543d;--accent-dark:#183b2a;--accent-mid:#527761;--soft:#e3ece6;--soft-2:#cdded3;--tint:#f6faf7;--card-border:#ceddd3}
+.module-card.module3{--accent:#7a2638;--accent-dark:#551a28;--accent-mid:#a15262;--soft:#f1e3e6;--soft-2:#e3cbd1;--tint:#fcf7f8;--card-border:#e4cfd4}
+.module-card.module4{--accent:#56366f;--accent-dark:#39234b;--accent-mid:#80639a;--soft:#ece5f1;--soft-2:#dcd0e5;--tint:#faf7fc;--card-border:#ddd1e6}
+.module-card.module5{--accent:#27466f;--accent-dark:#172d4c;--accent-mid:#5c789e;--soft:#e4eaf2;--soft-2:#ced9e7;--tint:#f7f9fc;--card-border:#d1dbe7}
+.card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:18px}
+.icon-wrap{
+  width:62px;height:62px;flex:0 0 62px;display:grid;place-items:center;border-radius:19px;
+  background:radial-gradient(circle at 32% 24%,#fff 0,var(--soft) 45%,var(--soft-2) 100%);
+  border:1px solid var(--soft-2);box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 7px 16px rgba(77,53,39,.07);
+  color:var(--accent);position:relative;overflow:hidden
+}
+.icon-wrap:after{content:"";position:absolute;width:22px;height:22px;border-radius:50%;right:-8px;top:-7px;background:color-mix(in srgb,var(--accent) 10%,transparent)}
+.icon-wrap svg{width:42px;height:42px;position:relative;z-index:1;overflow:visible}
+.healthicon-stomach{width:42px;height:42px;position:relative;z-index:1;display:block;background:currentColor;-webkit-mask:url("https://cdn.jsdelivr.net/npm/healthicons@2.0.0/public/icons/svg/outline/body/stomach.svg") center/contain no-repeat;mask:url("https://cdn.jsdelivr.net/npm/healthicons@2.0.0/public/icons/svg/outline/body/stomach.svg") center/contain no-repeat}
+.module-label{
+  padding:7px 10px;border-radius:999px;background:var(--soft);border:1px solid var(--soft-2);
+  color:var(--accent-dark);font-size:11px;font-weight:850;text-transform:uppercase;letter-spacing:.08em
+}
+.module-card h3{position:relative;z-index:1;margin:0;font-size:24px;line-height:1.15;letter-spacing:-.025em}
+.desc{position:relative;z-index:1;margin:10px 0 14px;color:var(--muted);font-size:14px;line-height:1.58;max-width:92%}
+.progress-wrap{position:relative;z-index:1;margin:5px 0 58px}
+.progress-meta{display:flex;justify-content:space-between;gap:10px;margin-bottom:7px;font-size:10px;color:var(--muted);font-weight:800;letter-spacing:.03em;text-transform:uppercase}
+.progress-track{height:8px;border-radius:999px;background:var(--soft);border:1px solid var(--soft-2);overflow:hidden}
+.progress-bar{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--accent-dark),var(--accent),var(--accent-mid))}
+.card-footer{position:absolute;left:24px;right:24px;bottom:22px;display:flex;align-items:center;justify-content:space-between;gap:14px}
+.content-tags{display:flex;flex-wrap:wrap;gap:7px}
+.content-tag{padding:6px 8px;border-radius:999px;background:var(--soft);color:var(--accent-dark);border:1px solid var(--soft-2);font-size:11px;font-weight:750}
+.arrow{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;color:var(--accent-dark);background:var(--soft);border:1px solid var(--soft-2);font-size:17px;font-weight:800;transition:transform .16s ease}
+.module-card:hover .arrow{transform:translateX(2px)}
+.placeholder{cursor:pointer}
+.placeholder .progress-bar{width:0!important}
+.placeholder-badge{display:none}
+.toast{
+  position:fixed;left:50%;bottom:24px;transform:translate(-50%,18px);opacity:0;pointer-events:none;
+  background:#4a3428;color:#fff;padding:11px 14px;border-radius:12px;font-size:12px;font-weight:750;
+  box-shadow:0 10px 30px rgba(50,35,26,.2);transition:.2s ease;z-index:20
+}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.prototype-note{
+  margin-top:24px;padding:16px 18px;border:1px dashed #d4c5b8;border-radius:16px;color:var(--muted);
+  background:rgba(255,250,244,.5);font-size:12px;line-height:1.55
+}
+.prototype-note strong{color:var(--ink)}
+footer{padding:0 22px 34px;color:#8a7b70;font-size:12px}
+@media(max-width:760px){
+  .brand-row,.section-head{align-items:flex-start;flex-direction:column}
+  .module-grid{grid-template-columns:1fr}
+  .module-card{min-height:295px}
+  .desc{max-width:100%}
+}
+
+/* Account controls */
+.account-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.account-button{
+  appearance:none;border:1px solid rgba(255,255,255,.24);background:rgba(255,255,255,.12);
+  color:#fff;border-radius:999px;padding:9px 13px;font:inherit;font-size:12px;font-weight:800;
+  cursor:pointer;transition:.16s ease
+}
+.account-button:hover{background:rgba(255,255,255,.18)}
+.account-button:focus-visible{outline:3px solid rgba(255,255,255,.3);outline-offset:3px}
+.account-status{font-size:12px;color:rgba(255,255,255,.78);max-width:250px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+.auth-overlay{
+  position:fixed;inset:0;background:rgba(34,24,19,.5);display:none;align-items:center;justify-content:center;
+  padding:20px;z-index:1000
+}
+.auth-overlay.show{display:flex}
+.auth-modal{
+  width:min(430px,100%);background:var(--paper);border:1px solid var(--line);border-radius:22px;
+  box-shadow:0 24px 70px rgba(42,28,21,.28);padding:24px;position:relative
+}
+.auth-close{
+  position:absolute;right:16px;top:14px;width:34px;height:34px;border-radius:50%;border:1px solid var(--line);
+  background:#fff;color:var(--ink);font-size:18px;cursor:pointer
+}
+.auth-modal h2{margin:0 40px 6px 0;font-size:24px}
+.auth-modal p{margin:0 0 18px;color:var(--muted);font-size:13px;line-height:1.5}
+.auth-tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:18px}
+.auth-tab{
+  border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:12px;padding:10px 12px;
+  font-weight:800;cursor:pointer
+}
+.auth-tab.active{background:var(--brown);color:#fff;border-color:var(--brown)}
+.auth-form{display:grid;gap:12px}
+.auth-field{display:grid;gap:6px}
+.auth-field label{font-size:12px;font-weight:800;color:var(--ink)}
+.auth-field input{
+  width:100%;border:1px solid var(--line);background:#fff;border-radius:12px;padding:12px 13px;
+  font:inherit;color:var(--ink)
+}
+.auth-submit,.auth-secondary{
+  border:0;border-radius:12px;padding:12px 14px;font:inherit;font-weight:850;cursor:pointer
+}
+.auth-submit{background:var(--brown);color:#fff}
+.auth-secondary{background:var(--tan);color:var(--ink)}
+.auth-message{min-height:20px;margin-top:10px;font-size:12px;color:var(--muted)}
+.auth-message.error{color:#8b2433}
+.auth-message.success{color:#28543d}
+.account-panel{display:none;gap:12px}
+.account-panel.show{display:grid}
+.account-email{padding:12px;border-radius:12px;background:var(--tan);border:1px solid var(--line);font-size:13px;word-break:break-word}
+
+@media(max-width:760px){
+  .account-actions{width:100%;justify-content:flex-start}
+  .account-status{max-width:180px}
+}
+
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <div class="brand-row">
+      <div class="brand">
+        <div aria-hidden="true" class="brand-mark">
+          <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+            <path d="M4 6.5 12 3l8 3.5-8 3.5-8-3.5Z"></path>
+            <path d="M6 9.5v5.2c0 1.2 2.7 3.3 6 3.3s6-2.1 6-3.3V9.5"></path>
+            <path d="M20 7v5"></path>
+          </svg>
+        </div>
+        <div class="brand-copy"><strong>MCG Class of 2030</strong><span>Pre-Clerkship Study Hub</span></div>
+      </div>
+      <div class="account-actions">
+        <span class="account-status" id="accountStatus">Guest mode</span>
+        <button class="account-button" id="accountButton" type="button">Log In / Create Account</button>
+      </div>
+    </div>
+    <p class="eyebrow">Pre-Clerkship UltraHub</p>
+    <h1>MCG Class of 2030 Hub</h1>
+    <p class="lede">Your entire pre-clerkship medical curriculum. One hub.</p>
+    <p class="designer-credit">Designed by <strong>Mikkelle Peters</strong> · Class of 2030</p>
+  </div>
+</header>
+
+<main>
+  <div class="section-head">
+    <div><span class="section-kicker">Course Modules</span><h2>Choose a module to study.</h2></div>
+    <p class="section-note">5 pre-clerkship modules · one connected hub</p>
+  </div>
+
+  <section class="module-grid">
+    <a class="module-card foundations" href="foundations.html" aria-label="Open Foundations of Medicine">
+      <div class="card-top">
+        <div class="icon-wrap">
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6 6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"/>
+            <path d="M8 15v1a6 6 0 0 0 6 6 6 6 0 0 0 6-6v-4"/>
+            <circle cx="20" cy="10" r="2"/>
+          </svg>
+        </div>
+        <span class="module-label">Module I</span>
+      </div>
+      <h3>Foundations of Medicine</h3>
+      <p class="desc">Build the scientific foundation for medicine through cell biology, genetics, biochemistry, immunology, microbiology, pathology, pharmacology, embryology, and the core principles of clinical reasoning.</p>
+      <div class="progress-wrap">
+        <div class="progress-meta"><span>Complete</span><span>Week 10</span></div>
+        <div class="progress-track"><div class="progress-bar" style="width:100%"></div></div>
+      </div>
+      <div class="card-footer">
+        <div class="content-tags"><span class="content-tag">Weeks 2–10</span><span class="content-tag">Live</span><span class="content-tag">Review</span></div>
+        <div class="arrow">→</div>
+      </div>
+    </a>
+
+    <a class="module-card module2" href="MSK.html" aria-label="Open Musculoskeletal-Skin">
+      <div class="card-top">
+        <div class="icon-wrap">
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18.6 9.82c-.52-.21-1.15-.25-1.54.15l-7.07 7.06c-.39.39-.36 1.03-.15 1.54.12.3.16.6.16.93a2.5 2.5 0 0 1-5 0c0-.26-.24-.5-.5-.5a2.5 2.5 0 1 1 .96-4.82c.5.21 1.14.25 1.53-.15l7.07-7.06c.39-.39.36-1.03.15-1.54-.12-.3-.21-.6-.21-.93a2.5 2.5 0 0 1 5 0c.01.26.24.49.5.5a2.5 2.5 0 1 1-.9 4.82Z"/>
+          </svg>
+        </div>
+        <span class="module-label">Module II</span>
+      </div>
+      <h3>Musculoskeletal-Skin</h3>
+      <p class="desc">Study the structure, function, injury, and disease of bone, muscle, joints, connective tissue, and skin, integrating anatomy, physiology, pathology, rheumatology, orthopedics, dermatology, and pharmacology.</p>
+      <div class="progress-wrap">
+        <div class="progress-meta"><span>Private Beta</span><span>Weeks 13–21</span></div>
+        <div class="progress-track"><div class="progress-bar" style="width:10%"></div></div>
+      </div>
+      <div class="card-footer">
+        <div class="content-tags"><span class="content-tag">Weeks 13–21</span><span class="content-tag">Private Beta</span></div>
+        <div class="arrow">→</div>
+      </div>
+    </a>
+
+    <a class="module-card module3 placeholder" href="#" data-module="Module III" aria-label="Preview Module III placeholder">
+      <div class="card-top">
+        <div class="icon-wrap">
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.42 4.58a5.4 5.4 0 0 0-7.65 0l-.77.78-.77-.78a5.4 5.4 0 0 0-7.65 0C1.46 6.7 1.33 10.28 4 13l8 8 8-8c2.67-2.72 2.54-6.3.42-8.42z"/>
+            <path d="M3.5 12h6l.5-1 2 4.5 2-7 1.5 3.5h5"/>
+          </svg>
+        </div>
+        <span class="module-label">Module III</span>
+      </div>
+      <h3>Cardiopulmonary-Renal</h3>
+      <p class="desc">Integrate the heart, lungs, and kidneys through hemodynamics, gas exchange, fluid and electrolyte balance, acid-base physiology, blood-pressure regulation, disease mechanisms, and system-specific therapeutics.</p>
+      <div class="progress-wrap">
+        <div class="progress-meta"><span>Not started</span><span>Coming soon</span></div>
+        <div class="progress-track"><div class="progress-bar"></div></div>
+      </div>
+      <div class="card-footer">
+        <div class="content-tags"><span class="content-tag">Coming Soon</span><span class="content-tag">Module Workspace</span></div>
+        <div class="arrow">→</div>
+      </div>
+    </a>
+
+    <a class="module-card module4 placeholder" href="#" data-module="Module IV" aria-label="Preview Module IV placeholder">
+      <div class="card-top">
+        <div class="icon-wrap">
+          <span class="healthicon-stomach" aria-hidden="true"></span>
+        </div>
+        <span class="module-label">Module IV</span>
+      </div>
+      <h3>Gastrointestinal-Genitourinary + Endo</h3>
+      <p class="desc">Explore gastrointestinal, genitourinary, reproductive, and endocrine physiology and disease, including digestion, metabolism, liver and pancreatic function, hormonal regulation, fertility, and related pharmacology.</p>
+      <div class="progress-wrap">
+        <div class="progress-meta"><span>Not started</span><span>Coming soon</span></div>
+        <div class="progress-track"><div class="progress-bar"></div></div>
+      </div>
+      <div class="card-footer">
+        <div class="content-tags"><span class="content-tag">Coming Soon</span><span class="content-tag">Module Workspace</span></div>
+        <div class="arrow">→</div>
+      </div>
+    </a>
+
+    <a class="module-card module5 placeholder" href="#" data-module="Module V" aria-label="Preview Module V placeholder">
+      <div class="card-top">
+        <div class="icon-wrap">
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 18V5"/>
+            <path d="M15 13a4.17 4.17 0 0 1-3-4 4.17 4.17 0 0 1-3 4"/>
+            <path d="M17.598 6.5A3 3 0 1 0 12 5a3 3 0 1 0-5.598 1.5"/>
+            <path d="M17.997 5.125a4 4 0 0 1 2.526 5.77"/>
+            <path d="M18 18a4 4 0 0 0 2-7.464"/>
+            <path d="M19.967 17.483A4 4 0 1 1 12 18a4 4 0 1 1-7.967-.517"/>
+            <path d="M6 18a4 4 0 0 1-2-7.464"/>
+            <path d="M6.003 5.125a4 4 0 0 0-2.526 5.77"/>
+          </svg>
+        </div>
+        <span class="module-label">Module V</span>
+      </div>
+      <h3>Brain &amp; Behavior</h3>
+      <p class="desc">Connect neuroanatomy and neurophysiology with neurologic disease, sensory systems, cognition, behavior, psychiatry, and psychopharmacology to understand how the nervous system shapes health and disease.</p>
+      <div class="progress-wrap">
+        <div class="progress-meta"><span>Not started</span><span>Coming soon</span></div>
+        <div class="progress-track"><div class="progress-bar"></div></div>
+      </div>
+      <div class="card-footer">
+        <div class="content-tags"><span class="content-tag">Coming Soon</span><span class="content-tag">Module Workspace</span></div>
+        <div class="arrow">→</div>
+      </div>
+    </a>
+  </section>
+
+  <div class="prototype-note"><strong>Hub status:</strong> Foundations of Medicine is live, Musculoskeletal-Skin is available as a password-gated private beta, and Modules III–V remain placeholders until their builds begin.</div>
+</main>
+
+<footer>MCG Class of 2030 · Pre-Clerkship UltraHub · Designed by Mikkelle Peters</footer>
+
+<div class="auth-overlay" id="authOverlay" aria-hidden="true">
+  <div class="auth-modal" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+    <button class="auth-close" id="authClose" type="button" aria-label="Close account window">×</button>
+
+    <div id="loggedOutPanel">
+      <h2 id="authTitle">MegaHub Account</h2>
+      <p>Create an account to prepare for synced progress across devices, or log in to an existing account.</p>
+
+      <div class="auth-tabs" role="tablist" aria-label="Account options">
+        <button class="auth-tab active" id="loginTab" type="button">Log In</button>
+        <button class="auth-tab" id="signupTab" type="button">Create Account</button>
+      </div>
+
+      <form class="auth-form" id="authForm">
+        <div class="auth-field">
+          <label for="authEmail">Email</label>
+          <input id="authEmail" type="email" autocomplete="email" required />
+        </div>
+        <div class="auth-field">
+          <label for="authPassword">Password</label>
+          <input id="authPassword" type="password" autocomplete="current-password" minlength="6" required />
+        </div>
+        <button class="auth-submit" id="authSubmit" type="submit">Log In</button>
+      </form>
+      <div class="auth-message" id="authMessage" role="status" aria-live="polite"></div>
+    </div>
+
+    <div class="account-panel" id="loggedInPanel">
+      <h2>My Account</h2>
+      <p>You are signed in to the MegaHub.</p>
+      <div class="account-email" id="accountEmail"></div>
+      <button class="auth-secondary" id="logoutButton" type="button">Log Out</button>
+      <div class="auth-message" id="logoutMessage" role="status" aria-live="polite"></div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL='https://ofqfdnxpftifnvxnvppe.supabase.co';
+const SUPABASE_KEY='sb_publishable_06zYj2REZQMC8nXfhm7weQ_Nrotri7G';
+const supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+
+const toast=document.getElementById('toast');
+let timer;
+document.querySelectorAll('.placeholder').forEach(card=>{
+  card.addEventListener('click',e=>{
+    e.preventDefault();
+    const name=card.dataset.module || 'This module';
+    toast.textContent=name+' is a placeholder for now.';
+    toast.classList.add('show');
+    clearTimeout(timer);
+    timer=setTimeout(()=>toast.classList.remove('show'),1800);
+  });
+});
+
+const accountButton=document.getElementById('accountButton');
+const accountStatus=document.getElementById('accountStatus');
+const authOverlay=document.getElementById('authOverlay');
+const authClose=document.getElementById('authClose');
+const loginTab=document.getElementById('loginTab');
+const signupTab=document.getElementById('signupTab');
+const authForm=document.getElementById('authForm');
+const authEmail=document.getElementById('authEmail');
+const authPassword=document.getElementById('authPassword');
+const authSubmit=document.getElementById('authSubmit');
+const authMessage=document.getElementById('authMessage');
+const loggedOutPanel=document.getElementById('loggedOutPanel');
+const loggedInPanel=document.getElementById('loggedInPanel');
+const accountEmail=document.getElementById('accountEmail');
+const logoutButton=document.getElementById('logoutButton');
+const logoutMessage=document.getElementById('logoutMessage');
+
+let authMode='login';
+
+function openAuth(){
+  authOverlay.classList.add('show');
+  authOverlay.setAttribute('aria-hidden','false');
+}
+function closeAuth(){
+  authOverlay.classList.remove('show');
+  authOverlay.setAttribute('aria-hidden','true');
+  authMessage.textContent='';
+  authMessage.className='auth-message';
+}
+function setAuthMode(mode){
+  authMode=mode;
+  const isLogin=mode==='login';
+  loginTab.classList.toggle('active',isLogin);
+  signupTab.classList.toggle('active',!isLogin);
+  authSubmit.textContent=isLogin?'Log In':'Create Account';
+  authPassword.setAttribute('autocomplete',isLogin?'current-password':'new-password');
+  authMessage.textContent='';
+  authMessage.className='auth-message';
+}
+function updateAccountUI(user){
+  const loggedIn=!!user;
+  loggedOutPanel.style.display=loggedIn?'none':'block';
+  loggedInPanel.classList.toggle('show',loggedIn);
+  if(loggedIn){
+    accountStatus.textContent=user.email;
+    accountButton.textContent='My Profile';
+    accountButton.dataset.loggedIn='true';
+    accountEmail.textContent=user.email;
+  }else{
+    accountStatus.textContent='Guest mode';
+    accountButton.textContent='Log In / Create Account';
+    accountButton.dataset.loggedIn='false';
+    accountEmail.textContent='';
+  }
+}
+
+accountButton.addEventListener('click',()=>{
+  if(accountButton.dataset.loggedIn==='true'){
+    window.location.href='my-profile.html';
+  }else{
+    openAuth();
+  }
+});
+authClose.addEventListener('click',closeAuth);
+authOverlay.addEventListener('click',e=>{ if(e.target===authOverlay) closeAuth(); });
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeAuth(); });
+loginTab.addEventListener('click',()=>setAuthMode('login'));
+signupTab.addEventListener('click',()=>setAuthMode('signup'));
+
+authForm.addEventListener('submit',async e=>{
+  e.preventDefault();
+  authMessage.textContent=authMode==='login'?'Logging in...':'Creating account...';
+  authMessage.className='auth-message';
+
+  const email=authEmail.value.trim();
+  const password=authPassword.value;
+
+  if(authMode==='signup'){
+    const {data,error}=await supabaseClient.auth.signUp({
+      email,
+      password,
+      options:{
+        emailRedirectTo:'https://mikkellepeters-a11y.github.io/Foundations-of-med--2030/'
+      }
+    });
+
+    if(error){
+      authMessage.textContent=error.message;
+      authMessage.className='auth-message error';
+      return;
+    }
+
+    if(data.session){
+      updateAccountUI(data.user);
+      authMessage.textContent='Account created and signed in.';
+      authMessage.className='auth-message success';
+    }else{
+      authMessage.textContent='Account created. Check your email for the verification link, then return here to log in.';
+      authMessage.className='auth-message success';
+    }
+  }else{
+    const {data,error}=await supabaseClient.auth.signInWithPassword({email,password});
+
+    if(error){
+      authMessage.textContent=error.message;
+      authMessage.className='auth-message error';
+      return;
+    }
+
+    updateAccountUI(data.user);
+    closeAuth();
+  }
+});
+
+logoutButton.addEventListener('click',async()=>{
+  logoutMessage.textContent='Logging out...';
+  const {error}=await supabaseClient.auth.signOut();
+
+  if(error){
+    logoutMessage.textContent=error.message;
+    logoutMessage.className='auth-message error';
+    return;
+  }
+
+  logoutMessage.textContent='';
+  logoutMessage.className='auth-message';
+  updateAccountUI(null);
+  closeAuth();
+});
+
+supabaseClient.auth.onAuthStateChange((_event,session)=>{
+  updateAccountUI(session?.user ?? null);
+});
+
+(async()=>{
+  const {data:{session}}=await supabaseClient.auth.getSession();
+  updateAccountUI(session?.user ?? null);
+})();
+</script>
+</body>
+</html>
