@@ -1,0 +1,76 @@
+name: Fix Week 5 Quiz Back Links
+
+on:
+  push:
+    paths:
+      - '.github/workflows/fix-week5-quiz-back-links.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fix-links:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Point Week 5 quizzes back to the Week 5 hub
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          files = [
+              'quizzes/week5_monday_daily_50.html',
+              'quizzes/week5_tuesday_daily_50.html',
+              'quizzes/week5_wednesday_daily_50.html',
+              'quizzes/week5_thursday_daily_50.html',
+              'quizzes/week5_foundations_cancer_prequiz_40_redesigned.html',
+              'quizzes/week5_foundations_cancer_comprehensive_150_redesigned.html',
+              'quizzes/week5_structured_active_learning_cancer_40_redesigned.html',
+          ]
+
+          old = '../notes/Week%205/Week%205%20Note%20Hub/index.html'
+          new = '../weeks/week5/index.html'
+
+          changed = 0
+          for filename in files:
+              path = Path(filename)
+              if not path.exists():
+                  print(f'MISSING: {filename}')
+                  continue
+              text = path.read_text(encoding='utf-8')
+              count = text.count(old)
+              if count:
+                  path.write_text(text.replace(old, new), encoding='utf-8')
+                  changed += 1
+                  print(f'FIXED: {filename} ({count} link replacement(s))')
+              elif new in text:
+                  print(f'ALREADY FIXED: {filename}')
+              else:
+                  print(f'NO MATCH: {filename}')
+
+          print(f'Changed {changed} file(s).')
+          PY
+
+      - name: Commit navigation fixes
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            quizzes/week5_monday_daily_50.html \
+            quizzes/week5_tuesday_daily_50.html \
+            quizzes/week5_wednesday_daily_50.html \
+            quizzes/week5_thursday_daily_50.html \
+            quizzes/week5_foundations_cancer_prequiz_40_redesigned.html \
+            quizzes/week5_foundations_cancer_comprehensive_150_redesigned.html \
+            quizzes/week5_structured_active_learning_cancer_40_redesigned.html
+          if git diff --cached --quiet; then
+            echo "No quiz files needed changes."
+            exit 0
+          fi
+          git commit -m "Fix Week 5 quiz back links"
+          git push
