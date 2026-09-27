@@ -6,15 +6,18 @@ FILES = [
 ]
 MARKER='cbl-supabase.js'
 INJECT='''\n<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>\n<script src="cbl-supabase.js"></script>\n'''
+REQUIRED = ['const QUESTIONS=', 'QUIZ_KEY', 'FLAG_KEY', 'let flags=', 'function showResults()', 'function resetState()', 'data-flag-q']
 for name in FILES:
     path=Path('weeks/cbl')/name
     text=path.read_text(encoding='utf-8')
+    missing=[token for token in REQUIRED if token not in text]
+    if missing:
+        raise RuntimeError(f'{name}: legacy integration contract missing {missing}')
     if MARKER in text:
-        print(f'{name}: already integrated')
+        print(f'{name}: already integrated and contract validated')
         continue
     if '</body>' not in text:
         raise RuntimeError(f'{name}: missing </body>')
     text=text.replace('</body>',INJECT+'</body>',1)
     path.write_text(text,encoding='utf-8')
-    print(f'{name}: integrated')
-# Idempotent by design; subsequent runs leave already-integrated pages untouched.
+    print(f'{name}: integrated and contract validated')
