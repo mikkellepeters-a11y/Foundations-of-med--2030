@@ -1,9 +1,49 @@
-<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Pathology Hub</title><style>body{margin:0;font-family:system-ui,sans-serif;background:#f4ede5;color:#4d3529;display:grid;place-items:center;min-height:100vh}.load{padding:24px;text-align:center}</style><div class="load">Loading Pathology Hub…</div><script>
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pathology Hub</title>
+<style>
+body{
+  margin:0;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:#f4ede5;
+  color:#4d3529;
+  display:grid;
+  place-items:center;
+  min-height:100vh
+}
+.load{padding:24px;text-align:center}
+</style>
+<div class="load">Loading Pathology Hub…</div>
+<script>
 (async()=>{
- const files=["assets/hub-01.txt","assets/hub-02.txt","assets/hub-03.txt","assets/hub-04.txt"];
- const b64=(await Promise.all(files.map(async f=>{const r=await fetch(f);if(!r.ok)throw new Error(f);return r.text()}))).join("");
- const bytes=Uint8Array.from(atob(b64),c=>c.charCodeAt(0));
- const html=await new Response(new Blob([bytes]).stream().pipeThrough(new DecompressionStream("gzip"))).text();
- document.open();document.write(html);document.close();
-})().catch(e=>{console.error(e);document.body.innerHTML='<div class="load"><b>Pathology Hub could not load.</b><br>Please refresh the page.</div>'});
+  const files=[
+    "assets/ozzy-01.txt",
+    "assets/ozzy-02.txt",
+    "assets/ozzy-03.txt",
+    "assets/ozzy-04.txt",
+    "assets/ozzy-05.txt",
+    "assets/ozzy-06.txt",
+    "assets/ozzy-07.txt",
+    "assets/ozzy-08.txt",
+    "assets/ozzy-09.txt",
+    "assets/ozzy-10.txt"
+  ];
+  const b64=(await Promise.all(files.map(async f=>{
+    const r=await fetch(f);
+    if(!r.ok) throw new Error(f);
+    return r.text();
+  }))).join("");
+  const bytes=Uint8Array.from(atob(b64),c=>c.charCodeAt(0));
+  const html=await new Response(
+    new Blob([bytes]).stream().pipeThrough(new DecompressionStream("gzip"))
+  ).text();
+  document.open();
+  document.write(html);
+  document.close();
+})().catch(e=>{
+  console.error(e);
+  document.body.innerHTML=
+    '<div class="load"><b>Pathology Hub could not load.</b><br>Please refresh the page.</div>';
+});
 </script>
