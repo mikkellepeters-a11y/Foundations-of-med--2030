@@ -98,5 +98,7 @@ $('stem').addEventListener('mouseup',()=>{if(!highlightMode||isLocked(current())
 $('submitBtn').onclick=submit;$('reopenBtn').onclick=()=>openExplanation(current());
 if(!quiz){$('missing').classList.remove('hidden');document.title=`Practice Quiz ${quizNum} · Bank Import Pending`;$('quizTitle').textContent=`Practice Quiz ${quizNum}`}else{$('quizApp').classList.remove('hidden');document.title=`Practice Quiz ${quizNum} · Foundations of Medicine`;if(state.completed){showResults()}else render()}
 </script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="vignette-supabase.js"></script>
 </body>
 </html>
