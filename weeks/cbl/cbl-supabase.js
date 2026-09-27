@@ -1,6 +1,8 @@
 /* Shared Supabase integration for legacy CBL quizzes (Weeks 3-9). */
 (() => {
-  if (typeof supabase === 'undefined' || typeof QUESTIONS === 'undefined' || typeof QUIZ_KEY === 'undefined') return;
+  if(window.__CBL_SUPABASE_INTEGRATION__)return;
+  if (typeof window.supabase === 'undefined' || typeof QUESTIONS === 'undefined' || typeof QUIZ_KEY === 'undefined') return;
+  window.__CBL_SUPABASE_INTEGRATION__=true;
   const SUPABASE_URL='https://ofqfdnxpftifnvxnvppe.supabase.co';
   const SUPABASE_KEY='sb_publishable_06zYj2REZQMC8nXfhm7weQ_Nrotri7G';
   const client=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
