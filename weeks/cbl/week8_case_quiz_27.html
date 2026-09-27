@@ -316,5 +316,8 @@ document.getElementById('reviewFlaggedBtn').onclick=()=>{document.getElementById
 document.getElementById('resetBtn').onclick=()=>{if(confirm('Reset this quiz run?')){resetState();if(mode==='advanced')renderAdvancedQuestion();else renderQuiz();updateProgress();}};
 renderQuiz();updateProgress();
 </script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="cbl-supabase.js"></script>
 </body>
 </html>
