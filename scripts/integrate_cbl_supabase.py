@@ -17,3 +17,4 @@ for name in FILES:
     text=text.replace('</body>',INJECT+'</body>',1)
     path.write_text(text,encoding='utf-8')
     print(f'{name}: integrated')
+# Idempotent by design; subsequent runs leave already-integrated pages untouched.
