@@ -1,0 +1,13 @@
+<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Foundations Pathology Hub — Ozzy</title>
+<style>body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f4ede5;color:#4d3529;display:grid;place-items:center;min-height:100vh}.load{padding:24px;text-align:center}</style>
+<div class="load">Loading Pathology Hub…</div>
+<script>
+(async()=>{
+ const files=["assets/exact-hub-01.txt", "assets/exact-hub-02.txt", "assets/exact-hub-03.txt", "assets/exact-hub-04.txt", "assets/exact-hub-05.txt", "assets/exact-hub-06.txt", "assets/exact-hub-07.txt", "assets/exact-hub-08.txt", "assets/exact-hub-09.txt", "assets/exact-hub-10.txt", "assets/exact-hub-11.txt", "assets/exact-hub-12.txt", "assets/exact-hub-13.txt", "assets/exact-hub-14.txt", "assets/exact-hub-15.txt", "assets/exact-hub-16.txt", "assets/exact-hub-17.txt", "assets/exact-hub-18.txt", "assets/exact-hub-19.txt", "assets/exact-hub-20.txt", "assets/exact-hub-21.txt", "assets/exact-hub-22.txt", "assets/exact-hub-23.txt", "assets/exact-hub-24.txt", "assets/exact-hub-25.txt", "assets/exact-hub-26.txt", "assets/exact-hub-27.txt", "assets/exact-hub-28.txt", "assets/exact-hub-29.txt", "assets/exact-hub-30.txt", "assets/exact-hub-31.txt", "assets/exact-hub-32.txt"];
+ const parts=await Promise.all(files.map(async f=>{const r=await fetch(f,{cache:"no-store"});if(!r.ok)throw new Error(f);return (await r.text()).replace(/\s+/g,"")}));
+ const bytes=Uint8Array.from(atob(parts.join("")),c=>c.charCodeAt(0));
+ const html=await new Response(new Blob([bytes]).stream().pipeThrough(new DecompressionStream("gzip"))).text();
+ document.open();document.write(html);document.close();
+})().catch(e=>{console.error(e);document.body.innerHTML='<div class="load"><b>Pathology Hub could not load.</b><br>Please refresh the page.</div>'});
+</script>
