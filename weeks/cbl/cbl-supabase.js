@@ -1,5 +1,37 @@
 /* Shared Supabase integration for legacy CBL quizzes (Weeks 3-9). */
 (() => {
+  function recoverCorruptFlagCache(){
+    let key=null;
+    try{
+      if(typeof FLAG_KEY==='string') key=FLAG_KEY;
+      else if(typeof QUIZ_KEY==='string') key='cbl-flags:'+QUIZ_KEY;
+    }catch(_){ }
+    if(!key)return false;
+    let raw=null;
+    try{raw=localStorage.getItem(key)}catch(_){return false}
+    if(!raw)return false;
+    try{JSON.parse(raw);return false}catch(_){
+      try{localStorage.removeItem(key)}catch(__){ }
+      const once='cbl-flag-recovery:'+key;
+      try{
+        if(sessionStorage.getItem(once)!=='1'){
+          sessionStorage.setItem(once,'1');
+          location.reload();
+          return true;
+        }
+      }catch(__){
+        location.reload();
+        return true;
+      }
+    }
+    return false;
+  }
+
+  // Legacy CBL pages parse their saved flag state before rendering. If that
+  // cache is malformed, the page aborts before renderQuiz() runs. Recover the
+  // bad cache and reload once so the existing question bank can render again.
+  if(recoverCorruptFlagCache())return;
+
   if(window.__CBL_SUPABASE_INTEGRATION__)return;
   if (typeof window.supabase === 'undefined' || typeof QUESTIONS === 'undefined' || typeof QUIZ_KEY === 'undefined') return;
   window.__CBL_SUPABASE_INTEGRATION__=true;
