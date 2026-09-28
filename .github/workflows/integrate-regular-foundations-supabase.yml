@@ -1,0 +1,34 @@
+name: Integrate regular Foundations Supabase tracking
+
+on:
+  push:
+    branches:
+      - foundations-regular-quiz-supabase
+
+permissions:
+  contents: write
+
+jobs:
+  integrate:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: foundations-regular-quiz-supabase
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Patch canonical regular quiz pages
+        run: python scripts/integrate_regular_foundations_supabase.py
+      - name: Commit generated integrations
+        run: |
+          if git diff --quiet && git diff --cached --quiet && [ -z "$(git ls-files --others --exclude-standard)" ]; then
+            echo "No migration changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add quizzes scripts/regular_quiz_supabase_report.json
+          git commit -m "Integrate Supabase tracking into canonical Foundations quizzes"
+          git push origin HEAD:foundations-regular-quiz-supabase
