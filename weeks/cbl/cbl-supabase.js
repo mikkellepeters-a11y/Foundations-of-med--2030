@@ -27,10 +27,94 @@
     return false;
   }
 
+  function recoverEmptyQuestionArea(){
+    const host=document.getElementById('quiz');
+    if(!host||host.querySelector('.question'))return false;
+
+    let bank=null;
+    try{bank=(typeof QUESTIONS!=='undefined'&&Array.isArray(QUESTIONS))?QUESTIONS:null}catch(_){bank=null}
+    if(!bank||!bank.length)return false;
+
+    // First retry the page's native renderer. This preserves the full legacy
+    // behavior when the original startup path simply stopped early.
+    try{
+      if(typeof renderQuiz==='function'){
+        renderQuiz();
+        if(host.querySelector('.question'))return true;
+      }
+    }catch(err){
+      console.warn('Native CBL renderer retry failed; using recovery renderer.',err);
+    }
+
+    // Defensive recovery renderer: use the existing QUESTIONS bank without
+    // rewriting any content. Existing choice/confidence/flag handlers are used
+    // where available, with simple local fallbacks so the quiz is never blank.
+    const letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    host.innerHTML='';
+    bank.forEach(q=>{
+      if(!q||!Array.isArray(q.options))return;
+      const article=document.createElement('article');
+      article.className='question';
+      article.id='q-'+q.number;
+      const addon=q.source==='High-Yield Add-on';
+      const shared=q.shared?`<div class="shared">${q.shared}</div>`:'';
+      const imgs=Array.isArray(q.images)&&q.images.length?`<div class="imggrid">${q.images.map(x=>`<div class="figure"><img src="${x.src||''}" alt=""><small>${x.caption||''}</small></div>`).join('')}</div>`:'';
+      let flag='';
+      try{if(typeof flagButtonHTML==='function')flag=flagButtonHTML(q.number)}catch(_){ }
+      let conf='';
+      try{if(typeof confidenceHTML==='function')conf=confidenceHTML(q.number)}catch(_){ }
+      article.innerHTML=`<div class="qtop"><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><div class="qnum">Question ${q.number}</div><div class="tags"><span class="tag ${addon?'addon':''}">${q.source||'CBL'}</span></div></div>${flag}</div>${shared}<div class="stem">${q.stem||''}</div>${imgs}<div class="choices"></div>${conf}<div class="feedback" id="fb-${q.number}"></div>`;
+      const box=article.querySelector('.choices');
+      q.options.forEach((opt,i)=>{
+        const L=letters[i];
+        const row=document.createElement('div');
+        row.className='choice-row';
+        row.innerHTML=`<button type="button" class="choice" data-l="${L}"><span class="choice-letter">${L}</span><span class="choice-copy">${opt}</span></button><button type="button" class="strike" data-s="${L}">S̶</button>`;
+        const choice=row.querySelector('.choice');
+        choice.onclick=()=>{
+          try{
+            if(typeof choose==='function'){choose(q.number,L);return;}
+          }catch(err){console.warn('CBL choice handler recovery',err)}
+          article.querySelectorAll('.choice').forEach(b=>b.classList.remove('selected'));
+          choice.classList.add('selected');
+          try{responses[q.number]=L}catch(_){ }
+        };
+        const strike=row.querySelector('.strike');
+        strike.onclick=()=>{
+          try{
+            if(typeof toggleStrike==='function'){toggleStrike(q.number,L);return;}
+          }catch(err){console.warn('CBL strike handler recovery',err)}
+          choice.classList.toggle('struck');
+          strike.classList.toggle('active');
+        };
+        box.appendChild(row);
+      });
+      article.querySelectorAll('.confidence-btn').forEach(btn=>{
+        btn.onclick=()=>{
+          try{confidence[q.number]=btn.dataset.c}catch(_){ }
+          article.querySelectorAll('.confidence-btn').forEach(b=>b.classList.remove('active'));
+          btn.classList.add('active');
+        };
+      });
+      try{if(typeof bindFlagButton==='function')bindFlagButton(article,q.number)}catch(_){ }
+      host.appendChild(article);
+    });
+
+    try{if(typeof applyFlagFilter==='function')applyFlagFilter()}catch(_){ }
+    try{if(typeof updateProgress==='function')updateProgress()}catch(_){ }
+    return !!host.querySelector('.question');
+  }
+
   // Legacy CBL pages parse their saved flag state before rendering. If that
   // cache is malformed, the page aborts before renderQuiz() runs. Recover the
   // bad cache and reload once so the existing question bank can render again.
   if(recoverCorruptFlagCache())return;
+
+  // A few older CBL files can reach the shared integration with an empty quiz
+  // container even though their QUESTIONS bank is still present. Recover the
+  // native renderer immediately, then verify once more after full page load.
+  recoverEmptyQuestionArea();
+  window.addEventListener('load',()=>setTimeout(recoverEmptyQuestionArea,0));
 
   if(window.__CBL_SUPABASE_INTEGRATION__)return;
   if (typeof window.supabase === 'undefined' || typeof QUESTIONS === 'undefined' || typeof QUIZ_KEY === 'undefined') return;
