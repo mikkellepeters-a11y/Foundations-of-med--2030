@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import vm from 'node:vm';
 import { JSDOM, VirtualConsole } from 'jsdom';
 
 const root=process.cwd();
@@ -13,11 +14,30 @@ const cases=[
   ['week9_case_quiz_28.html','week9-cbl-case-28',28],
 ];
 
+function diagnoseInlineScripts(html,file){
+  const scripts=[...html.matchAll(/<script(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/gi)];
+  scripts.forEach((m,i)=>{
+    const code=m[1];
+    try{
+      new vm.Script(code,{filename:`${file}:inline-${i+1}`});
+    }catch(err){
+      console.log(`  SYNTAX ${file} inline script ${i+1}:`);
+      console.log(String(err.stack||err));
+      const lineMatch=String(err.stack||'').match(new RegExp(`${file.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}:inline-${i+1}:(\\d+)`));
+      if(lineMatch){
+        const n=Number(lineMatch[1]);
+        const lines=code.split('\n');
+        for(let x=Math.max(1,n-2);x<=Math.min(lines.length,n+2);x++) console.log(`    ${x}: ${lines[x-1]}`);
+      }
+    }
+  });
+}
+
 let failures=0;
 for(const [file,quizId,expected] of cases){
   let html=fs.readFileSync(path.join(root,'weeks','cbl',file),'utf8');
-  // The render check targets each page's own inline engine. Cloud scripts run after initial render.
   html=html.replace(/<script[^>]+src=["'][^"']*(?:supabase|cbl-supabase)[^"']*["'][^>]*><\/script>/gi,'');
+  diagnoseInlineScripts(html,file);
   const virtualConsole=new VirtualConsole();
   const errors=[];
   virtualConsole.on('jsdomError',e=>errors.push(String(e?.message||e)));
@@ -27,7 +47,6 @@ for(const [file,quizId,expected] of cases){
     url:`https://megahub.test/weeks/cbl/${file}`,
     virtualConsole,
     beforeParse(window){
-      // Reproduce the user-specific failure mode: a stale/corrupted saved flag payload must never stop quiz boot.
       window.localStorage.setItem(`cbl-flags:${quizId}`,'{bad-json');
       window.confirm=()=>true;
       window.alert=()=>{};
