@@ -275,4 +275,7 @@ document.getElementById('reviewMissedBtn').onclick=()=>{resultOverlay.classList.
 document.getElementById('hunterImg').onclick=()=>{hunterClicks++;if(hunterClicks<3)return;let i;do{i=Math.floor(Math.random()*annoy.length)}while(i===lastAnnoy&&annoy.length>1);lastAnnoy=i;document.getElementById('hunterBubble').textContent=annoy[i]};
 
 renderQuiz();updateProgress();gradeBtn.style.display='none';
-</script></body></html>
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="fom-supabase.js"></script>
+</body></html>
