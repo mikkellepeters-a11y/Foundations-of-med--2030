@@ -1,0 +1,41 @@
+name: Fix CBL question rendering
+
+on:
+  push:
+    branches:
+      - fix-cbl-question-rendering
+
+permissions:
+  contents: write
+
+jobs:
+  repair-and-validate:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix-cbl-question-rendering
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Patch unsafe CBL flag bootstrap
+        run: python scripts/fix_cbl_flag_boot.py
+      - name: Install DOM test dependency
+        run: npm install --no-save jsdom@26
+      - name: Verify every legacy CBL renders all questions even with corrupted saved flags
+        run: node scripts/validate_cbl_render.mjs
+      - name: Commit repaired CBL pages
+        run: |
+          if git diff --quiet; then
+            echo "No page changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add weeks/cbl/week3_case_quiz_30.html weeks/cbl/week4_case_quiz_27.html weeks/cbl/week5_case_quiz_19.html weeks/cbl/week6_case_quiz_33.html weeks/cbl/week7_case_quiz_35.html weeks/cbl/week8_case_quiz_27.html weeks/cbl/week9_case_quiz_28.html
+          git commit -m "Prevent saved CBL flags from breaking question rendering"
+          git push origin HEAD:fix-cbl-question-rendering
