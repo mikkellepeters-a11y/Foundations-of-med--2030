@@ -10,38 +10,35 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: npm install jsdom@24
-      - name: Test affected CBL pages
+      - run: npm install jsdom@24 acorn@8
+      - name: Locate syntax errors
         run: |
-          cat > test-cbl.js <<'NODE'
+          cat > diagnose-cbl.js <<'NODE'
           const fs=require('fs');
-          const {JSDOM,VirtualConsole}=require('jsdom');
+          const acorn=require('acorn');
           const files=[
             'weeks/cbl/week3_case_quiz_30.html',
             'weeks/cbl/week6_case_quiz_33.html',
             'weeks/cbl/week8_case_quiz_27.html',
             'weeks/cbl/week9_case_quiz_28.html'
           ];
-          (async()=>{
-            let failed=false;
-            for(const file of files){
-              let html=fs.readFileSync(file,'utf8');
-              html=html.replace(/<script\s+src=[\s\S]*?<\/script>/gi,'');
-              const errors=[];
-              const vc=new VirtualConsole();
-              vc.on('jsdomError',e=>errors.push('JSDOM: '+e.message));
-              vc.on('error',(...a)=>errors.push('console.error: '+a.join(' ')));
-              try{
-                const dom=new JSDOM(html,{runScripts:'dangerously',url:'https://example.test/'+file,virtualConsole:vc,beforeParse(w){w.confirm=()=>true;w.scrollTo=()=>{};}});
-                await new Promise(r=>setTimeout(r,100));
-                const count=dom.window.document.querySelectorAll('#quiz .question').length;
-                console.log('\n'+file+' -> rendered questions:',count);
-                if(errors.length) console.log(errors.join('\n'));
-                if(!count) failed=true;
-                dom.window.close();
-              }catch(e){console.log('\n'+file+' -> THROW:',e.stack||e);failed=true;}
-            }
-            if(failed) process.exit(1);
-          })();
+          for(const file of files){
+            const html=fs.readFileSync(file,'utf8');
+            const scripts=[...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gi)].map(m=>m[1]).filter(s=>s.trim());
+            console.log('\n### '+file);
+            scripts.forEach((script,i)=>{
+              try{acorn.parse(script,{ecmaVersion:'latest',sourceType:'script',locations:true});console.log('script '+i+': syntax OK');}
+              catch(e){
+                console.log(`script ${i}: ${e.message}`);
+                const lines=script.split(/\n/); const ln=e.loc?.line||1, col=e.loc?.column||0;
+                for(let n=Math.max(1,ln-2);n<=Math.min(lines.length,ln+2);n++){
+                  let text=lines[n-1];
+                  if(text.length>500){const start=Math.max(0,col-180), end=Math.min(text.length,col+220);text=(start?'…':'')+text.slice(start,end)+(end<lines[n-1].length?'…':'');}
+                  console.log(String(n).padStart(5)+': '+text);
+                  if(n===ln) console.log('       '+ ' '.repeat(Math.min(col,180))+'^');
+                }
+              }
+            });
+          }
           NODE
-          node test-cbl.js
+          node diagnose-cbl.js
