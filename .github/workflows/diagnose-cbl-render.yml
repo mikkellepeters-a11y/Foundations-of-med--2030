@@ -11,34 +11,88 @@ jobs:
         with:
           node-version: 20
       - run: npm install jsdom@24 acorn@8
-      - name: Locate syntax errors
+      - name: Build fixed CBL patch
         run: |
-          cat > diagnose-cbl.js <<'NODE'
+          cat > fix-cbl.js <<'NODE'
           const fs=require('fs');
+          const path=require('path');
           const acorn=require('acorn');
-          const files=[
-            'weeks/cbl/week3_case_quiz_30.html',
-            'weeks/cbl/week6_case_quiz_33.html',
-            'weeks/cbl/week8_case_quiz_27.html',
-            'weeks/cbl/week9_case_quiz_28.html'
-          ];
-          for(const file of files){
-            const html=fs.readFileSync(file,'utf8');
-            const scripts=[...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gi)].map(m=>m[1]).filter(s=>s.trim());
-            console.log('\n### '+file);
-            scripts.forEach((script,i)=>{
-              try{acorn.parse(script,{ecmaVersion:'latest',sourceType:'script',locations:true});console.log('script '+i+': syntax OK');}
-              catch(e){
-                console.log(`script ${i}: ${e.message}`);
-                const lines=script.split(/\n/); const ln=e.loc?.line||1, col=e.loc?.column||0;
-                for(let n=Math.max(1,ln-2);n<=Math.min(lines.length,ln+2);n++){
-                  let text=lines[n-1];
-                  if(text.length>500){const start=Math.max(0,col-180), end=Math.min(text.length,col+220);text=(start?'…':'')+text.slice(start,end)+(end<lines[n-1].length?'…':'');}
-                  console.log(String(n).padStart(5)+': '+text);
-                  if(n===ln) console.log('       '+ ' '.repeat(Math.min(col,180))+'^');
+          const {JSDOM,VirtualConsole}=require('jsdom');
+          const targets={
+            'weeks/cbl/week3_case_quiz_30.html':30,
+            'weeks/cbl/week6_case_quiz_33.html':33,
+            'weeks/cbl/week8_case_quiz_27.html':27,
+            'weeks/cbl/week9_case_quiz_28.html':28
+          };
+          function escapeRawNewlinesInQuestions(html){
+            const marker='const QUESTIONS=';
+            const start=html.indexOf(marker);
+            if(start<0) throw new Error('QUESTIONS marker not found');
+            const arrayStart=html.indexOf('[',start);
+            if(arrayStart<0) throw new Error('QUESTIONS array not found');
+            let inString=false, escaped=false, end=-1, depth=0;
+            const chars=[];
+            for(let i=arrayStart;i<html.length;i++){
+              const c=html[i];
+              if(inString){
+                if(escaped){chars.push(c);escaped=false;continue;}
+                if(c==='\\'){chars.push(c);escaped=true;continue;}
+                if(c==='"'){chars.push(c);inString=false;continue;}
+                if(c==='\r'){
+                  if(html[i+1]==='\n') i++;
+                  chars.push('\\n');
+                  continue;
                 }
+                if(c==='\n'){chars.push('\\n');continue;}
+                chars.push(c);continue;
               }
-            });
+              if(c==='"'){inString=true;chars.push(c);continue;}
+              if(c==='['){depth++;chars.push(c);continue;}
+              if(c===']'){
+                depth--;chars.push(c);
+                if(depth===0){end=i;break;}
+                continue;
+              }
+              chars.push(c);
+            }
+            if(end<0) throw new Error('QUESTIONS array end not found');
+            return html.slice(0,arrayStart)+chars.join('')+html.slice(end+1);
           }
+          function fixProgress(html,expected){
+            return html.replace(/0 of \d+ answered/g,`0 of ${expected} answered`);
+          }
+          async function validate(file,html,expected){
+            const inline=[...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gi)].map(m=>m[1]).filter(s=>s.trim());
+            for(const [i,s] of inline.entries()) acorn.parse(s,{ecmaVersion:'latest',sourceType:'script'});
+            const withoutExternal=html.replace(/<script\s+src=[\s\S]*?<\/script>/gi,'');
+            const errors=[]; const vc=new VirtualConsole();
+            vc.on('jsdomError',e=>errors.push(e.message));
+            const dom=new JSDOM(withoutExternal,{runScripts:'dangerously',url:'https://example.test/'+file,virtualConsole:vc,beforeParse(w){w.confirm=()=>true;w.scrollTo=()=>{};}});
+            await new Promise(r=>setTimeout(r,100));
+            const count=dom.window.document.querySelectorAll('#quiz .question').length;
+            dom.window.close();
+            if(errors.length) throw new Error(file+' jsdom errors: '+errors.join(' | '));
+            if(count!==expected) throw new Error(`${file}: expected ${expected} rendered questions, got ${count}`);
+            console.log(`${file}: PASS — ${count}/${expected} questions rendered`);
+          }
+          (async()=>{
+            for(const [file,expected] of Object.entries(targets)){
+              let html=fs.readFileSync(file,'utf8');
+              html=escapeRawNewlinesInQuestions(html);
+              html=fixProgress(html,expected);
+              await validate(file,html,expected);
+              const out=path.join('cbl-fixed-patch',file);
+              fs.mkdirSync(path.dirname(out),{recursive:true});
+              fs.writeFileSync(out,html);
+            }
+            fs.writeFileSync('cbl-fixed-patch/README.txt',`CBL QUIZ RENDER FIX\n\nReplace these four files in the repository using the same paths:\n- weeks/cbl/week3_case_quiz_30.html\n- weeks/cbl/week6_case_quiz_33.html\n- weeks/cbl/week8_case_quiz_27.html\n- weeks/cbl/week9_case_quiz_28.html\n\nFix: raw line breaks embedded inside JavaScript question strings were converted to escaped line breaks. These raw line breaks caused the browser to stop parsing the quiz script before renderQuiz() could run.\n\nValidation performed before packaging:\nWeek 3: 30/30 rendered\nWeek 6: 33/33 rendered\nWeek 8: 27/27 rendered\nWeek 9: 28/28 rendered\n\nNo question bank content, answers, explanations, or Supabase integration was removed.\n`);
+          })().catch(e=>{console.error(e.stack||e);process.exit(1)});
           NODE
-          node diagnose-cbl.js
+          node fix-cbl.js
+          cd cbl-fixed-patch
+          zip -r ../cbl_fixed_quizzes_patch.zip .
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cbl-fixed-quizzes-patch
+          path: cbl_fixed_quizzes_patch.zip
+          if-no-files-found: error
