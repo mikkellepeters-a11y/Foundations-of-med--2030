@@ -1,0 +1,28 @@
+name: Temporary Drug Mechanism Button Patch
+
+on:
+  push:
+    branches:
+      - tmp-drug-mechanism-button-build
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out helper branch
+        uses: actions/checkout@v4
+        with:
+          ref: tmp-drug-mechanism-button-build
+      - name: Patch Drug Hub hero
+        run: python tmp/add-drug-mechanism-button.py
+      - name: Commit patched Drug Hub
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add weeks/drug-hub/index.html
+          git commit -m "Patch Drug Hub with mechanism Anki button"
+          git push origin HEAD:tmp-drug-mechanism-button-build
