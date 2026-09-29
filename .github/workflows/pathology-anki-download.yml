@@ -1,0 +1,36 @@
+name: Build Pathology Anki download
+
+on:
+  push:
+    branches:
+      - pathology-anki-download
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v4
+        with:
+          ref: pathology-anki-download
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Build validated deck and patch hub
+        run: python tmp/pathology-anki/apply_patch.py
+
+      - name: Commit generated site files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add weeks/pathology-hub/index.html weeks/pathology-hub/downloads/Pathology_Anki_210_Cards.apkg
+          git diff --cached --quiet && exit 0
+          git commit -m "Add Pathology Anki deck download"
+          git push origin HEAD:pathology-anki-download
