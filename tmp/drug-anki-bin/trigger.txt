@@ -1,1 +1,0 @@
-build use-first drug anki deck
