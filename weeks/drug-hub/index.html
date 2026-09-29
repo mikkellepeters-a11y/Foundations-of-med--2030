@@ -38,6 +38,10 @@ button,input,select{font:inherit}
 h1{font-size:clamp(38px,6vw,66px);line-height:.98;margin:0;letter-spacing:-.045em}
 .lede{max-width:850px;line-height:1.65;color:rgba(255,255,255,.82);margin:12px 0 0}
 .stats{display:flex;gap:9px;flex-wrap:wrap;margin-top:16px} .stat{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:9px 12px;font-weight:800;font-size:13px}
+.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:13px}
+.anki-download{display:inline-flex;align-items:center;gap:9px;text-decoration:none;background:#fffaf5;color:var(--brown2);border:1px solid rgba(255,255,255,.7);border-radius:12px;padding:10px 13px;font-size:12px;font-weight:900;box-shadow:0 8px 20px rgba(31,19,13,.12);transition:transform .15s ease,filter .15s ease}
+.anki-download:hover{transform:translateY(-1px);filter:brightness(.98)}
+.anki-download span{font-size:10px;font-weight:900;padding:4px 7px;border-radius:999px;background:var(--tan);color:var(--brown)}
 main{padding:26px 22px 70px}
 .toolbar{position:sticky;top:0;z-index:5;background:rgba(245,239,232,.94);backdrop-filter:blur(12px);padding:12px 0 14px;border-bottom:1px solid rgba(104,73,56,.12)}
 .controls{display:grid;grid-template-columns:2fr repeat(3,1fr) auto;gap:10px}
@@ -221,6 +225,7 @@ dialog::backdrop{background:rgba(40,27,20,.55);backdrop-filter:blur(3px)}
   <p class="lede">One searchable home for the medications and pharmacologic agents encountered across Foundations. Learn each drug as <b>target → mechanism → use → toxicity → recognition pearl</b>, then connect it back to the week where it appeared.</p>
   <div class="stats"><div class="stat"><span id="count">95</span> drug entries</div><div class="stat">Weeks 2–10</div><div class="stat">Browser-local favorites</div><div class="stat">Future-module ready</div>
   <div class="hero-note"><span class="tiny-pill" aria-hidden="true"></span> Mascot on duty: <b>Maisy</b> · <span style="opacity:.9">Ozzy may stop by sometimes</span></div>
+  <div class="hero-actions"><a class="anki-download" href="downloads/Foundations_Pharmacology_Use_First_95.apkg" download>Download Anki Deck <span>95 cards</span></a></div>
 
   </div>
  </div>
