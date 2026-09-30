@@ -1,4 +1,19 @@
 (()=>{
+  function routeFoundationsWeekBackLink(){
+    try{
+      if(!document.referrer) return false;
+      const ref=new URL(document.referrer);
+      if(ref.origin!==window.location.origin) return false;
+      if(/\/weeks\/week(?:2|3|4|6|7|8|9|10)\/(?:index\.html)?$/.test(ref.pathname)){
+        window.location.replace('foundations.html');
+        return true;
+      }
+    }catch{}
+    return false;
+  }
+
+  if(routeFoundationsWeekBackLink()) return;
+
   const PROMPT_DATE_KEY='megahub-account-setup-nudge-date';
   const PENDING_USERNAME_KEY='megahub-pending-username';
   const SETUP_COMPLETE_KEY='megahub-account-setup-complete';
