@@ -59,7 +59,7 @@
       .profile-nav-link:hover{background:var(--tan);color:var(--ink)}
       .achievement-summary{display:grid;grid-template-columns:140px minmax(0,1fr);gap:18px;align-items:center}
       .achievement-count{display:grid;place-items:center;min-height:120px;border-radius:20px;background:linear-gradient(135deg,var(--brown-dark),var(--brown),var(--brown-soft));color:#fff;text-align:center;padding:16px}
-      .achievement-count b{display:block;font-size:38px;letter-spacing:-.04em;line-height:1}.achievement-count span{display:block;margin-top:7px;font-size:9px;text-transform:uppercase;letter-spacing:.08em;font-weight:850;opacity:.8}
+      .achievement-count b{display:block;font-size:38px;letter-spacing:-.04em;line-height:1}.achievement-count .achievement-label{display:block;margin-top:7px;font-size:9px;text-transform:uppercase;letter-spacing:.08em;font-weight:850;opacity:.8}
       .achievement-progress-track{height:9px;background:var(--tan);border:1px solid var(--line);border-radius:999px;overflow:hidden;margin-top:10px}
       .achievement-progress-fill{height:100%;background:linear-gradient(90deg,var(--brown-dark),var(--brown),var(--brown-soft));border-radius:999px}
       .achievement-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
@@ -152,7 +152,7 @@
         <div class="card">
           <div class="section-title"><div><h2>Achievements</h2><div class="small">Badges unlock automatically from your MegaHub activity.</div></div><span class="badge">Auto-tracked</span></div>
           <div class="achievement-summary">
-            <div class="achievement-count"><div><b><span id="achievementUnlockedCount">0</span>/<span id="achievementTotalCount">${ACHIEVEMENTS.length}</span></b><span>Achievements Unlocked</span></div></div>
+            <div class="achievement-count"><div><b><span id="achievementUnlockedCount">0</span>/<span id="achievementTotalCount">${ACHIEVEMENTS.length}</span></b><span class="achievement-label">Achievements Unlocked</span></div></div>
             <div><h3 style="margin:0">Your collection</h3><p style="margin:5px 0 0">Question milestones, quiz milestones, and profile setup achievements are calculated from the activity already synced to your account.</p><div class="achievement-progress-track"><div class="achievement-progress-fill" id="achievementOverallFill" style="width:0%"></div></div><div class="small" id="achievementSummaryNote" style="margin-top:7px">Loading achievements…</div></div>
           </div>
         </div>
