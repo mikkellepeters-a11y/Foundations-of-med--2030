@@ -20,6 +20,13 @@ body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSy
   const next='<div class="header-actions"><div class="header-badge">Notes · Quizzes · Review</div><div class="hub-button-stack"><a class="header-link drug-hub-button" href="foundations-leaderboard.html" aria-label="Open Foundations Leaderboard"><span>Leaderboard</span></a><a class="header-link drug-hub-button" href="weeks/drug-hub/index.html" aria-label="Open Drug Hub"><span>Drug Hub</span></a><a class="header-link drug-hub-button" href="weeks/pathology-hub/index.html" aria-label="Open Path Hub"><span>Path Hub</span></a></div></div></div>';
   if(!html.includes(old)) throw new Error("Header markup changed");
   html=html.replace(old,next);
+
+  html=html.replace('Feedback + future features','Feedback + live leaderboard');
+  const oldLeaderboard='<article class="feedback-card">\n<span class="feedback-badge">Future Feature</span>\n<h3>Quiz Leaderboard</h3>\n<p>A shared leaderboard for quizzes completed, total questions answered, or completion streaks would need a small shared database or service behind the site. The current GitHub Pages setup only stores quiz progress in each person\'s own browser, so it cannot compare users globally yet.</p>\n</article>';
+  const liveLeaderboard='<article class="feedback-card">\n<span class="feedback-badge">Live Now</span>\n<h3>Foundations Leaderboard</h3>\n<p>See the live individual and CBL team standings based on participation across Foundations of Medicine. Questions earn points by difficulty: In-House +1, Intermediate +2, and Step 1 +3. Correctness does not affect leaderboard points.</p>\n<a class="feedback-action" href="foundations-leaderboard.html">Open Leaderboard →</a>\n</article>';
+  if(!html.includes(oldLeaderboard)) throw new Error("Leaderboard card markup changed");
+  html=html.replace(oldLeaderboard,liveLeaderboard);
+
   document.open();document.write(html);document.close();
 })().catch(e=>{
   console.error(e);
