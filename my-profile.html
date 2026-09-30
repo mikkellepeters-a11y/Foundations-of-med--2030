@@ -97,7 +97,7 @@ const supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 let currentUser=null,profileRow=null,prefsRow=null,quizAttempts=[],questionAttempts=[],reviewItems=[];
 const fmtPct=n=>Number.isFinite(n)?Math.round(n)+'%':'—';
 const fmtDate=s=>{if(!s)return '—';return new Date(s).toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'})};
-const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#039;'}[m]));
 const norm=x=>(x||'').toLowerCase();
 const topicSortKey=x=>String(x||'').replace(/^\s*(?:lecture\s*)?\d+\s*[-.:)]?\s*/i,'').trim().toLocaleLowerCase();
 const CBL_FILES={3:'week3_case_quiz_30.html',4:'week4_case_quiz_27.html',5:'week5_case_quiz_19.html',6:'week6_case_quiz_33.html',7:'week7_case_quiz_35.html',8:'week8_case_quiz_27.html',9:'week9_case_quiz_28.html',10:'week10_case_quiz_34.html'};
@@ -161,5 +161,6 @@ document.getElementById('savePrefsBtn').addEventListener('click',async()=>{const
 document.getElementById('logoutBtn').addEventListener('click',async()=>{await supabaseClient.auth.signOut();window.location.href='index.html'});
 (async()=>{const {data:{session},error}=await supabaseClient.auth.getSession();if(error||!session?.user){document.getElementById('authGate').style.display='block';return}currentUser=session.user;document.getElementById('profileShell').style.display='grid';await loadData()})();
 </script>
+<script src="shared/team-selection.js"></script>
 </body>
 </html>
