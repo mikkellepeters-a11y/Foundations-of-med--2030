@@ -161,5 +161,6 @@ document.getElementById('savePrefsBtn').addEventListener('click',async()=>{const
 document.getElementById('logoutBtn').addEventListener('click',async()=>{await supabaseClient.auth.signOut();window.location.href='index.html'});
 (async()=>{const {data:{session},error}=await supabaseClient.auth.getSession();if(error||!session?.user){document.getElementById('authGate').style.display='block';return}currentUser=session.user;document.getElementById('profileShell').style.display='grid';await loadData()})();
 </script>
+<script src="shared/team-selection.js"></script>
 </body>
 </html>
