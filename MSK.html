@@ -73,20 +73,27 @@ body.beta-open .beta-site{display:block}
 body.beta-open .beta-gate{display:none}
 
 /* --- Locked module cards --- */
-.week-card.locked-card{cursor:not-allowed}
-.week-card.locked-card:hover{transform:none;border-color:var(--line);box-shadow:var(--shadow)}
-.week-card.locked-card .icon-wrap{filter:saturate(.7);opacity:.72}
-.week-card.locked-card .desc,.week-card.locked-card .card-footer{opacity:.48}
+.week-card.locked-card{
+  min-height:180px;cursor:not-allowed;color:#fff;background:var(--accent-dark);
+  border-color:rgba(255,255,255,.12);box-shadow:0 14px 30px rgba(24,59,42,.18)
+}
+.week-card.locked-card::after{display:none}
+.week-card.locked-card:hover{
+  transform:none;border-color:rgba(255,255,255,.12);box-shadow:0 14px 30px rgba(24,59,42,.18)
+}
+.week-card.locked-card .card-top{margin-bottom:24px}
+.week-card.locked-card .icon-wrap{
+  color:#fff;background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.16);
+  box-shadow:none;filter:none;opacity:1
+}
+.week-card.locked-card h3{color:#fff}
+.week-card.locked-card .desc,.week-card.locked-card .card-footer{display:none}
 .locked-badge{
-  display:inline-flex;align-items:center;gap:6px;background:#e8efea!important;
-  border-color:#cbdacf!important;color:#365743!important
+  display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.08)!important;
+  border-color:rgba(255,255,255,.18)!important;color:#fff!important
 }
 .locked-badge svg{width:12px;height:12px;stroke-width:2.2}
-.locked-card::before{
-  content:"LOCKED";position:absolute;z-index:3;right:18px;bottom:18px;
-  padding:6px 9px;border-radius:999px;background:rgba(24,59,42,.92);color:#fff;
-  font-size:9px;font-weight:950;letter-spacing:.12em;box-shadow:0 6px 16px rgba(24,59,42,.18)
-}
+.locked-card::before{display:none}
 
 @media(max-width:760px){.site-header{padding:24px 18px}.brand-row,.section-head{align-items:flex-start;flex-direction:column}.brand{margin-bottom:14px}.header-actions{width:100%;flex-basis:auto;align-items:stretch}.header-actions .header-badge{align-self:stretch}.top-hub-button{width:100%}.week-grid{grid-template-columns:1fr}.week-card{min-height:280px}.desc{max-width:100%}.feedback-grid{grid-template-columns:1fr}}
 </style>
