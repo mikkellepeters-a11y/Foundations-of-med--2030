@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MSK-Skin Drug Hub · MegaHub</title>
+<style>
+:root{
+ --bg:#edf3ef;--paper:#fbfdfb;--ink:#21362b;--muted:#63736a;
+ --accent:#28543d;--dark:#183b2a;--mid:#527761;--soft:#e3ece6;--line:#ceddd3;
+ --sage:#dfe9e1;--gold:#eef0cf;--blue:#dde9e8;--shadow:0 18px 45px rgba(24,59,42,.10)
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(circle at top left,#fff 0,transparent 28%),var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+button,input,select{font:inherit}.header{background:linear-gradient(135deg,var(--dark),var(--accent) 62%,var(--mid));color:#fff;padding:24px 22px 38px}.wrap{max-width:1240px;margin:auto}
+.brandline{display:flex;justify-content:space-between;gap:18px;align-items:center;margin-bottom:24px;flex-wrap:wrap}.brandlink,.badge{font-size:12px;font-weight:850;padding:8px 11px;border-radius:999px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);color:#fff;text-decoration:none}.brandlink:hover{background:rgba(255,255,255,.15)}
+.hero{display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:center}.icon{width:112px;height:112px;display:grid;place-items:center;background:#e7f0ea;border:1px solid #cdded3;border-radius:26px;box-shadow:0 10px 20px rgba(17,49,32,.18);color:var(--accent)}
+.pill{width:68px;height:34px;border:4px solid currentColor;border-radius:999px;transform:rotate(-38deg);position:relative}.pill:after{content:"";position:absolute;top:-4px;bottom:-4px;left:50%;border-left:4px solid currentColor}.pill:before{content:"";position:absolute;right:0;top:0;width:50%;height:100%;background:rgba(40,84,61,.13);border-radius:0 999px 999px 0}
+h1{font-size:clamp(38px,6vw,66px);line-height:.98;margin:0;letter-spacing:-.045em}.lede{max-width:850px;line-height:1.65;color:rgba(255,255,255,.84);margin:12px 0 0}.stats{display:flex;gap:9px;flex-wrap:wrap;margin-top:16px}.stat{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:9px 12px;font-weight:800;font-size:13px}
+main{padding:26px 22px 70px}.toolbar{position:sticky;top:0;z-index:5;background:rgba(237,243,239,.94);backdrop-filter:blur(12px);padding:12px 0 14px;border-bottom:1px solid rgba(40,84,61,.12)}.controls{display:grid;grid-template-columns:2fr repeat(3,1fr) auto;gap:10px}input,select{width:100%;padding:12px 13px;border:1px solid var(--line);border-radius:12px;background:var(--paper);color:var(--ink)}.btn{border:0;border-radius:12px;padding:11px 14px;background:var(--accent);color:#fff;font-weight:850;cursor:pointer}.btn.alt{background:var(--paper);color:var(--accent);border:1px solid var(--line)}.btn:hover{filter:brightness(.97)}
+.quick{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0 6px}.chip{border:1px solid var(--line);background:var(--paper);padding:8px 11px;border-radius:999px;font-weight:800;font-size:12px;cursor:pointer;color:var(--accent)}.chip.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.sectionhead{display:flex;justify-content:space-between;align-items:end;gap:16px;margin:26px 0 14px}.sectionhead h2{margin:0;font-size:26px;letter-spacing:-.03em}.muted{color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:17px;box-shadow:0 6px 18px rgba(24,59,42,.04);display:flex;flex-direction:column;min-height:248px}.cardtop{display:flex;justify-content:space-between;gap:10px;align-items:start}.card h3{margin:5px 0 4px;font-size:20px;letter-spacing:-.02em}.small{font-size:12px;color:var(--muted);font-weight:750}.tagrow{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}.tag{font-size:11px;padding:5px 7px;border-radius:999px;font-weight:850;background:var(--soft);color:var(--accent)}.tag.core{background:var(--sage)}.tag.enrichment{background:var(--blue)}.tag.clinical{background:var(--gold)}.mechanism{line-height:1.52;font-size:14px;margin:6px 0 12px}.cardfoot{margin-top:auto;display:flex;gap:8px;align-items:center;justify-content:space-between}.star{border:0;background:transparent;font-size:20px;cursor:pointer}.detail{font-size:12px;font-weight:850;color:var(--accent);cursor:pointer}
+.empty{grid-column:1/-1;padding:52px 28px;text-align:center;color:var(--muted);border:1px dashed #b8cebf;border-radius:18px;background:var(--paper)}.empty-mark{width:58px;height:58px;margin:0 auto 12px;border-radius:18px;background:var(--soft);border:1px solid var(--line);display:grid;place-items:center;color:var(--accent)}.empty-mark .pill{width:34px;height:17px;border-width:2px}.empty-mark .pill:after{top:-2px;bottom:-2px;border-left-width:2px}.empty strong{display:block;color:var(--ink);font-size:18px;margin-bottom:5px}.empty p{margin:0 auto;max-width:520px;line-height:1.55;font-size:13px}
+.panel{margin-top:24px;background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:0 8px 24px rgba(24,59,42,.04)}.panel h2{margin:0 0 4px}.panel-intro{margin:0 0 13px;color:var(--muted);font-size:13px}.studygrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.study{padding:15px;border:1px solid var(--line);border-radius:14px;background:#fff;min-height:110px}.study strong{display:block;margin-bottom:5px;color:var(--accent)}.study span{display:block;color:var(--muted);font-size:12px;line-height:1.45}.study.disabled{opacity:.7}
+.comparebar{position:fixed;left:50%;transform:translateX(-50%);bottom:16px;z-index:8;background:var(--dark);color:#fff;border-radius:15px;padding:10px 12px;display:none;gap:10px;align-items:center;box-shadow:var(--shadow)}.comparebar.show{display:flex}
+footer{padding:0 22px 36px;color:#74847a;font-size:12px}.footer-inner{max-width:1240px;margin:auto}
+@media(max-width:950px){.grid{grid-template-columns:repeat(2,1fr)}.controls{grid-template-columns:1fr 1fr}.studygrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:620px){.hero{grid-template-columns:1fr}.icon{width:88px;height:88px}.controls{grid-template-columns:1fr}.grid{grid-template-columns:1fr}.studygrid{grid-template-columns:1fr}.sectionhead{align-items:flex-start;flex-direction:column}}
+</style>
+</head>
+<body>
+<header class="header"><div class="wrap">
+ <div class="brandline"><a class="brandlink" href="../../MSK.html">← MSK Hub</a><span class="badge">Module II · Musculoskeletal-Skin</span></div>
+ <div class="hero">
+  <div class="icon" aria-hidden="true"><span class="pill"></span></div>
+  <div><h1>Drug Hub</h1><p class="lede">One searchable home for medications and pharmacologic agents encountered across Musculoskeletal-Skin. The library is structured around <b>target → mechanism → use → toxicity → recognition pearl</b> and will grow as drugs are added across the module.</p>
+   <div class="stats"><div class="stat"><span id="totalCount">0</span> drug entries</div><div class="stat">Weeks 13–21</div><div class="stat">Browser-local favorites</div><div class="stat">Comparison-ready</div></div>
+  </div>
+ </div>
+</div></header>
+<main><div class="wrap">
+ <section class="toolbar" aria-label="Drug Hub filters">
+  <div class="controls">
+   <input id="search" type="search" placeholder="Search drug, class, target, mechanism..." aria-label="Search drugs">
+   <select id="week"><option value="all">All weeks</option><option>Week 13</option><option>Week 14</option><option>Week 15</option><option>Week 16</option><option>Week 17</option><option>Week 18</option><option>Week 19</option><option>Week 20</option><option>Week 21</option></select>
+   <select id="class"><option value="all">All drug classes</option></select>
+   <select id="type"><option value="all">All types</option><option value="core">Core</option><option value="clinical">Clinical</option><option value="enrichment">Enrichment</option></select>
+   <button class="btn alt" id="reset" type="button">Reset</button>
+  </div>
+  <div class="quick"><button class="chip active" data-view="all">All Drugs</button><button class="chip" data-view="favorites">Favorites</button><button class="chip" data-view="core">Core</button><button class="chip" data-view="clinical">Clinical</button></div>
+ </section>
+
+ <div class="sectionhead"><div><h2>Drug Library</h2><div class="muted small">Search, filter, favorite, and compare entries as the MSK-Skin library is populated.</div></div><div class="muted small"><span id="shownCount">0</span> shown</div></div>
+ <section class="grid" id="drugGrid" aria-live="polite">
+  <div class="empty" id="emptyState"><div class="empty-mark" aria-hidden="true"><span class="pill"></span></div><strong>No MSK-Skin drugs have been added yet.</strong><p>This shell is ready for Week 13–21 pharmacology. New entries will appear here using the same searchable card architecture as the Foundations Drug Hub.</p></div>
+ </section>
+
+ <section class="panel">
+  <h2>Study Tools</h2><p class="panel-intro">These organizational tools are built into the hub architecture and will activate naturally as drug entries are added.</p>
+  <div class="studygrid">
+   <div class="study disabled"><strong>Browse by Week</strong><span>Jump from a module week to the medications introduced there.</span></div>
+   <div class="study disabled"><strong>Browse by Class</strong><span>Group drugs by pharmacologic class and shared mechanism.</span></div>
+   <div class="study disabled"><strong>Favorites</strong><span>Keep a browser-local shortlist of drugs that need another pass.</span></div>
+   <div class="study disabled"><strong>Compare Drugs</strong><span>Place related agents side-by-side once the library has entries.</span></div>
+  </div>
+ </section>
+</div></main>
+<footer><div class="footer-inner">Musculoskeletal-Skin · Module II · Drug Hub</div></footer>
+<div class="comparebar" id="compareBar" aria-hidden="true"></div>
+<script>
+const drugs=[];
+const search=document.getElementById('search'),week=document.getElementById('week'),drugClass=document.getElementById('class'),type=document.getElementById('type'),reset=document.getElementById('reset'),shown=document.getElementById('shownCount');
+function render(){shown.textContent='0'}
+[search,week,drugClass,type].forEach(el=>el.addEventListener(el===search?'input':'change',render));
+reset.addEventListener('click',()=>{search.value='';week.value='all';drugClass.value='all';type.value='all';document.querySelectorAll('.chip').forEach((c,i)=>c.classList.toggle('active',i===0));render()});
+document.querySelectorAll('.chip').forEach(chip=>chip.addEventListener('click',()=>{document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));chip.classList.add('active');render()}));
+render();
+</script>
+</body></html>
