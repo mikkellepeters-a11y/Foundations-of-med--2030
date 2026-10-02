@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Week 13 Lecture Hub · Musculoskeletal-Skin</title>
+<style>
+:root{
+  --bg:#edf3ef;--paper:#fbfdfb;--ink:#21362b;--muted:#63736a;--line:#ceddd3;
+  --accent:#28543d;--dark:#183b2a;--mid:#527761;--soft:#e3ece6;--soft2:#cdded3;
+  --tint:#f6faf7;--sage:#e7f0ea;--shadow:0 14px 34px rgba(24,59,42,.09)
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(circle at top left,rgba(255,255,255,.72),transparent 31%),var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+a{color:inherit}
+header{background:linear-gradient(135deg,var(--dark),var(--accent),var(--mid));color:#fff;padding:30px 22px 36px}
+.inner,main,footer{max-width:1120px;margin:auto}
+.topbar{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:24px;flex-wrap:wrap}
+.top-actions{display:flex;gap:8px;flex-wrap:wrap}
+.pill-link{text-decoration:none;font-size:11px;font-weight:850;padding:8px 11px;border-radius:999px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.10)}
+.hero{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center}
+.hero-icon{width:88px;height:88px;border-radius:24px;background:#e3ece6;border:1px solid #cdded3;display:grid;place-items:center;box-shadow:inset 0 1px 0 rgba(255,255,255,.55)}
+.hero-icon img{width:76px;height:66px;display:block;object-fit:contain}
+.eyebrow{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.12em;font-weight:850;opacity:.76}
+h1{font-size:clamp(34px,5vw,56px);margin:6px 0 8px;line-height:1.03;letter-spacing:-.035em}
+.lede{max-width:800px;margin:0;color:rgba(255,255,255,.84);line-height:1.55}
+.hero-pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}
+.hero-pills span{padding:7px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.09);font-size:11px;font-weight:800}
+main{padding:28px 22px 62px}
+.toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:24px}
+.filter-row{display:flex;gap:8px;flex-wrap:wrap}
+.filter{border:1px solid var(--line);background:var(--paper);color:var(--accent);padding:8px 11px;border-radius:999px;font:inherit;font-size:11px;font-weight:850;cursor:pointer}
+.filter.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.summary{font-size:11px;color:var(--muted);font-weight:750}
+.overview{display:grid;grid-template-columns:1.1fr .9fr;gap:14px;margin-bottom:30px}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:var(--shadow)}
+.panel h2{margin:2px 0 7px;font-size:20px}
+.panel p{margin:0;color:var(--muted);font-size:11px;line-height:1.55}
+.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}
+.stat{background:var(--soft);border:1px solid var(--soft2);border-radius:12px;padding:12px;text-align:center}
+.stat strong{display:block;color:var(--accent);font-size:22px}
+.stat span{display:block;color:var(--muted);font-size:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:850}
+.day-section{margin-top:34px}
+.day-heading{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:13px}
+.day-heading .eyebrow{color:var(--mid);opacity:1}
+.day-heading h2{margin:4px 0 0;font-size:27px;letter-spacing:-.02em}
+.count{padding:6px 9px;border-radius:999px;background:var(--soft);border:1px solid var(--soft2);color:var(--accent);font-size:10px;font-weight:850}
+.lecture-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.lecture-card{background:linear-gradient(180deg,var(--paper),var(--tint));border:1px solid var(--line);border-radius:19px;padding:18px;box-shadow:var(--shadow);min-height:220px;display:flex;flex-direction:column}
+.lecture-top{display:flex;justify-content:space-between;gap:12px;align-items:center}
+.lecture-num{width:34px;height:34px;border-radius:10px;background:var(--soft);display:grid;place-items:center;color:var(--accent);font-size:11px;font-weight:900}
+.topic-tag{font-size:9px;font-weight:850;padding:5px 7px;border-radius:999px;background:var(--sage);border:1px solid var(--soft2);color:var(--accent)}
+.lecture-card h3{margin:14px 0 7px;font-size:18px;line-height:1.3;letter-spacing:-.01em}
+.lecture-meta{margin:0;color:var(--muted);font-size:10px}
+.resource-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:auto;padding-top:18px}
+.resource{text-decoration:none;border:1px solid #dce8df;background:#fff;border-radius:12px;padding:10px 11px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.resource.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.resource strong{display:block;font-size:11px}
+.resource small{display:block;margin-top:2px;font-size:8.5px;opacity:.72}
+.resource b{font-size:15px}
+.notice{margin-top:34px;background:var(--paper);border:1px solid var(--line);border-left:5px solid var(--accent);border-radius:16px;padding:14px 16px;box-shadow:var(--shadow)}
+.notice strong{display:block;font-size:12px}
+.notice p{margin:3px 0 0;color:var(--muted);font-size:11px;line-height:1.45}
+footer{padding:0 22px 34px;color:#74847a;font-size:11px}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,18px);opacity:0;pointer-events:none;background:var(--dark);color:#fff;padding:11px 14px;border-radius:12px;font-size:12px;font-weight:750;box-shadow:0 10px 30px rgba(20,48,34,.25);transition:.2s ease;z-index:20}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.hidden{display:none!important}
+@media(max-width:820px){
+  .hero{grid-template-columns:1fr}
+  .overview,.lecture-grid{grid-template-columns:1fr}
+  .resource-row{grid-template-columns:1fr}
+  .day-heading{align-items:flex-start;flex-direction:column}
+}
+</style>
+</head>
+<body>
+<header><div class="inner">
+  <div class="topbar">
+    <a class="pill-link" href="index.html">← Week 13</a>
+    <div class="top-actions">
+      <a class="pill-link" href="../../MSK.html">All Weeks</a>
+      <a class="pill-link placeholder" href="#" data-name="Gross Anatomy Hub">Gross Anatomy Hub</a>
+    </div>
+  </div>
+  <div class="hero">
+    <div class="hero-icon" aria-hidden="true"><img src="data:image/webp;base64,UklGRggGAABXRUJQVlA4IPwFAABwHQCdASpgAFAAPmEqkkakIqGhJ5krIIAMCWUAzpV3fLehX/T7pPnh/QBvHPRber7/nrAN+tfjp1yvl72G3yD46/gPQP+PfUf8Dw78AL2N/ft5EyD/pPBz/nfQn6u/1z1MfzX+5/lfzNHg3sAfxv+1/6n+u/lV9Lf8b/1/8D/g/SD86/9T/J/AV/Mv6t/u/7z+8fG8M0mjf1J75ZSEXmNgBU90HsXU5/McJjitOgZJx91QPYYIRXNu2CZ5udwkXE/Vs1m3KZSI6cieVr5x10O+rF9u4ACuuSP5CBzbdAUyLv2cThxFu2yDErp7jsiJdzMBC4gAAP79qgdyfrHNMf/UOPev3Nv17EkhfkkEhqIvXif3iCq+6zacYRdi5Zm435kUn581zTJG6yvd2iD+032CsBFWfOcIlvpfqDCxdsbf+DTshMoOJDgPNSrZfCFjHowlpCLACgPmXs8IEf6/aFqCEq0eruUYETyJvMJj9/FeL05FIuC7gh+pI1G1+rzoRt+SRZenRLglVwZ88iHCGJEQ/+MVIS/Lfyt24l2lsGbYyHgERbJhDw2M0S7GpMEdBI8FS3eVgnNMLPG/Yte7200Gsuk6ELLnZP46F/dEJA3kRSzObDBVpH/+8w33npxPU9gp4icuoFi1HbzbbN8XAFtAdLqIDjzrAPwSn+PPEFggyLs7ueuWdnTPBmve+ycvXrpv5+BV2XTPuyjSQIxuLINdxi72mh5zL+hUU17w2SJ4By7wmhQ2oRg3Qjn0vP4s8ij5C+bR5R1PGmYFrwtC3Oqr3dkUcDnYXbBYPftkVwqQJniRbkC2Gsk2CtzobxNtVKwREvI1xIRVO4XuXFXPNo2ig3HryGrzhh4rKoHD+6HSmctu6gfU0WkLtuSe6Jy2ZNzsRM98l96SXaEJgDXJ5HEyGVSjri+XVFx/Pip+LKNEoRb595VerB1SF7dLfuofp+bxQ50dOenWzYzgookHexwKQGkGj+PjafJ+dYfRcqx5dMBV1Ht/3VS6+p9HYPVlZeRJdCqqZgDYSw7B9s1wiZ7UE9+S1ULQ0k7fsybNQqeEaMn0+gVMlj8xDwR6V9sAl0MNla5V38C+Q2pGKpEAe5OG6S6/Xm1hSwiA2wwzI9vW0awUz8eok6WmKFPOtt/7YVEEROeG2CKNNrdt9oheR9qtZK9zjuVhPNv2iiQ7xFmMukCdf9XNiSOltc4QmqpoY/PKg/YC9lKS8RsazrW5pkQF52arJgiab2s9DLxGvBwG+hE2ycwSYvMSD4j11pxqeza5o75tP82bzLVPkkGf69qrmvbZ+IIfEraBP3KWiSQD7PYjdyHh7bm8hfnJ5zagsV+HP+ZUCMF9r28367ZCo1/cXrWiBERx9VQTe1mAHe8e526kt0s0o+0YAEn0BjFecer2ONFaIC9Dnk5/rAZ5Ou9Vyi3SYXlH3N0MGFXODDwxucCH5CpC1WxxtzUSDJFPNLkoj+lh2mwp36XIe9vdFzsNSGTAnv7Q3HSutULTP/qKE/velvSLrvXzd++GZodsOX+IIKn4XWr9OYFHL7FKQ2godRJbwxmvH5s95FiNxiFm8ZYsnn3vpW8IAA4VAzI61PVCtEWQCxufWFioaZngcDlk7ls5CBFyLpqrtYmh5LHpWw19d2kUa4TxMKaY+ZYcYTHRAJa1cKdqGaEFE2kz1iV/WIaE6M2XJ8n1tIGvpFdBALf4MxqsPW309PpJegqVv/96intzhD8fDkiQVOLlsDbH9up7xlZnLGk5WRo4mNK9/LGcfO6XWSQ85PEX5MW8MMXCnSSPUAdmsZ/77GfLD+rdQ70NsQL4oAgdVy6m0Fpc+cfS3U+XyUZ6F/4GQRwwL7JQrvf7WgiCD9mptdmOdDGuqAvwfO0crjlb15aFo8wNoK8Vb0YVXHWPyVP9cA4A+F3CYP52+d+0pWrqMeli6QuTAbgMhRDvEGyrxp2d5qhY2srt2OBjeROqJOauKMs2a8/KRZqICN2r+PiyaQwaBo7p8nV51akZ2Fpr5MgVC7eqGOtdrSWMGZjBPgAAAA==" alt=""></div>
+    <div>
+      <span class="eyebrow">Musculoskeletal-Skin · Week 13</span>
+      <h1>Lecture Hub</h1>
+      <p class="lede">A focused workspace for the nine core Week 13 lectures, with each lecture paired to its full Companion and rapid-review Factoid Sheet.</p>
+      <div class="hero-pills"><span>9 core lectures</span><span>6 Monday</span><span>2 Wednesday</span><span>1 Thursday</span></div>
+    </div>
+  </div>
+</div></header>
+
+<main>
+  <div class="toolbar">
+    <div class="filter-row" aria-label="Filter lectures by day">
+      <button class="filter active" data-filter="all">All Lectures</button>
+      <button class="filter" data-filter="monday">Monday</button>
+      <button class="filter" data-filter="wednesday">Wednesday</button>
+      <button class="filter" data-filter="thursday">Thursday</button>
+    </div>
+    <div class="summary" id="visibleCount">Showing all 9 lectures</div>
+  </div>
+
+  <section class="overview">
+    <div class="panel">
+      <span class="eyebrow" style="color:var(--mid);opacity:1">How this hub works</span>
+      <h2>Lecture-first review</h2>
+      <p>Use the Companion for the full lecture pass, then the paired Factoid Sheet for rapid reinforcement. This page contains only the core lecture stream; SAL and other curricular sessions remain on the main Week 13 hub.</p>
+    </div>
+    <div class="panel">
+      <span class="eyebrow" style="color:var(--mid);opacity:1">Week 13 footprint</span>
+      <div class="stat-grid">
+        <div class="stat"><strong>9</strong><span>Core</span></div>
+        <div class="stat"><strong>18</strong><span>Resources</span></div>
+        <div class="stat"><strong>3</strong><span>Lecture Days</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="day-section" id="monday">
+    <div class="day-heading"><div><span class="eyebrow">October 12</span><h2>Monday</h2></div><span class="count">6 lectures</span></div>
+    <div class="lecture-grid">
+      <article class="lecture-card" data-day="monday"><div class="lecture-top"><div class="lecture-num">01</div><span class="topic-tag">Foundations</span></div><h3>Introduction to the Musculoskeletal System</h3><p class="lecture-meta">Hannah · 8:00–9:00 AM</p><div class="resource-row"><a href="#" class="resource primary placeholder" data-name="Introduction to the Musculoskeletal System Companion"><span><strong>Companion</strong><small>Deep review</small></span><b>→</b></a><a href="#" class="resource placeholder" data-name="Introduction to the Musculoskeletal System Factoid Sheet"><span><strong>Factoid</strong><small>Rapid review</small></span><b>→</b></a></div></article>
+      <article class="lecture-card" data-day="monday"><div class="lecture-top"><div class="lecture-num">02</div><span class="topic-tag">Neuroscience</span></div><h3>Overview of the Nervous System &amp; Spinal Cord</h3><p class="lecture-meta">M. Johnson · 9:10–10:00 AM</p><div class="resource-row"><a href="#" class="resource primary placeholder" data-name="Overview of the Nervous System &amp; Spinal Cord Companion"><span><strong>Companion</strong><small>Deep review</small></span><b>→</b></a><a href="#" class="resource placeholder" data-name="Overview of the Nervous System &amp; Spinal Cord Factoid Sheet"><span><strong>Factoid</strong><small>Rapid review</small></span><b>→</b></a></div></article>
+      <article class="lecture-card" data-day="monday"><div class="lecture-top"><div class="lecture-num">03</div><span class="topic-tag">Physiology</span></div><h3>Membrane Properties of Excitable Cells: Ion Channels &amp; Action Potentials</h3><p class="lecture-meta">Filosa · 10:10–11:00 AM</p><div class="resource-row"><a href="#" class="resource primary placeholder" data-name="Membrane Properties of Excitable Cells: Ion Channels &amp; Action Potentials Companion"><span><strong>Companion</strong><small>Deep review</small></span><b>→</b></a><a href="#" class="resource placeholder" data-name="Membrane Properties of Excitable Cells: Ion Channels &amp; Action Potentials Factoid Sheet"><span><strong>Factoid</strong><small>Rapid review</small></span><b>→</b></a></div></article>
+      <article class="lecture-card" data-day="monday"><div class="lecture-top"><div class="lecture-num">04</div><span class="topic-tag">Histology</span></div><h3>Connective Tissue Histology</h3><p class="lecture-meta">Gonsalvez · 11:10 AM–12:00 PM</p><div class="resource-row"><a href="#" class="resource primary placeholder" data-name="Connective Tissue Histology Companion"><span><strong>Companion</strong><small>Deep review</small></span><b>→</b></a><a href="#" class="resource placeholder" data-name="Connective Tissue Histology Factoid Sheet"><span><strong>Factoid</strong><small>Rapid review</small></span><b>→</b></a></div></article>
+      <article class="lecture-card" data-day="monday"><div class="lecture-top"><div class="lecture-num">05</div><span class="topic-tag">Histology</span></div><h3>Peripheral Nervous System &amp; Spinal Cord Histology</h3><p class="lecture-meta">Schoenlein · 1:00–1:50 PM</p><div class="resource-row"><a href="#" class="resource primary placeholder" data-name="Peripheral Nervous System &amp; Spinal Cord Histology Companion"><span><strong>Companion</strong><small>Deep review</small></span><b>→</b></a><a href="#" class="resource placeholder" data-name="Peripheral Nervous System &amp; Spinal Cord Histology Factoid Sheet"><span><strong>Factoid</strong><small>Rapid review</small></span><b>→</b></a></div></article>
+      <article class="lecture-card" data-day="monday"><div class="lecture-top"><div class="lecture-num">06</div><span class="topic-tag">Neuroscience</span></div><h3>Peripheral Nervous System: Somatic &amp; Autonomic</h3><p class="lecture-meta">M. Johnson · 2:00–2:50 PM</p><div class="resource-row"><a href="#" class="resource primary placeholder" data-name="Peripheral Nervous System: Somatic &amp; Autonomic Companion"><span><strong>Companion</strong><small>Deep review</small></span><b>→</b></a><a href="#" class="resource placeholder" data-name="Peripheral Nervous System: Somatic &amp; Autonomic Factoid Sheet"><span><strong>Factoid</strong><small>Rapid review</small></span><b>→</b></a></div></article>
+    </div>
+  </section>
+
+  <section class="day-section" id="wednesday">
+    <div class="day-heading"><div><span class="eyebrow">October 14</span><h2>Wednesday</h2></div><span class="count">2 lectures</span></div>
+    <div class="lecture-grid">
+      <article class="lecture-card" data-day="wednesday"><div class="lecture-top"><div class="lecture-num">07</div><span class="topic-tag">Integument</span></div><h3>Integument</h3><p class="lecture-meta">Schoenlein · 8:00–8:50 AM</p><div class="resource-row"><a href="#" class="resource primary placeholder" data-name="Integument Companion"><span><strong>Companion</strong><small>Deep review</small></span><b>→</b></a><a href="#" class="resource placeholder" data-name="Integument Factoid Sheet"><span><strong>Factoid</strong><small>Rapid review</small></span><b>→</b></a></div></article>
+      <article class="lecture-card" data-day="wednesday"><div class="lecture-top"><div class="lecture-num">08</div><span class="topic-tag">Dermatology</span></div><h3>Intro to Dermatological Terminology &amp; Bullous Skin Diseases</h3><p class="lecture-meta">L. Davis · 9:00–10:00 AM</p><div class="resource-row"><a href="#" class="resource primary placeholder" data-name="Intro to Dermatological Terminology &amp; Bullous Skin Diseases Companion"><span><strong>Companion</strong><small>Deep review</small></span><b>→</b></a><a href="#" class="resource placeholder" data-name="Intro to Dermatological Terminology &amp; Bullous Skin Diseases Factoid Sheet"><span><strong>Factoid</strong><small>Rapid review</small></span><b>→</b></a></div></article>
+    </div>
+  </section>
+
+  <section class="day-section" id="thursday">
+    <div class="day-heading"><div><span class="eyebrow">October 15</span><h2>Thursday</h2></div><span class="count">1 lecture</span></div>
+    <div class="lecture-grid">
+      <article class="lecture-card" data-day="thursday"><div class="lecture-top"><div class="lecture-num">09</div><span class="topic-tag">Dermatology</span></div><h3>Spectrum of Acneiform Disorders, Pigment &amp; Hair</h3><p class="lecture-meta">Belcher · 8:00–8:50 AM</p><div class="resource-row"><a href="#" class="resource primary placeholder" data-name="Spectrum of Acneiform Disorders, Pigment &amp; Hair Companion"><span><strong>Companion</strong><small>Deep review</small></span><b>→</b></a><a href="#" class="resource placeholder" data-name="Spectrum of Acneiform Disorders, Pigment &amp; Hair Factoid Sheet"><span><strong>Factoid</strong><small>Rapid review</small></span><b>→</b></a></div></article>
+    </div>
+  </section>
+
+  <div class="notice"><strong>Gross anatomy is intentionally excluded from this lecture hub.</strong><p>Vertebral Column &amp; Back gross anatomy lab and the spinal cord prosection belong in the module-level Gross Anatomy Hub, not the Week 13 lecture workspace.</p></div>
+</main>
+<footer>Musculoskeletal-Skin · Module II · Week 13 Lecture Hub</footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+const toast=document.getElementById('toast');let timer;
+document.querySelectorAll('.placeholder').forEach(el=>el.addEventListener('click',e=>{e.preventDefault();toast.textContent=(el.dataset.name||'This resource')+' is planned for Week 13.';toast.classList.add('show');clearTimeout(timer);timer=setTimeout(()=>toast.classList.remove('show'),1800)}));
+const filters=[...document.querySelectorAll('.filter')];const cards=[...document.querySelectorAll('.lecture-card')];const count=document.getElementById('visibleCount');filters.forEach(btn=>btn.addEventListener('click',()=>{filters.forEach(b=>b.classList.remove('active'));btn.classList.add('active');const f=btn.dataset.filter;let visible=0;cards.forEach(card=>{const show=f==='all'||card.dataset.day===f;card.classList.toggle('hidden',!show);if(show)visible++});count.textContent=f==='all'?'Showing all 9 lectures':`Showing ${visible} ${f[0].toUpperCase()+f.slice(1)} lecture${visible===1?'':'s'}`}));
+</script>
+</body>
+</html>
