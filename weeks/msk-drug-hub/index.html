@@ -1,1 +1,25 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MSK-Skin Drug Hub · MegaHub</title><meta http-equiv="refresh" content="0;url=app.html"><script>location.replace('app.html')</script></head><body style="font-family:system-ui;background:#edf3ef;color:#21362b;padding:24px">Opening the MSK-Skin Drug Hub… <a href="app.html">Continue</a></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MSK-Skin Drug Hub · MegaHub</title>
+</head>
+<body>
+<script>
+(async()=>{
+  try{
+    const r=await fetch('app.html',{cache:'no-store'});
+    if(!r.ok) throw new Error('Drug Hub app failed to load');
+    let t=await r.text();
+    const fix='<script src="visitor-fix.js?v=2"><\\/script>';
+    t=t.includes('</body>')?t.replace('</body>',fix+'</body>'):t+fix;
+    document.open();document.write(t);document.close();
+  }catch(e){
+    console.error(e);
+    document.body.innerHTML='<p style="font-family:system-ui;background:#edf3ef;color:#21362b;padding:24px">MSK Drug Hub failed to load. Please refresh.</p>';
+  }
+})();
+</script>
+</body>
+</html>
