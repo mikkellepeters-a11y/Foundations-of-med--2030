@@ -12,7 +12,7 @@
     const r=await fetch('app.html',{cache:'no-store'});
     if(!r.ok) throw new Error('Drug Hub app failed to load');
     let t=await r.text();
-    const fix='<script src="visitor-fix.js?v=2"><\\/script>';
+    const fix='<script src="visitor-fix.js?v=3"><\/script>';
     t=t.includes('</body>')?t.replace('</body>',fix+'</body>'):t+fix;
     document.open();document.write(t);document.close();
   }catch(e){
