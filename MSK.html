@@ -7,117 +7,97 @@
 (async()=>{
   const nativeFetch=window.fetch.bind(window);
 
-  const scrubBeta=txt=>txt
-    .replace(/Musculoskeletal-Skin\s*·\s*Private\s+Beta/gi,'Musculoskeletal-Skin')
-    .replace(/Module\s+II\s*·\s*Private\s+Beta/gi,'Module II · Musculoskeletal-Skin')
-    .replace(/MSK-Skin\s+Beta\s+Access/gi,'Musculoskeletal-Skin')
-    .replace(/Private\s+Beta/gi,'')
-    .replace(/Beta\s+Access/gi,'');
+  const patchMarkup=raw=>{
+    let txt=raw
+      .replaceAll('<title>Musculoskeletal-Skin · Private Beta</title>','<title>Musculoskeletal-Skin</title>')
+      .replaceAll('Module II · Private Beta','Module II · Musculoskeletal-Skin')
+      .replaceAll('MSK-Skin Beta Access','Musculoskeletal-Skin');
 
-  const publicCss='<style id="mskPublicPatch">.beta-gate{display:none!important}.beta-site{display:block!important}body.beta-locked{overflow:auto!important}</style>';
+    const css=`<style id="mskPublicFinalStyles">
+      .beta-gate{display:none!important}
+      .beta-site{display:block!important}
+      body.beta-locked{overflow:auto!important}
+      #mskFeedbackPanel{margin-top:28px;background:linear-gradient(180deg,#fbfdfb,#f6faf7);border:1px solid #ceddd3;border-radius:22px;box-shadow:0 14px 34px rgba(24,59,42,.08);padding:20px}
+      #mskFeedbackPanel .feedback-grid{display:grid;grid-template-columns:1fr;gap:14px}
+      #mskFeedbackPanel .feedback-card{border:1px solid #ceddd3;background:#fbfdfb;border-radius:16px;padding:18px}
+      #mskFeedbackPanel .feedback-card h3{margin:4px 0 7px;font-size:18px;color:#21362b}
+      #mskFeedbackPanel .feedback-card p{margin:0;color:#63736a;font-size:12px;line-height:1.55}
+      #mskFeedbackPanel .feedback-action{display:inline-flex;align-items:center;gap:8px;margin-top:14px;padding:10px 12px;border-radius:11px;background:#28543d;color:#fff!important;text-decoration:none;font-size:11px;font-weight:850}
+      #mskFeedbackPanel .feedback-email{display:block;margin-top:9px;color:#28543d!important;font-size:11px;font-weight:800;word-break:break-word;text-decoration:none}
+      #mskFeedbackPanel .feedback-badge{display:inline-flex;padding:5px 8px;border-radius:999px;background:#e3ece6;border:1px solid #cdded3;color:#28543d;font-size:9.5px;font-weight:850;text-transform:uppercase;letter-spacing:.05em}
+    </style>`;
 
-  const feedbackCss=`<style id="mskFeedbackStyles">
-  .feedback-panel{margin-top:28px;background:linear-gradient(180deg,#fbfdfb,#f6faf7);border:1px solid #ceddd3;border-radius:22px;box-shadow:0 14px 34px rgba(24,59,42,.08);padding:20px}
-  .feedback-grid{display:grid;grid-template-columns:1fr;gap:14px}
-  .feedback-card{border:1px solid #ceddd3;background:#fbfdfb;border-radius:16px;padding:18px}
-  .feedback-card h3{margin:4px 0 7px;font-size:18px;color:#21362b}
-  .feedback-card p{margin:0;color:#63736a;font-size:12px;line-height:1.55}
-  .feedback-action{display:inline-flex;align-items:center;gap:8px;margin-top:14px;padding:10px 12px;border-radius:11px;background:#28543d;color:#fff!important;text-decoration:none;font-size:11px;font-weight:850}
-  .feedback-email{display:block;margin-top:9px;color:#28543d!important;font-size:11px;font-weight:800;word-break:break-word;text-decoration:none}
-  .feedback-badge{display:inline-flex;padding:5px 8px;border-radius:999px;background:#e3ece6;border:1px solid #cdded3;color:#28543d;font-size:9.5px;font-weight:850;text-transform:uppercase;letter-spacing:.05em}
-  </style>`;
+    const script=`<script id="mskFinalCleanup">(()=>{
+      const cleanVisible=s=>(s||'')
+        .replace(/Module\\s+II\\s*·\\s*Private\\s+Beta/gi,'Module II · Musculoskeletal-Skin')
+        .replace(/MSK-Skin\\s+Beta\\s+Access/gi,'Musculoskeletal-Skin')
+        .replace(/Private\\s+Beta/gi,'')
+        .replace(/Beta\\s+Access/gi,'')
+        .replace(/\\s{2,}/g,' ')
+        .trim();
 
-  const feedbackHtml=`<section class="feedback-panel" id="mskFeedbackPanel">
-    <div class="section-head">
-      <div><span class="section-kicker">Community</span><h2>Help Improve the MegaHub</h2></div>
-      <p class="section-note">Feedback</p>
-    </div>
-    <div class="feedback-grid">
-      <article class="feedback-card">
-        <span class="feedback-badge">Leave Me Feedback</span>
-        <h3>Found something confusing, broken, or worth adding?</h3>
-        <p>Send feedback, corrections, quiz ideas, or feature requests. If you notice a bad link, a question issue, or something that would make the MegaHub better, I want to know.</p>
-        <a class="feedback-action" href="mailto:mikpeters@augusta.edu?subject=Musculoskeletal-Skin%20MegaHub%20Feedback">Email Feedback →</a>
-        <a class="feedback-email" href="mailto:mikpeters@augusta.edu">mikpeters@augusta.edu</a>
-      </article>
-    </div>
-  </section>`;
+      const removeOldFeedback=()=>{
+        const real=document.getElementById('mskFeedbackPanel');
+        document.querySelectorAll('[data-name]').forEach(el=>{
+          if(real&&(el===real||real.contains(el)||el.contains(real)))return;
+          if(/feedback/i.test(el.getAttribute('data-name')||''))el.remove();
+        });
+        document.querySelectorAll('.week-card,.feature-card,.card,.resource-card,.placeholder,.locked-card,article').forEach(el=>{
+          if(real&&(el===real||real.contains(el)||el.contains(real)))return;
+          if(/feedback/i.test(el.textContent||''))el.remove();
+        });
+        document.querySelectorAll('p,small,span,div').forEach(el=>{
+          if(real&&(el===real||real.contains(el)||el.contains(real)))return;
+          if(el.children.length===0&&/feedback/i.test(el.textContent||''))el.remove();
+        });
+      };
 
-  const runtimeScript=`<script id="mskRuntimeCleanup">(()=>{
-    const cleanText=s=>(s||'')
-      .replace(/Module\\s+II\\s*·\\s*Private\\s+Beta/gi,'Module II · Musculoskeletal-Skin')
-      .replace(/MSK-Skin\\s+Beta\\s+Access/gi,'Musculoskeletal-Skin')
-      .replace(/Private\\s+Beta/gi,'')
-      .replace(/Beta\\s+Access/gi,'')
-      .replace(/\\s{2,}/g,' ')
-      .trim();
+      const addRealFeedback=()=>{
+        if(document.getElementById('mskFeedbackPanel'))return;
+        const main=document.querySelector('main');if(!main)return;
+        const section=document.createElement('section');
+        section.id='mskFeedbackPanel';
+        section.innerHTML='<div class="section-head"><div><span class="section-kicker">Community</span><h2>Help Improve the MegaHub</h2></div><p class="section-note">Feedback</p></div><div class="feedback-grid"><article class="feedback-card"><span class="feedback-badge">Leave Me Feedback</span><h3>Found something confusing, broken, or worth adding?</h3><p>Send feedback, corrections, quiz ideas, or feature requests. If you notice a bad link, a question issue, or something that would make the MegaHub better, I want to know.</p><a class="feedback-action" href="mailto:mikpeters@augusta.edu?subject=Musculoskeletal-Skin%20MegaHub%20Feedback">Email Feedback →</a><a class="feedback-email" href="mailto:mikpeters@augusta.edu">mikpeters@augusta.edu</a></article></div>';
+        main.appendChild(section);
+      };
 
-    const removeLegacyFeedback=()=>{
-      document.querySelectorAll('[data-name]').forEach(el=>{
-        if(el.closest('#mskFeedbackPanel'))return;
-        if(/\\bfeedback\\b/i.test(el.getAttribute('data-name')||''))el.remove();
-      });
-      [...document.querySelectorAll('h1,h2,h3,h4,h5,h6')].forEach(h=>{
-        if(h.closest('#mskFeedbackPanel'))return;
-        if(/\\bfeedback\\b/i.test(h.textContent||'')){
-          const card=h.closest('.week-card,.feature-card,.card,.resource-card,.placeholder,.locked-card,section,article');
-          if(card&&!card.closest('#mskFeedbackPanel'))card.remove();
-        }
-      });
-      document.querySelectorAll('.placeholder,.locked-card').forEach(el=>{
-        if(el.closest('#mskFeedbackPanel'))return;
-        if(/\\bfeedback\\b/i.test(el.textContent||''))el.remove();
-      });
-    };
+      const isPathHub=el=>{if(!el)return false;const s=((el.dataset&&el.dataset.name)||'')+' '+(el.textContent||'');return /(?:^|\\b)(?:msk[- ]?skin\\s*)?(?:path|pathology)\\s*hub(?:\\b|$)/i.test(s)};
+      const activateCards=()=>{
+        const map=[
+          ['MSK-Skin Week 13','weeks/week13/index.html'],
+          ['Gross Anatomy Lab','weeks/gross-anatomy/index.html'],
+          ['MSK-Skin Drug Hub','weeks/msk-drug-hub/index.html']
+        ];
+        map.forEach(([name,href])=>{const el=document.querySelector('[data-name="'+name+'"]');if(!el)return;el.classList.remove('placeholder','locked-card');el.classList.add('active-card');el.setAttribute('href',href);el.removeAttribute('onclick');el.onclick=null;const b=el.querySelector('.locked-badge');if(b)b.remove();});
+        const path=[...document.querySelectorAll('[data-name],a,.week-card,.card,.feature-card')].find(isPathHub);if(path){path.classList.remove('placeholder','locked-card');path.classList.add('active-card');path.setAttribute('href','weeks/msk-pathology-hub/index.html');path.removeAttribute('onclick');path.onclick=null;const b=path.querySelector('.locked-badge');if(b)b.remove();}
+      };
 
-    const cleanPage=()=>{
-      document.title=cleanText(document.title)||'Musculoskeletal-Skin';
-      if(document.body){
-        document.body.classList.remove('beta-locked');
-        document.body.classList.add('beta-open');
-      }
-      const gate=document.getElementById('betaGate');if(gate)gate.remove();
-      const walker=document.createTreeWalker(document.body||document.documentElement,NodeFilter.SHOW_TEXT);
-      const nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);
-      nodes.forEach(node=>{const next=cleanText(node.nodeValue);if(next!==node.nodeValue)node.nodeValue=next;});
-      document.querySelectorAll('[title],[aria-label]').forEach(el=>{
-        if(el.hasAttribute('title'))el.setAttribute('title',cleanText(el.getAttribute('title')));
-        if(el.hasAttribute('aria-label'))el.setAttribute('aria-label',cleanText(el.getAttribute('aria-label')));
-      });
-      removeLegacyFeedback();
-    };
+      const cleanPage=()=>{
+        document.title='Musculoskeletal-Skin';
+        if(document.body){document.body.classList.remove('beta-locked');document.body.classList.add('beta-open');}
+        const gate=document.getElementById('betaGate');if(gate)gate.remove();
+        const walker=document.createTreeWalker(document.body||document.documentElement,NodeFilter.SHOW_TEXT);
+        const nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);
+        nodes.forEach(n=>{const v=cleanVisible(n.nodeValue);if(v!==n.nodeValue)n.nodeValue=v;});
+        removeOldFeedback();
+        activateCards();
+        addRealFeedback();
+      };
 
-    const run=()=>{cleanPage();setTimeout(cleanPage,120);setTimeout(cleanPage,500);setTimeout(cleanPage,1200)};
-    if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run,{once:true});else run();
-  })();<\/script>`;
+      const run=()=>{cleanPage();setTimeout(cleanPage,100);setTimeout(cleanPage,400);setTimeout(cleanPage,1000)};
+      if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run,{once:true});else run();
+      new MutationObserver(()=>{clearTimeout(window.__mskCleanTimer);window.__mskCleanTimer=setTimeout(cleanPage,40)}).observe(document.documentElement,{childList:true,subtree:true});
 
-  const activationScript=`<script id="mskActivationPatch">(()=>{
-    const isPathHub=el=>{if(!el)return false;const s=((el.dataset&&el.dataset.name)||'')+' '+(el.textContent||'');return /(?:^|\\b)(?:msk[- ]?skin\\s*)?(?:path|pathology)\\s*hub(?:\\b|$)/i.test(s)};
-    const findPathCard=t=>{if(!t||!t.closest)return null;let el=t.closest('[data-name],a,.week-card,.card,.feature-card');if(el&&isPathHub(el))return el;let n=t;for(let i=0;n&&i<7;i++,n=n.parentElement){if(isPathHub(n))return n}return null};
-    window.addEventListener('click',e=>{const p=findPathCard(e.target);if(p){e.preventDefault();e.stopImmediatePropagation();window.location.href='weeks/msk-pathology-hub/index.html'}},true);
-    const activateCards=()=>{
-      const week13=document.querySelector('[data-name="MSK-Skin Week 13"]');if(week13){const clean=week13.cloneNode(true);clean.classList.remove('placeholder','locked-card');clean.classList.add('active-card');clean.setAttribute('href','weeks/week13/index.html');clean.removeAttribute('onclick');clean.onclick=null;const badge=clean.querySelector('.locked-badge');if(badge)badge.remove();week13.replaceWith(clean);}
-      const gross=document.querySelector('[data-name="Gross Anatomy Lab"]');if(gross){const g=gross.cloneNode(true);g.classList.remove('placeholder','locked-card');g.classList.add('active-card');g.setAttribute('href','weeks/gross-anatomy/index.html');g.removeAttribute('onclick');g.onclick=null;const gb=g.querySelector('.locked-badge');if(gb)gb.remove();gross.replaceWith(g);}
-      const drug=document.querySelector('[data-name="MSK-Skin Drug Hub"]');if(drug){drug.classList.remove('placeholder','locked-card');drug.classList.add('active-card');drug.setAttribute('href','weeks/msk-drug-hub/index.html');drug.removeAttribute('onclick');drug.onclick=null;const db=drug.querySelector('.locked-badge');if(db)db.remove();}
-      const candidates=[...document.querySelectorAll('[data-name],a,.week-card,.card,.feature-card')];const path=candidates.find(isPathHub);if(path){const p=path.cloneNode(true);p.classList.remove('placeholder','locked-card');p.classList.add('active-card');p.setAttribute('href','weeks/msk-pathology-hub/index.html');p.removeAttribute('onclick');p.onclick=null;const pb=p.querySelector('.locked-badge');if(pb)pb.remove();path.replaceWith(p);}
-    };
-    if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',activateCards,{once:true});else activateCards();
-    setTimeout(activateCards,250);setTimeout(activateCards,900);
-    document.addEventListener('click',e=>{const gross=e.target.closest&&e.target.closest('[data-name="Gross Anatomy Lab"]');if(gross){e.preventDefault();e.stopImmediatePropagation();window.location.href='weeks/gross-anatomy/index.html';return;}const drug=e.target.closest&&e.target.closest('[data-name="MSK-Skin Drug Hub"]');if(drug){e.preventDefault();e.stopImmediatePropagation();window.location.href='weeks/msk-drug-hub/index.html';}},true);
-  })();<\/script>`;
+      window.addEventListener('click',e=>{
+        const path=e.target.closest&&e.target.closest('[data-name],a,.week-card,.card,.feature-card');
+        if(path&&isPathHub(path)){e.preventDefault();e.stopImmediatePropagation();location.href='weeks/msk-pathology-hub/index.html';return;}
+        const gross=e.target.closest&&e.target.closest('[data-name="Gross Anatomy Lab"]');if(gross){e.preventDefault();e.stopImmediatePropagation();location.href='weeks/gross-anatomy/index.html';return;}
+        const drug=e.target.closest&&e.target.closest('[data-name="MSK-Skin Drug Hub"]');if(drug){e.preventDefault();e.stopImmediatePropagation();location.href='weeks/msk-drug-hub/index.html';}
+      },true);
+    })();<\/script>`;
 
-  const transform=raw=>{
-    let txt=scrubBeta(raw);
-    if(!txt.includes('mskPublicPatch')){
-      if(txt.includes('</head>'))txt=txt.replace('</head>',publicCss+'</head>');
-      else txt=publicCss+txt;
-    }
-    if(txt.includes('data-name="MSK-Skin Week 13"')){
-      if(!txt.includes('mskFeedbackStyles'))txt=txt.includes('</head>')?txt.replace('</head>',feedbackCss+'</head>'):feedbackCss+txt;
-      if(!txt.includes('mskFeedbackPanel')&&txt.includes('</main>'))txt=txt.replace('</main>',feedbackHtml+'</main>');
-      if(!txt.includes('mskActivationPatch'))txt=txt.includes('</body>')?txt.replace('</body>',activationScript+'</body>'):txt+activationScript;
-    }
-    if(!txt.includes('mskRuntimeCleanup'))txt=txt.includes('</body>')?txt.replace('</body>',runtimeScript+'</body>'):txt+runtimeScript;
+    if(!txt.includes('mskPublicFinalStyles'))txt=txt.includes('</head>')?txt.replace('</head>',css+'</head>'):css+txt;
+    if(!txt.includes('mskFinalCleanup'))txt=txt.includes('</body>')?txt.replace('</body>',script+'</body>'):txt+script;
     return txt;
   };
 
@@ -126,16 +106,14 @@
     const input=args[0];
     const url=typeof input==='string'?input:(input&&input.url)||'';
     if(url.includes('raw.githubusercontent.com/mikkellepeters-a11y/Foundations-of-med--2030/')&&/\/MSK\.html(?:\?|$)/.test(url)){
-      const txt=transform(await res.text());
-      return new Response(txt,{status:res.status,statusText:res.statusText,headers:res.headers});
+      return new Response(patchMarkup(await res.text()),{status:res.status,statusText:res.statusText,headers:res.headers});
     }
     return res;
   };
 
   const r=await nativeFetch('https://raw.githubusercontent.com/mikkellepeters-a11y/Foundations-of-med--2030/ebaeccdc3bacb39167a599d2c6edcd956acf4113/MSK.html');
   if(!r.ok)throw new Error('MSK base failed');
-  const t=transform(await r.text());
-  document.open();document.write(t);document.close();
+  document.open();document.write(patchMarkup(await r.text()));document.close();
 })().catch(e=>{console.error(e);document.body.innerHTML='<p style="font-family:system-ui;padding:24px">MSK hub failed to load. Please refresh.</p>'});
 </script>
 </body>
