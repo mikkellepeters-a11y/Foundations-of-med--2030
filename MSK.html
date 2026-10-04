@@ -52,6 +52,32 @@
         });
       };
 
+      const removeTestingSentence=()=>{
+        const target='The MSK-Skin structure is online for testing, but the module cards are intentionally locked until their content is ready to be revealed.';
+        document.querySelectorAll('p,small,.section-note,.desc,.lede').forEach(el=>{
+          const text=(el.textContent||'').replace(/\\s+/g,' ').trim();
+          if(text===target||text.includes(target))el.remove();
+        });
+      };
+
+      const removeModuleTools=()=>{
+        const headings=[...document.querySelectorAll('h1,h2,h3,h4,h5,h6')];
+        headings.forEach(h=>{
+          if((h.textContent||'').replace(/\\s+/g,' ').trim().toLowerCase()!=='module tools')return;
+          const section=h.closest('section');
+          if(section){section.remove();return;}
+          const head=h.closest('.section-head')||h.parentElement;
+          if(!head)return;
+          const next=head.nextElementSibling;
+          if(next&&(next.matches('.week-grid,.tool-grid,.module-tools,.cards,.card-grid')||/tool|resource|module/i.test(next.className||'')))next.remove();
+          if(head.parentElement&&head.parentElement.tagName!=='MAIN'&&/module tools/i.test(head.parentElement.textContent||'')){
+            const p=head.parentElement;
+            if(!p.querySelector('#mskFeedbackPanel'))p.remove();
+          }else head.remove();
+        });
+        document.querySelectorAll('[data-section="module-tools"],#moduleTools,.module-tools,.module-tools-section').forEach(el=>el.remove());
+      };
+
       const addRealFeedback=()=>{
         if(document.getElementById('mskFeedbackPanel'))return;
         const main=document.querySelector('main');if(!main)return;
@@ -63,13 +89,8 @@
 
       const isPathHub=el=>{if(!el)return false;const s=((el.dataset&&el.dataset.name)||'')+' '+(el.textContent||'');return /(?:^|\\b)(?:msk[- ]?skin\\s*)?(?:path|pathology)\\s*hub(?:\\b|$)/i.test(s)};
       const activateCards=()=>{
-        const map=[
-          ['MSK-Skin Week 13','weeks/week13/index.html'],
-          ['Gross Anatomy Lab','weeks/gross-anatomy/index.html'],
-          ['MSK-Skin Drug Hub','weeks/msk-drug-hub/index.html']
-        ];
-        map.forEach(([name,href])=>{const el=document.querySelector('[data-name="'+name+'"]');if(!el)return;el.classList.remove('placeholder','locked-card');el.classList.add('active-card');el.setAttribute('href',href);el.removeAttribute('onclick');el.onclick=null;const b=el.querySelector('.locked-badge');if(b)b.remove();});
-        const path=[...document.querySelectorAll('[data-name],a,.week-card,.card,.feature-card')].find(isPathHub);if(path){path.classList.remove('placeholder','locked-card');path.classList.add('active-card');path.setAttribute('href','weeks/msk-pathology-hub/index.html');path.removeAttribute('onclick');path.onclick=null;const b=path.querySelector('.locked-badge');if(b)b.remove();}
+        const week13=document.querySelector('[data-name="MSK-Skin Week 13"]');
+        if(week13){week13.classList.remove('placeholder','locked-card');week13.classList.add('active-card');week13.setAttribute('href','weeks/week13/index.html');week13.removeAttribute('onclick');week13.onclick=null;const b=week13.querySelector('.locked-badge');if(b)b.remove();}
       };
 
       const cleanPage=()=>{
@@ -80,6 +101,8 @@
         const nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);
         nodes.forEach(n=>{const v=cleanVisible(n.nodeValue);if(v!==n.nodeValue)n.nodeValue=v;});
         removeOldFeedback();
+        removeTestingSentence();
+        removeModuleTools();
         activateCards();
         addRealFeedback();
       };
@@ -87,13 +110,6 @@
       const run=()=>{cleanPage();setTimeout(cleanPage,100);setTimeout(cleanPage,400);setTimeout(cleanPage,1000)};
       if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run,{once:true});else run();
       new MutationObserver(()=>{clearTimeout(window.__mskCleanTimer);window.__mskCleanTimer=setTimeout(cleanPage,40)}).observe(document.documentElement,{childList:true,subtree:true});
-
-      window.addEventListener('click',e=>{
-        const path=e.target.closest&&e.target.closest('[data-name],a,.week-card,.card,.feature-card');
-        if(path&&isPathHub(path)){e.preventDefault();e.stopImmediatePropagation();location.href='weeks/msk-pathology-hub/index.html';return;}
-        const gross=e.target.closest&&e.target.closest('[data-name="Gross Anatomy Lab"]');if(gross){e.preventDefault();e.stopImmediatePropagation();location.href='weeks/gross-anatomy/index.html';return;}
-        const drug=e.target.closest&&e.target.closest('[data-name="MSK-Skin Drug Hub"]');if(drug){e.preventDefault();e.stopImmediatePropagation();location.href='weeks/msk-drug-hub/index.html';}
-      },true);
     })();<\/script>`;
 
     if(!txt.includes('mskPublicFinalStyles'))txt=txt.includes('</head>')?txt.replace('</head>',css+'</head>'):css+txt;
