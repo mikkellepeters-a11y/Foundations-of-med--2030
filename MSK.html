@@ -85,12 +85,36 @@
         el.onclick=null;
         const badge=el.querySelector('.locked-badge');if(badge)badge.remove();
       });
+
+      const cbl=document.querySelector('[data-name="MSK-Skin CBL"]');
+      if(cbl){
+        cbl.classList.remove('placeholder','locked-card');
+        cbl.classList.add('active-card');
+        cbl.setAttribute('href','#');
+        cbl.removeAttribute('onclick');
+        cbl.onclick=null;
+        const badge=cbl.querySelector('.locked-badge');if(badge)badge.remove();
+        const top=cbl.querySelector('.card-top');
+        if(top&&!cbl.querySelector('.week-label')){
+          const tag=document.createElement('span');
+          tag.className='week-label';
+          tag.textContent='MSK';
+          top.appendChild(tag);
+        }
+        const h=cbl.querySelector('h3');
+        if(h&&!cbl.querySelector('.active-desc')){
+          h.insertAdjacentHTML('afterend','<p class="active-desc">Case-based learning for MSK-Skin with integrated clinical reasoning, quick guides, and case quizzes as they are added.</p><div class="active-footer"><div class="active-tags"><span class="active-tag">Cases</span><span class="active-tag">Quick Guides</span><span class="active-tag">Quizzes</span></div><div class="active-arrow">→</div></div>');
+        }
+      }
       ensureFeedback();
     };
 
     document.addEventListener('click',e=>{
       const el=e.target.closest&&e.target.closest('[data-name]');
       if(!el)return;
+      if(el.getAttribute('data-name')==='MSK-Skin CBL'){
+        e.preventDefault();e.stopImmediatePropagation();return;
+      }
       const href=routeMap[el.getAttribute('data-name')];
       if(!href)return;
       e.preventDefault();e.stopImmediatePropagation();location.href=href;
