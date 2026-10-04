@@ -24,6 +24,7 @@ main{padding:34px 22px 68px}.section-head{display:flex;justify-content:space-bet
 </section><div class="note"><strong>Practical organization:</strong> this page is the first stop for Upper Extremity Practical review. Each dissection will open into its own focused workspace as the structure lists and study tools are added.</div></main>
 <footer>Musculoskeletal-Skin · Gross Anatomy · Upper Extremity Practical</footer><div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script src="dissection-symbols.js"></script>
+<script src="dissection-4-override.js"></script>
 <script>
 (async()=>{try{const r=await fetch('https://raw.githubusercontent.com/mikkellepeters-a11y/Foundations-of-med--2030/3c4ae527500e332922e3e9e0618006fa2c5a3fa8/weeks/gross-anatomy/index.html',{cache:'force-cache'});if(!r.ok)return;const txt=await r.text();const m=txt.match(/upperImg\.src='(data:image\/webp;base64,[^']+)'/);if(!m)return;const img=document.createElement('img');img.src=m[1];img.alt='Upper Extremity practical shoulder anatomy symbol';document.getElementById('upperHeroIcon')?.replaceChildren(img)}catch(e){console.warn('Upper extremity hero image fallback in use.',e)}})();
 const toast=document.getElementById('toast');let timer;document.querySelectorAll('.placeholder').forEach(el=>el.addEventListener('click',e=>{e.preventDefault();toast.textContent=(el.dataset.name||'This dissection')+' is ready for content to be added.';toast.classList.add('show');clearTimeout(timer);timer=setTimeout(()=>toast.classList.remove('show'),1800)}));
