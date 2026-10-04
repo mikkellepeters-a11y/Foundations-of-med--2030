@@ -45,6 +45,16 @@
       'MSK-Skin Pathology Hub':'weeks/msk-pathology-hub/index.html'
     };
 
+    const ensureFeedback=()=>{
+      if(document.getElementById('mskFeedbackPanel'))return;
+      const main=document.querySelector('main');if(!main)return;
+      const section=document.createElement('section');
+      section.className='feedback-panel';
+      section.id='mskFeedbackPanel';
+      section.innerHTML='<div class="section-head"><div><span class="section-kicker">Community</span><h2>Help Improve the MegaHub</h2></div><p class="section-note">Feedback</p></div><div class="feedback-grid"><article class="feedback-card"><span class="feedback-badge">Leave Me Feedback</span><h3>Found something confusing, broken, or worth adding?</h3><p>Send feedback, corrections, quiz ideas, or feature requests. If you notice a bad link, a question issue, or something that would make the MegaHub better, I want to know.</p><a class="feedback-action" href="mailto:mikpeters@augusta.edu?subject=Musculoskeletal-Skin%20MegaHub%20Feedback">Email Feedback →</a><a class="feedback-email" href="mailto:mikpeters@augusta.edu">mikpeters@augusta.edu</a></article></div>';
+      main.appendChild(section);
+    };
+
     const activate=()=>{
       document.title='Musculoskeletal-Skin';
       document.body&&document.body.classList.remove('beta-locked');
@@ -75,6 +85,7 @@
         el.onclick=null;
         const badge=el.querySelector('.locked-badge');if(badge)badge.remove();
       });
+      ensureFeedback();
     };
 
     document.addEventListener('click',e=>{
@@ -95,14 +106,14 @@
       .replaceAll('MSK-Skin Beta Access','Musculoskeletal-Skin')
       .replaceAll('Musculoskeletal-Skin · Module II · Private Beta','Musculoskeletal-Skin · Module II');
 
-    // Remove the two legacy blocks from the actual standalone MSK markup before render.
+    // Keep the existing removal of the two legacy blocks unchanged.
     txt=txt.replace(/<div class="mockup-note">[\s\S]*?<\/div>/i,'');
     txt=txt.replace(/<section class="feedback-panel">(?=[\s\S]*?<span class="section-kicker">Module Tools<\/span>)[\s\S]*?<\/section>/i,'');
 
     const isStandalone=txt.includes('class="week-grid"')&&txt.includes('</main>');
     if(isStandalone){
       if(!txt.includes('mskPublicFinalStyles'))txt=txt.includes('</head>')?txt.replace('</head>',publicCss+'</head>'):publicCss+txt;
-      if(!txt.includes('mskFeedbackPanel'))txt=txt.replace('</main>',feedbackHtml+'</main>');
+      if(!txt.includes('id="mskFeedbackPanel"'))txt=txt.replace('</main>',feedbackHtml+'</main>');
       if(!txt.includes('mskPublicRuntime'))txt=txt.replace('</body>',runtime+'</body>');
     }
     return txt;
