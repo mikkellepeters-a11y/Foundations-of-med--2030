@@ -104,7 +104,8 @@
       .replaceAll('<title>Musculoskeletal-Skin · Private Beta</title>','<title>Musculoskeletal-Skin</title>')
       .replaceAll('Module II · Private Beta','Module II · Musculoskeletal-Skin')
       .replaceAll('MSK-Skin Beta Access','Musculoskeletal-Skin')
-      .replaceAll('Musculoskeletal-Skin · Module II · Private Beta','Musculoskeletal-Skin · Module II');
+      .replaceAll('Musculoskeletal-Skin · Module II · Private Beta','Musculoskeletal-Skin · Module II')
+      .replaceAll('<span class="active-tag">Open Book Quiz</span>','<span class="active-tag">Quizzes</span>');
 
     // Keep the existing removal of the two legacy blocks unchanged.
     txt=txt.replace(/<div class="mockup-note">[\s\S]*?<\/div>/i,'');
