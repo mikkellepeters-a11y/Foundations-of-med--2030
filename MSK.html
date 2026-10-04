@@ -42,7 +42,8 @@
       'MSK-Skin Week 13':'weeks/week13/index.html',
       'Gross Anatomy Lab':'weeks/gross-anatomy/index.html',
       'MSK-Skin Drug Hub':'weeks/msk-drug-hub/index.html',
-      'MSK-Skin Pathology Hub':'weeks/msk-pathology-hub/index.html'
+      'MSK-Skin Pathology Hub':'weeks/msk-pathology-hub/index.html',
+      'MSK-Skin CBL':'weeks/msk-cbl/index.html'
     };
 
     const ensureFeedback=()=>{
@@ -90,7 +91,7 @@
       if(cbl){
         cbl.classList.remove('placeholder','locked-card');
         cbl.classList.add('active-card');
-        cbl.setAttribute('href','#');
+        cbl.setAttribute('href','weeks/msk-cbl/index.html');
         cbl.removeAttribute('onclick');
         cbl.onclick=null;
         const badge=cbl.querySelector('.locked-badge');if(badge)badge.remove();
@@ -112,9 +113,6 @@
     document.addEventListener('click',e=>{
       const el=e.target.closest&&e.target.closest('[data-name]');
       if(!el)return;
-      if(el.getAttribute('data-name')==='MSK-Skin CBL'){
-        e.preventDefault();e.stopImmediatePropagation();return;
-      }
       const href=routeMap[el.getAttribute('data-name')];
       if(!href)return;
       e.preventDefault();e.stopImmediatePropagation();location.href=href;
