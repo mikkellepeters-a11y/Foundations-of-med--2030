@@ -11,7 +11,7 @@
     .beta-gate{display:none!important}
     .beta-site{display:block!important}
     body.beta-locked{overflow:auto!important}
-    #mskModuleHubBack{display:inline-flex;align-items:center;width:max-content;padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.10);color:#fff!important;text-decoration:none;font-size:11px;font-weight:850;transition:.15s ease}
+    #mskModuleHubBack{display:inline-flex;align-items:center;flex:0 0 auto;width:max-content;padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.10);color:#fff!important;text-decoration:none;font-size:11px;font-weight:850;transition:.15s ease}
     #mskModuleHubBack:hover{background:rgba(255,255,255,.18);transform:translateY(-1px)}
     #mskLeaderboardButton{display:inline-flex;align-items:center;gap:7px;margin-top:10px;padding:9px 13px;border-radius:11px;background:#28543d;color:#fff!important;text-decoration:none;font-size:11px;font-weight:850;box-shadow:0 6px 14px rgba(24,59,42,.14)}
     #mskLeaderboardButton:hover{background:#183b2a}
@@ -60,9 +60,7 @@
       back.href='index.html';
       back.setAttribute('aria-label','Back to Module Hub');
       back.textContent='← Module Hub';
-      const actions=brandRow.querySelector('.header-actions');
-      if(actions)actions.insertAdjacentElement('afterbegin',back);
-      else brandRow.appendChild(back);
+      brandRow.insertAdjacentElement('afterbegin',back);
     };
 
     const ensureLeaderboardButton=()=>{
