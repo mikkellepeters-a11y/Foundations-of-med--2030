@@ -30,14 +30,14 @@ const adapter=await tracker.createAdapter({...quiz,userId:'validator-user',store
 const q=(id,overrides={})=>({question_id:id,week:'Week 13',lecture:'Validator Lecture',topic:'Upper Extremity',difficulty:'Intermediate',stem:`Validator question ${id}`,choices:['Choice A','Choice B','Choice C','Choice D'],correct_answer:'Choice A',explanation:'Validator explanation.',...overrides});
 
 try{
-  const first=await adapter.recordAnswer(q('repeat-1'),{selectedAnswer:'Choice B',confidence:'medium'});
+  await adapter.recordAnswer(q('repeat-1'),{selectedAnswer:'Choice B',confidence:'medium'});
   let state=store.inspect();
   add('First ordinary miss is stored as an attempt',state.question_attempts.length===1);
   add('First ordinary miss is not yet Repeatedly Missed',!state.review_items.some(x=>x.question_id==='repeat-1'),'No review item should be created from a single neutral-confidence miss.');
   add('Attempts are hard-scoped to MSK',state.question_attempts[0]?.module_key==='msk');
 
   adapter.newAttempt('validator-attempt-2');
-  const second=await adapter.recordAnswer(q('repeat-1'),{selectedAnswer:'Choice B',confidence:'medium'});
+  await adapter.recordAnswer(q('repeat-1'),{selectedAnswer:'Choice B',confidence:'medium'});
   state=store.inspect();
   const repeated=state.review_items.find(x=>x.question_id==='repeat-1');
   add('Second miss across a retake creates Repeatedly Missed',repeated?.review_reasons?.includes('repeatedly_missed'));
@@ -82,8 +82,8 @@ try{
   state=store.inspect();
   add('A new attempt token allows the same question on a retake',retake?.duplicate===false&&state.question_attempts.length===countBeforeRetake+1);
 
-  const bad=adapter.validateQuestion({question_id:'bad-1',week:'Week 13',topic:'Test',difficulty:'In-House',stem:'Missing lecture',choices:['A','B'],correct_answer:'A'});
-  add('Question contract rejects missing required metadata',bad.valid===false&&bad.missing.includes('lecture'),bad.missing.join(', '));
+  const bad=adapter.validateQuestion({question_id:'bad-1',week:'Week 13',difficulty:'In-House',stem:'Missing topic',choices:['A','B'],correct_answer:'A'});
+  add('Question contract rejects missing required metadata',bad.valid===false&&bad.missing.includes('topic'),bad.missing.join(', '));
 
   add('No Foundations module rows were produced',[...state.question_attempts,...state.quiz_attempts,...state.review_items].every(row=>row.module_key==='msk'));
 }catch(error){
