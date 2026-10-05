@@ -4,8 +4,13 @@
   window.__MSK_REVIEW_ROUTE_FIX__=true;
 
   const DESTINATION=new URL('review/msk-review-center.html',window.location.href).href;
-  const EXACT_NAMES=new Set(['Review the Module','MSK-Skin Review the Module']);
-  const REVIEW_TEXT=/^review\s+the\s+module$/i;
+  const EXACT_NAMES=new Set([
+    'MSK-Skin Review the Mod',
+    'MSK-Skin Review the Module',
+    'Review the Mod',
+    'Review the Module'
+  ]);
+  const REVIEW_TEXT=/^review\s+the\s+mod(?:ule)?$/i;
 
   const clean=value=>String(value||'').replace(/\s+/g,' ').trim();
 
@@ -19,7 +24,8 @@
     const name=clean(el.getAttribute?.('data-name'));
     if(EXACT_NAMES.has(name))return true;
     const heading=el.matches?.('h1,h2,h3,h4')?el:el.querySelector?.('h1,h2,h3,h4');
-    return Boolean(heading&&REVIEW_TEXT.test(clean(heading.textContent)));
+    if(heading&&REVIEW_TEXT.test(clean(heading.textContent)))return true;
+    return REVIEW_TEXT.test(clean(el.textContent));
   }
 
   function findCards(){
@@ -27,8 +33,8 @@
     document.querySelectorAll('[data-name]').forEach(el=>{
       if(EXACT_NAMES.has(clean(el.getAttribute('data-name'))))found.add(el);
     });
-    document.querySelectorAll('h1,h2,h3,h4').forEach(h=>{
-      if(REVIEW_TEXT.test(clean(h.textContent)))found.add(cardFrom(h));
+    document.querySelectorAll('a,button,[role="button"],h1,h2,h3,h4').forEach(el=>{
+      if(REVIEW_TEXT.test(clean(el.textContent)))found.add(cardFrom(el));
     });
     return [...found].filter(Boolean);
   }
