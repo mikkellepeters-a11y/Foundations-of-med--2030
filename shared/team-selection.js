@@ -1,14 +1,20 @@
 (()=>{
-  const GROUPS=[...'ABCDEFGHIJKLMNOPQRSTUVWXYZ','AA','BB','CC','DD'];
+  const CBL_GROUPS=[...'ABCDEFGHIJKLMNOPQRSTUVWXYZ','AA','BB','CC','DD'];
+  const HOUSE_GROUPS=[...'ABCDEFGHIJKLMN'];
+  const ANATOMY_TABLES=Array.from({length:30},(_,i)=>String(i+1));
+  const PCL_GROUPS=Array.from({length:66},(_,i)=>String(i+1));
   const FOUNDATION_UNLOCK_AT=Date.parse('2026-10-01T18:00:00Z'); // 2:00 PM EDT
-  const ACADEMIC_GROUPS=[
-    {key:'anatomy_table',inputId:'anatomyTable',chipId:'profileAnatomyTable',label:'Anatomy Table',placeholder:'e.g. Table 4'},
-    {key:'pcl_group',inputId:'pclGroup',chipId:'profilePclGroup',label:'PCL',placeholder:'e.g. PCL 7'},
-    {key:'house',inputId:'houseGroup',chipId:'profileHouse',label:'House',placeholder:'e.g. Your house'}
+
+  const PROFILE_GROUPS=[
+    {key:'cbl_group',inputId:'cblGroup',chipId:'profileCblGroupCard',label:'CBL Group',options:CBL_GROUPS,empty:'No CBL Group selected',display:v=>`CBL Group ${v}`},
+    {key:'anatomy_table',inputId:'anatomyTable',chipId:'profileAnatomyTable',label:'Anatomy Table',options:ANATOMY_TABLES,empty:'No Anatomy Table selected',display:v=>`Table ${v}`},
+    {key:'pcl_group',inputId:'pclGroup',chipId:'profilePclGroup',label:'PCL',options:PCL_GROUPS,empty:'No PCL group selected',display:v=>`PCL ${v}`},
+    {key:'house',inputId:'houseGroup',chipId:'profileHouse',label:'House',options:HOUSE_GROUPS,empty:'No House selected',display:v=>`House ${v}`}
   ];
-  let academicGroupMembers={anatomy_table:[],pcl_group:[],house:[]};
-  let academicMembersLoading=false;
-  let academicMembersSignature=null;
+
+  let groupMembers={cbl_group:[],anatomy_table:[],pcl_group:[],house:[]};
+  let groupMembersLoading=false;
+  let groupMembersSignature=null;
 
   const ACHIEVEMENTS=[
     {id:'first-question',icon:'✦',title:'First Question',description:'Answer your first MegaHub question.',kind:'questions',target:1},
@@ -33,7 +39,7 @@
 
   const escapeHtml=value=>String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[char]));
 
-  function injectAcademicGroupStyles(){
+  function injectGroupStyles(){
     if(document.getElementById('academicGroupStyles'))return;
     const style=document.createElement('style');
     style.id='academicGroupStyles';
@@ -42,7 +48,7 @@
       .academic-memberships-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:9px}
       .academic-memberships-title{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
       .academic-memberships-hint{font-size:9px;color:var(--muted)}
-      .academic-group-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+      .academic-group-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
       .academic-group-chip{position:relative;min-width:0;padding:11px 12px;border:1px solid var(--line);border-radius:13px;background:#fffaf5;outline:0;cursor:default;transition:.15s ease}
       .academic-group-chip:hover,.academic-group-chip:focus,.academic-group-chip.open{border-color:#bda58f;background:#fff;box-shadow:0 8px 22px rgba(65,43,31,.09)}
       .academic-group-label{display:block;font-size:8.5px;font-weight:900;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
@@ -54,13 +60,25 @@
       .academic-popover-note{font-size:10px;line-height:1.45;color:var(--muted)}
       .academic-peer-list{display:grid;gap:5px;margin:0;padding:0;list-style:none}
       .academic-peer-list li{padding:6px 8px;border-radius:8px;background:var(--tan);font-size:10px;font-weight:800}
-      @media(max-width:720px){.academic-group-grid{grid-template-columns:1fr}.academic-group-popover{position:static;width:100%;margin-top:8px}}
+      @media(max-width:900px){.academic-group-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+      @media(max-width:520px){.academic-group-grid{grid-template-columns:1fr}.academic-group-popover{position:static;width:100%;margin-top:8px}}
     `;
     document.head.appendChild(style);
   }
 
-  function ensureAcademicGroupUI(){
-    injectAcademicGroupStyles();
+  function makeGroupSelect(group){
+    const select=document.createElement('select');
+    select.id=group.inputId;
+    select.innerHTML=`<option value="">${group.empty}</option>`+group.options.map(value=>`<option value="${escapeHtml(value)}">${escapeHtml(group.display(value))}</option>`).join('');
+    return select;
+  }
+
+  function ensureGroupUI(){
+    injectGroupStyles();
+
+    // Remove the legacy standalone CBL pill so CBL lives with the other groups.
+    document.getElementById('profileCblGroup')?.remove();
+
     const profileCard=document.querySelector('#panel-profile .card');
     if(profileCard&&!document.getElementById('academicGroupMemberships')){
       const wrap=document.createElement('div');
@@ -72,7 +90,7 @@
           <span class="academic-memberships-hint">Hover or tap to see classmates</span>
         </div>
         <div class="academic-group-grid">
-          ${ACADEMIC_GROUPS.map(group=>`<div class="academic-group-chip" id="${group.chipId}" tabindex="0" role="button" aria-label="${group.label} membership"><span class="academic-group-label">${group.label}</span><strong class="academic-group-value">Not set</strong><span class="academic-group-peer-count">Set in Profile Settings</span><div class="academic-group-popover" role="tooltip"></div></div>`).join('')}
+          ${PROFILE_GROUPS.map(group=>`<div class="academic-group-chip" id="${group.chipId}" tabindex="0" role="button" aria-label="${group.label} membership"><span class="academic-group-label">${group.label}</span><strong class="academic-group-value">Not set</strong><span class="academic-group-peer-count">Set in Profile Settings</span><div class="academic-group-popover" role="tooltip"></div></div>`).join('')}
         </div>`;
       profileCard.appendChild(wrap);
       wrap.querySelectorAll('.academic-group-chip').forEach(chip=>{
@@ -88,116 +106,98 @@
 
     const grid=document.querySelector('#panel-settings .card:first-child .form-grid');
     if(grid){
-      ACADEMIC_GROUPS.forEach(group=>{
-        if(document.getElementById(group.inputId))return;
+      PROFILE_GROUPS.forEach(group=>{
+        const existing=document.getElementById(group.inputId);
+        if(existing){
+          if(existing.tagName==='SELECT')return;
+          const currentValue=existing.value;
+          const select=makeGroupSelect(group);
+          select.value=currentValue;
+          existing.replaceWith(select);
+          return;
+        }
         const field=document.createElement('div');
         field.className='field';
         const label=document.createElement('label');
         label.htmlFor=group.inputId;
         label.textContent=group.label;
-        const input=document.createElement('input');
-        input.id=group.inputId;
-        input.type='text';
-        input.maxLength=60;
-        input.autocomplete='off';
-        input.placeholder=group.placeholder;
-        field.append(label,input);
+        field.append(label,makeGroupSelect(group));
         grid.appendChild(field);
       });
     }
   }
 
-  function renderAcademicGroups(){
-    ensureAcademicGroupUI();
-    ACADEMIC_GROUPS.forEach(group=>{
-      const value=((typeof profileRow!=='undefined'&&profileRow?.[group.key])||'').trim();
+  function renderGroups(){
+    ensureGroupUI();
+    PROFILE_GROUPS.forEach(group=>{
+      const value=String((typeof profileRow!=='undefined'&&profileRow?.[group.key])||'').trim();
       const input=document.getElementById(group.inputId);
       const chip=document.getElementById(group.chipId);
-      if(input&&document.activeElement!==input)input.value=value;
+      if(input&&document.activeElement!==input)input.value=group.options.includes(value)?value:'';
       if(!chip)return;
-      const peers=academicGroupMembers[group.key]||[];
+
+      const peers=groupMembers[group.key]||[];
       const valueEl=chip.querySelector('.academic-group-value');
       const countEl=chip.querySelector('.academic-group-peer-count');
       const popover=chip.querySelector('.academic-group-popover');
-      valueEl.textContent=value||'Not set';
-      chip.setAttribute('aria-label',value?`${group.label}: ${value}. Hover or tap to see classmates.`:`${group.label} not set`);
+      const displayValue=value?group.display(value):'Not set';
+      valueEl.textContent=displayValue;
+      chip.setAttribute('aria-label',value?`${displayValue}. Hover or tap to see classmates.`:`${group.label} not set`);
+
       if(!value){
         countEl.textContent='Set in Profile Settings';
-        popover.innerHTML=`<div class="academic-popover-title">${group.label}</div><div class="academic-popover-note">Add your ${group.label} in Profile Settings to see who else is in your group.</div>`;
-      }else if(academicMembersLoading){
+        popover.innerHTML=`<div class="academic-popover-title">${group.label}</div><div class="academic-popover-note">Choose your ${group.label} in Profile Settings to see who else is in your group.</div>`;
+      }else if(groupMembersLoading){
         countEl.textContent='Loading classmates…';
-        popover.innerHTML=`<div class="academic-popover-title">${escapeHtml(value)}</div><div class="academic-popover-note">Loading classmates…</div>`;
+        popover.innerHTML=`<div class="academic-popover-title">${escapeHtml(displayValue)}</div><div class="academic-popover-note">Loading classmates…</div>`;
       }else if(!peers.length){
         countEl.textContent='No classmates listed yet';
-        popover.innerHTML=`<div class="academic-popover-title">${escapeHtml(value)}</div><div class="academic-popover-note">No other MegaHub users have this ${group.label} saved yet.</div>`;
+        popover.innerHTML=`<div class="academic-popover-title">${escapeHtml(displayValue)}</div><div class="academic-popover-note">No other MegaHub users have this ${group.label} saved yet.</div>`;
       }else{
         countEl.textContent=`${peers.length} classmate${peers.length===1?'':'s'}`;
-        popover.innerHTML=`<div class="academic-popover-title">${escapeHtml(value)}</div><ul class="academic-peer-list">${peers.map(name=>`<li>${escapeHtml(name)}</li>`).join('')}</ul>`;
+        popover.innerHTML=`<div class="academic-popover-title">${escapeHtml(displayValue)}</div><ul class="academic-peer-list">${peers.map(name=>`<li>${escapeHtml(name)}</li>`).join('')}</ul>`;
       }
     });
   }
 
-  function academicSignature(){
+  function membershipSignature(){
     if(typeof profileRow==='undefined'||!profileRow)return null;
-    return ACADEMIC_GROUPS.map(group=>String(profileRow?.[group.key]||'').trim().toLowerCase()).join('|');
+    return PROFILE_GROUPS.map(group=>String(profileRow?.[group.key]||'').trim().toLowerCase()).join('|');
   }
 
-  async function loadAcademicGroupMembers(force=false){
+  async function loadGroupMembers(force=false){
     if(typeof currentUser==='undefined'||!currentUser?.id||typeof profileRow==='undefined'||!profileRow)return;
-    const signature=academicSignature();
-    if(!force&&signature===academicMembersSignature)return;
-    academicMembersSignature=signature;
-    academicMembersLoading=true;
-    renderAcademicGroups();
+    const signature=membershipSignature();
+    if(!force&&signature===groupMembersSignature)return;
+    groupMembersSignature=signature;
+    groupMembersLoading=true;
+    renderGroups();
+
     const {data,error}=await supabaseClient.rpc('get_my_group_members');
-    academicMembersLoading=false;
-    academicGroupMembers={anatomy_table:[],pcl_group:[],house:[]};
+    groupMembersLoading=false;
+    groupMembers={cbl_group:[],anatomy_table:[],pcl_group:[],house:[]};
+
     if(error){
       console.warn('MegaHub group member lookup failed:',error.message);
-      renderAcademicGroups();
+      renderGroups();
       return;
     }
+
     (data||[]).forEach(row=>{
-      if(academicGroupMembers[row.group_type])academicGroupMembers[row.group_type].push(row.display_name);
+      if(groupMembers[row.group_type])groupMembers[row.group_type].push(row.display_name);
     });
-    Object.keys(academicGroupMembers).forEach(key=>academicGroupMembers[key].sort((a,b)=>String(a).localeCompare(String(b),undefined,{sensitivity:'base'})));
-    renderAcademicGroups();
+    Object.keys(groupMembers).forEach(key=>groupMembers[key].sort((a,b)=>String(a).localeCompare(String(b),undefined,{sensitivity:'base'})));
+    renderGroups();
   }
 
   function ensureTeamUI(){
-    const meta=document.querySelector('#panel-profile .profile-meta');
-    if(meta&&!document.getElementById('profileCblGroup')){
-      const pill=document.createElement('div');
-      pill.className='profile-pill';
-      pill.id='profileCblGroup';
-      pill.textContent='CBL Group not set';
-      meta.appendChild(pill);
-    }
-    const grid=document.querySelector('#panel-settings .card:first-child .form-grid');
-    if(grid&&!document.getElementById('cblGroup')){
-      const field=document.createElement('div');
-      field.className='field';
-      const label=document.createElement('label');
-      label.htmlFor='cblGroup';
-      label.textContent='CBL Group';
-      const select=document.createElement('select');
-      select.id='cblGroup';
-      select.innerHTML='<option value="">No CBL Group selected</option>'+GROUPS.map(g=>`<option value="${g}">CBL Group ${g}</option>`).join('');
-      field.append(label,select);
-      grid.appendChild(field);
-    }
-    ensureAcademicGroupUI();
+    ensureGroupUI();
   }
 
   function syncTeamUI(){
     ensureTeamUI();
-    const selected=(typeof profileRow!=='undefined'&&profileRow?.cbl_group)||'';
-    const select=document.getElementById('cblGroup');
-    const pill=document.getElementById('profileCblGroup');
-    if(select)select.value=selected;
-    if(pill)pill.textContent=selected?`CBL Group ${selected}`:'CBL Group not set';
-    renderAcademicGroups();
-    loadAcademicGroupMembers();
+    renderGroups();
+    loadGroupMembers();
   }
 
   function injectAchievementStyles(){
@@ -369,21 +369,10 @@
       const name=document.getElementById('displayName').value.trim()||null;
       const rawYear=document.getElementById('classYear').value;
       const year=rawYear?Number(rawYear):null;
-      const cblGroup=document.getElementById('cblGroup').value||null;
-      const anatomyTable=document.getElementById('anatomyTable')?.value.trim()||null;
-      const pclGroup=document.getElementById('pclGroup')?.value.trim()||null;
-      const house=document.getElementById('houseGroup')?.value.trim()||null;
+      const row={id:currentUser.id,display_name:name,class_year:year};
+      PROFILE_GROUPS.forEach(group=>{row[group.key]=document.getElementById(group.inputId)?.value||null});
 
-      const {data,error}=await supabaseClient.from('profiles').upsert({
-        id:currentUser.id,
-        display_name:name,
-        class_year:year,
-        cbl_group:cblGroup,
-        anatomy_table:anatomyTable,
-        pcl_group:pclGroup,
-        house
-      },{onConflict:'id'}).select().single();
-
+      const {data,error}=await supabaseClient.from('profiles').upsert(row,{onConflict:'id'}).select().single();
       if(error){
         msg.className='notice error';
         msg.textContent=error.message;
@@ -391,10 +380,10 @@
       }
 
       profileRow=data;
-      academicMembersSignature=null;
+      groupMembersSignature=null;
       if(typeof renderProfile==='function')renderProfile();
       syncTeamUI();
-      await loadAcademicGroupMembers(true);
+      await loadGroupMembers(true);
       renderAchievements();
       msg.className='notice ok';
       msg.textContent='Profile saved.';
