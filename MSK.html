@@ -26,12 +26,7 @@
 
   const r=await nativeFetch('https://raw.githubusercontent.com/mikkellepeters-a11y/Foundations-of-med--2030/eadab87287e1b5a344263704ac98b2f2814d8eb4/MSK.html');
   if(!r.ok)throw new Error('MSK base failed');
-  let txt=await r.text();
-  if(txt.includes('</body>')){
-    if(!txt.includes('shared/msk-review-route-fix.js'))txt=txt.replace('</body>',fixTag+'</body>');
-    if(!txt.includes('shared/msk-notebook-card.js'))txt=txt.replace('</body>',notebookTag+'</body>');
-  }
-  document.open();document.write(txt);document.close();
+  document.open();document.write(await r.text());document.close();
 })().catch(e=>{
   console.error(e);
   document.body.innerHTML='<p style="font-family:system-ui;padding:24px">MSK hub failed to load. Please refresh.</p>';
