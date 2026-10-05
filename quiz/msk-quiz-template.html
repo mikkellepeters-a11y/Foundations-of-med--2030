@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Canonical MSK Quiz Template</title>
+<style>
+:root{--bg:#edf3ef;--paper:#fbfdfb;--ink:#21362b;--muted:#63736a;--accent:#28543d;--dark:#183b2a;--mid:#527761;--line:#ceddd3;--soft:#e3ece6;--soft2:#cdded3;--mint:#f0f7f2;--warn:#f5efe2;--rose:#f5e8e4;--good:#e7f1e9;--shadow:0 18px 42px rgba(24,59,42,.11)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at top left,rgba(255,255,255,.78),transparent 34%),var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}button,select{font:inherit}a{color:inherit;text-decoration:none}
+header{background:linear-gradient(135deg,var(--dark),var(--accent),var(--mid));color:#fff;padding:22px}.inner,main,footer{max-width:1040px;margin:auto}.topbar{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}.toplinks{display:flex;gap:8px;flex-wrap:wrap}.pill{display:inline-flex;align-items:center;gap:7px;padding:8px 11px;border-radius:999px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.1);font-size:10px;font-weight:850}.hero{padding:26px 0 4px}.eyebrow{font-size:10px;text-transform:uppercase;letter-spacing:.1em;font-weight:900;opacity:.78}.hero h1{margin:5px 0 8px;font-size:clamp(34px,6vw,54px);letter-spacing:-.04em;line-height:1.02}.hero p{max-width:800px;margin:0;color:rgba(255,255,255,.84);font-size:13px;line-height:1.6}.hero-tags{display:flex;gap:7px;flex-wrap:wrap;margin-top:14px}.hero-tags span{padding:6px 9px;border-radius:999px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.09);font-size:9px;font-weight:850}.progress-shell{display:none;margin-top:18px;height:9px;border:1px solid rgba(255,255,255,.18);border-radius:999px;background:rgba(255,255,255,.14);overflow:hidden}.progress-fill{height:100%;width:0;background:#fff;transition:.2s ease}
+main{padding:28px 20px 72px}.notice{display:none;border:1px solid var(--line);border-left:5px solid var(--accent);background:var(--paper);border-radius:14px;padding:13px 15px;color:var(--muted);font-size:11px;line-height:1.5;margin-bottom:16px}.notice.show{display:block}.notice.ok{background:var(--good);color:#466149}.notice.error{background:var(--rose);border-left-color:#9d5d53;color:#714940}.card{background:linear-gradient(180deg,#fff,var(--paper));border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow)}
+.setup{padding:20px}.setup-head{display:flex;justify-content:space-between;gap:15px;align-items:flex-start;flex-wrap:wrap}.setup h2{margin:3px 0 6px;font-size:23px;letter-spacing:-.025em}.setup p{margin:0;color:var(--muted);font-size:11px;line-height:1.55}.status-chip{padding:7px 10px;border-radius:999px;border:1px solid var(--soft2);background:var(--soft);color:var(--accent);font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.06em}.setup-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:17px}.field{display:grid;gap:6px}.field label{font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}.field select{width:100%;padding:10px 11px;border:1px solid var(--line);border-radius:11px;background:#fff;color:var(--ink)}.mode-help{margin-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:10px}.mode-box{border:1px solid var(--line);border-radius:13px;padding:12px;background:#fff}.mode-box b{display:block;font-size:11px;margin-bottom:4px}.mode-box span{font-size:9.5px;color:var(--muted);line-height:1.45}.setup-actions{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:17px;padding-top:15px;border-top:1px solid var(--line)}.contract{font-size:9px;color:var(--muted);line-height:1.5}.btn{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:11px;padding:10px 13px;font-size:10px;font-weight:900;cursor:pointer}.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}.btn.soft{background:var(--soft);border-color:var(--soft2);color:var(--accent)}.btn.danger{background:var(--rose);border-color:#dfc4bd;color:#754b43}.btn:disabled{opacity:.43;cursor:not-allowed}.empty{margin-top:16px;padding:28px 20px;border:1px dashed #b8cbbc;border-radius:18px;background:#f9fcfa;text-align:center;color:var(--muted);font-size:11px;line-height:1.55}.empty strong{display:block;color:var(--ink);font-size:17px;margin-bottom:5px}.empty code{font-size:10px;color:var(--accent)}
+.player{display:none;overflow:hidden}.qhead{padding:18px 20px 15px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#fbfdfb,#f5faf6)}.qtop{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.qhead h2{margin:4px 0 4px;font-size:22px}.meta{font-size:10px;color:var(--muted)}.counter{padding:6px 9px;border-radius:999px;background:var(--soft);border:1px solid var(--soft2);color:var(--accent);font-size:9px;font-weight:900;white-space:nowrap}.qbody{padding:22px 20px}.stem{font-size:16px;font-weight:700;line-height:1.62;letter-spacing:-.01em}.stem mark{background:#fff0a8;border-radius:3px;padding:0 1px}.stem-tools{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.toolbtn{border:1px solid var(--line);background:#fff;border-radius:9px;padding:7px 9px;color:var(--muted);font-size:8.5px;font-weight:850;cursor:pointer}.choices{display:grid;gap:9px;margin-top:18px}.choice-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:stretch}.choice{display:grid;grid-template-columns:34px 1fr;gap:11px;align-items:center;text-align:left;border:1px solid var(--line);background:#fff;border-radius:14px;padding:11px 13px;color:var(--ink);cursor:pointer;transition:.15s}.choice:hover:not(:disabled){border-color:#9ebda9;background:#f9fcfa}.choice.selected{border:2px solid var(--accent);padding:10px 12px;background:var(--mint)}.choice.correct{border-color:#8bb298;background:var(--good)}.choice.incorrect{border-color:#d4a99f;background:var(--rose)}.choice.eliminated{opacity:.48;text-decoration:line-through}.choice:disabled{cursor:default}.letter{width:31px;height:31px;border-radius:9px;display:grid;place-items:center;background:var(--soft);color:var(--accent);font-size:10px;font-weight:900}.choice.selected .letter{background:var(--accent);color:#fff}.choice-text{font-size:12px;line-height:1.42}.strike{width:55px;border:1px solid var(--line);background:#fff;border-radius:12px;color:var(--muted);font-size:8px;font-weight:900;cursor:pointer}.strike.active{background:var(--rose);color:#754b43;border-color:#dfc4bd}.strike:disabled{opacity:.45;cursor:not-allowed}.review-tools{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px;padding-top:17px;border-top:1px solid var(--line)}.tool-panel{border:1px solid var(--line);border-radius:14px;padding:13px;background:#fff}.tool-panel h3{margin:0 0 4px;font-size:13px}.tool-panel p{margin:0;color:var(--muted);font-size:9.5px;line-height:1.45}.confidence-buttons{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.conf{border:1px solid var(--line);background:#fff;border-radius:9px;padding:8px 10px;font-size:8.5px;font-weight:850;cursor:pointer}.conf.active{background:var(--accent);border-color:var(--accent);color:#fff}.file-btn{margin-top:10px;width:100%}.hintbox{display:none;margin-top:10px;padding:10px;border-radius:10px;background:var(--warn);border:1px solid #dfd2bc;color:#655638;font-size:10px;line-height:1.45}.feedback{display:none;margin-top:18px;padding:15px;border:1px solid var(--line);border-radius:16px}.feedback.show{display:block}.feedback.correct{background:var(--good);border-color:#bed1c1}.feedback.incorrect{background:var(--rose);border-color:#dfc4bd}.feedback h3{margin:0 0 5px;font-size:15px}.feedback p{margin:5px 0 0;font-size:11px;line-height:1.55}.explanation{margin-top:11px;padding-top:11px;border-top:1px solid rgba(33,54,43,.12)}.choice-notes{display:grid;gap:5px;margin-top:9px}.choice-note{font-size:9.5px;line-height:1.45}.qactions{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-top:20px}.sync{font-size:9px;color:var(--muted)}
+.summary{display:none;padding:22px}.summary h2{margin:3px 0 6px;font-size:28px}.summary>p{margin:0;color:var(--muted);font-size:11px;line-height:1.55}.stats{display:grid;grid-template-columns:repeat(6,1fr);gap:9px;margin:18px 0}.stat{border:1px solid var(--line);border-radius:14px;background:#fff;padding:12px}.stat b{display:block;font-size:23px;letter-spacing:-.03em}.stat span{display:block;margin-top:3px;font-size:8px;font-weight:900;text-transform:uppercase;letter-spacing:.055em;color:var(--muted)}.review-results{display:grid;gap:9px;margin-top:18px}.result{border:1px solid var(--line);border-radius:14px;background:#fff;padding:13px}.result summary{cursor:pointer;font-size:11px;font-weight:900}.result p{font-size:10px;line-height:1.5;color:var(--muted)}.result .answerline{color:var(--ink);font-weight:750}.summary-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+footer{padding:0 20px 30px;color:#74847a;font-size:10px}.hidden{display:none!important}@media(max-width:720px){.setup-grid,.mode-help,.review-tools{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.qtop,.qactions{align-items:flex-start;flex-direction:column}.choice-row{grid-template-columns:1fr}.strike{width:100%;padding:7px}.qbody{padding:18px 15px}.qhead{padding:16px 15px}}
+</style>
+</head>
+<body>
+<header><div class="inner"><div class="topbar"><div class="toplinks"><a class="pill" href="../MSK.html">← MSK-Skin Hub</a><a class="pill" href="../review/msk-review-center.html">Review the Mod</a><a class="pill" href="../msk-leaderboard.html">Leaderboard</a></div><span class="pill" id="trackingStatus">Tracking idle</span></div><div class="hero"><div class="eyebrow">Musculoskeletal-Skin · Canonical Quiz Shell</div><h1 id="heroTitle">Canonical MSK Quiz Template</h1><p id="heroText">A production-ready MSK quiz shell. Add stable quiz metadata and real questions later; until then, tracking remains intentionally inactive and nothing is written to Supabase.</p><div class="hero-tags"><span>Practice</span><span>Advanced Review</span><span>Confidence</span><span>Smart Review</span><span>Leaderboard</span><span>Difficulty Filter</span></div><div class="progress-shell" id="progressShell"><div class="progress-fill" id="progressFill"></div></div></div></div></header>
+<main>
+<div class="notice" id="notice"></div>
+<section class="card setup" id="setupCard">
+  <div class="setup-head"><div><div class="eyebrow" style="color:var(--mid);opacity:1">Quiz setup</div><h2>Choose your session</h2><p id="setupDescription">This canonical file is intentionally empty until MSK course content is available.</p></div><span class="status-chip" id="readyChip">Template mode</span></div>
+  <div class="setup-grid">
+    <div class="field"><label for="modeSelect">Mode</label><select id="modeSelect"><option value="practice">Practice</option><option value="advanced_review">Advanced Review</option></select></div>
+    <div class="field"><label for="difficultySelect">Difficulty</label><select id="difficultySelect"><option value="">All difficulties</option></select></div>
+  </div>
+  <div class="mode-help"><div class="mode-box"><b>Practice</b><span>Hints are available before submission. Correctness and explanations appear after Submit Answer.</span></div><div class="mode-box"><b>Advanced Review</b><span>Hints stay locked before submission. Correctness appears after Submit Answer; the full explanation can then be revealed.</span></div></div>
+  <div class="setup-actions"><div class="contract" id="contractText">Required per question: permanent ID · week · lecture · topic · difficulty · stem · four choices · correct answer.</div><button class="btn primary" id="startBtn" disabled>Start Quiz</button></div>
+  <div class="empty" id="emptyState"><strong>No questions configured yet.</strong>When MSK content arrives, fill <code>QUIZ_CONFIG</code> and <code>QUESTIONS</code> in this file. The player, tracking, Smart Review, leaderboard participation, and completion flow are already prepared.</div>
+</section>
+
+<section class="card player" id="player">
+  <div class="qhead"><div class="qtop"><div><div class="eyebrow" style="color:var(--mid);opacity:1" id="questionEyebrow">MSK Quiz</div><h2 id="questionTitle">Question</h2><div class="meta" id="questionMeta"></div></div><div class="counter" id="counter">1 / 1</div></div></div>
+  <div class="qbody">
+    <div class="stem" id="stem"></div>
+    <div class="stem-tools"><button class="toolbtn" id="highlightBtn" type="button">Highlight selection</button><button class="toolbtn" id="clearHighlightsBtn" type="button">Clear highlights</button><button class="toolbtn" id="hintBtn" type="button">Show Hint</button></div>
+    <div class="hintbox" id="hintBox"></div>
+    <div class="choices" id="choices"></div>
+    <div class="review-tools">
+      <div class="tool-panel"><h3>Confidence</h3><p>Required before submission so Smart Review can distinguish a knowledge gap from a calibration error.</p><div class="confidence-buttons"><button class="conf" data-confidence="guessing" type="button">Guessing</button><button class="conf" data-confidence="unsure" type="button">Unsure</button><button class="conf" data-confidence="confident" type="button">Confident</button></div></div>
+      <div class="tool-panel"><h3>File for Review</h3><p>Manually save this question to Review the Mod at any time. It remains separate from Foundations.</p><button class="btn soft file-btn" id="fileBtn" type="button">File for Review</button></div>
+    </div>
+    <div class="feedback" id="feedback"></div>
+    <div class="qactions"><span class="sync" id="syncText">Choose an answer and confidence rating.</span><div><button class="btn primary" id="submitBtn" type="button" disabled>Submit Answer</button><button class="btn primary hidden" id="nextBtn" type="button">Next Question</button></div></div>
+  </div>
+</section>
+
+<section class="card summary" id="summary">
+  <div class="eyebrow" style="color:var(--mid);opacity:1">Quiz complete</div><h2 id="summaryTitle">Session complete</h2><p id="summaryText"></p>
+  <div class="stats"><div class="stat"><b id="statTotal">0</b><span>Answered</span></div><div class="stat"><b id="statCorrect">0</b><span>Correct</span></div><div class="stat"><b id="statAccuracy">0%</b><span>Accuracy</span></div><div class="stat"><b id="statConfidentWrong">0</b><span>Confident Wrong</span></div><div class="stat"><b id="statLowConfidence">0</b><span>Low Confidence</span></div><div class="stat"><b id="statFiled">0</b><span>Filed</span></div></div>
+  <div class="review-results" id="reviewResults"></div>
+  <div class="summary-actions"><button class="btn primary" id="retakeBtn" type="button">Retake This Set</button><a class="btn" href="../review/msk-review-center.html">Open Review the Mod</a><a class="btn" href="../MSK.html">Return to MSK Hub</a></div>
+</section>
+</main>
+<footer>Musculoskeletal-Skin · Canonical Quiz Template · MSK data only</footer>
+<script src="../shared/msk-smart-review.js"></script>
+<script src="../shared/msk-quiz-tracking.js"></script>
+<script>
+(()=>{
+'use strict';
+
+/*
+  CANONICAL MSK QUIZ CONFIGURATION
+  Copy this file for a real quiz, then fill these stable values.
+  Never recycle a quizId for a different quiz.
+*/
+const QUIZ_CONFIG={
+  quizId:'',
+  quizName:'',
+  week:'',
+  lecture:'',
+  topic:'',
+  section:'MSK Quiz',
+  mode:'practice'
+};
+
+/*
+  Add real questions here only when source content exists.
+  Every question must have a permanent question_id and exactly four choices.
+
+  Structural shape only:
+  {
+    question_id:'stable-permanent-id',
+    week:'Week ##',
+    lecture:'Lecture ## · Title',
+    topic:'Topic',
+    difficulty:'In-House | Intermediate | Step 1',
+    stem:'...',
+    choices:['...','...','...','...'],
+    correct_answer:'A',
+    hint:'...',
+    explanation:'...',
+    choice_explanations:{A:'...',B:'...',C:'...',D:'...'}
+  }
+*/
+const QUESTIONS=[];
+
+const $=id=>document.getElementById(id);
+const esc=value=>String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+const text=value=>String(value??'').trim();
+const choiceText=choice=>choice==null?'':typeof choice==='object'?String(choice.text??choice.label??choice.value??choice.answer??''):String(choice);
+const letter=i=>String.fromCharCode(65+i);
+let tracker=null;
+let activeQuestions=[];
+let index=0;
+let selectedIndex=null;
+let confidence=null;
+let submitted=false;
+let mode='practice';
+let eliminated=new Set();
+let filedSet=new Set();
+let results=[];
+let syncing=false;
+
+function showNotice(message,type=''){
+  const n=$('notice');n.textContent=message;n.className='notice show'+(type?' '+type:'');
+}
+function clearNotice(){$('notice').className='notice';$('notice').textContent=''}
+function setTracking(label){$('trackingStatus').textContent=label}
+function configReady(){return Boolean(text(QUIZ_CONFIG.quizId)&&text(QUIZ_CONFIG.quizName))}
+function validation(){
+  const issues=[];
+  if(!window.MSKQuizTracking)issues.push('MSK tracking adapter did not load');
+  if(QUESTIONS.length&&!configReady())issues.push('quizId and quizName are required');
+  const seen=new Set();
+  QUESTIONS.forEach((raw,i)=>{
+    const check=window.MSKQuizTracking?.validateQuestion(raw,QUIZ_CONFIG);
+    if(check&&!check.valid)issues.push(`Question ${i+1}: missing ${check.missing.join(', ')}`);
+    const id=text(raw?.question_id??raw?.questionId??raw?.id);
+    if(id&&seen.has(id))issues.push(`Duplicate question_id: ${id}`);
+    if(id)seen.add(id);
+    const choices=raw?.choices??raw?.options;
+    if(Array.isArray(choices)&&choices.length!==4)issues.push(`Question ${i+1}: canonical MSK quizzes require exactly four choices`);
+  });
+  return issues;
+}
+function populateDifficulty(){
+  const current=$('difficultySelect').value;
+  const values=[...new Set(QUESTIONS.map(q=>text(q.difficulty)).filter(Boolean))];
+  $('difficultySelect').innerHTML='<option value="">All difficulties</option>'+values.map(v=>`<option value="${esc(v)}">${esc(v)}</option>`).join('');
+  if(values.includes(current))$('difficultySelect').value=current;
+}
+function updateSetup(){
+  populateDifficulty();
+  const issues=validation();
+  const hasQuestions=QUESTIONS.length>0;
+  $('startBtn').disabled=!hasQuestions||issues.length>0;
+  $('emptyState').classList.toggle('hidden',hasQuestions);
+  $('readyChip').textContent=!hasQuestions?'Template mode':issues.length?'Needs configuration':'Ready';
+  $('setupDescription').textContent=!hasQuestions?'This canonical file is intentionally empty until MSK course content is available.':`${QUESTIONS.length} questions configured. Only the selected difficulty subset will be shown and graded.`;
+  $('contractText').textContent=issues.length?issues.join(' · '):'Stable IDs verified · four-choice structure verified · MSK Smart Review tracking ready.';
+  $('heroTitle').textContent=text(QUIZ_CONFIG.quizName)||'Canonical MSK Quiz Template';
+  document.title=(text(QUIZ_CONFIG.quizName)||'Canonical MSK Quiz Template')+' · Musculoskeletal-Skin';
+  if(!hasQuestions){setTracking('Tracking idle');clearNotice();}
+  else if(issues.length){setTracking('Tracking blocked');showNotice('Template validation failed: '+issues.join(' · '),'error');}
+  else{setTracking('Ready to connect');clearNotice();}
+}
+function filteredPool(){
+  const difficulty=$('difficultySelect').value;
+  return QUESTIONS.filter(q=>!difficulty||text(q.difficulty)===difficulty);
+}
+async function ensureTracker(){
+  if(tracker)return tracker;
+  setTracking('Connecting…');
+  tracker=await window.MSKQuizTracking.createAdapter({...QUIZ_CONFIG,mode,sourcePage:location.pathname});
+  setTracking('MSK tracking connected');
+  return tracker;
+}
+function normalized(raw){return tracker?tracker.normalizeQuestion(raw):window.MSKQuizTracking.normalizeQuestion(raw,QUIZ_CONFIG)}
+function correctIndex(q){
+  for(let i=0;i<q.choices.length;i++)if(window.MSKQuizTracking.isCorrectAnswer(i,q.answer,q.choices))return i;
+  return -1;
+}
+function answerDisplay(q){const i=correctIndex(q);return i>=0?`${letter(i)}. ${choiceText(q.choices[i])}`:String(q.answer||'')}
+function selectedDisplay(q,i){return i==null?'No answer':`${letter(i)}. ${choiceText(q.choices[i])}`}
+function progress(){const done=Math.min(index+(submitted?1:0),activeQuestions.length);$('progressFill').style.width=(activeQuestions.length?done/activeQuestions.length*100:0)+'%'}
+function resetQuestionState(){selectedIndex=null;confidence=null;submitted=false;eliminated=new Set();$('feedback').className='feedback';$('feedback').innerHTML='';$('hintBox').style.display='none';$('hintBox').textContent='';$('nextBtn').classList.add('hidden');$('submitBtn').classList.remove('hidden');$('submitBtn').disabled=true;document.querySelectorAll('.conf').forEach(b=>b.classList.remove('active'))}
+function renderChoiceNotes(raw){
+  const notes=raw?.choice_explanations;
+  if(!notes)return '';
+  const lines=[];
+  for(let i=0;i<4;i++){
+    const note=Array.isArray(notes)?notes[i]:notes[letter(i)]??notes[letter(i).toLowerCase()]??notes[i];
+    if(note)lines.push(`<div class="choice-note"><b>${letter(i)}.</b> ${esc(note)}</div>`);
+  }
+  return lines.length?`<div class="choice-notes">${lines.join('')}</div>`:'';
+}
+async function refreshFiledState(raw){
+  if(!tracker)return;
+  try{
+    const q=normalized(raw);
+    const item=await tracker.getStore().getReviewItem(tracker.userId,QUIZ_CONFIG.quizId,q.question_id);
+    if(item?.manually_filed||(item?.review_reasons||[]).includes('filed'))filedSet.add(q.question_id);else filedSet.delete(q.question_id);
+    updateFileButton(q.question_id);
+  }catch(e){console.warn('Could not read filed state',e)}
+}
+function updateFileButton(questionId){
+  const filed=filedSet.has(questionId);
+  $('fileBtn').textContent=filed?'Remove from Filed':'File for Review';
+  $('fileBtn').classList.toggle('danger',filed);
+  $('fileBtn').classList.toggle('soft',!filed);
+}
+function renderQuestion(){
+  resetQuestionState();
+  const raw=activeQuestions[index];
+  const q=normalized(raw);
+  $('questionEyebrow').textContent=mode==='advanced_review'?'Advanced Review':'Practice';
+  $('questionTitle').textContent=`Question ${index+1}`;
+  $('questionMeta').textContent=[q.week,q.lecture,q.topic,q.difficulty].filter(Boolean).join(' · ');
+  $('counter').textContent=`${index+1} / ${activeQuestions.length}`;
+  $('stem').textContent=q.stem;
+  $('choices').innerHTML=q.choices.map((choice,i)=>`<div class="choice-row"><button class="choice" type="button" data-index="${i}"><span class="letter">${letter(i)}</span><span class="choice-text">${esc(choiceText(choice))}</span></button><button class="strike" type="button" data-strike="${i}" aria-label="Strike out choice ${letter(i)}">Strike</button></div>`).join('');
+  document.querySelectorAll('.choice').forEach(btn=>btn.addEventListener('click',()=>selectChoice(Number(btn.dataset.index))));
+  document.querySelectorAll('.strike').forEach(btn=>btn.addEventListener('click',()=>toggleStrike(Number(btn.dataset.strike))));
+  const hint=text(raw?.hint);
+  $('hintBtn').disabled=mode==='advanced_review'||!hint;
+  $('hintBtn').textContent=mode==='advanced_review'?'Hint locked in Advanced Review':hint?'Show Hint':'No Hint Available';
+  updateFileButton(q.question_id);
+  refreshFiledState(raw);
+  progress();
+  $('syncText').textContent='Choose an answer and confidence rating.';
+}
+function selectChoice(i){
+  if(submitted||eliminated.has(i))return;
+  selectedIndex=i;
+  document.querySelectorAll('.choice').forEach((btn,j)=>btn.classList.toggle('selected',j===i));
+  updateSubmitState();
+}
+function toggleStrike(i){
+  if(submitted)return;
+  if(eliminated.has(i)){eliminated.delete(i)}else{eliminated.add(i);if(selectedIndex===i)selectedIndex=null}
+  document.querySelectorAll('.choice').forEach((btn,j)=>btn.classList.toggle('eliminated',eliminated.has(j)));
+  document.querySelectorAll('.strike').forEach((btn,j)=>{btn.classList.toggle('active',eliminated.has(j));btn.textContent=eliminated.has(j)?'Restore':'Strike'});
+  if(selectedIndex===null)document.querySelectorAll('.choice').forEach(btn=>btn.classList.remove('selected'));
+  updateSubmitState();
+}
+function updateSubmitState(){$('submitBtn').disabled=selectedIndex===null||!confidence||syncing}
+function confidenceClick(value){
+  if(submitted)return;
+  confidence=value;
+  document.querySelectorAll('.conf').forEach(b=>b.classList.toggle('active',b.dataset.confidence===value));
+  updateSubmitState();
+}
+function highlightSelection(){
+  if(submitted)return;
+  const selection=window.getSelection();if(!selection||selection.rangeCount===0||selection.isCollapsed)return;
+  const range=selection.getRangeAt(0);const stem=$('stem');
+  const node=range.commonAncestorContainer.nodeType===3?range.commonAncestorContainer.parentNode:range.commonAncestorContainer;
+  if(!stem.contains(node))return;
+  try{const mark=document.createElement('mark');mark.appendChild(range.extractContents());range.insertNode(mark);selection.removeAllRanges()}catch(e){console.warn('Highlight failed',e)}
+}
+function clearHighlights(){const stem=$('stem');stem.querySelectorAll('mark').forEach(mark=>mark.replaceWith(document.createTextNode(mark.textContent)));stem.normalize()}
+function showHint(){
+  const raw=activeQuestions[index];const hint=text(raw?.hint);if(!hint||mode==='advanced_review')return;
+  $('hintBox').textContent=hint;$('hintBox').style.display='block';
+}
+async function toggleFiled(){
+  if(syncing||!tracker)return;
+  const raw=activeQuestions[index];const q=normalized(raw);syncing=true;$('fileBtn').disabled=true;
+  try{
+    if(filedSet.has(q.question_id)){await tracker.unfileQuestion(raw);filedSet.delete(q.question_id)}
+    else{await tracker.fileQuestion(raw);filedSet.add(q.question_id)}
+    updateFileButton(q.question_id);$('syncText').textContent=filedSet.has(q.question_id)?'Filed for Review.':'Removed from manual Filed list.';
+  }catch(e){showNotice('Could not update Filed for Review: '+(e?.message||e),'error')}
+  finally{syncing=false;$('fileBtn').disabled=false;updateSubmitState()}
+}
+function revealFeedback(raw,q,correct){
+  const fb=$('feedback');fb.className='feedback show '+(correct?'correct':'incorrect');
+  const explanation=text(raw?.explanation??q.explanation)||'No explanation has been added yet.';
+  const choiceNotes=renderChoiceNotes(raw);
+  const core=`<h3>${correct?'Correct':'Not quite'}</h3><p><b>Correct answer:</b> ${esc(answerDisplay(q))}</p>`;
+  if(mode==='practice')fb.innerHTML=core+`<div class="explanation"><p>${esc(explanation)}</p>${choiceNotes}</div>`;
+  else fb.innerHTML=core+`<div class="explanation hidden" id="advancedExplanation"><p>${esc(explanation)}</p>${choiceNotes}</div><button class="btn soft" id="revealExplanationBtn" type="button" style="margin-top:10px">Reveal Explanation</button>`;
+  if(mode==='advanced_review')$('revealExplanationBtn').addEventListener('click',()=>{$('advancedExplanation').classList.remove('hidden');$('revealExplanationBtn').remove()});
+}
+async function submitAnswer(){
+  if(submitted||selectedIndex===null||!confidence||syncing)return;
+  syncing=true;updateSubmitState();$('syncText').textContent='Saving MSK attempt…';
+  const raw=activeQuestions[index];const q=normalized(raw);
+  try{
+    const saved=await tracker.recordAnswer(raw,{selectedAnswer:selectedIndex,confidence,metadata:{mode}});
+    const correct=typeof saved.correct==='boolean'?saved.correct:window.MSKQuizTracking.isCorrectAnswer(selectedIndex,q.answer,q.choices);
+    submitted=true;
+    document.querySelectorAll('.choice').forEach((btn,i)=>{btn.disabled=true;btn.classList.remove('selected');if(i===correctIndex(q))btn.classList.add('correct');if(i===selectedIndex&&!correct)btn.classList.add('incorrect')});
+    document.querySelectorAll('.strike,.conf').forEach(btn=>btn.disabled=true);
+    $('hintBtn').disabled=true;$('highlightBtn').disabled=true;$('clearHighlightsBtn').disabled=true;
+    revealFeedback(raw,q,correct);
+    results.push({question_id:q.question_id,stem:q.stem,selected:selectedDisplay(q,selectedIndex),correctAnswer:answerDisplay(q),isCorrect:correct,confidence,explanation:text(raw?.explanation??q.explanation),choiceNotes:renderChoiceNotes(raw),filed:filedSet.has(q.question_id)});
+    $('submitBtn').classList.add('hidden');$('nextBtn').classList.remove('hidden');$('nextBtn').textContent=index===activeQuestions.length-1?'Finish Quiz':'Next Question';
+    $('syncText').textContent=saved.duplicate?'This question was already saved for this attempt.':'Answer saved · MSK Smart Review updated.';
+    progress();
+  }catch(e){showNotice('Answer could not be saved: '+(e?.message||e),'error');$('syncText').textContent='Save failed. Your answer has not been locked.';}
+  finally{syncing=false;updateSubmitState()}
+}
+async function nextQuestion(){
+  if(!submitted)return;
+  if(index<activeQuestions.length-1){index++;renderQuestion();return}
+  await finishQuiz();
+}
+async function finishQuiz(){
+  syncing=true;$('nextBtn').disabled=true;$('syncText').textContent='Saving quiz completion…';
+  const score=results.filter(r=>r.isCorrect).length;
+  try{await tracker.completeQuiz({score,totalQuestions:activeQuestions.length,mode,metadata:{difficulty_filter:$('difficultySelect').value||'all'}})}
+  catch(e){showNotice('Question attempts are saved, but quiz completion could not be saved: '+(e?.message||e),'error')}
+  finally{syncing=false;$('player').style.display='none';$('progressShell').style.display='none';renderSummary();$('summary').style.display='block';window.scrollTo({top:0,behavior:'smooth'})}
+}
+function renderSummary(){
+  const total=results.length,correct=results.filter(r=>r.isCorrect).length;
+  const confidentWrong=results.filter(r=>!r.isCorrect&&r.confidence==='confident').length;
+  const lowConfidence=results.filter(r=>['guessing','unsure'].includes(r.confidence)).length;
+  const filed=results.filter(r=>filedSet.has(r.question_id)||r.filed).length;
+  $('summaryTitle').textContent=text(QUIZ_CONFIG.quizName)||'Session complete';
+  $('summaryText').textContent=`${correct} of ${total} correct. These ${total} attempts have fed the MSK-only tracking system, Smart Review rules, and participation leaderboard.`;
+  $('statTotal').textContent=total;$('statCorrect').textContent=correct;$('statAccuracy').textContent=(total?Math.round(correct/total*100):0)+'%';$('statConfidentWrong').textContent=confidentWrong;$('statLowConfidence').textContent=lowConfidence;$('statFiled').textContent=filed;
+  $('reviewResults').innerHTML=results.map((r,i)=>`<details class="result"><summary>Question ${i+1} · ${r.isCorrect?'Correct':'Incorrect'} · ${esc(r.confidence)}</summary><p>${esc(r.stem)}</p><p class="answerline">Your answer: ${esc(r.selected)}</p><p class="answerline">Correct answer: ${esc(r.correctAnswer)}</p>${r.explanation?`<p>${esc(r.explanation)}</p>`:''}${r.choiceNotes||''}</details>`).join('');
+}
+async function startQuiz(){
+  clearNotice();const issues=validation();if(issues.length){showNotice('Cannot start: '+issues.join(' · '),'error');return}
+  activeQuestions=filteredPool();if(!activeQuestions.length){showNotice('No questions match this difficulty filter.','error');return}
+  mode=$('modeSelect').value;QUIZ_CONFIG.mode=mode;
+  $('startBtn').disabled=true;setTracking('Connecting…');
+  try{await ensureTracker();tracker.newAttempt();results=[];filedSet=new Set();index=0;$('setupCard').style.display='none';$('summary').style.display='none';$('player').style.display='block';$('progressShell').style.display='block';renderQuestion();window.scrollTo({top:0,behavior:'smooth'})}
+  catch(e){tracker=null;setTracking('Tracking unavailable');showNotice('Quiz tracking could not start. Sign in through the MegaHub and try again. '+(e?.message||e),'error');$('startBtn').disabled=false}
+}
+function retake(){tracker?.newAttempt();results=[];filedSet=new Set();index=0;$('summary').style.display='none';$('setupCard').style.display='block';$('startBtn').disabled=false;$('progressFill').style.width='0';updateSetup();window.scrollTo({top:0,behavior:'smooth'})}
+
+document.querySelectorAll('.conf').forEach(btn=>btn.addEventListener('click',()=>confidenceClick(btn.dataset.confidence)));
+$('highlightBtn').addEventListener('click',highlightSelection);
+$('clearHighlightsBtn').addEventListener('click',clearHighlights);
+$('hintBtn').addEventListener('click',showHint);
+$('fileBtn').addEventListener('click',toggleFiled);
+$('submitBtn').addEventListener('click',submitAnswer);
+$('nextBtn').addEventListener('click',nextQuestion);
+$('startBtn').addEventListener('click',startQuiz);
+$('retakeBtn').addEventListener('click',retake);
+$('difficultySelect').addEventListener('change',()=>{$('startBtn').textContent=`Start Quiz (${filteredPool().length})`});
+$('modeSelect').addEventListener('change',()=>{mode=$('modeSelect').value});
+
+updateSetup();
+$('startBtn').textContent=`Start Quiz (${filteredPool().length})`;
+})();
+</script>
+</body>
+</html>
