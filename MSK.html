@@ -48,7 +48,9 @@
       'Gross Anatomy Lab':'weeks/gross-anatomy/index.html',
       'MSK-Skin Drug Hub':'weeks/msk-drug-hub/index.html',
       'MSK-Skin Pathology Hub':'weeks/msk-pathology-hub/index.html',
-      'MSK-Skin CBL':'weeks/msk-cbl/index.html'
+      'MSK-Skin CBL':'weeks/msk-cbl/index.html',
+      'MSK-Skin Review the Module':'review/msk-review-center.html',
+      'Review the Module':'review/msk-review-center.html'
     };
 
     const ensureModuleHubBack=()=>{
@@ -73,6 +75,23 @@
       button.href='msk-leaderboard.html';
       button.innerHTML='<span class="leader-dot" aria-hidden="true"></span><span>Leaderboard</span>';
       heading.insertAdjacentElement('afterend',button);
+    };
+
+    const wireReviewModule=()=>{
+      const candidates=[...document.querySelectorAll('[data-name],a,button')];
+      const review=candidates.find(el=>{
+        const heading=el.querySelector&&el.querySelector('h3');
+        const label=(heading&&heading.textContent)||el.getAttribute?.('data-name')||el.textContent||'';
+        return /review\s+the\s+module/i.test(label.trim());
+      });
+      if(!review)return;
+      review.setAttribute('data-msk-review-module','1');
+      review.classList.remove('placeholder','locked-card');
+      if(review.classList.contains('week-card'))review.classList.add('active-card');
+      review.setAttribute('href','review/msk-review-center.html');
+      review.removeAttribute('onclick');
+      review.onclick=null;
+      const badge=review.querySelector&&review.querySelector('.locked-badge');if(badge)badge.remove();
     };
 
     const ensureFeedback=()=>{
@@ -136,12 +155,17 @@
           h.insertAdjacentHTML('afterend','<p class="active-desc">Case-based learning for MSK-Skin with integrated clinical reasoning, quick guides, and case quizzes as they are added.</p><div class="active-footer"><div class="active-tags"><span class="active-tag">Cases</span><span class="active-tag">Quick Guides</span><span class="active-tag">Quizzes</span></div><div class="active-arrow">→</div></div>');
         }
       }
+      wireReviewModule();
       ensureModuleHubBack();
       ensureLeaderboardButton();
       ensureFeedback();
     };
 
     document.addEventListener('click',e=>{
+      const review=e.target.closest&&e.target.closest('[data-msk-review-module="1"]');
+      if(review){
+        e.preventDefault();e.stopImmediatePropagation();location.href='review/msk-review-center.html';return;
+      }
       const el=e.target.closest&&e.target.closest('[data-name]');
       if(!el)return;
       const href=routeMap[el.getAttribute('data-name')];
