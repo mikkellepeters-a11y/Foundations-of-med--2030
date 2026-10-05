@@ -83,13 +83,14 @@
     const correct=Boolean(attempt?.correct);
     const confidence=attempt?.confidence??null;
     const priorMisses=Number(s.miss_count||0);
+    const reportedMisses=Number(attempt?.missCount??attempt?.miss_count);
     s.metadata=s.metadata||{};
     s.metadata.primary_attempts=Number(s.metadata.primary_attempts||0)+1;
     s.last_confidence=confidence;
     s.last_result_correct=correct;
 
     if(!correct){
-      s.miss_count=priorMisses+1;
+      s.miss_count=Number.isFinite(reportedMisses)&&reportedMisses>0?reportedMisses:priorMisses+1;
       s.correct_streak=0;
       if(isHighConfidence(confidence))s.review_reasons=uniq([...s.review_reasons,REASONS.CONFIDENTLY_WRONG]);
       if(s.miss_count>=AUTO_FLAG_MISSES)s.review_reasons=uniq([...s.review_reasons,REASONS.REPEATEDLY_MISSED]);
