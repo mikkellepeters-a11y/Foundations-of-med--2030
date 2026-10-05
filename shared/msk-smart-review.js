@@ -83,14 +83,13 @@
     const correct=Boolean(attempt?.correct);
     const confidence=attempt?.confidence??null;
     const priorMisses=Number(s.miss_count||0);
-    const reportedMisses=Number(attempt?.missCount??attempt?.miss_count);
     s.metadata=s.metadata||{};
     s.metadata.primary_attempts=Number(s.metadata.primary_attempts||0)+1;
     s.last_confidence=confidence;
     s.last_result_correct=correct;
 
     if(!correct){
-      s.miss_count=Number.isFinite(reportedMisses)&&reportedMisses>0?reportedMisses:priorMisses+1;
+      s.miss_count=priorMisses+1;
       s.correct_streak=0;
       if(isHighConfidence(confidence))s.review_reasons=uniq([...s.review_reasons,REASONS.CONFIDENTLY_WRONG]);
       if(s.miss_count>=AUTO_FLAG_MISSES)s.review_reasons=uniq([...s.review_reasons,REASONS.REPEATEDLY_MISSED]);
@@ -154,8 +153,10 @@
     s.last_result_correct=correct;
 
     if(correct){
+      const stageBefore=Number(s.review_stage||0);
+      const intervalDays=nextInterval(stageBefore);
       s.correct_streak=Number(s.correct_streak||0)+1;
-      s.review_stage=Math.min(Number(s.review_stage||0)+1,REVIEW_INTERVAL_DAYS.length-1);
+      s.review_stage=Math.min(stageBefore+1,REVIEW_INTERVAL_DAYS.length-1);
       const masteryEligible=s.correct_streak>=MASTERY_TARGET&&(!s.manually_filed||allowManualMastery);
       if(masteryEligible){
         s.status='mastered';
@@ -164,7 +165,7 @@
       }else{
         s.status='improving';
         s.mastered_at=null;
-        s.next_due_at=addDays(t,nextInterval(s.review_stage));
+        s.next_due_at=addDays(t,intervalDays);
       }
     }else{
       s.miss_count=Number(s.miss_count||0)+1;
@@ -193,14 +194,15 @@
 
   function categories(item,now){
     if(!item)return [];
+    if(item.status==='mastered')return ['mastered'];
+    if(item.status==='archived')return [];
     const out=[];
     const reasons=item.review_reasons||[];
     if(item.manually_filed||reasons.includes(REASONS.FILED))out.push('filed');
     if(reasons.includes(REASONS.REPEATEDLY_MISSED)||Number(item.miss_count||0)>=AUTO_FLAG_MISSES)out.push('repeatedly_missed');
     if(reasons.includes(REASONS.CONFIDENTLY_WRONG))out.push('confidently_wrong');
     if(reasons.includes(REASONS.LOW_CONFIDENCE))out.push('low_confidence');
-    if(item.status==='mastered')out.push('mastered');
-    if(item.next_due_at&&item.status!=='mastered'&&new Date(item.next_due_at)<=new Date(now||Date.now()))out.push('due');
+    if(item.next_due_at&&new Date(item.next_due_at)<=new Date(now||Date.now()))out.push('due');
     return uniq(out);
   }
 
