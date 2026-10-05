@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MSK Quiz Tracking · Integration Validator</title>
+<style>
+:root{--bg:#edf3ef;--paper:#fbfdfb;--ink:#21362b;--muted:#63736a;--accent:#28543d;--dark:#183b2a;--mid:#527761;--line:#ceddd3;--good:#e7f1e9;--bad:#f5e8e4;--shadow:0 16px 38px rgba(24,59,42,.10)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}header{background:linear-gradient(135deg,var(--dark),var(--accent),var(--mid));color:#fff;padding:32px 22px}.inner,main{max-width:980px;margin:auto}h1{margin:5px 0 7px;font-size:42px;letter-spacing:-.035em}.eyebrow{font-size:10px;text-transform:uppercase;letter-spacing:.1em;font-weight:900;opacity:.78}.lede{margin:0;max-width:760px;color:rgba(255,255,255,.82);font-size:12px;line-height:1.55}.safe{display:inline-block;margin-top:13px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);border-radius:999px;padding:7px 10px;font-size:9px;font-weight:850}main{padding:24px 22px 60px}.panel{background:var(--paper);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:17px;margin-bottom:14px}.panel h2{margin:0 0 8px;font-size:19px}.summary{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.stat{background:#fff;border:1px solid var(--line);border-radius:14px;padding:13px}.stat b{display:block;font-size:25px}.stat span{font-size:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:900;color:var(--muted)}.test{display:flex;justify-content:space-between;gap:14px;padding:10px 0;border-bottom:1px solid var(--line);font-size:11px}.test:last-child{border-bottom:0}.test small{display:block;color:var(--muted);margin-top:3px;line-height:1.4}.pass,.fail{font-weight:900;white-space:nowrap}.pass{color:#42694d}.fail{color:#8b4f46}.dump{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:9px;line-height:1.5;white-space:pre-wrap;overflow-wrap:anywhere;color:#44584d;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px;max-height:330px;overflow:auto}@media(max-width:650px){.summary{grid-template-columns:1fr}.test{flex-direction:column}}
+</style>
+</head>
+<body>
+<header><div class="inner"><div class="eyebrow">MSK-Skin · Development Validation</div><h1>Quiz Tracking Adapter</h1><p class="lede">Automated checks for the future MSK quiz → attempt history → Smart Review pipeline.</p><div class="safe">MEMORY STORE ONLY · NO SUPABASE WRITES</div></div></header>
+<main>
+<section class="panel"><h2>Validation Summary</h2><div class="summary"><div class="stat"><b id="passed">0</b><span>Passed</span></div><div class="stat"><b id="failed">0</b><span>Failed</span></div><div class="stat"><b id="total">0</b><span>Total Checks</span></div></div></section>
+<section class="panel"><h2>Integration Checks</h2><div id="tests">Running…</div></section>
+<section class="panel"><h2>Final In-Memory State</h2><div id="dump" class="dump">Waiting for validator…</div></section>
+</main>
+<script src="../shared/msk-smart-review.js"></script>
+<script src="../shared/msk-quiz-tracking.js"></script>
+<script>
+(async()=>{
+'use strict';
+const tests=[];
+const add=(name,pass,detail='')=>tests.push({name,pass:Boolean(pass),detail});
+const tracker=window.MSKQuizTracking;
+const store=tracker.createMemoryStore();
+const quiz={quizId:'msk-validator-week13',quizName:'MSK Tracking Validator',week:'Week 13',lecture:'Validator Lecture',mode:'practice'};
+const adapter=await tracker.createAdapter({...quiz,userId:'validator-user',store,persistMarkers:false,attemptToken:'validator-attempt-1'});
+const q=(id,overrides={})=>({question_id:id,week:'Week 13',lecture:'Validator Lecture',topic:'Upper Extremity',difficulty:'Intermediate',stem:`Validator question ${id}`,choices:['Choice A','Choice B','Choice C','Choice D'],correct_answer:'Choice A',explanation:'Validator explanation.',...overrides});
+
+try{
+  const first=await adapter.recordAnswer(q('repeat-1'),{selectedAnswer:'Choice B',confidence:'medium'});
+  let state=store.inspect();
+  add('First ordinary miss is stored as an attempt',state.question_attempts.length===1);
+  add('First ordinary miss is not yet Repeatedly Missed',!state.review_items.some(x=>x.question_id==='repeat-1'),'No review item should be created from a single neutral-confidence miss.');
+  add('Attempts are hard-scoped to MSK',state.question_attempts[0]?.module_key==='msk');
+
+  adapter.newAttempt('validator-attempt-2');
+  const second=await adapter.recordAnswer(q('repeat-1'),{selectedAnswer:'Choice B',confidence:'medium'});
+  state=store.inspect();
+  const repeated=state.review_items.find(x=>x.question_id==='repeat-1');
+  add('Second miss across a retake creates Repeatedly Missed',repeated?.review_reasons?.includes('repeatedly_missed'));
+  add('Repeated miss count is cumulative',repeated?.miss_count===2,`miss_count=${repeated?.miss_count}`);
+
+  await adapter.recordAnswer(q('confident-1',{topic:'Rotator Cuff'}),{selectedAnswer:'Choice B',confidence:'confident'});
+  state=store.inspect();
+  const confident=state.review_items.find(x=>x.question_id==='confident-1');
+  add('Wrong + Confident creates Confidently Wrong',confident?.review_reasons?.includes('confidently_wrong'));
+
+  await adapter.recordAnswer(q('low-1',{topic:'Dermatologic Morphology'}),{selectedAnswer:'Choice A',confidence:'guessing'});
+  state=store.inspect();
+  const low=state.review_items.find(x=>x.question_id==='low-1');
+  add('Correct + Guessing creates Low Confidence',low?.review_reasons?.includes('low_confidence')&&low?.last_result_correct===true);
+
+  await adapter.fileQuestion(q('manual-1',{topic:'Brachial Plexus'}));
+  state=store.inspect();
+  let manual=state.review_items.find(x=>x.question_id==='manual-1');
+  add('Manual File for Review creates an item immediately',manual?.manually_filed===true&&manual?.review_reasons?.includes('filed'));
+  add('Question snapshot is preserved for Review the Module',manual?.question_snapshot?.stem==='Validator question manual-1'&&manual?.question_snapshot?.choices?.length===4);
+
+  await adapter.unfileQuestion(q('manual-1',{topic:'Brachial Plexus'}));
+  state=store.inspect();
+  manual=state.review_items.find(x=>x.question_id==='manual-1');
+  add('Removing the only manual reason archives the item',manual?.status==='archived'&&!manual?.manually_filed);
+
+  const beforeDuplicate=state.question_attempts.length;
+  await adapter.recordAnswer(q('duplicate-1'),{selectedAnswer:'Choice A',confidence:'confident'});
+  const duplicate=await adapter.recordAnswer(q('duplicate-1'),{selectedAnswer:'Choice A',confidence:'confident'});
+  state=store.inspect();
+  add('Same question cannot sync twice inside one attempt token',duplicate?.duplicate===true&&state.question_attempts.length===beforeDuplicate+1);
+
+  const completion1=await adapter.completeQuiz({totalQuestions:5,score:3});
+  const completion2=await adapter.completeQuiz({totalQuestions:5,score:3});
+  state=store.inspect();
+  add('Quiz completion is idempotent per attempt token',completion1?.duplicate===false&&completion2?.duplicate===true&&state.quiz_attempts.length===1);
+  add('Quiz completion is hard-scoped to MSK',state.quiz_attempts[0]?.module_key==='msk'&&state.quiz_attempts[0]?.attempt_token==='validator-attempt-2');
+
+  const countBeforeRetake=state.question_attempts.length;
+  adapter.newAttempt('validator-attempt-3');
+  const retake=await adapter.recordAnswer(q('duplicate-1'),{selectedAnswer:'Choice A',confidence:'confident'});
+  state=store.inspect();
+  add('A new attempt token allows the same question on a retake',retake?.duplicate===false&&state.question_attempts.length===countBeforeRetake+1);
+
+  const bad=adapter.validateQuestion({question_id:'bad-1',week:'Week 13',topic:'Test',difficulty:'In-House',stem:'Missing lecture',choices:['A','B'],correct_answer:'A'});
+  add('Question contract rejects missing required metadata',bad.valid===false&&bad.missing.includes('lecture'),bad.missing.join(', '));
+
+  add('No Foundations module rows were produced',[...state.question_attempts,...state.quiz_attempts,...state.review_items].every(row=>row.module_key==='msk'));
+}catch(error){
+  add('Validator completed without runtime errors',false,error?.stack||error?.message||String(error));
+}
+
+const passed=tests.filter(t=>t.pass).length,failed=tests.length-passed;
+document.getElementById('passed').textContent=passed;
+document.getElementById('failed').textContent=failed;
+document.getElementById('total').textContent=tests.length;
+document.getElementById('tests').innerHTML=tests.map(t=>`<div class="test"><div><strong>${t.name}</strong>${t.detail?`<small>${t.detail}</small>`:''}</div><span class="${t.pass?'pass':'fail'}">${t.pass?'PASS':'FAIL'}</span></div>`).join('');
+document.getElementById('dump').textContent=JSON.stringify(store.inspect(),null,2);
+})();
+</script>
+</body>
+</html>
