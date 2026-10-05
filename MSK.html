@@ -11,6 +11,8 @@
     .beta-gate{display:none!important}
     .beta-site{display:block!important}
     body.beta-locked{overflow:auto!important}
+    #mskModuleHubBack{display:inline-flex;align-items:center;width:max-content;margin-bottom:18px;padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.10);color:#fff!important;text-decoration:none;font-size:11px;font-weight:850;transition:.15s ease}
+    #mskModuleHubBack:hover{background:rgba(255,255,255,.18);transform:translateY(-1px)}
     #mskLeaderboardButton{display:inline-flex;align-items:center;gap:7px;margin-top:10px;padding:9px 13px;border-radius:11px;background:#28543d;color:#fff!important;text-decoration:none;font-size:11px;font-weight:850;box-shadow:0 6px 14px rgba(24,59,42,.14)}
     #mskLeaderboardButton:hover{background:#183b2a}
     #mskLeaderboardButton .leader-dot{width:9px;height:9px;border-radius:50%;background:#fff;display:inline-block;flex:0 0 auto}
@@ -47,6 +49,18 @@
       'MSK-Skin Drug Hub':'weeks/msk-drug-hub/index.html',
       'MSK-Skin Pathology Hub':'weeks/msk-pathology-hub/index.html',
       'MSK-Skin CBL':'weeks/msk-cbl/index.html'
+    };
+
+    const ensureModuleHubBack=()=>{
+      if(document.getElementById('mskModuleHubBack'))return;
+      const header=document.querySelector('.site-header .header-inner,header .header-inner,header');
+      if(!header)return;
+      const back=document.createElement('a');
+      back.id='mskModuleHubBack';
+      back.href='index.html';
+      back.setAttribute('aria-label','Back to Module Hub');
+      back.textContent='← Module Hub';
+      header.insertAdjacentElement('afterbegin',back);
     };
 
     const ensureLeaderboardButton=()=>{
@@ -122,6 +136,7 @@
           h.insertAdjacentHTML('afterend','<p class="active-desc">Case-based learning for MSK-Skin with integrated clinical reasoning, quick guides, and case quizzes as they are added.</p><div class="active-footer"><div class="active-tags"><span class="active-tag">Cases</span><span class="active-tag">Quick Guides</span><span class="active-tag">Quizzes</span></div><div class="active-arrow">→</div></div>');
         }
       }
+      ensureModuleHubBack();
       ensureLeaderboardButton();
       ensureFeedback();
     };
