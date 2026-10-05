@@ -60,4 +60,5 @@ as $$
 $$;
 
 revoke all on function public.get_my_group_members() from public;
+revoke execute on function public.get_my_group_members() from anon;
 grant execute on function public.get_my_group_members() to authenticated;
