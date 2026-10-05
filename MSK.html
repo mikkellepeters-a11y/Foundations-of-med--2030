@@ -13,6 +13,7 @@
     body.beta-locked{overflow:auto!important}
     #mskLeaderboardButton{display:inline-flex;align-items:center;gap:7px;margin-top:10px;padding:9px 13px;border-radius:11px;background:#28543d;color:#fff!important;text-decoration:none;font-size:11px;font-weight:850;box-shadow:0 6px 14px rgba(24,59,42,.14)}
     #mskLeaderboardButton:hover{background:#183b2a}
+    #mskLeaderboardButton .leader-dot{width:9px;height:9px;border-radius:50%;background:#fff;display:inline-block;flex:0 0 auto}
     #mskFeedbackPanel{margin-top:28px;background:linear-gradient(180deg,#fbfdfb,#f6faf7);border:1px solid #ceddd3;border-radius:22px;box-shadow:0 14px 34px rgba(24,59,42,.08);padding:20px}
     #mskFeedbackPanel .feedback-grid{display:grid;grid-template-columns:1fr;gap:14px}
     #mskFeedbackPanel .feedback-card{border:1px solid #ceddd3;background:#fbfdfb;border-radius:16px;padding:18px}
@@ -56,7 +57,7 @@
       const button=document.createElement('a');
       button.id='mskLeaderboardButton';
       button.href='msk-leaderboard.html';
-      button.innerHTML='<span aria-hidden="true">🏆</span><span>Leaderboard</span>';
+      button.innerHTML='<span class="leader-dot" aria-hidden="true"></span><span>Leaderboard</span>';
       heading.insertAdjacentElement('afterend',button);
     };
 
