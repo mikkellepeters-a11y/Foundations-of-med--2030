@@ -6,210 +6,28 @@
 <script>
 (async()=>{
   const nativeFetch=window.fetch.bind(window);
-
-  const publicCss=`<style id="mskPublicFinalStyles">
-    .beta-gate{display:none!important}
-    .beta-site{display:block!important}
-    body.beta-locked{overflow:auto!important}
-    #mskModuleHubBack{display:inline-flex!important;align-items:center!important;justify-content:center!important;align-self:flex-start!important;flex:0 0 auto!important;width:auto!important;max-width:max-content!important;height:20px!important;min-height:20px!important;max-height:20px!important;margin-top:0!important;padding:0 6px!important;border-radius:5px!important;border:1px solid rgba(255,255,255,.22)!important;background:rgba(255,255,255,.08)!important;color:#fff!important;text-decoration:none!important;font-size:8.5px!important;line-height:18px!important;font-weight:800!important;white-space:nowrap!important;box-sizing:border-box!important;transition:.15s ease}
-    #mskModuleHubBack:hover{background:rgba(255,255,255,.16)!important;transform:translateY(-1px)}
-    #mskLeaderboardButton{display:inline-flex;align-items:center;gap:7px;margin-top:10px;padding:9px 13px;border-radius:11px;background:#28543d;color:#fff!important;text-decoration:none;font-size:11px;font-weight:850;box-shadow:0 6px 14px rgba(24,59,42,.14)}
-    #mskLeaderboardButton:hover{background:#183b2a}
-    #mskLeaderboardButton .leader-dot{width:9px;height:9px;border-radius:50%;background:#fff;display:inline-block;flex:0 0 auto}
-    #mskFeedbackPanel{margin-top:28px;background:linear-gradient(180deg,#fbfdfb,#f6faf7);border:1px solid #ceddd3;border-radius:22px;box-shadow:0 14px 34px rgba(24,59,42,.08);padding:20px}
-    #mskFeedbackPanel .feedback-grid{display:grid;grid-template-columns:1fr;gap:14px}
-    #mskFeedbackPanel .feedback-card{border:1px solid #ceddd3;background:#fbfdfb;border-radius:16px;padding:18px}
-    #mskFeedbackPanel .feedback-card h3{margin:4px 0 7px;font-size:18px;color:#21362b}
-    #mskFeedbackPanel .feedback-card p{margin:0;color:#63736a;font-size:12px;line-height:1.55}
-    #mskFeedbackPanel .feedback-action{display:inline-flex;align-items:center;gap:8px;margin-top:14px;padding:10px 12px;border-radius:11px;background:#28543d;color:#fff!important;text-decoration:none;font-size:11px;font-weight:850}
-    #mskFeedbackPanel .feedback-email{display:block;margin-top:9px;color:#28543d!important;font-size:11px;font-weight:800;word-break:break-word;text-decoration:none}
-    #mskFeedbackPanel .feedback-badge{display:inline-flex;padding:5px 8px;border-radius:999px;background:#e3ece6;border:1px solid #cdded3;color:#28543d;font-size:9.5px;font-weight:850;text-transform:uppercase;letter-spacing:.05em}
-  </style>`;
-
-  const feedbackHtml=`<section class="feedback-panel" id="mskFeedbackPanel">
-    <div class="section-head">
-      <div><span class="section-kicker">Community</span><h2>Help Improve the MegaHub</h2></div>
-      <p class="section-note">Feedback</p>
-    </div>
-    <div class="feedback-grid">
-      <article class="feedback-card">
-        <span class="feedback-badge">Leave Me Feedback</span>
-        <h3>Found something confusing, broken, or worth adding?</h3>
-        <p>Send feedback, corrections, quiz ideas, or feature requests. If you notice a bad link, a question issue, or something that would make the MegaHub better, I want to know.</p>
-        <a class="feedback-action" href="mailto:mikpeters@augusta.edu?subject=Musculoskeletal-Skin%20MegaHub%20Feedback">Email Feedback →</a>
-        <a class="feedback-email" href="mailto:mikpeters@augusta.edu">mikpeters@augusta.edu</a>
-      </article>
-    </div>
-  </section>`;
-
-  const runtime=`<script id="mskPublicRuntime">(()=>{
-    const routeMap={
-      'MSK-Skin Week 13':'weeks/week13/index.html',
-      'Gross Anatomy Lab':'weeks/gross-anatomy/index.html',
-      'MSK-Skin Drug Hub':'weeks/msk-drug-hub/index.html',
-      'MSK-Skin Pathology Hub':'weeks/msk-pathology-hub/index.html',
-      'MSK-Skin CBL':'weeks/msk-cbl/index.html',
-      'MSK-Skin Review the Module':'review/msk-review-center.html',
-      'Review the Module':'review/msk-review-center.html'
-    };
-
-    const ensureModuleHubBack=()=>{
-      if(document.getElementById('mskModuleHubBack'))return;
-      const brandRow=document.querySelector('.brand-row');
-      if(!brandRow)return;
-      const back=document.createElement('a');
-      back.id='mskModuleHubBack';
-      back.href='index.html';
-      back.setAttribute('aria-label','Back to Module Hub');
-      back.textContent='← Module Hub';
-      brandRow.insertAdjacentElement('afterbegin',back);
-    };
-
-    const ensureLeaderboardButton=()=>{
-      document.querySelectorAll('[data-name="MSK-Skin Leaderboard"]').forEach(el=>el.remove());
-      if(document.getElementById('mskLeaderboardButton'))return;
-      const heading=[...document.querySelectorAll('h1,h2,h3')].find(el=>/choose a week/i.test((el.textContent||'').trim()));
-      if(!heading)return;
-      const button=document.createElement('a');
-      button.id='mskLeaderboardButton';
-      button.href='msk-leaderboard.html';
-      button.innerHTML='<span class="leader-dot" aria-hidden="true"></span><span>Leaderboard</span>';
-      heading.insertAdjacentElement('afterend',button);
-    };
-
-    const wireReviewModule=()=>{
-      const candidates=[...document.querySelectorAll('[data-name],a,button')];
-      const review=candidates.find(el=>{
-        const heading=el.querySelector&&el.querySelector('h3');
-        const label=(heading&&heading.textContent)||el.getAttribute?.('data-name')||el.textContent||'';
-        return /review\s+the\s+module/i.test(label.trim());
-      });
-      if(!review)return;
-      review.setAttribute('data-msk-review-module','1');
-      review.classList.remove('placeholder','locked-card');
-      if(review.classList.contains('week-card'))review.classList.add('active-card');
-      review.setAttribute('href','review/msk-review-center.html');
-      review.removeAttribute('onclick');
-      review.onclick=null;
-      const badge=review.querySelector&&review.querySelector('.locked-badge');if(badge)badge.remove();
-    };
-
-    const ensureFeedback=()=>{
-      if(document.getElementById('mskFeedbackPanel'))return;
-      const main=document.querySelector('main');if(!main)return;
-      const section=document.createElement('section');
-      section.className='feedback-panel';
-      section.id='mskFeedbackPanel';
-      section.innerHTML='<div class="section-head"><div><span class="section-kicker">Community</span><h2>Help Improve the MegaHub</h2></div><p class="section-note">Feedback</p></div><div class="feedback-grid"><article class="feedback-card"><span class="feedback-badge">Leave Me Feedback</span><h3>Found something confusing, broken, or worth adding?</h3><p>Send feedback, corrections, quiz ideas, or feature requests. If you notice a bad link, a question issue, or something that would make the MegaHub better, I want to know.</p><a class="feedback-action" href="mailto:mikpeters@augusta.edu?subject=Musculoskeletal-Skin%20MegaHub%20Feedback">Email Feedback →</a><a class="feedback-email" href="mailto:mikpeters@augusta.edu">mikpeters@augusta.edu</a></article></div>';
-      main.appendChild(section);
-    };
-
-    const activate=()=>{
-      document.title='Musculoskeletal-Skin';
-      document.body&&document.body.classList.remove('beta-locked');
-      document.body&&document.body.classList.add('beta-open');
-      const gate=document.getElementById('betaGate');if(gate)gate.remove();
-
-      document.querySelectorAll('.mockup-note').forEach(el=>{
-        if(/online for testing|private beta/i.test(el.textContent||''))el.remove();
-      });
-      document.querySelectorAll('.feedback-panel').forEach(el=>{
-        if(el.id==='mskFeedbackPanel')return;
-        if(/module tools/i.test(el.textContent||''))el.remove();
-      });
-      document.querySelectorAll('.section-kicker').forEach(el=>{
-        if(/module tools/i.test(el.textContent||'')){
-          const section=el.closest('section,.feedback-panel');
-          if(section&&section.id!=='mskFeedbackPanel')section.remove();
-        }
-      });
-
-      Object.entries(routeMap).forEach(([name,href])=>{
-        const el=document.querySelector('[data-name="'+name+'"]');
-        if(!el)return;
-        el.classList.remove('placeholder','locked-card');
-        if(el.classList.contains('week-card'))el.classList.add('active-card');
-        el.setAttribute('href',href);
-        el.removeAttribute('onclick');
-        el.onclick=null;
-        const badge=el.querySelector('.locked-badge');if(badge)badge.remove();
-      });
-
-      const cbl=document.querySelector('[data-name="MSK-Skin CBL"]');
-      if(cbl){
-        cbl.classList.remove('placeholder','locked-card');
-        cbl.classList.add('active-card');
-        cbl.setAttribute('href','weeks/msk-cbl/index.html');
-        cbl.removeAttribute('onclick');
-        cbl.onclick=null;
-        const badge=cbl.querySelector('.locked-badge');if(badge)badge.remove();
-        const top=cbl.querySelector('.card-top');
-        if(top&&!cbl.querySelector('.week-label')){
-          const tag=document.createElement('span');
-          tag.className='week-label';
-          tag.textContent='MSK';
-          top.appendChild(tag);
-        }
-        const h=cbl.querySelector('h3');
-        if(h&&!cbl.querySelector('.active-desc')){
-          h.insertAdjacentHTML('afterend','<p class="active-desc">Case-based learning for MSK-Skin with integrated clinical reasoning, quick guides, and case quizzes as they are added.</p><div class="active-footer"><div class="active-tags"><span class="active-tag">Cases</span><span class="active-tag">Quick Guides</span><span class="active-tag">Quizzes</span></div><div class="active-arrow">→</div></div>');
-        }
-      }
-      wireReviewModule();
-      ensureModuleHubBack();
-      ensureLeaderboardButton();
-      ensureFeedback();
-    };
-
-    document.addEventListener('click',e=>{
-      const review=e.target.closest&&e.target.closest('[data-msk-review-module="1"]');
-      if(review){
-        e.preventDefault();e.stopImmediatePropagation();location.href='review/msk-review-center.html';return;
-      }
-      const el=e.target.closest&&e.target.closest('[data-name]');
-      if(!el)return;
-      const href=routeMap[el.getAttribute('data-name')];
-      if(!href)return;
-      e.preventDefault();e.stopImmediatePropagation();location.href=href;
-    },true);
-
-    activate();setTimeout(activate,100);setTimeout(activate,500);
-  })();<\/script>`;
-
-  const patchMarkup=raw=>{
-    let txt=raw
-      .replaceAll('<title>Musculoskeletal-Skin · Private Beta</title>','<title>Musculoskeletal-Skin</title>')
-      .replaceAll('Module II · Private Beta','Module II · Musculoskeletal-Skin')
-      .replaceAll('MSK-Skin Beta Access','Musculoskeletal-Skin')
-      .replaceAll('Musculoskeletal-Skin · Module II · Private Beta','Musculoskeletal-Skin · Module II')
-      .replaceAll('<span class="active-tag">Open Book Quiz</span>','<span class="active-tag">Quizzes</span>');
-
-    txt=txt.replace(/<div class="mockup-note">[\s\S]*?<\/div>/i,'');
-    txt=txt.replace(/<section class="feedback-panel">(?=[\s\S]*?<span class="section-kicker">Module Tools<\/span>)[\s\S]*?<\/section>/i,'');
-
-    const isStandalone=txt.includes('class="week-grid"')&&txt.includes('</main>');
-    if(isStandalone){
-      if(!txt.includes('mskPublicFinalStyles'))txt=txt.includes('</head>')?txt.replace('</head>',publicCss+'</head>'):publicCss+txt;
-      if(!txt.includes('id="mskFeedbackPanel"'))txt=txt.replace('</main>',feedbackHtml+'</main>');
-      if(!txt.includes('mskPublicRuntime'))txt=txt.replace('</body>',runtime+'</body>');
-      if(!txt.includes('shared/msk-tutorial.js'))txt=txt.replace('</body>','<script src="shared/msk-tutorial.js"><\/script></body>');
-    }
-    return txt;
-  };
+  const fixTag='<script src="shared/msk-review-route-fix.js"><\\/script>';
 
   window.fetch=async(...args)=>{
     const res=await nativeFetch(...args);
     const input=args[0];
     const url=typeof input==='string'?input:(input&&input.url)||'';
     if(url.includes('raw.githubusercontent.com/mikkellepeters-a11y/Foundations-of-med--2030/')&&/\/MSK\.html(?:\?|$)/.test(url)){
-      return new Response(patchMarkup(await res.text()),{status:res.status,statusText:res.statusText,headers:res.headers});
+      let txt=await res.text();
+      if(!txt.includes('shared/msk-review-route-fix.js')&&txt.includes('</body>')){
+        txt=txt.replace('</body>',fixTag+'</body>');
+      }
+      return new Response(txt,{status:res.status,statusText:res.statusText,headers:res.headers});
     }
     return res;
   };
 
-  const r=await nativeFetch('https://raw.githubusercontent.com/mikkellepeters-a11y/Foundations-of-med--2030/ebaeccdc3bacb39167a599d2c6edcd956acf4113/MSK.html');
+  const r=await nativeFetch('https://raw.githubusercontent.com/mikkellepeters-a11y/Foundations-of-med--2030/eadab87287e1b5a344263704ac98b2f2814d8eb4/MSK.html');
   if(!r.ok)throw new Error('MSK base failed');
-  document.open();document.write(patchMarkup(await r.text()));document.close();
-})().catch(e=>{console.error(e);document.body.innerHTML='<p style="font-family:system-ui;padding:24px">MSK hub failed to load. Please refresh.</p>'});
+  document.open();document.write(await r.text());document.close();
+})().catch(e=>{
+  console.error(e);
+  document.body.innerHTML='<p style="font-family:system-ui;padding:24px">MSK hub failed to load. Please refresh.</p>';
+});
 </script>
 </body>
