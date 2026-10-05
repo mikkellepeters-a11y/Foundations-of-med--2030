@@ -104,6 +104,7 @@
 
     const shouldExist=s.manually_filed||s.review_reasons.length>0;
     if(!shouldExist)return null;
+    if(s.status==='archived')s.status='active';
     if(!s.first_flagged_at)s.first_flagged_at=t;
     if(!s.next_due_at)s.next_due_at=t;
     if(s.status==='mastered'&&!correct)s.status='active';
@@ -116,7 +117,7 @@
     const s=refreshQuestionFields(existing||createState(question,t),question);
     s.manually_filed=true;
     s.review_reasons=uniq([...s.review_reasons,REASONS.FILED]);
-    if(s.status==='mastered')s.status='active';
+    if(s.status==='mastered'||s.status==='archived')s.status='active';
     s.mastered_at=null;
     if(!s.first_flagged_at)s.first_flagged_at=t;
     if(!s.next_due_at)s.next_due_at=t;
