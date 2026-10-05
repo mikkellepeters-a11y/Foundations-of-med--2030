@@ -15,14 +15,27 @@ security definer
 set search_path = public
 as $$
   with me as (
-    select id, anatomy_table, pcl_group, house
+    select id, cbl_group, anatomy_table, pcl_group, house
     from public.profiles
     where id = auth.uid()
   )
   select
-    'anatomy_table'::text as group_type,
-    trim(me.anatomy_table)::text as group_value,
+    'cbl_group'::text as group_type,
+    trim(me.cbl_group)::text as group_value,
     coalesce(nullif(trim(p.display_name), ''), 'MegaHub User')::text as display_name
+  from me
+  join public.profiles p
+    on p.id <> me.id
+   and nullif(trim(me.cbl_group), '') is not null
+   and lower(trim(p.cbl_group)) = lower(trim(me.cbl_group))
+  where nullif(trim(p.cbl_group), '') is not null
+
+  union all
+
+  select
+    'anatomy_table'::text,
+    trim(me.anatomy_table)::text,
+    coalesce(nullif(trim(p.display_name), ''), 'MegaHub User')::text
   from me
   join public.profiles p
     on p.id <> me.id
