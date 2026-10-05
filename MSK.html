@@ -11,6 +11,8 @@
     .beta-gate{display:none!important}
     .beta-site{display:block!important}
     body.beta-locked{overflow:auto!important}
+    #mskLeaderboardButton{display:inline-flex;align-items:center;gap:7px;margin-top:10px;padding:9px 13px;border-radius:11px;background:#28543d;color:#fff!important;text-decoration:none;font-size:11px;font-weight:850;box-shadow:0 6px 14px rgba(24,59,42,.14)}
+    #mskLeaderboardButton:hover{background:#183b2a}
     #mskFeedbackPanel{margin-top:28px;background:linear-gradient(180deg,#fbfdfb,#f6faf7);border:1px solid #ceddd3;border-radius:22px;box-shadow:0 14px 34px rgba(24,59,42,.08);padding:20px}
     #mskFeedbackPanel .feedback-grid{display:grid;grid-template-columns:1fr;gap:14px}
     #mskFeedbackPanel .feedback-card{border:1px solid #ceddd3;background:#fbfdfb;border-radius:16px;padding:18px}
@@ -43,8 +45,19 @@
       'Gross Anatomy Lab':'weeks/gross-anatomy/index.html',
       'MSK-Skin Drug Hub':'weeks/msk-drug-hub/index.html',
       'MSK-Skin Pathology Hub':'weeks/msk-pathology-hub/index.html',
-      'MSK-Skin CBL':'weeks/msk-cbl/index.html',
-      'MSK-Skin Leaderboard':'msk-leaderboard.html'
+      'MSK-Skin CBL':'weeks/msk-cbl/index.html'
+    };
+
+    const ensureLeaderboardButton=()=>{
+      document.querySelectorAll('[data-name="MSK-Skin Leaderboard"]').forEach(el=>el.remove());
+      if(document.getElementById('mskLeaderboardButton'))return;
+      const heading=[...document.querySelectorAll('h1,h2,h3')].find(el=>/choose a week/i.test((el.textContent||'').trim()));
+      if(!heading)return;
+      const button=document.createElement('a');
+      button.id='mskLeaderboardButton';
+      button.href='msk-leaderboard.html';
+      button.innerHTML='<span aria-hidden="true">🏆</span><span>Leaderboard</span>';
+      heading.insertAdjacentElement('afterend',button);
     };
 
     const ensureFeedback=()=>{
@@ -107,24 +120,8 @@
         if(h&&!cbl.querySelector('.active-desc')){
           h.insertAdjacentHTML('afterend','<p class="active-desc">Case-based learning for MSK-Skin with integrated clinical reasoning, quick guides, and case quizzes as they are added.</p><div class="active-footer"><div class="active-tags"><span class="active-tag">Cases</span><span class="active-tag">Quick Guides</span><span class="active-tag">Quizzes</span></div><div class="active-arrow">→</div></div>');
         }
-
-        if(!document.querySelector('[data-name="MSK-Skin Leaderboard"]')&&cbl.parentElement){
-          const board=cbl.cloneNode(true);
-          board.setAttribute('data-name','MSK-Skin Leaderboard');
-          board.setAttribute('href','msk-leaderboard.html');
-          board.removeAttribute('onclick');
-          board.onclick=null;
-          const boardH=board.querySelector('h3');if(boardH)boardH.textContent='MSK-Skin Leaderboard';
-          const boardDesc=board.querySelector('.active-desc');if(boardDesc)boardDesc.textContent='Live individual and CBL team standings for MSK-Skin based on questions answered and weighted by difficulty.';
-          const boardTags=board.querySelector('.active-tags');if(boardTags)boardTags.innerHTML='<span class="active-tag">Individual</span><span class="active-tag">Teams</span><span class="active-tag">Live</span>';
-          const boardIcon=board.querySelector('.icon-wrap');
-          if(boardIcon){
-            boardIcon.className='icon-wrap';
-            boardIcon.innerHTML='<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12h24v8c0 8-5.4 14.7-12 14.7S20 28 20 20v-8Z"/><path d="M20 17h-7v3c0 7 4 11 10 12M44 17h7v3c0 7-4 11-10 12M32 35v9M24 52h16M27 44h10"/></svg>';
-          }
-          cbl.insertAdjacentElement('afterend',board);
-        }
       }
+      ensureLeaderboardButton();
       ensureFeedback();
     };
 
