@@ -194,7 +194,8 @@
       if(!txt.includes('mskPublicRuntime'))txt=txt.replace('</body>',runtime+'</body>');
       if(!txt.includes('shared/msk-tutorial.js'))txt=txt.replace('</body>','<script src="shared/msk-tutorial.js"><\/script></body>');
       if(!txt.includes('shared/msk-review-route-fix.js'))txt=txt.replace('</body>','<script src="shared/msk-review-route-fix.js"><\/script></body>');
-      if(!txt.includes('shared/msk-notebook-card.js'))txt=txt.replace('</body>','<script src="shared/msk-notebook-card.js"><\/script></body>');
+      if(!txt.includes('shared/msk-notebook-card.js'))txt=txt.replace('</body>','<script src="shared/msk-notebook-card.js?v=20261005b"><\/script></body>');
+      if(!txt.includes('shared/msk-exam-countdown.js'))txt=txt.replace('</body>','<script src="shared/msk-exam-countdown.js?v=20261005b"><\/script></body>');
     }
     return txt;
   };
