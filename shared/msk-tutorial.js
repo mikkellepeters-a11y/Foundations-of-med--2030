@@ -69,6 +69,11 @@
       body:'CBL has its own module section for case quizzes and quick guides. Only the MSK weeks with an actual CBL case appear there.'
     },
     {
+      target:()=>document.querySelector('[data-msk-review-module="1"]')||byText('a,button,.week-card',/review\s+the\s+module/i),
+      title:'Review the Module',
+      body:'This opens the MSK review center for module-wide review tools and cumulative practice when you want to study across multiple weeks instead of one week at a time.'
+    },
+    {
       target:()=>document.getElementById('mskFeedbackPanel'),
       title:'Send Feedback',
       body:'If you find a broken link, bad question, confusing explanation, or have a feature idea, this is the fastest place to send it.'
