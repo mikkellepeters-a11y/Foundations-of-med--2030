@@ -30,14 +30,15 @@ const adapter=await tracker.createAdapter({...quiz,userId:'validator-user',store
 const q=(id,overrides={})=>({question_id:id,week:'Week 13',lecture:'Validator Lecture',topic:'Upper Extremity',difficulty:'Intermediate',stem:`Validator question ${id}`,choices:['Choice A','Choice B','Choice C','Choice D'],correct_answer:'Choice A',explanation:'Validator explanation.',...overrides});
 
 try{
-  await adapter.recordAnswer(q('repeat-1'),{selectedAnswer:'Choice B',confidence:'medium'});
+  await adapter.recordAnswer(q('repeat-1'),{selectedAnswer:'Choice B',confidence:'unsure'});
   let state=store.inspect();
-  add('First ordinary miss is stored as an attempt',state.question_attempts.length===1);
-  add('First ordinary miss is not yet Repeatedly Missed',!state.review_items.some(x=>x.question_id==='repeat-1'),'No review item should be created from a single neutral-confidence miss.');
+  const firstReview=state.review_items.find(x=>x.question_id==='repeat-1');
+  add('First wrong answer is stored as an attempt',state.question_attempts.length===1);
+  add('First wrong answer is not yet Repeatedly Missed',!firstReview?.review_reasons?.includes('repeatedly_missed'),'It may already appear under Low Confidence because the learner answered Unsure.');
   add('Attempts are hard-scoped to MSK',state.question_attempts[0]?.module_key==='msk');
 
   adapter.newAttempt('validator-attempt-2');
-  await adapter.recordAnswer(q('repeat-1'),{selectedAnswer:'Choice B',confidence:'medium'});
+  await adapter.recordAnswer(q('repeat-1'),{selectedAnswer:'Choice B',confidence:'unsure'});
   state=store.inspect();
   const repeated=state.review_items.find(x=>x.question_id==='repeat-1');
   add('Second miss across a retake creates Repeatedly Missed',repeated?.review_reasons?.includes('repeatedly_missed'));
