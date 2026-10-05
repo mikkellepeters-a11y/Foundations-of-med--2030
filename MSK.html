@@ -192,6 +192,7 @@
       if(!txt.includes('mskPublicFinalStyles'))txt=txt.includes('</head>')?txt.replace('</head>',publicCss+'</head>'):publicCss+txt;
       if(!txt.includes('id="mskFeedbackPanel"'))txt=txt.replace('</main>',feedbackHtml+'</main>');
       if(!txt.includes('mskPublicRuntime'))txt=txt.replace('</body>',runtime+'</body>');
+      if(!txt.includes('shared/msk-tutorial.js'))txt=txt.replace('</body>','<script src="shared/msk-tutorial.js"><\/script></body>');
     }
     return txt;
   };
