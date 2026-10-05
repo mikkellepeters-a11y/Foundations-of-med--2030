@@ -7,6 +7,7 @@
 (async()=>{
   const nativeFetch=window.fetch.bind(window);
   const fixTag='<script src="shared/msk-review-route-fix.js"><\\/script>';
+  const notebookTag='<script src="shared/msk-notebook-card.js"><\\/script>';
 
   window.fetch=async(...args)=>{
     const res=await nativeFetch(...args);
@@ -14,8 +15,9 @@
     const url=typeof input==='string'?input:(input&&input.url)||'';
     if(url.includes('raw.githubusercontent.com/mikkellepeters-a11y/Foundations-of-med--2030/')&&/\/MSK\.html(?:\?|$)/.test(url)){
       let txt=await res.text();
-      if(!txt.includes('shared/msk-review-route-fix.js')&&txt.includes('</body>')){
-        txt=txt.replace('</body>',fixTag+'</body>');
+      if(txt.includes('</body>')){
+        if(!txt.includes('shared/msk-review-route-fix.js'))txt=txt.replace('</body>',fixTag+'</body>');
+        if(!txt.includes('shared/msk-notebook-card.js'))txt=txt.replace('</body>',notebookTag+'</body>');
       }
       return new Response(txt,{status:res.status,statusText:res.statusText,headers:res.headers});
     }
@@ -24,7 +26,12 @@
 
   const r=await nativeFetch('https://raw.githubusercontent.com/mikkellepeters-a11y/Foundations-of-med--2030/eadab87287e1b5a344263704ac98b2f2814d8eb4/MSK.html');
   if(!r.ok)throw new Error('MSK base failed');
-  document.open();document.write(await r.text());document.close();
+  let txt=await r.text();
+  if(txt.includes('</body>')){
+    if(!txt.includes('shared/msk-review-route-fix.js'))txt=txt.replace('</body>',fixTag+'</body>');
+    if(!txt.includes('shared/msk-notebook-card.js'))txt=txt.replace('</body>',notebookTag+'</body>');
+  }
+  document.open();document.write(txt);document.close();
 })().catch(e=>{
   console.error(e);
   document.body.innerHTML='<p style="font-family:system-ui;padding:24px">MSK hub failed to load. Please refresh.</p>';
