@@ -17,6 +17,19 @@
   let groupMembersLoading=false;
   let groupMembersSignature=null;
 
+  let achievementBulletinSyncStarted=false;
+
+  async function syncAchievementBulletin(){
+    if(achievementBulletinSyncStarted)return;
+    if(typeof currentUser==='undefined'||!currentUser?.id||typeof supabaseClient==='undefined')return;
+    achievementBulletinSyncStarted=true;
+    const {error}=await supabaseClient.rpc('sync_my_achievements');
+    if(error){
+      achievementBulletinSyncStarted=false;
+      console.warn('MegaHub achievement Bulletin sync failed:',error.message);
+    }
+  }
+
   const ACHIEVEMENTS=[
     {id:'first-question',icon:'✦',title:'First Question',description:'Answer your first MegaHub question.',kind:'questions',target:1},
     {id:'warm-up',icon:'🔥',title:'Warmed Up',description:'Answer 50 questions.',kind:'questions',target:50},
@@ -466,6 +479,7 @@
   installSaveHandler();
   syncTeamUI();
   renderAchievements();
+  syncAchievementBulletin();
 
   let tries=0;
   const startupTimer=setInterval(()=>{
@@ -473,6 +487,7 @@
     ensureAchievementUI();
     installSaveHandler();
     renderAchievements();
+    syncAchievementBulletin();
     tries++;
     const activityReady=typeof questionAttempts!=='undefined'&&typeof quizAttempts!=='undefined';
     if((activityReady&&typeof profileRow!=='undefined'&&profileRow)||tries>=50)clearInterval(startupTimer);
