@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MSK End-to-End Validator</title>
+<style>
+:root{--bg:#edf3ef;--paper:#fbfdfb;--ink:#21362b;--muted:#63736a;--accent:#28543d;--dark:#183b2a;--mid:#527761;--line:#ceddd3;--good:#e7f1e9;--bad:#f5e8e4;--warn:#f5efe2;--shadow:0 16px 38px rgba(24,59,42,.10)}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top left,rgba(255,255,255,.76),transparent 34%),var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}a{color:inherit;text-decoration:none}
+header{background:linear-gradient(135deg,var(--dark),var(--accent),var(--mid));color:#fff;padding:28px 20px 40px}.inner,main,footer{max-width:1080px;margin:auto}.topbar{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}.links{display:flex;gap:7px;flex-wrap:wrap}.pill{display:inline-flex;padding:8px 11px;border-radius:999px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.1);font-size:10px;font-weight:850}.hero{margin-top:28px}.eyebrow{font-size:10px;text-transform:uppercase;letter-spacing:.1em;font-weight:900;opacity:.78}.hero h1{margin:5px 0 8px;font-size:clamp(36px,6vw,56px);letter-spacing:-.04em}.hero p{max-width:820px;margin:0;color:rgba(255,255,255,.84);font-size:12px;line-height:1.58}.safe{display:inline-flex;margin-top:13px;padding:7px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.10);font-size:9px;font-weight:900}
+main{padding:28px 20px 70px}.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:16px}.stat{background:#fff;border:1px solid var(--line);border-radius:15px;padding:13px;box-shadow:var(--shadow)}.stat b{display:block;font-size:26px}.stat span{display:block;margin-top:2px;color:var(--muted);font-size:8px;text-transform:uppercase;letter-spacing:.055em;font-weight:900}.banner{border:1px solid var(--line);border-left:6px solid var(--accent);border-radius:16px;background:#fff;padding:14px 16px;margin-bottom:16px;box-shadow:var(--shadow)}.banner.pass{background:var(--good);border-left-color:#4d775a}.banner.fail{background:var(--bad);border-left-color:#99574d}.banner h2{margin:0;font-size:18px}.banner p{margin:4px 0 0;color:var(--muted);font-size:9.5px;line-height:1.45}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}.card{background:linear-gradient(180deg,#fff,var(--paper));border:1px solid var(--line);border-radius:20px;padding:17px;box-shadow:var(--shadow)}.card.full{grid-column:1/-1}.card h2{margin:3px 0 6px;font-size:20px}.card p{margin:0;color:var(--muted);font-size:9.5px;line-height:1.5}.tests{display:grid;gap:7px;margin-top:12px}.test{display:grid;grid-template-columns:1fr auto;gap:10px;border:1px solid var(--line);border-radius:11px;background:#fff;padding:10px}.test strong{font-size:10px}.test small{display:block;margin-top:3px;color:var(--muted);font-size:8.5px;line-height:1.4}.pass,.fail{font-size:8px;font-weight:950;letter-spacing:.05em}.pass{color:#42694d}.fail{color:#8b4f46}.dump{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:8.5px;line-height:1.5;white-space:pre-wrap;overflow-wrap:anywhere;max-height:360px;overflow:auto;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:12px}.note{margin-top:12px;padding:11px;border:1px dashed #b9ccbe;border-radius:12px;background:#f9fcfa;color:var(--muted);font-size:9px;line-height:1.48}footer{padding:0 20px 30px;color:#74847a;font-size:10px}
+@media(max-width:760px){.summary{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}.card.full{grid-column:auto}}
+</style>
+</head>
+<body>
+<header><div class="inner"><div class="topbar"><div class="links"><a class="pill" href="msk-system-qa.html">← System QA</a><a class="pill" href="../quiz/msk-question-bank-validator.html">Question Bank QA</a><a class="pill" href="../quiz/msk-quiz-definition-validator.html">Definition QA</a></div><a class="pill" href="../my-profile.html">My Profile</a></div><div class="hero"><div class="eyebrow">Development Validation · Full Pipeline</div><h1>MSK End-to-End Validator</h1><p>Runs a synthetic MSK question lifecycle through the central Question Bank, production quiz definitions, tracking adapter, Smart Review, mastery rules, Weakness Radar, Recommendation Engine, and Adaptive Quiz selector.</p><div class="safe">MEMORY / PAGE RUNTIME ONLY · NO SUPABASE WRITES</div></div></div></header>
+<main>
+<section class="banner" id="banner"><h2 id="bannerTitle">Running validator…</h2><p id="bannerText">No production data is touched.</p></section>
+<section class="summary"><div class="stat"><b id="passed">0</b><span>Passed</span></div><div class="stat"><b id="failed">0</b><span>Failed</span></div><div class="stat"><b id="total">0</b><span>Total Checks</span></div><div class="stat"><b id="stages">0</b><span>Pipeline Stages</span></div></section>
+<div class="grid">
+  <section class="card"><div class="eyebrow" style="color:var(--mid);opacity:1">Stage 1–3</div><h2>Content → Quiz → Tracking</h2><p>Question identity, definition hydration, attempt recording, duplicate protection, retakes, and module scope.</p><div class="tests" id="contentTests"></div></section>
+  <section class="card"><div class="eyebrow" style="color:var(--mid);opacity:1">Stage 4</div><h2>Smart Review Lifecycle</h2><p>Repeated misses, confident errors, low-confidence recall, manual filing, due state, spacing, and mastery.</p><div class="tests" id="reviewTests"></div></section>
+  <section class="card"><div class="eyebrow" style="color:var(--mid);opacity:1">Stage 5</div><h2>Analytics & Recommendations</h2><p>Weakness Radar and next-action recommendations must ignore Foundations contamination.</p><div class="tests" id="analyticsTests"></div></section>
+  <section class="card"><div class="eyebrow" style="color:var(--mid);opacity:1">Stage 6</div><h2>Adaptive Quiz Selection</h2><p>Custom sets must honor module scope, weakness signals, history filters, and permanent question IDs.</p><div class="tests" id="adaptiveTests"></div></section>
+  <section class="card full"><div class="eyebrow" style="color:var(--mid);opacity:1">Final synthetic state</div><h2>Memory Store Snapshot</h2><p>The snapshot is shown for inspection only and disappears when this page closes.</p><div class="dump" id="dump">Waiting…</div><div class="note"><b>Database-side isolation is audited separately.</b> The production leaderboard functions now use exact <code>module_key='foundations'</code> and <code>module_key='msk'</code> filters, while RLS limits attempt/review rows to the signed-in user.</div></section>
+</div>
+</main>
+<footer>Musculoskeletal-Skin · End-to-End Development Validator · No production writes</footer>
+<script src="../shared/msk-smart-review.js"></script>
+<script src="../shared/msk-quiz-tracking.js"></script>
+<script src="../shared/msk-question-bank.js"></script>
+<script src="../question-bank/msk-question-bank-data.js"></script>
+<script src="../shared/msk-quiz-definitions.js"></script>
+<script src="../question-bank/msk-quiz-definitions-data.js"></script>
+<script src="../shared/msk-weakness-radar.js"></script>
+<script src="../shared/msk-recommendation-engine.js"></script>
+<script src="../shared/msk-adaptive-quiz.js"></script>
+<script>
+(async function(){
+'use strict';
+const groups={content:[],review:[],analytics:[],adaptive:[]};
+const check=(group,name,pass,detail='')=>groups[group].push({name,pass:Boolean(pass),detail});
+const bank=window.MSKQuestionBank,defs=window.MSKQuizDefinitions,tracking=window.MSKQuizTracking,smart=window.MSKSmartReview,radar=window.MSKWeaknessRadar,recommend=window.MSKRecommendationEngine,adaptive=window.MSKAdaptiveQuiz;
+const q=(id,overrides={})=>({
+  question_id:id,source_quiz_id:'msk-e2e-quiz',week:'Week 13',lecture:'Validator Lecture',topic:'Peripheral Nerves',difficulty:'Intermediate',
+  stem:'Synthetic validator question '+id,choices:['Choice A','Choice B','Choice C','Choice D'],correct_answer:'A',
+  explanation:'Synthetic validator explanation.',choice_explanations:{A:'Correct.',B:'Incorrect.',C:'Incorrect.',D:'Incorrect.'},hint:'Synthetic hint.',
+  tags:['validator'],source_refs:['synthetic-runtime-only'],status:'published',...overrides
+});
+try{
+  check('content','All core MSK engines load with exact module scope',[tracking,smart,radar,recommend,adaptive].every(x=>x&&x.MODULE_KEY==='msk'));
+
+  const testQuestions=[
+    q('msk-e2e-repeat',{topic:'Peripheral Nerves'}),
+    q('msk-e2e-confident',{topic:'Rotator Cuff',difficulty:'Step 1'}),
+    q('msk-e2e-low',{topic:'Dermatologic Morphology',difficulty:'In-House'}),
+    q('msk-e2e-manual',{topic:'Brachial Plexus',difficulty:'Step 1'}),
+    q('msk-e2e-duplicate',{topic:'Humerus',difficulty:'Intermediate'}),
+    q('msk-e2e-unseen',{topic:'Bone Tumors',difficulty:'Step 1'})
+  ];
+  const packResult=bank.registerPack({pack_id:'msk-e2e-runtime',label:'Runtime E2E Pack',source:'admin/msk-e2e-validator.html',questions:testQuestions});
+  const bankValidation=bank.validateAll();
+  check('content','Runtime test pack registers in the central Question Bank',packResult.registered===testQuestions.length,'registered='+packResult.registered);
+  check('content','Runtime bank questions pass the canonical question contract',bankValidation.errors.filter(x=>x.pack_id==='msk-e2e-runtime').length===0);
+
+  defs.registerDefinition({
+    quiz_id:'msk-e2e-quiz',quiz_name:'MSK E2E Validator Quiz',section:'Development QA',week:'Week 13',
+    description:'Synthetic runtime-only end-to-end validation.',question_ids:testQuestions.slice(0,5).map(x=>x.question_id),
+    status:'published',default_mode:'practice',allowed_modes:['practice','advanced_review'],tags:['validator']
+  });
+  const hydrated=defs.hydrate('msk-e2e-quiz',bank);
+  check('content','Production definition hydrates permanent bank IDs into tracking questions',hydrated.valid&&hydrated.trackingQuestions.length===5,'hydrated='+hydrated.trackingQuestions.length);
+
+  const foundationsSeed={
+    question_attempts:[{user_id:'validator-user',module_key:'foundations',quiz_id:'foundation-seed',question_id:'f-1',topic:'FOUNDATIONS SHOULD NEVER APPEAR',difficulty:'Step 1',is_correct:false,confidence:'confident',answered_at:'2026-10-01T12:00:00Z'}],
+    quiz_attempts:[{user_id:'validator-user',module_key:'foundations',quiz_id:'foundation-seed',attempt_token:'foundation-token'}],
+    review_items:[{user_id:'validator-user',module_key:'foundations',quiz_id:'foundation-seed',question_id:'f-1',status:'active',review_reasons:['repeatedly_missed'],miss_count:9,topic:'FOUNDATIONS SHOULD NEVER APPEAR',next_due_at:'2020-01-01T00:00:00Z'}]
+  };
+  const store=tracking.createMemoryStore(foundationsSeed);
+  const adapter=await tracking.createAdapter({quizId:'msk-e2e-quiz',quizName:'MSK E2E Validator Quiz',week:'Week 13',section:'Development QA',userId:'validator-user',store,persistMarkers:false,attemptToken:'e2e-attempt-1'});
+
+  const tq=id=>bank.toTrackingQuestion(id);
+  await adapter.recordAnswer(tq('msk-e2e-repeat'),{selectedAnswer:'B',confidence:'unsure'});
+  let state=store.inspect();
+  let repeat=state.review_items.find(x=>x.module_key==='msk'&&x.question_id==='msk-e2e-repeat');
+  check('review','First unsure miss creates low-confidence review without premature repeated-miss status',repeat?.review_reasons?.includes('low_confidence')&&!repeat?.review_reasons?.includes('repeatedly_missed'));
+
+  adapter.newAttempt('e2e-attempt-2');
+  await adapter.recordAnswer(tq('msk-e2e-repeat'),{selectedAnswer:'B',confidence:'unsure'});
+  await adapter.recordAnswer(tq('msk-e2e-confident'),{selectedAnswer:'B',confidence:'confident'});
+  await adapter.recordAnswer(tq('msk-e2e-low'),{selectedAnswer:'A',confidence:'guessing'});
+  await adapter.fileQuestion(tq('msk-e2e-manual'));
+  state=store.inspect();
+  repeat=state.review_items.find(x=>x.module_key==='msk'&&x.question_id==='msk-e2e-repeat');
+  const confident=state.review_items.find(x=>x.module_key==='msk'&&x.question_id==='msk-e2e-confident');
+  const low=state.review_items.find(x=>x.module_key==='msk'&&x.question_id==='msk-e2e-low');
+  let manual=state.review_items.find(x=>x.module_key==='msk'&&x.question_id==='msk-e2e-manual');
+  check('review','Second miss across retakes creates Repeatedly Missed',repeat?.miss_count===2&&repeat?.review_reasons?.includes('repeatedly_missed'),'miss_count='+repeat?.miss_count);
+  check('review','Wrong + Confident creates Confidently Wrong',confident?.review_reasons?.includes('confidently_wrong'));
+  check('review','Correct + Guessing creates Low Confidence',low?.last_result_correct===true&&low?.review_reasons?.includes('low_confidence'));
+  check('review','Manual File for Review creates a persistent manual review item',manual?.manually_filed===true&&manual?.review_reasons?.includes('filed'));
+
+  const beforeDup=state.question_attempts.filter(x=>x.module_key==='msk').length;
+  const firstDup=await adapter.recordAnswer(tq('msk-e2e-duplicate'),{selectedAnswer:'A',confidence:'confident'});
+  const secondDup=await adapter.recordAnswer(tq('msk-e2e-duplicate'),{selectedAnswer:'A',confidence:'confident'});
+  state=store.inspect();
+  check('content','Question submission is idempotent inside one attempt token',firstDup?.duplicate===false&&secondDup?.duplicate===true&&state.question_attempts.filter(x=>x.module_key==='msk').length===beforeDup+1);
+
+  const completion1=await adapter.completeQuiz({score:1,totalQuestions:4});
+  const completion2=await adapter.completeQuiz({score:1,totalQuestions:4});
+  check('content','Quiz completion is idempotent inside one attempt token',completion1?.duplicate===false&&completion2?.duplicate===true);
+
+  const beforeRetake=store.inspect().question_attempts.filter(x=>x.module_key==='msk'&&x.question_id==='msk-e2e-duplicate').length;
+  adapter.newAttempt('e2e-attempt-3');
+  const retake=await adapter.recordAnswer(tq('msk-e2e-duplicate'),{selectedAnswer:'A',confidence:'confident'});
+  check('content','A new attempt token allows a legitimate retake',retake?.duplicate===false&&store.inspect().question_attempts.filter(x=>x.module_key==='msk'&&x.question_id==='msk-e2e-duplicate').length===beforeRetake+1);
+
+  state=store.inspect();
+  const generated=[...state.question_attempts.filter(x=>x.quiz_id==='msk-e2e-quiz'),...state.quiz_attempts.filter(x=>x.quiz_id==='msk-e2e-quiz'),...state.review_items.filter(x=>x.quiz_id==='msk-e2e-quiz')];
+  check('content','All newly generated production rows are hard-scoped to module_key=msk',generated.length>0&&generated.every(x=>x.module_key==='msk'));
+  check('content','Seeded Foundations rows remain separate and untouched',state.question_attempts.some(x=>x.module_key==='foundations'&&x.question_id==='f-1')&&state.review_items.some(x=>x.module_key==='foundations'&&x.question_id==='f-1'));
+
+  repeat=smart.makeDueNow(repeat,'2026-10-06T12:00:00Z');
+  await store.upsertReviewItem('validator-user',repeat);
+  check('review','Due state is derived from next_due_at',smart.categories(repeat,'2026-10-06T12:00:01Z').includes('due'));
+
+  let mastered=repeat;
+  mastered=smart.applyReviewAttempt(mastered,{correct:true,confidence:'confident'},'2026-10-06T12:01:00Z');
+  mastered=smart.applyReviewAttempt(mastered,{correct:true,confidence:'confident'},'2026-10-09T12:01:00Z');
+  mastered=smart.applyReviewAttempt(mastered,{correct:true,confidence:'confident'},'2026-10-16T12:01:00Z');
+  await store.upsertReviewItem('validator-user',mastered);
+  check('review','Auto-added review item masters after the mastery target',mastered.status==='mastered'&&mastered.correct_streak>=smart.MASTERY_TARGET);
+
+  manual=smart.applyReviewAttempt(manual,{correct:true,confidence:'confident'},'2026-10-06T13:01:00Z');
+  manual=smart.applyReviewAttempt(manual,{correct:true,confidence:'confident'},'2026-10-09T13:01:00Z');
+  manual=smart.applyReviewAttempt(manual,{correct:true,confidence:'confident'},'2026-10-16T13:01:00Z');
+  check('review','Manual review item does not silently auto-master',manual.manually_filed===true&&manual.status!=='mastered');
+
+  state=store.inspect();
+  const radarRows=radar.build(state.question_attempts,state.review_items,{groupBy:'topic'});
+  check('analytics','Weakness Radar excludes Foundations rows',!radarRows.some(r=>r.key==='FOUNDATIONS SHOULD NEVER APPEAR'));
+  check('analytics','Weakness Radar produces an MSK topic signal',radarRows.some(r=>r.key==='Rotator Cuff'||r.key==='Dermatologic Morphology'||r.key==='Peripheral Nerves'));
+
+  const recs=recommend.build(state.question_attempts,state.review_items,{radarRows,max:6});
+  const serializedRecs=JSON.stringify(recs);
+  check('analytics','Recommendation Engine excludes Foundations signals',!serializedRecs.includes('FOUNDATIONS SHOULD NEVER APPEAR'));
+  check('analytics','Recommendation Engine produces a concrete MSK next action',recs.some(r=>r.action&&r.action.kind));
+
+  const mixedBank=[...bank.published(),{module_key:'foundations',question_id:'foundation-bank-leak',source_quiz_id:'f',week:'Week 13',lecture:'Foundation',topic:'FOUNDATIONS SHOULD NEVER APPEAR',difficulty:'Step 1',stem:'x',choices:['A','B'],correct_answer:'A',status:'published'}];
+  const unseenPlan=adaptive.build(state.review_items,state.question_attempts,{source:'full_bank',count:20,historyMode:'unseen'},mixedBank);
+  check('adaptive','Full-bank adaptive selection excludes non-MSK bank rows',!unseenPlan.selected.some(x=>x.question_id==='foundation-bank-leak'));
+  check('adaptive','Unseen-only excludes previously attempted MSK questions',unseenPlan.selected.every(x=>!state.question_attempts.some(a=>a.module_key==='msk'&&a.question_id===x.question_id)));
+  const weakPlan=adaptive.build(state.review_items,state.question_attempts,{source:'adaptive',count:5,weakestTopics:1},mixedBank);
+  check('adaptive','Weakness-targeted adaptive build returns only MSK review items',weakPlan.selected.every(x=>x.module_key==='msk'));
+  check('adaptive','Adaptive selections preserve permanent question IDs',weakPlan.selected.every(x=>x.question_id&&typeof x.question_id==='string'));
+
+  const allTests=Object.values(groups).flat();
+  const passed=allTests.filter(x=>x.pass).length,failed=allTests.length-passed;
+  document.getElementById('passed').textContent=passed;
+  document.getElementById('failed').textContent=failed;
+  document.getElementById('total').textContent=allTests.length;
+  document.getElementById('stages').textContent=6;
+  const banner=document.getElementById('banner');
+  banner.classList.add(failed?'fail':'pass');
+  document.getElementById('bannerTitle').textContent=failed?'End-to-end validation found problems':'End-to-end validation passed';
+  document.getElementById('bannerText').textContent=failed?failed+' check'+(failed===1?'':'s')+' failed. Review the details below.':'All '+passed+' checks passed using synthetic runtime-only data. No Supabase rows were created or changed.';
+  const renderGroup=(id,rows)=>document.getElementById(id).innerHTML=rows.map(t=>'<div class="test"><div><strong>'+t.name+'</strong>'+(t.detail?'<small>'+String(t.detail)+'</small>':'')+'</div><span class="'+(t.pass?'pass':'fail')+'">'+(t.pass?'PASS':'FAIL')+'</span></div>').join('');
+  renderGroup('contentTests',groups.content);renderGroup('reviewTests',groups.review);renderGroup('analyticsTests',groups.analytics);renderGroup('adaptiveTests',groups.adaptive);
+  document.getElementById('dump').textContent=JSON.stringify(store.inspect(),null,2);
+}catch(error){
+  document.getElementById('failed').textContent='1';
+  document.getElementById('total').textContent='1';
+  document.getElementById('stages').textContent='0';
+  const banner=document.getElementById('banner');banner.classList.add('fail');
+  document.getElementById('bannerTitle').textContent='Validator runtime error';
+  document.getElementById('bannerText').textContent=error?.message||String(error);
+  document.getElementById('contentTests').innerHTML='<div class="test"><div><strong>Validator completed without runtime errors</strong><small>'+(error?.stack||error?.message||String(error))+'</small></div><span class="fail">FAIL</span></div>';
+}
+})();
+</script>
+</body>
+</html>
