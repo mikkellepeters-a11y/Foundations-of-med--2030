@@ -80,3 +80,15 @@ tracker.newAttempt();
 - `attempt_token` prevents duplicate question/completion writes inside one quiz attempt while still allowing retakes.
 
 The development-only validator is `review/msk-quiz-tracking-validator.html`. It uses an in-memory store and never writes fake data to Supabase.
+
+
+## Production quiz pipeline
+
+For new MSK content, prefer the central bank + quiz-definition pipeline rather than embedding question objects into new HTML files:
+
+1. Add the question once to `question-bank/msk-question-bank-data.js`.
+2. Add its permanent ID to a definition in `question-bank/msk-quiz-definitions-data.js`.
+3. Validate the bank and definition registries.
+4. Launch the definition through `quiz/msk-quiz-template.html?quiz=<quiz_id>`.
+
+The canonical player hydrates the bank questions and still uses `MSKQuizTracking`, so question attempts, quiz attempts, Smart Review, confidence signals, and leaderboard participation continue through the same tracking contract.
