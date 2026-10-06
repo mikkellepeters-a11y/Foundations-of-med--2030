@@ -223,7 +223,7 @@ footer{padding:0 22px 34px;color:#8a7b70;font-size:12px}
         <span class="account-status" id="accountStatus">Guest mode</span>
         <div class="account-tools">
           <button class="account-button" id="accountButton" type="button">Log In / Create Account</button>
-          <a class="bulletin-button" id="bulletinButton" href="developer-updates.html" aria-label="Open Bulletin">
+          <a class="bulletin-button" id="bulletinButton" href="bulletin.html" aria-label="Open Bulletin">
             <span>Bulletin</span><span class="bulletin-dot" id="bulletinDot" aria-hidden="true"></span>
           </a>
         </div>
@@ -400,7 +400,7 @@ footer{padding:0 22px 34px;color:#8a7b70;font-size:12px}
 </div>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
-<script src="shared/developer-posts.js"></script>
+<script src="shared/bulletin-posts.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 const SUPABASE_URL='https://ofqfdnxpftifnvxnvppe.supabase.co';
@@ -441,7 +441,7 @@ const bulletinDot=document.getElementById('bulletinDot');
 const BULLETIN_STORAGE_KEY='megahub-bulletin-last-read-id-v1';
 
 function latestBulletinId(){
-  const posts=Array.isArray(window.MEGAHUB_DEVELOPER_POSTS)?window.MEGAHUB_DEVELOPER_POSTS:[];
+  const posts=Array.isArray(window.MEGAHUB_BULLETIN_POSTS)?window.MEGAHUB_BULLETIN_POSTS:[];
   return posts[0]?.id||'';
 }
 function localBulletinReadId(){
