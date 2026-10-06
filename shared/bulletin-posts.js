@@ -2,6 +2,7 @@ window.MEGAHUB_BULLETIN_POSTS = [
   {
     id: '2026-10-05-bulletin-feed',
     date: 'October 5, 2026',
+    createdAt: '2026-10-05T18:00:00-04:00',
     category: 'Developer Update',
     author: 'Mikkelle Peters',
     role: 'MegaHub Developer',
@@ -14,6 +15,7 @@ window.MEGAHUB_BULLETIN_POSTS = [
   {
     id: '2026-09-30-achievements-updates',
     date: 'September 30, 2026',
+    createdAt: '2026-09-30T15:00:00-04:00',
     category: 'Developer Update',
     author: 'Mikkelle Peters',
     role: 'MegaHub Developer',
@@ -26,6 +28,7 @@ window.MEGAHUB_BULLETIN_POSTS = [
   {
     id: '2026-09-30-profile-setup',
     date: 'September 30, 2026',
+    createdAt: '2026-09-30T14:00:00-04:00',
     category: 'Developer Update',
     author: 'Mikkelle Peters',
     role: 'MegaHub Developer',
