@@ -1,5 +1,15 @@
 window.MEGAHUB_DEVELOPER_POSTS = [
   {
+    id: '2026-10-05-bulletin-feed',
+    date: 'October 5, 2026',
+    category: 'New Feature',
+    title: 'The Bulletin is live',
+    body: [
+      'I added a Bulletin button beneath My Profile on the main MegaHub. It is the new home for developer updates, feature announcements, fixes, and site notes.',
+      'A notification dot appears when there is a newer Bulletin item you have not opened yet. For signed-in users, the read state follows the account so the notification can stay in sync across devices.'
+    ]
+  },
+  {
     id: '2026-09-30-achievements-updates',
     date: 'September 30, 2026',
     category: 'New Feature',
