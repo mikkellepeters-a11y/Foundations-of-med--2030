@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Bulletin · MCG Class of 2030 Hub</title>
+<style>
+:root{
+  --bg:#f3ece3;--paper:#fffaf4;--ink:#3e3028;--muted:#78695f;--line:#dccfc3;
+  --brown:#694a39;--brown-dark:#4a3428;--brown-soft:#8a654f;--tan:#eee5dc;
+  --shadow:0 14px 34px rgba(65,43,31,.08)
+}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(circle at top left,rgba(255,255,255,.55),transparent 32%),var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+a{color:inherit}
+header{background:linear-gradient(135deg,var(--brown-dark),var(--brown),var(--brown-soft));color:#fff;padding:28px 20px 34px}
+.header-inner,main,footer{max-width:920px;margin:auto}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.brand{font-size:13px;font-weight:900;letter-spacing:.02em}.brand span{display:block;font-size:10px;font-weight:650;opacity:.7;margin-top:2px}
+.actions{display:flex;gap:8px;flex-wrap:wrap}.nav-link{display:inline-flex;text-decoration:none;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.1);border-radius:999px;padding:9px 12px;font-size:11px;font-weight:850}.nav-link:hover{background:rgba(255,255,255,.17)}
+.hero{margin-top:34px}.eyebrow{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.12em;opacity:.72}.hero h1{margin:6px 0 8px;font-size:clamp(34px,6vw,56px);letter-spacing:-.04em}.hero p{max-width:720px;margin:0;color:rgba(255,255,255,.82);font-size:14px;line-height:1.6}
+main{padding:30px 20px 70px}
+.intro{background:linear-gradient(180deg,var(--paper),#fbf5ee);border:1px solid var(--line);border-radius:20px;padding:18px 20px;box-shadow:var(--shadow);margin-bottom:14px}
+.intro strong{font-size:15px}.intro p{margin:6px 0 0;color:var(--muted);font-size:12px;line-height:1.6}
+.filters{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 18px}
+.filter-btn{border:1px solid var(--line);background:rgba(255,250,244,.72);color:var(--muted);border-radius:999px;padding:7px 10px;font:inherit;font-size:10px;font-weight:850;cursor:pointer}
+.filter-btn:hover{background:#fff}.filter-btn.active{background:var(--brown);color:#fff;border-color:var(--brown)}
+.feed{display:grid;gap:16px}
+.post{background:linear-gradient(180deg,var(--paper),#fbf5ee);border:1px solid var(--line);border-radius:22px;padding:22px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.post:before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(var(--brown-dark),var(--brown),var(--brown-soft))}
+.post-meta{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.category{display:inline-flex;padding:6px 9px;border-radius:999px;background:var(--tan);border:1px solid var(--line);font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.07em}
+.date{font-size:10px;color:var(--muted);font-weight:750}.post h2{margin:0 0 10px;font-size:24px;letter-spacing:-.025em}
+.post p{margin:8px 0 0;color:var(--muted);line-height:1.65;font-size:13px}
+.signature{margin-top:16px;padding-top:13px;border-top:1px solid var(--line);font-size:10px;color:var(--muted);font-weight:750}
+.empty{padding:30px;border:1px dashed var(--line);border-radius:18px;text-align:center;color:var(--muted);background:rgba(255,250,244,.55)}
+footer{padding:0 20px 28px;color:#8a7b70;font-size:11px}
+@media(max-width:600px){.post{padding:18px}.post h2{font-size:21px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <div class="topbar">
+      <div class="brand">MCG Class of 2030<span>Pre-Clerkship Study Hub</span></div>
+      <div class="actions">
+        <a class="nav-link" href="my-profile.html">My Profile</a>
+        <a class="nav-link" href="index.html">Back to Hub</a>
+      </div>
+    </div>
+    <div class="hero">
+      <div class="eyebrow">Class Feed</div>
+      <h1>Bulletin</h1>
+      <p>One feed for MegaHub announcements, academic reminders, events, resources, class notes, and developer updates.</p>
+    </div>
+  </div>
+</header>
+<main>
+  <div class="intro">
+    <strong>MCG Class of 2030 Bulletin</strong>
+    <p>Newest posts appear first. Developer updates are only one category now; the Bulletin can also carry general class and academic information.</p>
+  </div>
+  <div class="filters" id="bulletinFilters" aria-label="Filter Bulletin posts"></div>
+  <section class="feed" id="bulletinFeed"><div class="empty">Loading Bulletin…</div></section>
+</main>
+<footer>MCG Class of 2030 · MegaHub · Designed by Mikkelle Peters</footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="shared/bulletin-posts.js"></script>
+<script>
+const feed=document.getElementById('bulletinFeed');
+const filters=document.getElementById('bulletinFilters');
+const posts=Array.isArray(window.MEGAHUB_BULLETIN_POSTS)?window.MEGAHUB_BULLETIN_POSTS:[];
+function escapeHtml(value){return String(value??'').replace(/[&<>'"]/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch]));}
+function postByline(post){
+  const author=post.author||'MCG Class of 2030';
+  const role=post.role?(' · '+post.role):'';
+  return escapeHtml(author+role);
+}
+function renderPosts(category='All'){
+  const visible=category==='All'?posts:posts.filter(post=>(post.category||'General')===category);
+  if(!visible.length){
+    feed.innerHTML='<div class="empty">No Bulletin posts in this category yet.</div>';
+    return;
+  }
+  feed.innerHTML=visible.map(post=>{
+    const paragraphs=(post.body||[]).map(text=>`<p>${escapeHtml(text)}</p>`).join('');
+    return `<article class="post" id="${escapeHtml(post.id)}"><div class="post-meta"><span class="category">${escapeHtml(post.category||'General')}</span><span class="date">${escapeHtml(post.date||'')}</span></div><h2>${escapeHtml(post.title||'Bulletin Update')}</h2>${paragraphs}<div class="signature">${postByline(post)}</div></article>`;
+  }).join('');
+}
+const categories=['All',...new Set(posts.map(post=>post.category||'General'))];
+filters.innerHTML=categories.map((category,index)=>`<button class="filter-btn${index===0?' active':''}" type="button" data-category="${escapeHtml(category)}">${escapeHtml(category)}</button>`).join('');
+filters.addEventListener('click',event=>{
+  const button=event.target.closest('.filter-btn');
+  if(!button)return;
+  filters.querySelectorAll('.filter-btn').forEach(btn=>btn.classList.toggle('active',btn===button));
+  renderPosts(button.dataset.category||'All');
+});
+renderPosts();
+
+const BULLETIN_STORAGE_KEY='megahub-bulletin-last-read-id-v1';
+const latestBulletinId=posts[0]?.id||'';
+if(latestBulletinId){
+  try{localStorage.setItem(BULLETIN_STORAGE_KEY,latestBulletinId);}catch(_){}
+  if(window.supabase){
+    const bulletinClient=window.supabase.createClient(
+      'https://ofqfdnxpftifnvxnvppe.supabase.co',
+      'sb_publishable_06zYj2REZQMC8nXfhm7weQ_Nrotri7G'
+    );
+    (async()=>{
+      const {data:{session}}=await bulletinClient.auth.getSession();
+      if(!session?.user)return;
+      const {error}=await bulletinClient
+        .from('profiles')
+        .update({last_bulletin_read_id:latestBulletinId})
+        .eq('id',session.user.id);
+      if(error)console.warn('Could not sync Bulletin read state:',error.message);
+    })();
+  }
+}
+</script>
+</body>
+</html>
