@@ -132,7 +132,23 @@ footer{padding:0 22px 34px;color:#8a7b70;font-size:12px}
 }
 
 /* Account controls */
-.account-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.account-actions{display:flex;align-items:flex-start;gap:10px;flex-wrap:wrap}
+.account-tools{display:grid;gap:6px;justify-items:stretch}
+.bulletin-button{
+  position:relative;display:none;align-items:center;justify-content:center;gap:7px;
+  min-width:100%;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.07);
+  color:#fff;text-decoration:none;border-radius:10px;padding:7px 11px;
+  font-size:10.5px;font-weight:850;line-height:1;transition:.16s ease
+}
+.bulletin-button.show{display:inline-flex}
+.bulletin-button:hover{background:rgba(255,255,255,.14)}
+.bulletin-button:focus-visible{outline:3px solid rgba(255,255,255,.3);outline-offset:3px}
+.bulletin-dot{
+  display:none;width:8px;height:8px;border-radius:50%;background:#ffd166;
+  box-shadow:0 0 0 3px rgba(255,209,102,.16);flex:0 0 auto
+}
+.bulletin-button.unread .bulletin-dot{display:inline-block}
+.bulletin-button.unread{border-color:rgba(255,209,102,.48);background:rgba(255,255,255,.12)}
 .account-button{
   appearance:none;border:1px solid rgba(255,255,255,.24);background:rgba(255,255,255,.12);
   color:#fff;border-radius:999px;padding:9px 13px;font:inherit;font-size:12px;font-weight:800;
@@ -205,7 +221,12 @@ footer{padding:0 22px 34px;color:#8a7b70;font-size:12px}
       </div>
       <div class="account-actions">
         <span class="account-status" id="accountStatus">Guest mode</span>
-        <button class="account-button" id="accountButton" type="button">Log In / Create Account</button>
+        <div class="account-tools">
+          <button class="account-button" id="accountButton" type="button">Log In / Create Account</button>
+          <a class="bulletin-button" id="bulletinButton" href="developer-updates.html" aria-label="Open Bulletin">
+            <span>Bulletin</span><span class="bulletin-dot" id="bulletinDot" aria-hidden="true"></span>
+          </a>
+        </div>
       </div>
     </div>
     <p class="eyebrow">Pre-Clerkship UltraHub</p>
@@ -379,6 +400,7 @@ footer{padding:0 22px 34px;color:#8a7b70;font-size:12px}
 </div>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="shared/developer-posts.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 const SUPABASE_URL='https://ofqfdnxpftifnvxnvppe.supabase.co';
@@ -414,6 +436,40 @@ const loggedInPanel=document.getElementById('loggedInPanel');
 const accountEmail=document.getElementById('accountEmail');
 const logoutButton=document.getElementById('logoutButton');
 const logoutMessage=document.getElementById('logoutMessage');
+const bulletinButton=document.getElementById('bulletinButton');
+const bulletinDot=document.getElementById('bulletinDot');
+const BULLETIN_STORAGE_KEY='megahub-bulletin-last-read-id-v1';
+
+function latestBulletinId(){
+  const posts=Array.isArray(window.MEGAHUB_DEVELOPER_POSTS)?window.MEGAHUB_DEVELOPER_POSTS:[];
+  return posts[0]?.id||'';
+}
+function localBulletinReadId(){
+  try{return localStorage.getItem(BULLETIN_STORAGE_KEY)||'';}catch(_){return '';}
+}
+function setBulletinUnread(unread){
+  if(!bulletinButton)return;
+  bulletinButton.classList.toggle('unread',!!unread);
+  bulletinButton.setAttribute('aria-label',unread?'Open Bulletin — new developer update':'Open Bulletin');
+}
+async function updateBulletinUI(user){
+  if(!bulletinButton)return;
+  if(!user){
+    bulletinButton.classList.remove('show','unread');
+    return;
+  }
+  bulletinButton.classList.add('show');
+  const latest=latestBulletinId();
+  if(!latest){setBulletinUnread(false);return;}
+  let readId=localBulletinReadId();
+  const {data,error}=await supabaseClient
+    .from('profiles')
+    .select('last_bulletin_read_id')
+    .eq('id',user.id)
+    .maybeSingle();
+  if(!error&&data?.last_bulletin_read_id)readId=data.last_bulletin_read_id;
+  setBulletinUnread(readId!==latest);
+}
 
 let authMode='login';
 
@@ -446,11 +502,13 @@ function updateAccountUI(user){
     accountButton.textContent='My Profile';
     accountButton.dataset.loggedIn='true';
     accountEmail.textContent=user.email;
+    updateBulletinUI(user);
   }else{
     accountStatus.textContent='Guest mode';
     accountButton.textContent='Log In / Create Account';
     accountButton.dataset.loggedIn='false';
     accountEmail.textContent='';
+    bulletinButton?.classList.remove('show','unread');
   }
 }
 
@@ -536,6 +594,10 @@ supabaseClient.auth.onAuthStateChange((_event,session)=>{
   const {data:{session}}=await supabaseClient.auth.getSession();
   updateAccountUI(session?.user ?? null);
 })();
+window.addEventListener('focus',async()=>{
+  const {data:{session}}=await supabaseClient.auth.getSession();
+  if(session?.user)updateBulletinUI(session.user);
+});
 </script>
 <script src="shared/account-nudge.js"></script>
 </body>
