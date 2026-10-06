@@ -461,14 +461,29 @@ async function updateBulletinUI(user){
   bulletinButton.classList.add('show');
   const latest=latestBulletinId();
   if(!latest){setBulletinUnread(false);return;}
-  let readId=localBulletinReadId();
+
+  const localReadId=localBulletinReadId();
+  let remoteReadId='';
   const {data,error}=await supabaseClient
     .from('profiles')
     .select('last_bulletin_read_id')
     .eq('id',user.id)
     .maybeSingle();
-  if(!error&&data?.last_bulletin_read_id)readId=data.last_bulletin_read_id;
-  setBulletinUnread(readId!==latest);
+
+  if(!error&&data?.last_bulletin_read_id)remoteReadId=data.last_bulletin_read_id;
+
+  const hasReadLatest=localReadId===latest||remoteReadId===latest;
+  setBulletinUnread(!hasReadLatest);
+
+  if(localReadId===latest&&remoteReadId!==latest){
+    supabaseClient
+      .from('profiles')
+      .update({last_bulletin_read_id:latest})
+      .eq('id',user.id)
+      .then(({error:syncError})=>{
+        if(syncError)console.warn('Could not sync Bulletin read state:',syncError.message);
+      });
+  }
 }
 
 let authMode='login';
@@ -518,6 +533,12 @@ accountButton.addEventListener('click',()=>{
   }else{
     openAuth();
   }
+});
+bulletinButton?.addEventListener('click',()=>{
+  const latest=latestBulletinId();
+  if(!latest)return;
+  try{localStorage.setItem(BULLETIN_STORAGE_KEY,latest);}catch(_){}
+  setBulletinUnread(false);
 });
 authClose.addEventListener('click',closeAuth);
 authOverlay.addEventListener('click',e=>{ if(e.target===authOverlay) closeAuth(); });
