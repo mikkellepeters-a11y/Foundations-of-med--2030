@@ -25,7 +25,7 @@ function canonicalDefinition(raw){
     description:text(d.description),
     question_ids:Array.isArray(d.question_ids??d.questionIds)?(d.question_ids??d.questionIds).map(text).filter(Boolean):[],
     status:text(d.status||'draft').toLowerCase(),
-    default_mode:text(d.default_mode??d.defaultMode||'practice'),
+    default_mode:text((d.default_mode??d.defaultMode)||'practice'),
     allowed_modes:Array.from(new Set(allowed)),
     tags:Array.isArray(d.tags)?d.tags.map(text).filter(Boolean):[],
     metadata:clone(d.metadata||{})
