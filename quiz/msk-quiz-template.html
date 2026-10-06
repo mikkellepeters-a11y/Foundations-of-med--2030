@@ -16,7 +16,7 @@ footer{padding:0 20px 30px;color:#74847a;font-size:10px}.hidden{display:none!imp
 </style>
 </head>
 <body>
-<header><div class="inner"><div class="topbar"><div class="toplinks"><a class="pill" href="../MSK.html">← MSK-Skin Hub</a><a class="pill" href="../review/msk-review-center.html">Review the Mod</a><a class="pill" href="../msk-leaderboard.html">Leaderboard</a></div><span class="pill" id="trackingStatus">Tracking idle</span></div><div class="hero"><div class="eyebrow">Musculoskeletal-Skin · Canonical Quiz Shell</div><h1 id="heroTitle">Canonical MSK Quiz Template</h1><p id="heroText">A production-ready MSK quiz shell. Add stable quiz metadata and real questions later; until then, tracking remains intentionally inactive and nothing is written to Supabase.</p><div class="hero-tags"><span>Practice</span><span>Advanced Review</span><span>Confidence</span><span>Smart Review</span><span>Leaderboard</span><span>Difficulty Filter</span></div><div class="progress-shell" id="progressShell"><div class="progress-fill" id="progressFill"></div></div></div></div></header>
+<header><div class="inner"><div class="topbar"><div class="toplinks"><a class="pill" href="../MSK.html">← MSK-Skin Hub</a><a class="pill" href="msk-adaptive-quiz-builder.html">Quiz Builder</a><a class="pill" href="../review/msk-review-center.html">Review the Mod</a><a class="pill" href="../msk-leaderboard.html">Leaderboard</a></div><span class="pill" id="trackingStatus">Tracking idle</span></div><div class="hero"><div class="eyebrow">Musculoskeletal-Skin · Canonical Quiz Shell</div><h1 id="heroTitle">Canonical MSK Quiz Template</h1><p id="heroText">A production-ready MSK quiz shell. Add stable quiz metadata and real questions later; until then, tracking remains intentionally inactive and nothing is written to Supabase.</p><div class="hero-tags"><span>Practice</span><span>Advanced Review</span><span>Confidence</span><span>Smart Review</span><span>Leaderboard</span><span>Difficulty Filter</span></div><div class="progress-shell" id="progressShell"><div class="progress-fill" id="progressFill"></div></div></div></div></header>
 <main>
 <div class="notice" id="notice"></div>
 <section class="card setup" id="setupCard">
@@ -56,6 +56,8 @@ footer{padding:0 20px 30px;color:#74847a;font-size:10px}.hidden{display:none!imp
 <footer>Musculoskeletal-Skin · Canonical Quiz Template · MSK data only</footer>
 <script src="../shared/msk-smart-review.js"></script>
 <script src="../shared/msk-quiz-tracking.js"></script>
+<script src="../shared/msk-question-bank.js"></script>
+<script src="../question-bank/msk-question-bank-data.js"></script>
 <script>
 (()=>{
 'use strict';
@@ -95,6 +97,29 @@ const QUIZ_CONFIG={
   }
 */
 const QUESTIONS=[];
+
+const BANK_SESSION_KEY='msk:bank-quiz-session:v1';
+const pageParams=new URLSearchParams(location.search);
+const bankMode=pageParams.get('bank')==='1';
+let bankSession=null;
+if(bankMode){
+  try{bankSession=JSON.parse(sessionStorage.getItem(BANK_SESSION_KEY)||'null')}catch(e){bankSession=null}
+  const ids=Array.isArray(bankSession?.question_ids)?bankSession.question_ids:[];
+  const bank=window.MSKQuestionBank;
+  if(bank&&bankSession?.module_key==='msk'){
+    ids.forEach(id=>{
+      const q=bank.getById(id);
+      if(q&&q.status==='published'){
+        const tracking=bank.toTrackingQuestion(q);
+        if(tracking)QUESTIONS.push(tracking);
+      }
+    });
+    QUIZ_CONFIG.quizId='msk-custom-bank';
+    QUIZ_CONFIG.quizName=bankSession?.title||'Custom MSK Question Bank Quiz';
+    QUIZ_CONFIG.section='Custom Question Bank';
+    QUIZ_CONFIG.mode='practice';
+  }
+}
 
 const $=id=>document.getElementById(id);
 const esc=value=>String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
@@ -147,10 +172,15 @@ function updateSetup(){
   const hasQuestions=QUESTIONS.length>0;
   $('startBtn').disabled=!hasQuestions||issues.length>0;
   $('emptyState').classList.toggle('hidden',hasQuestions);
-  $('readyChip').textContent=!hasQuestions?'Template mode':issues.length?'Needs configuration':'Ready';
-  $('setupDescription').textContent=!hasQuestions?'This canonical file is intentionally empty until MSK course content is available.':`${QUESTIONS.length} questions configured. Only the selected difficulty subset will be shown and graded.`;
+  $('readyChip').textContent=!hasQuestions?(bankMode?'Bank session empty':'Template mode'):issues.length?'Needs configuration':(bankMode?'Bank session ready':'Ready');
+  $('setupDescription').textContent=!hasQuestions
+    ?(bankMode?'No published bank questions were found for this builder session. Return to the Quiz Builder and choose another set.':'This canonical file is intentionally empty until MSK course content is available.')
+    :(bankMode?`${QUESTIONS.length} published bank question${QUESTIONS.length===1?'':'s'} selected by the Custom / Adaptive Quiz Builder.`:`${QUESTIONS.length} questions configured. Only the selected difficulty subset will be shown and graded.`);
   $('contractText').textContent=issues.length?issues.join(' · '):'Stable IDs verified · four-choice structure verified · MSK Smart Review tracking ready.';
   $('heroTitle').textContent=text(QUIZ_CONFIG.quizName)||'Canonical MSK Quiz Template';
+  $('heroText').textContent=bankMode
+    ?'A custom quiz assembled from the published central MSK Question Bank. Answers still feed MSK tracking, Smart Review, Weakness Radar, and the participation leaderboard.'
+    :'A production-ready MSK quiz shell. Add stable quiz metadata and real questions later; until then, tracking remains intentionally inactive and nothing is written to Supabase.';
   document.title=(text(QUIZ_CONFIG.quizName)||'Canonical MSK Quiz Template')+' · Musculoskeletal-Skin';
   if(!hasQuestions){setTracking('Tracking idle');clearNotice();}
   else if(issues.length){setTracking('Tracking blocked');showNotice('Template validation failed: '+issues.join(' · '),'error');}
@@ -301,7 +331,7 @@ async function nextQuestion(){
 async function finishQuiz(){
   syncing=true;$('nextBtn').disabled=true;$('syncText').textContent='Saving quiz completion…';
   const score=results.filter(r=>r.isCorrect).length;
-  try{await tracker.completeQuiz({score,totalQuestions:activeQuestions.length,mode,metadata:{difficulty_filter:$('difficultySelect').value||'all'}})}
+  try{await tracker.completeQuiz({score,totalQuestions:activeQuestions.length,mode,metadata:{difficulty_filter:$('difficultySelect').value||'all',source:bankMode?'central-question-bank':'canonical-quiz',builder_source:bankSession?.source||null}})}
   catch(e){showNotice('Question attempts are saved, but quiz completion could not be saved: '+(e?.message||e),'error')}
   finally{syncing=false;$('player').style.display='none';$('progressShell').style.display='none';renderSummary();$('summary').style.display='block';window.scrollTo({top:0,behavior:'smooth'})}
 }
