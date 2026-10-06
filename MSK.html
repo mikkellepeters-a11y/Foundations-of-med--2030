@@ -62,11 +62,10 @@
   })();<\/script>`;
   const patchFinal=html=>{
     if(typeof html!=='string')return html;
-    const isFinal=/<main(?:\\s|>)/i.test(html)&&/class=["'][^"']*\\bweek-grid\\b[^"']*["']/i.test(html);
+    const isFinal=html.includes('<main')&&html.includes('week-grid')&&html.includes('</main>');
     if(!isFinal)return html;
-    html=html.replace(/<script[^>]+src=["']shared\\/msk-exam-countdown\\.js[^"']*["'][^>]*>\\s*<\\/script>/gi,'');
-    html=html.replace(/<style id="mskExamCountdownStyles">[\\s\\S]*?<\\/style>/i,'');
-    html=html.replace(/<section id="mskExamCountdownWrap"[\\s\\S]*?<\\/section>/i,'');
+    html=html.split('<script src="shared/msk-exam-countdown.js?v=20261005b"></script>').join('');
+    html=html.split('<script src="shared/msk-exam-countdown.js"></script>').join('');
     if(!html.includes('id="mskExamCountdownStyles"'))html=html.includes('</head>')?html.replace('</head>',EXAM_STYLE+'</head>'):EXAM_STYLE+html;
     if(!html.includes('id="mskExamCountdownWrap"'))html=html.replace('</main>',EXAM_SECTION+'</main>');
     if(!html.includes('id="mskExamCountdownRuntime"'))html=html.replace('</body>',EXAM_SCRIPT+'</body>');
