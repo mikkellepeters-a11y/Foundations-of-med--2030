@@ -66,3 +66,12 @@ Before publishing a bank update:
 6. Only then wire the questions into production quiz definitions.
 
 The question bank contains no synthetic production data. Mock review data used elsewhere remains separate.
+
+
+## Production quiz definitions
+
+Student-facing production quizzes should not duplicate bank content into separate HTML files.
+
+After bank questions pass QA, assemble them in `question-bank/msk-quiz-definitions-data.js` using permanent question IDs only. Validate the cross-references at `quiz/msk-quiz-definition-validator.html`.
+
+See `shared/MSK_QUIZ_DEFINITION_CONTRACT.md` for the full definition and publication workflow.
