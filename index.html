@@ -439,18 +439,42 @@ const logoutMessage=document.getElementById('logoutMessage');
 const bulletinButton=document.getElementById('bulletinButton');
 const bulletinDot=document.getElementById('bulletinDot');
 const BULLETIN_STORAGE_KEY='megahub-bulletin-last-read-id-v1';
+let cachedLatestBulletinId='';
 
-function latestBulletinId(){
-  const posts=Array.isArray(window.MEGAHUB_BULLETIN_POSTS)?window.MEGAHUB_BULLETIN_POSTS:[];
-  return posts[0]?.id||'';
-}
 function localBulletinReadId(){
   try{return localStorage.getItem(BULLETIN_STORAGE_KEY)||'';}catch(_){return '';}
+}
+function staticBulletinLatest(){
+  const posts=Array.isArray(window.MEGAHUB_BULLETIN_POSTS)?window.MEGAHUB_BULLETIN_POSTS:[];
+  const post=posts[0]||null;
+  return post?{id:post.id,time:Date.parse(post.createdAt||post.date||'')||0}:null;
+}
+async function latestBulletinItem(){
+  const staticLatest=staticBulletinLatest();
+  let achievementLatest=null;
+
+  const {data,error}=await supabaseClient
+    .from('bulletin_achievement_feed')
+    .select('id,unlocked_at')
+    .order('unlocked_at',{ascending:false})
+    .limit(1)
+    .maybeSingle();
+
+  if(!error&&data){
+    achievementLatest={
+      id:'achievement:'+data.id,
+      time:Date.parse(data.unlocked_at)||0
+    };
+  }
+
+  if(!staticLatest)return achievementLatest;
+  if(!achievementLatest)return staticLatest;
+  return achievementLatest.time>staticLatest.time?achievementLatest:staticLatest;
 }
 function setBulletinUnread(unread){
   if(!bulletinButton)return;
   bulletinButton.classList.toggle('unread',!!unread);
-  bulletinButton.setAttribute('aria-label',unread?'Open Bulletin — new developer update':'Open Bulletin');
+  bulletinButton.setAttribute('aria-label',unread?'Open Bulletin — new item':'Open Bulletin');
 }
 async function updateBulletinUI(user){
   if(!bulletinButton)return;
@@ -459,7 +483,10 @@ async function updateBulletinUI(user){
     return;
   }
   bulletinButton.classList.add('show');
-  const latest=latestBulletinId();
+
+  const latestItem=await latestBulletinItem();
+  const latest=latestItem?.id||'';
+  cachedLatestBulletinId=latest;
   if(!latest){setBulletinUnread(false);return;}
 
   const localReadId=localBulletinReadId();
@@ -534,8 +561,9 @@ accountButton.addEventListener('click',()=>{
     openAuth();
   }
 });
-bulletinButton?.addEventListener('click',()=>{
-  const latest=latestBulletinId();
+bulletinButton?.addEventListener('click',async()=>{
+  let latest=cachedLatestBulletinId;
+  if(!latest)latest=(await latestBulletinItem())?.id||'';
   if(!latest)return;
   try{localStorage.setItem(BULLETIN_STORAGE_KEY,latest);}catch(_){}
   setBulletinUnread(false);
