@@ -37,6 +37,21 @@
     {id:'profile-complete',icon:'✓',title:'Profile Complete',description:'Set your username, class year, and CBL group.',kind:'profile',target:1},
     {id:'built-the-foundation',icon:'🏛️',title:'Built the Foundation',description:'Finished the Foundations of Medicine module with the Class of 2030.',kind:'foundationTime',target:1,special:true},
 
+    {id:'first-correct',icon:'✅',title:'Nailed It',description:'Get your first MegaHub question correct.',kind:'correctAnswers',target:1},
+    {id:'correct-100',icon:'🎯',title:'Evidence-Based',description:'Get 100 MegaHub questions correct.',kind:'correctAnswers',target:100},
+    {id:'correct-500',icon:'🩺',title:'Clinical Momentum',description:'Get 500 MegaHub questions correct.',kind:'correctAnswers',target:500},
+    {id:'called-it',icon:'🔒',title:'Called It',description:'Get 25 questions correct while marked confident.',kind:'confidentCorrect',target:25},
+    {id:'locked-in',icon:'🧠',title:'Locked In',description:'Get 100 questions correct while marked confident.',kind:'confidentCorrect',target:100},
+    {id:'hot-streak',icon:'🔥',title:'Hot Streak',description:'Get 5 questions correct in a row.',kind:'correctStreak',target:5},
+    {id:'on-a-roll',icon:'🎳',title:'On a Roll',description:'Get 10 questions correct in a row.',kind:'correctStreak',target:10},
+    {id:'diagnostic-accuracy',icon:'📈',title:'Diagnostic Accuracy',description:'Maintain at least 80% accuracy after answering 100 questions.',kind:'accuracy80',target:1},
+    {id:'quiz-goblin',icon:'👹',title:'Quiz Goblin',description:'Complete 100 quiz attempts. The answer choices fear you.',kind:'quizzes',target:100,funny:true},
+    {id:'touch-grass',icon:'🌱',title:'Please Touch Grass',description:'Answer 2,000 questions. The MegaHub is gently suggesting sunlight.',kind:'questions',target:2000,funny:true},
+    {id:'review-hoarder',icon:'🗂️',title:'Review Hoarder',description:'File 50 questions for review. You have receipts for everything.',kind:'review',target:50,funny:true},
+    {id:'pcl-plugged-in',icon:'🗣️',title:'PCL Plugged In',description:'Add your PCL group to your profile.',kind:'pclGroup',target:1},
+    {id:'house-call',icon:'🏠',title:'House Call',description:'Add your House to your profile.',kind:'houseGroup',target:1},
+    {id:'fully-assigned',icon:'🧾',title:'Fully Assigned',description:'Add your CBL group, Anatomy Table, PCL group, and House to your profile.',kind:'allGroups',target:1},
+
     {id:'msk-bone-zone',icon:'🦴',title:'Welcome to the Bone Zone',description:'Answer your first Musculoskeletal-Skin question.',kind:'mskQuestions',target:1,module:'msk'},
     {id:'msk-skin-game',icon:'🧴',title:'Skin in the Game',description:'Answer 50 Musculoskeletal-Skin questions.',kind:'mskQuestions',target:50,module:'msk'},
     {id:'msk-joint-effort',icon:'🦿',title:'Joint Effort',description:'Answer 100 Musculoskeletal-Skin questions.',kind:'mskQuestions',target:100,module:'msk'},
@@ -265,10 +280,25 @@
     const {questions,quizzes,reviews,profile}=activity();
     if(kind==='questions')return questions.length;
     if(kind==='quizzes')return quizzes.length;
+    if(kind==='correctAnswers')return questions.filter(q=>q.is_correct).length;
+    if(kind==='confidentCorrect')return questions.filter(q=>String(q.confidence||'').toLowerCase()==='confident'&&q.is_correct).length;
+    if(kind==='correctStreak'){
+      let best=0,current=0;
+      questions.forEach(q=>{if(q.is_correct){current++;best=Math.max(best,current)}else current=0});
+      return best;
+    }
+    if(kind==='accuracy80'){
+      if(questions.length<100)return 0;
+      const correct=questions.filter(q=>q.is_correct).length;
+      return correct/questions.length>=0.8?1:0;
+    }
     if(kind==='confidentWrong')return questions.filter(q=>String(q.confidence||'').toLowerCase()==='confident'&&!q.is_correct).length;
     if(kind==='lowConfidence')return questions.filter(q=>['unsure','guessing'].includes(String(q.confidence||'').toLowerCase())).length;
     if(kind==='review')return reviews.length;
     if(kind==='cbl')return profile?.cbl_group?1:0;
+    if(kind==='pclGroup')return profile?.pcl_group?1:0;
+    if(kind==='houseGroup')return profile?.house?1:0;
+    if(kind==='allGroups')return profile?.cbl_group&&profile?.anatomy_table&&profile?.pcl_group&&profile?.house?1:0;
     if(kind==='profile')return profile?.display_name?.trim()&&profile?.class_year&&profile?.cbl_group?1:0;
     if(kind==='foundationTime')return Date.now()>=FOUNDATION_UNLOCK_AT?1:0;
     if(kind==='mskQuestions')return questions.filter(achievementIsMSK).length;
@@ -282,10 +312,17 @@
   function achievementProgressLabel(item,value){
     if(item.kind==='questions')return `${Math.min(value,item.target).toLocaleString()} / ${item.target.toLocaleString()} questions`;
     if(item.kind==='quizzes')return `${Math.min(value,item.target).toLocaleString()} / ${item.target.toLocaleString()} quiz attempts`;
+    if(item.kind==='correctAnswers')return `${Math.min(value,item.target).toLocaleString()} / ${item.target.toLocaleString()} correct answers`;
+    if(item.kind==='confidentCorrect')return `${Math.min(value,item.target).toLocaleString()} / ${item.target.toLocaleString()} confident + correct`;
+    if(item.kind==='correctStreak')return `${Math.min(value,item.target)} / ${item.target} correct in a row`;
+    if(item.kind==='accuracy80')return value?'100+ questions at ≥80% accuracy':'Reach 80% accuracy after 100 questions';
     if(item.kind==='confidentWrong')return `${Math.min(value,item.target)} / ${item.target} confidently incorrect`;
     if(item.kind==='lowConfidence')return `${Math.min(value,item.target)} / ${item.target} unsure or guessing`;
     if(item.kind==='review')return `${Math.min(value,item.target)} / ${item.target} filed for review`;
     if(item.kind==='cbl')return value?'CBL group added':'Add your CBL group';
+    if(item.kind==='pclGroup')return value?'PCL group added':'Add your PCL group';
+    if(item.kind==='houseGroup')return value?'House added':'Add your House';
+    if(item.kind==='allGroups')return value?'All academic groups added':'Add CBL, Anatomy Table, PCL, and House';
     if(item.kind==='profile')return value?'Profile setup complete':'Complete your profile setup';
     if(item.kind==='foundationTime')return value?'Foundations of Medicine complete':'Unlocks October 1 at 2:00 PM ET';
     if(item.kind==='mskQuestions')return `${Math.min(value,item.target).toLocaleString()} / ${item.target.toLocaleString()} MSK questions`;
