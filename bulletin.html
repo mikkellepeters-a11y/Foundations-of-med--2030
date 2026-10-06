@@ -32,6 +32,14 @@ main{padding:30px 20px 70px}
 .category{display:inline-flex;padding:6px 9px;border-radius:999px;background:var(--tan);border:1px solid var(--line);font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.07em}
 .date{font-size:10px;color:var(--muted);font-weight:750}.post h2{margin:0 0 10px;font-size:24px;letter-spacing:-.025em}
 .post p{margin:8px 0 0;color:var(--muted);line-height:1.65;font-size:13px}
+.achievement-post{border-color:#d7c9b8;background:linear-gradient(145deg,#fffaf4,#f7efe5)}
+.achievement-post:before{background:linear-gradient(#8a654f,#b18a3e,#d2af68)}
+.achievement-post.msk-achievement{border-color:#c6d7cc;background:linear-gradient(145deg,#fbfdfb,#e8f0eb)}
+.achievement-post.msk-achievement:before{background:linear-gradient(#183b2a,#28543d,#527761)}
+.achievement-heading{display:flex;align-items:center;gap:12px}
+.achievement-feed-icon{width:44px;height:44px;flex:0 0 44px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,#6f4e37,#b18a3e);color:#fff;font-size:22px;box-shadow:0 7px 16px rgba(65,43,31,.10)}
+.msk-achievement .achievement-feed-icon{background:linear-gradient(135deg,#183b2a,#28543d,#527761)}
+.achievement-heading h2{margin:0}
 .signature{margin-top:16px;padding-top:13px;border-top:1px solid var(--line);font-size:10px;color:var(--muted);font-weight:750}
 .reactions{margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
 .reaction-label{display:block;margin-bottom:8px;color:var(--muted);font-size:9px;font-weight:850;text-transform:uppercase;letter-spacing:.08em}
@@ -81,7 +89,8 @@ footer{padding:0 20px 28px;color:#8a7b70;font-size:11px}
 <script>
 const feed=document.getElementById('bulletinFeed');
 const filters=document.getElementById('bulletinFilters');
-const posts=Array.isArray(window.MEGAHUB_BULLETIN_POSTS)?window.MEGAHUB_BULLETIN_POSTS:[];
+let posts=(Array.isArray(window.MEGAHUB_BULLETIN_POSTS)?window.MEGAHUB_BULLETIN_POSTS:[]).map(post=>({...post}));
+
 const REACTIONS=[
   {emoji:'🩺',label:'Clinically relevant'},
   {emoji:'🧠',label:'Learned something'},
@@ -90,14 +99,33 @@ const REACTIONS=[
   {emoji:'🩻',label:'Worth reviewing'},
   {emoji:'❤️',label:'Love this'}
 ];
+
 const bulletinClient=window.supabase?window.supabase.createClient(
   'https://ofqfdnxpftifnvxnvppe.supabase.co',
   'sb_publishable_06zYj2REZQMC8nXfhm7weQ_Nrotri7G'
 ):null;
+
 let currentUser=null;
 let reactionCounts=new Map();
 let myReactions=new Set();
 
+function escapeHtml(value){return String(value??'').replace(/[&<>'"]/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch]));}
+function postTime(post){
+  const raw=post?.createdAt||post?.unlockedAt||post?.date||'';
+  const ms=Date.parse(raw);
+  return Number.isFinite(ms)?ms:0;
+}
+function sortPosts(){posts.sort((a,b)=>postTime(b)-postTime(a));}
+function formatFeedDate(value){
+  const d=new Date(value);
+  if(Number.isNaN(d.getTime()))return '';
+  return d.toLocaleDateString(undefined,{month:'long',day:'numeric',year:'numeric'});
+}
+function postByline(post){
+  const author=post.author||'MCG Class of 2030';
+  const role=post.role?(' · '+post.role):'';
+  return escapeHtml(author+role);
+}
 function reactionKey(postId,reaction){return postId+'::'+reaction;}
 function reactionCount(postId,reaction){return reactionCounts.get(reactionKey(postId,reaction))||0;}
 function reactionBar(postId){
@@ -108,11 +136,11 @@ function reactionBar(postId){
   }).join('');
   return `<div class="reactions"><span class="reaction-label">React</span><div class="reaction-row">${buttons}</div><div class="reaction-status" data-reaction-status="${escapeHtml(postId)}"></div></div>`;
 }
-function escapeHtml(value){return String(value??'').replace(/[&<>'"]/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch]));}
-function postByline(post){
-  const author=post.author||'MCG Class of 2030';
-  const role=post.role?(' · '+post.role):'';
-  return escapeHtml(author+role);
+function renderFilters(){
+  const current=filters.querySelector('.filter-btn.active')?.dataset.category||'All';
+  const categories=['All',...new Set(posts.map(post=>post.category||'General'))];
+  const selected=categories.includes(current)?current:'All';
+  filters.innerHTML=categories.map(category=>`<button class="filter-btn${category===selected?' active':''}" type="button" data-category="${escapeHtml(category)}">${escapeHtml(category)}</button>`).join('');
 }
 function renderPosts(category='All'){
   const visible=category==='All'?posts:posts.filter(post=>(post.category||'General')===category);
@@ -120,27 +148,55 @@ function renderPosts(category='All'){
     feed.innerHTML='<div class="empty">No Bulletin posts in this category yet.</div>';
     return;
   }
+
   feed.innerHTML=visible.map(post=>{
     const paragraphs=(post.body||[]).map(text=>`<p>${escapeHtml(text)}</p>`).join('');
-    return `<article class="post" id="${escapeHtml(post.id)}"><div class="post-meta"><span class="category">${escapeHtml(post.category||'General')}</span><span class="date">${escapeHtml(post.date||'')}</span></div><h2>${escapeHtml(post.title||'Bulletin Update')}</h2>${paragraphs}<div class="signature">${postByline(post)}</div>${reactionBar(post.id)}</article>`;
+    const classes=['post',post.achievement?'achievement-post':'',post.moduleKey==='msk'?'msk-achievement':''].filter(Boolean).join(' ');
+    const heading=post.achievement
+      ? `<div class="achievement-heading"><div class="achievement-feed-icon" aria-hidden="true">${escapeHtml(post.achievementIcon||'🏅')}</div><h2>${escapeHtml(post.title||'Achievement Unlocked')}</h2></div>`
+      : `<h2>${escapeHtml(post.title||'Bulletin Update')}</h2>`;
+    return `<article class="${classes}" id="${escapeHtml(post.id)}"><div class="post-meta"><span class="category">${escapeHtml(post.category||'General')}</span><span class="date">${escapeHtml(post.date||'')}</span></div>${heading}${paragraphs}<div class="signature">${postByline(post)}</div>${reactionBar(post.id)}</article>`;
   }).join('');
 }
-const categories=['All',...new Set(posts.map(post=>post.category||'General'))];
-filters.innerHTML=categories.map((category,index)=>`<button class="filter-btn${index===0?' active':''}" type="button" data-category="${escapeHtml(category)}">${escapeHtml(category)}</button>`).join('');
-filters.addEventListener('click',event=>{
-  const button=event.target.closest('.filter-btn');
-  if(!button)return;
-  filters.querySelectorAll('.filter-btn').forEach(btn=>btn.classList.toggle('active',btn===button));
-  renderPosts(button.dataset.category||'All');
-});
-renderPosts();
+async function loadAchievementPosts(){
+  if(!bulletinClient)return;
+  const {data,error}=await bulletinClient
+    .from('bulletin_achievement_feed')
+    .select('id,display_name,achievement_id,achievement_title,achievement_icon,module_key,unlocked_at')
+    .order('unlocked_at',{ascending:false})
+    .limit(100);
 
+  if(error){
+    console.warn('Could not load achievement Bulletin items:',error.message);
+    return;
+  }
+
+  const dynamic=(data||[]).map(row=>({
+    id:'achievement:'+row.id,
+    createdAt:row.unlocked_at,
+    unlockedAt:row.unlocked_at,
+    date:formatFeedDate(row.unlocked_at),
+    category:'Achievement',
+    author:row.display_name||'A MegaHub user',
+    role:row.module_key==='msk'?'MSK Achievement':'MegaHub Achievement',
+    title:row.achievement_title||'Achievement Unlocked',
+    body:[(row.display_name||'A MegaHub user')+' unlocked this achievement.'],
+    achievement:true,
+    achievementIcon:row.achievement_icon||'🏅',
+    achievementId:row.achievement_id,
+    moduleKey:row.module_key||''
+  }));
+
+  posts=posts.filter(post=>!post.achievement).concat(dynamic);
+  sortPosts();
+}
 async function loadReactionCounts(){
   if(!bulletinClient||!posts.length)return;
   const {data,error}=await bulletinClient
     .from('bulletin_reaction_counts')
     .select('post_id,reaction,reaction_count')
     .in('post_id',posts.map(post=>post.id));
+
   if(error){
     console.warn('Could not load Bulletin reaction counts:',error.message);
     return;
@@ -154,6 +210,7 @@ async function loadMyReactions(){
     .from('bulletin_reactions')
     .select('post_id,reaction')
     .in('post_id',posts.map(post=>post.id));
+
   if(error){
     console.warn('Could not load my Bulletin reactions:',error.message);
     return;
@@ -172,6 +229,12 @@ function setReactionStatus(postId,message){
   el.textContent=message||'';
   if(message)setTimeout(()=>{if(el.textContent===message)el.textContent='';},1800);
 }
+filters.addEventListener('click',event=>{
+  const button=event.target.closest('.filter-btn');
+  if(!button)return;
+  filters.querySelectorAll('.filter-btn').forEach(btn=>btn.classList.toggle('active',btn===button));
+  renderPosts(button.dataset.category||'All');
+});
 feed.addEventListener('click',async event=>{
   const button=event.target.closest('.reaction-btn');
   if(!button||!bulletinClient)return;
@@ -224,30 +287,41 @@ feed.addEventListener('click',async event=>{
 });
 
 const BULLETIN_STORAGE_KEY='megahub-bulletin-last-read-id-v1';
-const latestBulletinId=posts[0]?.id||'';
-if(latestBulletinId){
-  try{localStorage.setItem(BULLETIN_STORAGE_KEY,latestBulletinId);}catch(_){}
-}
-(async()=>{
-  if(!bulletinClient)return;
-  const {data:{session}}=await bulletinClient.auth.getSession();
-  currentUser=session?.user||null;
 
-  if(latestBulletinId&&currentUser){
-    const {error}=await bulletinClient
-      .from('profiles')
-      .update({last_bulletin_read_id:latestBulletinId})
-      .eq('id',currentUser.id);
-    if(error)console.warn('Could not sync Bulletin read state:',error.message);
+async function markLatestBulletinRead(){
+  const latest=posts[0]?.id||'';
+  if(!latest)return;
+  try{localStorage.setItem(BULLETIN_STORAGE_KEY,latest);}catch(_){}
+  if(!bulletinClient||!currentUser)return;
+  const {error}=await bulletinClient
+    .from('profiles')
+    .update({last_bulletin_read_id:latest})
+    .eq('id',currentUser.id);
+  if(error)console.warn('Could not sync Bulletin read state:',error.message);
+}
+
+async function initializeBulletin(){
+  await loadAchievementPosts();
+  sortPosts();
+  renderFilters();
+  renderPosts('All');
+
+  if(bulletinClient){
+    const {data:{session}}=await bulletinClient.auth.getSession();
+    currentUser=session?.user||null;
   }
 
+  await markLatestBulletinRead();
   await refreshReactions();
-})();
+}
 
 bulletinClient?.auth.onAuthStateChange(async(_event,session)=>{
   currentUser=session?.user||null;
+  await markLatestBulletinRead();
   await refreshReactions();
 });
+
+initializeBulletin();
 </script>
 </body>
 </html>
