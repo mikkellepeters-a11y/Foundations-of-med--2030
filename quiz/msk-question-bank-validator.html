@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MSK Question Bank Validator</title>
+<style>
+:root{--bg:#edf3ef;--paper:#fbfdfb;--ink:#21362b;--muted:#63736a;--accent:#28543d;--dark:#183b2a;--mid:#527761;--line:#ceddd3;--soft:#e3ece6;--soft2:#cdded3;--good:#e7f1e9;--warn:#f5efe2;--rose:#f5e8e4;--shadow:0 16px 38px rgba(24,59,42,.10)}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top left,rgba(255,255,255,.75),transparent 34%),var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}a{color:inherit;text-decoration:none}button{font:inherit}
+header{background:linear-gradient(135deg,var(--dark),var(--accent),var(--mid));color:#fff;padding:24px 20px 38px}.inner,main,footer{max-width:1100px;margin:auto}.topbar{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}.pill{display:inline-flex;padding:8px 11px;border-radius:999px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.1);font-size:10px;font-weight:850}.hero{margin-top:28px}.eyebrow{font-size:10px;text-transform:uppercase;letter-spacing:.1em;font-weight:900;opacity:.78}.hero h1{margin:5px 0 8px;font-size:clamp(34px,6vw,54px);letter-spacing:-.04em}.hero p{max-width:790px;margin:0;color:rgba(255,255,255,.84);font-size:12px;line-height:1.55}
+main{padding:28px 20px 70px}.notice{border:1px solid var(--line);border-left:5px solid var(--accent);background:var(--paper);border-radius:14px;padding:13px 15px;margin-bottom:16px;font-size:10px;line-height:1.5;color:var(--muted)}.notice.ok{background:var(--good);color:#466149}.notice.error{background:var(--rose);border-left-color:#9e5d53;color:#714940}.stats{display:grid;grid-template-columns:repeat(6,1fr);gap:9px}.stat{background:#fff;border:1px solid var(--line);border-radius:15px;padding:13px;box-shadow:var(--shadow)}.stat b{display:block;font-size:25px;letter-spacing:-.03em}.stat span{display:block;margin-top:2px;font-size:8px;text-transform:uppercase;letter-spacing:.055em;font-weight:900;color:var(--muted)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-top:16px}.card{background:linear-gradient(180deg,#fff,var(--paper));border:1px solid var(--line);border-radius:20px;padding:17px;box-shadow:var(--shadow)}.card h2{margin:3px 0 6px;font-size:20px}.card p{margin:0;color:var(--muted);font-size:10px;line-height:1.5}.rows{display:grid;gap:7px;margin-top:12px}.row{display:flex;justify-content:space-between;gap:10px;border:1px solid var(--line);border-radius:10px;background:#fff;padding:8px 9px;font-size:9px}.row b{font-size:9.5px}.issue{border:1px solid var(--line);border-radius:11px;background:#fff;padding:10px}.issue.error{border-color:#dfc4bd;background:var(--rose)}.issue.warning{border-color:#dfd2bc;background:var(--warn)}.issue b{display:block;font-size:9.5px}.issue span{display:block;margin-top:3px;color:var(--muted);font-size:8.5px;line-height:1.4}.empty{margin-top:12px;border:1px dashed #b9ccbe;border-radius:13px;background:#f9fcfa;padding:22px;text-align:center;color:var(--muted);font-size:10px;line-height:1.5}.answer-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:12px}.answer{border:1px solid var(--line);border-radius:11px;background:#fff;padding:10px;text-align:center}.answer b{display:block;font-size:20px}.answer span{font-size:8px;color:var(--muted);font-weight:900;text-transform:uppercase}footer{padding:0 20px 30px;color:#74847a;font-size:10px}
+@media(max-width:900px){.stats{grid-template-columns:repeat(3,1fr)}}@media(max-width:700px){.grid{grid-template-columns:1fr}}@media(max-width:480px){.stats{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<header><div class="inner"><div class="topbar"><a class="pill" href="msk-adaptive-quiz-builder.html">← Adaptive Quiz Builder</a><a class="pill" href="../MSK.html">MSK Hub</a></div><div class="hero"><div class="eyebrow">Development QA · No database writes</div><h1>MSK Question Bank Validator</h1><p>Validates the central bank before production use: permanent identities, metadata, answer structure, explanations, source references, answer distribution, difficulty coverage, and duplicate IDs.</p></div></div></header>
+<main>
+<div id="status" class="notice"></div>
+<section class="stats" id="stats"></section>
+<div class="grid">
+  <section class="card"><div class="eyebrow" style="color:var(--mid);opacity:1">Registry</div><h2>Question Packs</h2><p>Every source pack loaded into the canonical registry.</p><div class="rows" id="packs"></div></section>
+  <section class="card"><div class="eyebrow" style="color:var(--mid);opacity:1">Distribution</div><h2>Difficulty</h2><p>Published and draft questions currently registered.</p><div class="rows" id="difficulty"></div></section>
+  <section class="card"><div class="eyebrow" style="color:var(--mid);opacity:1">Answer balance</div><h2>Correct Answer Positions</h2><div class="answer-grid" id="answers"></div></section>
+  <section class="card"><div class="eyebrow" style="color:var(--mid);opacity:1">Coverage</div><h2>Weeks</h2><p>Question count by week.</p><div class="rows" id="weeks"></div></section>
+  <section class="card" style="grid-column:1/-1"><div class="eyebrow" style="color:var(--mid);opacity:1">Validation</div><h2>Errors</h2><div class="rows" id="errors"></div></section>
+  <section class="card" style="grid-column:1/-1"><div class="eyebrow" style="color:var(--mid);opacity:1">Quality review</div><h2>Warnings</h2><div class="rows" id="warnings"></div></section>
+</div>
+</main>
+<footer>Musculoskeletal-Skin · Central Question Bank QA · Read-only</footer>
+<script src="../shared/msk-question-bank.js"></script>
+<script src="../question-bank/msk-question-bank-data.js"></script>
+<script>
+(function(){
+'use strict';
+const bank=window.MSKQuestionBank;
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const stats=bank.stats(),validation=bank.validateAll(),packs=bank.listPacks();
+const entries=obj=>Object.entries(obj||{}).sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0],undefined,{numeric:true,sensitivity:'base'}));
+document.getElementById('stats').innerHTML=[
+  ['Total',stats.total],['Published',stats.published],['Drafts',stats.drafts],['Packs',stats.packs],['Errors',stats.errors],['Warnings',stats.warnings]
+].map(x=>'<div class="stat"><b>'+x[1]+'</b><span>'+x[0]+'</span></div>').join('');
+const status=document.getElementById('status');
+if(!stats.total){status.className='notice ok';status.textContent='Question-bank infrastructure is valid and intentionally empty. Add only source-supported MSK questions when course content becomes available.'}
+else if(validation.valid){status.className='notice ok';status.textContent='Validation passed with zero errors. Review warnings before publication.'}
+else{status.className='notice error';status.textContent='Validation failed. Resolve every error before using this bank in production quizzes.'}
+document.getElementById('packs').innerHTML=packs.length?packs.map(p=>'<div class="row"><span>'+esc(p.label||p.pack_id)+'</span><b>'+p.question_count+'</b></div>').join(''):'<div class="empty">No packs registered.</div>';
+document.getElementById('difficulty').innerHTML=entries(stats.by_difficulty).length?entries(stats.by_difficulty).map(x=>'<div class="row"><span>'+esc(x[0])+'</span><b>'+x[1]+'</b></div>').join(''):'<div class="empty">No questions yet.</div>';
+document.getElementById('weeks').innerHTML=entries(stats.by_week).length?entries(stats.by_week).map(x=>'<div class="row"><span>'+esc(x[0])+'</span><b>'+x[1]+'</b></div>').join(''):'<div class="empty">No week coverage yet.</div>';
+document.getElementById('answers').innerHTML=['A','B','C','D'].map(k=>'<div class="answer"><b>'+stats.answer_distribution[k]+'</b><span>'+k+'</span></div>').join('');
+function issueHtml(x,type){return '<div class="issue '+type+'"><b>'+esc(x.code||type)+'</b><span>'+esc([x.question_id,x.pack_id,x.message].filter(Boolean).join(' · '))+'</span></div>'}
+document.getElementById('errors').innerHTML=validation.errors.length?validation.errors.map(x=>issueHtml(x,'error')).join(''):'<div class="empty">No validation errors.</div>';
+document.getElementById('warnings').innerHTML=validation.warnings.length?validation.warnings.map(x=>issueHtml(x,'warning')).join(''):'<div class="empty">No quality warnings.</div>';
+})();
+</script>
+</body>
+</html>
