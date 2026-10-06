@@ -92,6 +92,8 @@ const adaptive=window.MSKAdaptiveQuiz,demoBuilder=window.MSKReviewDemoData,bankA
 const STORAGE_KEY='msk:adaptive-session:v1';
 const BANK_STORAGE_KEY='msk:bank-quiz-session:v1';
 const sourceNames={adaptive:'Adaptive · Weakest First',due:'Due Today',filed:'Filed for Review',repeatedly_missed:'Repeatedly Missed',confidently_wrong:'Confidently Wrong',low_confidence:'Low Confidence',all_active:'All Active Review',full_bank:'Full MSK Question Bank'};
+const initial=new URLSearchParams(location.search);
+let initialApplied=false;
 let mode='real',source='adaptive',reviews=[],attempts=[],bank=bankApi?bankApi.published():[],plan=null;
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -105,6 +107,33 @@ function syncBankSource(){
   btn.disabled=count===0;btn.classList.toggle('disabled',count===0);
   $('fullBankSourceText').textContent=count?count+' published question'+(count===1?'':'s')+' ready for custom builds.':'0 published questions · unlocks automatically when content is added.';
   if(source==='full_bank'&&!count){source='adaptive';document.querySelectorAll('[data-source]').forEach(b=>b.classList.toggle('active',b.dataset.source==='adaptive'))}
+}
+function setSelectFromQuery(id,name){
+  const value=initial.get(name||id);if(value===null)return;
+  const select=$(id),exists=Array.from(select.options).some(o=>o.value===value);
+  if(exists)select.value=value;
+}
+function applyInitialPreset(){
+  if(initialApplied){populate();syncSmartControls();render();return}
+  const requestedSource=initial.get('source');
+  if(requestedSource){
+    const btn=document.querySelector('[data-source="'+CSS.escape(requestedSource)+'"]');
+    if(btn&&!btn.disabled)source=requestedSource;
+  }
+  document.querySelectorAll('[data-source]').forEach(b=>b.classList.toggle('active',b.dataset.source===source));
+  populate();
+  setSelectFromQuery('count');
+  setSelectFromQuery('difficulty');
+  setSelectFromQuery('week');
+  setSelectFromQuery('lecture');
+  setSelectFromQuery('topic');
+  setSelectFromQuery('historyMode','historyMode');
+  setSelectFromQuery('excludeRecentDays','excludeRecentDays');
+  setSelectFromQuery('weakestTopics','weakestTopics');
+  setSelectFromQuery('difficultyMix','difficultyMix');
+  if(initial.get('randomize')==='1')$('randomize').checked=true;
+  initialApplied=true;
+  syncSmartControls();render();
 }
 function customMix(){
   return {'In-House':Math.max(0,Number($('mixInHouse').value||0)),'Intermediate':Math.max(0,Number($('mixIntermediate').value||0)),'Step 1':Math.max(0,Number($('mixStep1').value||0))}
@@ -158,16 +187,16 @@ function render(){
 async function loadReal(){
   mode='real';$('modeBadge').textContent='Live MSK Data';clearNotice();
   const auth=await sb.auth.getSession();const session=auth.data?.session;
-  if(auth.error||!session?.user){reviews=[];attempts=[];populate();render();notice('Log in through the MegaHub to build from your real MSK data. You can still preview the builder with mock data.','');return}
+  if(auth.error||!session?.user){reviews=[];attempts=[];applyInitialPreset();notice('Log in through the MegaHub to build from your real MSK data. You can still preview the builder with mock data.','');return}
   const pair=await Promise.all([
     sb.from('review_items').select('*').eq('user_id',session.user.id).eq('module_key','msk').order('updated_at',{ascending:false}),
     sb.from('question_attempts').select('*').eq('user_id',session.user.id).eq('module_key','msk').order('answered_at',{ascending:false})
   ]);
   if(pair[0].error||pair[1].error){reviews=[];attempts=[];populate();render();notice('Could not load MSK data. '+(pair[0].error?.message||pair[1].error?.message||''),'error');return}
-  reviews=pair[0].data||[];attempts=pair[1].data||[];populate();render();
+  reviews=pair[0].data||[];attempts=pair[1].data||[];applyInitialPreset();
   if(!reviews.length)notice('The builder is ready. Your real pool is empty until MSK quizzes begin creating Smart Review items.','ok');
 }
-function loadDemo(){mode='demo';$('modeBadge').textContent='Mock Preview · No Writes';reviews=demoBuilder.build();attempts=[];populate();render();notice('Preview mode uses synthetic review items only. Starting a preview session never writes to Supabase.','ok')}
+function loadDemo(){mode='demo';$('modeBadge').textContent='Mock Preview · No Writes';reviews=demoBuilder.build();attempts=[];populate();syncSmartControls();render();notice('Preview mode uses synthetic review items only. Starting a preview session never writes to Supabase.','ok')}
 function start(){
   if(!plan?.selected_keys?.length)return;
   if(source==='full_bank'){
