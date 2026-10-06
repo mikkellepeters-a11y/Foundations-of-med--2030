@@ -5,58 +5,75 @@
 <body>
 <script>
 (async()=>{
-  const nativeFetch=window.fetch.bind(window);
-
-  const inlineCountdown=`<style id="mskInlineExamCountdownStyles">
+  const REAL_WRITE=Document.prototype.write;
+  const EXAM_STYLE=String.raw\`<style id="mskExamCountdownStyles">
     #mskExamCountdownWrap{margin-top:28px;margin-bottom:8px}
     #mskExamCountdownWrap *{box-sizing:border-box}
     .msk-exam-card{position:relative;overflow:hidden;border:1px solid #c8d9ce;border-radius:24px;background:linear-gradient(145deg,#183b2a 0%,#28543d 54%,#527761 100%);color:#fff;padding:24px;box-shadow:0 18px 42px rgba(24,59,42,.18)}
     .msk-exam-card:before{content:"";position:absolute;width:240px;height:240px;border-radius:50%;right:-90px;top:-130px;background:rgba(255,255,255,.08)}
     .msk-exam-inner{position:relative;z-index:1}.msk-exam-top{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;flex-wrap:wrap}
-    .msk-exam-kicker{font-size:9.5px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;opacity:.72}.msk-exam-title{margin:4px 0;font-size:clamp(23px,4vw,34px);line-height:1.05;letter-spacing:-.035em}.msk-exam-date{font-size:11px;opacity:.78;font-weight:750}
-    .msk-exam-off{border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:#fff;border-radius:9px;padding:7px 9px;font:inherit;font-size:9.5px;font-weight:850;cursor:pointer}.msk-exam-off:hover{background:rgba(255,255,255,.16)}
-    .msk-count-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:20px}.msk-count-unit{background:rgba(255,255,255,.11);border:1px solid rgba(255,255,255,.15);border-radius:16px;padding:14px 10px;text-align:center;transition:.16s ease}.msk-count-unit:hover{transform:translateY(-2px);background:rgba(255,255,255,.16)}
-    .msk-count-unit b{display:block;font-size:clamp(26px,5vw,42px);line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-.04em}.msk-count-unit span{display:block;margin-top:6px;font-size:8.5px;text-transform:uppercase;letter-spacing:.08em;font-weight:850;opacity:.72}
+    .msk-exam-kicker{font-size:9.5px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;opacity:.72}
+    .msk-exam-title{margin:4px 0;font-size:clamp(23px,4vw,34px);line-height:1.05;letter-spacing:-.035em}
+    .msk-exam-date{font-size:11px;opacity:.8;font-weight:750}
+    .msk-exam-off{border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:#fff;border-radius:9px;padding:7px 9px;font:inherit;font-size:9.5px;font-weight:850;cursor:pointer}
+    .msk-exam-off:hover{background:rgba(255,255,255,.16)}
+    .msk-count-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:20px}
+    .msk-count-unit{background:rgba(255,255,255,.11);border:1px solid rgba(255,255,255,.15);border-radius:16px;padding:14px 10px;text-align:center;transition:.16s ease}
+    .msk-count-unit:hover{transform:translateY(-2px);background:rgba(255,255,255,.16)}
+    .msk-count-unit b{display:block;font-size:clamp(26px,5vw,42px);line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-.04em}
+    .msk-count-unit span{display:block;margin-top:6px;font-size:8.5px;text-transform:uppercase;letter-spacing:.08em;font-weight:850;opacity:.72}
     .msk-exam-message{margin-top:16px;padding:13px 14px;border-radius:14px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.12);font-size:12px;line-height:1.5;font-weight:700}
-    .msk-exam-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}.msk-exam-action{position:relative;border:1px solid rgba(255,255,255,.23);background:#fff;color:#183b2a;border-radius:10px;padding:9px 11px;font:inherit;font-size:10px;font-weight:900;cursor:pointer}.msk-exam-action.secondary{background:rgba(255,255,255,.1);color:#fff}.msk-exam-action:hover{transform:translateY(-1px)}
-    .msk-exam-response{min-height:18px;margin-top:11px;font-size:10.5px;line-height:1.45;color:rgba(255,255,255,.88);font-weight:700}.msk-spark{position:absolute;pointer-events:none;font-size:13px;color:#fff;animation:mskSpark .7s ease-out forwards}@keyframes mskSpark{0%{opacity:1;transform:translate(0,0) scale(.6)}100%{opacity:0;transform:translate(var(--x),var(--y)) scale(1.35)}}
-    .msk-exam-hidden{display:flex;justify-content:space-between;align-items:center;gap:12px;border:1px dashed #b9ccbf;border-radius:13px;background:#f7faf8;padding:9px 11px;color:#63736a;font-size:9.5px}.msk-exam-hidden button{border:0;background:transparent;color:#28543d;font:inherit;font-weight:900;cursor:pointer;padding:3px 4px}
+    .msk-exam-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}
+    .msk-exam-action{position:relative;border:1px solid rgba(255,255,255,.23);background:#fff;color:#183b2a;border-radius:10px;padding:9px 11px;font:inherit;font-size:10px;font-weight:900;cursor:pointer}
+    .msk-exam-action.secondary{background:rgba(255,255,255,.1);color:#fff}
+    .msk-exam-action:hover{transform:translateY(-1px)}
+    .msk-exam-response{min-height:18px;margin-top:11px;font-size:10.5px;line-height:1.45;color:rgba(255,255,255,.88);font-weight:700}
+    .msk-spark{position:absolute;pointer-events:none;font-size:13px;color:#fff;animation:mskSpark .7s ease-out forwards}
+    @keyframes mskSpark{0%{opacity:1;transform:translate(0,0) scale(.6)}100%{opacity:0;transform:translate(var(--x),var(--y)) scale(1.35)}}
+    .msk-exam-hidden{display:flex;justify-content:space-between;align-items:center;gap:12px;border:1px dashed #b9ccbf;border-radius:13px;background:#f7faf8;padding:9px 11px;color:#63736a;font-size:9.5px}
+    .msk-exam-hidden button{border:0;background:transparent;color:#28543d;font:inherit;font-weight:900;cursor:pointer;padding:3px 4px}
     @media(max-width:620px){.msk-count-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.msk-exam-card{padding:19px}}
-  </style>
-  <script id="mskInlineExamCountdown">(()=>{
-    if(window.__MSK_INLINE_COUNTDOWN__)return;window.__MSK_INLINE_COUNTDOWN__=true;
-    const KEY='msk-exam-countdown-hidden-v2';
+  </style>\`;
+  const EXAM_SECTION=String.raw\`<section id="mskExamCountdownWrap" aria-label="MSK module exam countdown">
+    <div class="msk-exam-card"><div class="msk-exam-inner">
+      <div class="msk-exam-top"><div><div class="msk-exam-kicker">Module II · Finish Line</div><h2 class="msk-exam-title">MSK Module Exam Countdown</h2><div class="msk-exam-date">Exam day · December 10, 2026</div></div><button class="msk-exam-off" id="mskCountdownOff" type="button">Turn off countdown</button></div>
+      <div class="msk-count-grid" id="mskCountGrid"><div class="msk-count-unit"><b id="mskDays">--</b><span>Days</span></div><div class="msk-count-unit"><b id="mskHours">--</b><span>Hours</span></div><div class="msk-count-unit"><b id="mskMinutes">--</b><span>Minutes</span></div><div class="msk-count-unit"><b id="mskSeconds">--</b><span>Seconds</span></div></div>
+      <div class="msk-exam-message" id="mskExamMessage">You have time. Keep stacking good days.</div>
+      <div class="msk-exam-actions"><button class="msk-exam-action" id="mskBoostBtn" type="button">Boost me ✦</button><button class="msk-exam-action secondary" id="mskMissionBtn" type="button">Pick my next 10 minutes</button></div>
+      <div class="msk-exam-response" id="mskExamResponse" aria-live="polite"></div>
+    </div></div>
+  </section>\`;
+  const EXAM_SCRIPT=String.raw\`<script id="mskExamCountdownRuntime">
+  (()=>{if(window.__MSK_FINAL_COUNTDOWN__)return;window.__MSK_FINAL_COUNTDOWN__=true;
+    const KEY='msk-exam-countdown-hidden-v3';
     const BOOSTS=['You do not need to know everything today. You just need to know more than you did yesterday.','Small review sessions compound. Ten focused minutes still counts.','Every missed question is one less surprise waiting for you on exam day.','You have time to build this. Keep stacking good days.','Future-you is going to be very grateful for what you review today.','One lecture. One concept. One question at a time.'];
     const MISSIONS=['Do 5 questions and spend the rest of the 10 minutes reviewing every miss.','Pick one weak concept and teach it out loud without looking at your notes.','Draw one anatomy relationship from memory, then check it.','Open Filed for Review and clear one question you understand now.','Choose one lecture and write the 5 facts you would be most annoyed to forget.','Review one drug class: mechanism, major use, and major adverse effect.','Pick one pathology and explain how the presentation connects to the mechanism.','Do a rapid recall pass: 10 facts, no notes, then check yourself.'];
-    const examStart=()=>new Date(2026,11,10,0,0,0,0), examEnd=()=>new Date(2026,11,11,0,0,0,0);
-    const message=d=>d>45?'Plenty of runway. Build the foundation now so December feels like review, not rescue.':d>28?'This is the sweet spot for steady progress. Keep the daily reps boring and consistent.':d>14?'The exam is getting real, but there is still time to close gaps deliberately.':d>7?'Final two weeks. Prioritize weak areas, active recall, and questions over passive rereading.':d>2?'Final stretch. Tighten the high-yield details and trust the work you have already put in.':d>0?'Almost there. Protect your sleep, review intelligently, and do not confuse panic with productivity.':'Exam day is here. Trust your preparation, read carefully, and take it one question at a time.';
+    const start=()=>new Date(2026,11,10,0,0,0,0), end=()=>new Date(2026,11,11,0,0,0,0);
+    const encouragement=d=>d>45?'Plenty of runway. Build the foundation now so December feels like review, not rescue.':d>28?'This is the sweet spot for steady progress. Keep the daily reps boring and consistent.':d>14?'The exam is getting real, but there is still time to close gaps deliberately.':d>7?'Final two weeks. Prioritize weak areas, active recall, and questions over passive rereading.':d>2?'Final stretch. Tighten the high-yield details and trust the work you have already put in.':d>0?'Almost there. Protect your sleep, review intelligently, and do not confuse panic with productivity.':'Exam day is here. Trust your preparation, read carefully, and take it one question at a time.';
     let timer=null;
-    const parts=()=>{const n=new Date();if(n>=examEnd())return{state:'done'};if(n>=examStart())return{state:'exam'};let ms=examStart()-n;const days=Math.floor(ms/86400000);ms-=days*86400000;const hours=Math.floor(ms/3600000);ms-=hours*3600000;const minutes=Math.floor(ms/60000);ms-=minutes*60000;return{state:'count',days,hours,minutes,seconds:Math.floor(ms/1000)}};
-    const spark=b=>{for(let i=0;i<8;i++){const s=document.createElement('span');s.className='msk-spark';s.textContent=i%2?'✦':'•';s.style.left=(35+Math.random()*30)+'%';s.style.top=(25+Math.random()*45)+'%';s.style.setProperty('--x',Math.round((Math.random()-.5)*110)+'px');s.style.setProperty('--y',Math.round(-25-Math.random()*65)+'px');b.appendChild(s);setTimeout(()=>s.remove(),800)}};
-    const full=()=>'<div class="msk-exam-card" id="mskExamCard"><div class="msk-exam-inner"><div class="msk-exam-top"><div><div class="msk-exam-kicker">Module II · Finish Line</div><h2 class="msk-exam-title">MSK Module Exam Countdown</h2><div class="msk-exam-date">Exam day · December 10, 2026</div></div><button class="msk-exam-off" id="mskCountdownOff" type="button">Turn off countdown</button></div><div class="msk-count-grid" id="mskCountGrid"><div class="msk-count-unit"><b id="mskDays">--</b><span>Days</span></div><div class="msk-count-unit"><b id="mskHours">--</b><span>Hours</span></div><div class="msk-count-unit"><b id="mskMinutes">--</b><span>Minutes</span></div><div class="msk-count-unit"><b id="mskSeconds">--</b><span>Seconds</span></div></div><div class="msk-exam-message" id="mskExamMessage"></div><div class="msk-exam-actions"><button class="msk-exam-action" id="mskBoostBtn" type="button">Boost me ✦</button><button class="msk-exam-action secondary" id="mskMissionBtn" type="button">Pick my next 10 minutes</button></div><div class="msk-exam-response" id="mskExamResponse" aria-live="polite"></div></div></div>';
+    const parts=()=>{const n=new Date();if(n>=end())return{state:'done'};if(n>=start())return{state:'exam'};let ms=start()-n;const days=Math.floor(ms/86400000);ms-=days*86400000;const hours=Math.floor(ms/3600000);ms-=hours*3600000;const minutes=Math.floor(ms/60000);ms-=minutes*60000;return{state:'count',days:days,hours:hours,minutes:minutes,seconds:Math.floor(ms/1000)}};
+    const full=()=>'<div class="msk-exam-card"><div class="msk-exam-inner"><div class="msk-exam-top"><div><div class="msk-exam-kicker">Module II · Finish Line</div><h2 class="msk-exam-title">MSK Module Exam Countdown</h2><div class="msk-exam-date">Exam day · December 10, 2026</div></div><button class="msk-exam-off" id="mskCountdownOff" type="button">Turn off countdown</button></div><div class="msk-count-grid" id="mskCountGrid"><div class="msk-count-unit"><b id="mskDays">--</b><span>Days</span></div><div class="msk-count-unit"><b id="mskHours">--</b><span>Hours</span></div><div class="msk-count-unit"><b id="mskMinutes">--</b><span>Minutes</span></div><div class="msk-count-unit"><b id="mskSeconds">--</b><span>Seconds</span></div></div><div class="msk-exam-message" id="mskExamMessage"></div><div class="msk-exam-actions"><button class="msk-exam-action" id="mskBoostBtn" type="button">Boost me ✦</button><button class="msk-exam-action secondary" id="mskMissionBtn" type="button">Pick my next 10 minutes</button></div><div class="msk-exam-response" id="mskExamResponse" aria-live="polite"></div></div></div>';
     const hidden=()=>'<div class="msk-exam-hidden"><span>MSK exam countdown is hidden.</span><button type="button" id="mskCountdownOn">Turn back on</button></div>';
-    const tick=()=>{const p=parts(),grid=document.getElementById('mskCountGrid'),msg=document.getElementById('mskExamMessage');if(!grid||!msg)return;if(p.state==='done'){grid.innerHTML='<div class="msk-count-unit" style="grid-column:1/-1"><b style="font-size:28px">Module complete ✓</b><span>You made it through MSK</span></div>';msg.textContent='You did it. Take the win, keep what you learned, and move forward.';clearInterval(timer);return}if(p.state==='exam'){grid.innerHTML='<div class="msk-count-unit" style="grid-column:1/-1"><b style="font-size:28px">Exam day.</b><span>December 10, 2026</span></div>';msg.textContent=message(0);clearInterval(timer);return}document.getElementById('mskDays').textContent=p.days;document.getElementById('mskHours').textContent=String(p.hours).padStart(2,'0');document.getElementById('mskMinutes').textContent=String(p.minutes).padStart(2,'0');document.getElementById('mskSeconds').textContent=String(p.seconds).padStart(2,'0');msg.textContent=message(p.days)};
-    const render=()=>{const root=document.getElementById('mskExamCountdownWrap');if(!root)return;if(timer){clearInterval(timer);timer=null}if(localStorage.getItem(KEY)==='1'){root.innerHTML=hidden();document.getElementById('mskCountdownOn').onclick=()=>{localStorage.removeItem(KEY);render()};return}root.innerHTML=full();document.getElementById('mskCountdownOff').onclick=()=>{localStorage.setItem(KEY,'1');render()};document.getElementById('mskBoostBtn').onclick=e=>{document.getElementById('mskExamResponse').textContent=BOOSTS[Math.floor(Math.random()*BOOSTS.length)];spark(e.currentTarget)};document.getElementById('mskMissionBtn').onclick=()=>{document.getElementById('mskExamResponse').textContent='10-minute mission: '+MISSIONS[Math.floor(Math.random()*MISSIONS.length)]};tick();if(parts().state==='count')timer=setInterval(tick,1000)};
-    const mount=()=>{const main=document.querySelector('main');if(!main)return false;let root=document.getElementById('mskExamCountdownWrap');if(!root){root=document.createElement('section');root.id='mskExamCountdownWrap';root.setAttribute('aria-label','MSK module exam countdown');main.appendChild(root)}else if(main.lastElementChild!==root)main.appendChild(root);render();return true};
-    if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount,{once:true});else mount();[100,400,900,1800,3000].forEach(ms=>setTimeout(mount,ms));
-  })();<\/script>`;
-
-  const patchFinal=raw=>{
-    if(!raw.includes('class="week-grid"')||!raw.includes('</body>')||raw.includes('mskInlineExamCountdown'))return raw;
-    return raw.replace('</body>',inlineCountdown+'</body>');
+    const sparkle=b=>{for(let i=0;i<8;i++){const s=document.createElement('span');s.className='msk-spark';s.textContent=i%2?'✦':'•';s.style.left=(35+Math.random()*30)+'%';s.style.top=(25+Math.random()*45)+'%';s.style.setProperty('--x',Math.round((Math.random()-.5)*110)+'px');s.style.setProperty('--y',Math.round(-25-Math.random()*65)+'px');b.appendChild(s);setTimeout(()=>s.remove(),800)}};
+    const tick=()=>{const p=parts(),g=document.getElementById('mskCountGrid'),m=document.getElementById('mskExamMessage');if(!g||!m)return;if(p.state==='done'){g.innerHTML='<div class="msk-count-unit" style="grid-column:1/-1"><b style="font-size:28px">Module complete ✓</b><span>You made it through MSK</span></div>';m.textContent='You did it. Take the win, keep what you learned, and move forward.';if(timer)clearInterval(timer);return}if(p.state==='exam'){g.innerHTML='<div class="msk-count-unit" style="grid-column:1/-1"><b style="font-size:28px">Exam day.</b><span>December 10, 2026</span></div>';m.textContent=encouragement(0);if(timer)clearInterval(timer);return}document.getElementById('mskDays').textContent=p.days;document.getElementById('mskHours').textContent=String(p.hours).padStart(2,'0');document.getElementById('mskMinutes').textContent=String(p.minutes).padStart(2,'0');document.getElementById('mskSeconds').textContent=String(p.seconds).padStart(2,'0');m.textContent=encouragement(p.days)};
+    const render=()=>{const root=document.getElementById('mskExamCountdownWrap');if(!root)return;if(timer){clearInterval(timer);timer=null}let off=false;try{off=localStorage.getItem(KEY)==='1'}catch(e){}if(off){root.innerHTML=hidden();const on=document.getElementById('mskCountdownOn');if(on)on.onclick=()=>{try{localStorage.removeItem(KEY)}catch(e){}render()};return}root.innerHTML=full();const offBtn=document.getElementById('mskCountdownOff');if(offBtn)offBtn.onclick=()=>{try{localStorage.setItem(KEY,'1')}catch(e){}render()};const boost=document.getElementById('mskBoostBtn');if(boost)boost.onclick=e=>{document.getElementById('mskExamResponse').textContent=BOOSTS[Math.floor(Math.random()*BOOSTS.length)];sparkle(e.currentTarget)};const mission=document.getElementById('mskMissionBtn');if(mission)mission.onclick=()=>{document.getElementById('mskExamResponse').textContent='10-minute mission: '+MISSIONS[Math.floor(Math.random()*MISSIONS.length)]};tick();if(parts().state==='count')timer=setInterval(tick,1000)};
+    const mount=()=>{const root=document.getElementById('mskExamCountdownWrap'),main=document.querySelector('main');if(!root||!main)return false;if(main.lastElementChild!==root)main.appendChild(root);render();return true};
+    if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount,{once:true});else mount();[100,400,900,1600,3000].forEach(ms=>setTimeout(mount,ms));
+  })();<\/script>\`;
+  const patchFinal=html=>{
+    if(typeof html!=='string')return html;
+    const isFinal=/<main(?:\\s|>)/i.test(html)&&/class=["'][^"']*\\bweek-grid\\b[^"']*["']/i.test(html);
+    if(!isFinal)return html;
+    html=html.replace(/<script[^>]+src=["']shared\\/msk-exam-countdown\\.js[^"']*["'][^>]*>\\s*<\\/script>/gi,'');
+    html=html.replace(/<style id="mskExamCountdownStyles">[\\s\\S]*?<\\/style>/i,'');
+    html=html.replace(/<section id="mskExamCountdownWrap"[\\s\\S]*?<\\/section>/i,'');
+    if(!html.includes('id="mskExamCountdownStyles"'))html=html.includes('</head>')?html.replace('</head>',EXAM_STYLE+'</head>'):EXAM_STYLE+html;
+    if(!html.includes('id="mskExamCountdownWrap"'))html=html.replace('</main>',EXAM_SECTION+'</main>');
+    if(!html.includes('id="mskExamCountdownRuntime"'))html=html.replace('</body>',EXAM_SCRIPT+'</body>');
+    return html;
   };
-
-  window.fetch=async(...args)=>{
-    const res=await nativeFetch(...args);
-    const input=args[0];
-    const url=typeof input==='string'?input:(input&&input.url)||'';
-    if(url.includes('raw.githubusercontent.com/mikkellepeters-a11y/Foundations-of-med--2030/')&&/\/MSK\.html(?:\?|$)/.test(url)){
-      return new Response(patchFinal(await res.text()),{status:res.status,statusText:res.statusText,headers:res.headers});
-    }
-    return res;
-  };
-
-  const r=await nativeFetch('https://raw.githubusercontent.com/mikkellepeters-a11y/Foundations-of-med--2030/d451dec3cb117dd9df93e69ffcdecd8a6760241a/MSK.html');
+  Document.prototype.write=function(...args){return REAL_WRITE.apply(this,args.map(v=>patchFinal(String(v))))};
+  const r=await fetch('https://raw.githubusercontent.com/mikkellepeters-a11y/Foundations-of-med--2030/d451dec3cb117dd9df93e69ffcdecd8a6760241a/MSK.html');
   if(!r.ok)throw new Error('MSK base failed');
   document.open();document.write(await r.text());document.close();
 })().catch(e=>{console.error(e);document.body.innerHTML='<p style="font-family:system-ui;padding:24px">MSK hub failed to load. Please refresh.</p>'});
