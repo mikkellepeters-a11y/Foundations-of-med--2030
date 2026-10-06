@@ -4,6 +4,7 @@
   const ANATOMY_TABLES=Array.from({length:30},(_,i)=>String(i+1));
   const PCL_GROUPS=Array.from({length:66},(_,i)=>String(i+1));
   const FOUNDATION_UNLOCK_AT=Date.parse('2026-10-01T18:00:00Z'); // 2:00 PM EDT
+  const MSK_UNLOCK_AT=Date.parse('2026-12-11T05:00:00Z'); // midnight ET after the Dec. 10 module exam
 
   const PROFILE_GROUPS=[
     {key:'cbl_group',inputId:'cblGroup',chipId:'profileCblGroupCard',label:'CBL Group',options:CBL_GROUPS,empty:'No CBL Group selected',display:v=>`CBL Group ${v}`},
@@ -34,7 +35,19 @@
     {id:'future-me-problem',icon:'📌',title:"Future Me's Problem",description:'File 25 questions for review. Future you has been notified.',kind:'review',target:25,funny:true},
     {id:'cbl-connected',icon:'🤝',title:'CBL Connected',description:'Add your CBL group to your profile.',kind:'cbl',target:1},
     {id:'profile-complete',icon:'✓',title:'Profile Complete',description:'Set your username, class year, and CBL group.',kind:'profile',target:1},
-    {id:'built-the-foundation',icon:'🏛️',title:'Built the Foundation',description:'Finished the Foundations of Medicine module with the Class of 2030.',kind:'foundationTime',target:1,special:true}
+    {id:'built-the-foundation',icon:'🏛️',title:'Built the Foundation',description:'Finished the Foundations of Medicine module with the Class of 2030.',kind:'foundationTime',target:1,special:true},
+
+    {id:'msk-bone-zone',icon:'🦴',title:'Welcome to the Bone Zone',description:'Answer your first Musculoskeletal-Skin question.',kind:'mskQuestions',target:1,module:'msk'},
+    {id:'msk-skin-game',icon:'🧴',title:'Skin in the Game',description:'Answer 50 Musculoskeletal-Skin questions.',kind:'mskQuestions',target:50,module:'msk'},
+    {id:'msk-joint-effort',icon:'🦿',title:'Joint Effort',description:'Answer 100 Musculoskeletal-Skin questions.',kind:'mskQuestions',target:100,module:'msk'},
+    {id:'msk-muscle-memory',icon:'💪',title:'Muscle Memory',description:'Answer 250 Musculoskeletal-Skin questions.',kind:'mskQuestions',target:250,module:'msk'},
+    {id:'msk-no-bones-left',icon:'🩻',title:'No Bones Left Unturned',description:'Answer 500 Musculoskeletal-Skin questions.',kind:'mskQuestions',target:500,module:'msk'},
+    {id:'msk-quiz-debut',icon:'🩺',title:'MSK Debut',description:'Complete your first Musculoskeletal-Skin quiz attempt.',kind:'mskQuizzes',target:1,module:'msk'},
+    {id:'msk-ortho-mode',icon:'🔨',title:'Ortho Mode Activated',description:'Complete 10 Musculoskeletal-Skin quiz attempts.',kind:'mskQuizzes',target:10,module:'msk'},
+    {id:'msk-out-of-hand',icon:'🖐️',title:'This Is Getting Out of Hand',description:'Complete 25 Musculoskeletal-Skin quiz attempts. Upper extremity has entered the chat.',kind:'mskQuizzes',target:25,module:'msk',funny:true},
+    {id:'msk-filed-pain',icon:'📌',title:'Filed Under: Pain',description:'File 15 Musculoskeletal-Skin questions for review.',kind:'mskReview',target:15,module:'msk',funny:true},
+    {id:'msk-table-manners',icon:'🥼',title:'Table Manners',description:'Add your Gross Anatomy table to your profile.',kind:'anatomyTable',target:1,module:'msk'},
+    {id:'msk-built-different',icon:'🦴',title:'Built Different',description:'Finish the Musculoskeletal-Skin module with the Class of 2030.',kind:'mskTime',target:1,module:'msk',special:true}
   ];
 
   const escapeHtml=value=>String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[char]));
@@ -220,6 +233,14 @@
       .achievement-card.special{grid-column:1/-1;border-width:2px}
       .achievement-card.special.unlocked{border-color:#b18a3e;background:linear-gradient(135deg,#fff8df,#f3e1a8,#fff8df);box-shadow:0 10px 26px rgba(123,89,30,.16)}
       .achievement-card.special.unlocked .achievement-icon{background:linear-gradient(135deg,#6f4e37,#b18a3e,#e0bd68)}
+      .achievement-card.msk{border-color:#ceddd3;background:#f8fcf9}
+      .achievement-card.msk.unlocked{border-color:#9fbaaa;background:linear-gradient(145deg,#fbfdfb,#e3ece6);box-shadow:0 8px 20px rgba(24,59,42,.08)}
+      .achievement-card.msk.unlocked .achievement-icon{background:linear-gradient(135deg,#183b2a,#28543d,#527761);color:#fff;border-color:transparent}
+      .achievement-card.msk .achievement-status{color:#28543d}
+      .achievement-card.msk.locked .achievement-status{color:var(--muted)}
+      .achievement-card.msk.special.unlocked{border-color:#527761;background:linear-gradient(135deg,#f8fcf9,#dce9e0,#f8fcf9);box-shadow:0 10px 26px rgba(24,59,42,.16)}
+      .achievement-card.msk.special.unlocked .achievement-icon{background:linear-gradient(135deg,#183b2a,#28543d,#527761)}
+      .achievement-module-tag{position:absolute;right:10px;bottom:9px;padding:3px 6px;border-radius:999px;background:#e3ece6;border:1px solid #ceddd3;color:#28543d;font-size:7.5px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
       .achievement-icon{width:48px;height:48px;border-radius:15px;display:grid;place-items:center;font-size:22px;background:var(--tan);border:1px solid var(--line)}
       .achievement-card.unlocked .achievement-icon{background:linear-gradient(135deg,var(--brown-dark),var(--brown-soft));color:#fff;border-color:transparent}
       .achievement-title{font-size:13px;font-weight:900}.achievement-description{font-size:10px;color:var(--muted);line-height:1.45;margin-top:3px}.achievement-status{font-size:9px;font-weight:850;color:var(--brown);margin-top:7px}
@@ -238,6 +259,8 @@
     return {questions,quizzes,reviews,profile};
   }
 
+  const achievementIsMSK=item=>String(item?.module_key||'').toLowerCase()==='msk'||/musculoskeletal(?:-skin)?|msk-skin/i.test(String(item?.metadata?.module||''));
+
   function achievementValue(kind){
     const {questions,quizzes,reviews,profile}=activity();
     if(kind==='questions')return questions.length;
@@ -248,6 +271,11 @@
     if(kind==='cbl')return profile?.cbl_group?1:0;
     if(kind==='profile')return profile?.display_name?.trim()&&profile?.class_year&&profile?.cbl_group?1:0;
     if(kind==='foundationTime')return Date.now()>=FOUNDATION_UNLOCK_AT?1:0;
+    if(kind==='mskQuestions')return questions.filter(achievementIsMSK).length;
+    if(kind==='mskQuizzes')return quizzes.filter(achievementIsMSK).length;
+    if(kind==='mskReview')return reviews.filter(item=>achievementIsMSK(item)&&(item?.manually_filed||(Array.isArray(item?.review_reasons)&&item.review_reasons.includes('filed')))).length;
+    if(kind==='anatomyTable')return profile?.anatomy_table?1:0;
+    if(kind==='mskTime')return Date.now()>=MSK_UNLOCK_AT?1:0;
     return 0;
   }
 
@@ -260,6 +288,11 @@
     if(item.kind==='cbl')return value?'CBL group added':'Add your CBL group';
     if(item.kind==='profile')return value?'Profile setup complete':'Complete your profile setup';
     if(item.kind==='foundationTime')return value?'Foundations of Medicine complete':'Unlocks October 1 at 2:00 PM ET';
+    if(item.kind==='mskQuestions')return `${Math.min(value,item.target).toLocaleString()} / ${item.target.toLocaleString()} MSK questions`;
+    if(item.kind==='mskQuizzes')return `${Math.min(value,item.target).toLocaleString()} / ${item.target.toLocaleString()} MSK quiz attempts`;
+    if(item.kind==='mskReview')return `${Math.min(value,item.target)} / ${item.target} MSK questions filed`;
+    if(item.kind==='anatomyTable')return value?'Gross Anatomy table added':'Add your Anatomy Table';
+    if(item.kind==='mskTime')return value?'Musculoskeletal-Skin complete':'Unlocks after the Dec. 10 module exam';
     return '';
   }
 
@@ -282,8 +315,9 @@
     note.textContent=unlocked===ACHIEVEMENTS.length?'Every current achievement is unlocked.':`${ACHIEVEMENTS.length-unlocked} achievement${ACHIEVEMENTS.length-unlocked===1?'':'s'} still locked.`;
 
     grid.innerHTML=states.map(item=>{
-      const classes=['achievement-card',item.unlocked?'unlocked':'locked',item.funny?'funny':'',item.special?'special':''].filter(Boolean).join(' ');
-      return `<div class="${classes}"><div class="achievement-icon" aria-hidden="true">${item.icon}</div><div><div class="achievement-title">${item.title}</div><div class="achievement-description">${item.description}</div><div class="achievement-status">${item.unlocked?'Unlocked · ':''}${achievementProgressLabel(item,item.value)}</div></div>${item.unlocked?'':'<span class="achievement-lock">Locked</span>'}</div>`;
+      const classes=['achievement-card',item.unlocked?'unlocked':'locked',item.funny?'funny':'',item.special?'special':'',item.module==='msk'?'msk':''].filter(Boolean).join(' ');
+      const moduleTag=item.module==='msk'?'<span class="achievement-module-tag">MSK</span>':'';
+      return `<div class="${classes}"><div class="achievement-icon" aria-hidden="true">${item.icon}</div><div><div class="achievement-title">${item.title}</div><div class="achievement-description">${item.description}</div><div class="achievement-status">${item.unlocked?'Unlocked · ':''}${achievementProgressLabel(item,item.value)}</div></div>${item.unlocked?'':'<span class="achievement-lock">Locked</span>'}${moduleTag}</div>`;
     }).join('');
   }
 
@@ -309,8 +343,8 @@
       const link=document.createElement('a');
       link.className='profile-nav-link';
       link.id='developerUpdatesLink';
-      link.href='developer-updates.html';
-      link.textContent='Developer Updates ↗';
+      link.href='bulletin.html';
+      link.textContent='Bulletin ↗';
       sidebar.appendChild(link);
     }
 
