@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Developer Updates · MCG Class of 2030 Hub</title>
+<title>Bulletin · MCG Class of 2030 Hub</title>
 <style>
 :root{
   --bg:#f3ece3;--paper:#fffaf4;--ink:#3e3028;--muted:#78695f;--line:#dccfc3;
@@ -36,17 +36,18 @@ footer{padding:0 20px 28px;color:#8a7b70;font-size:11px}
       </div>
     </div>
     <div class="hero">
-      <div class="eyebrow">From the Developer</div>
-      <h1>Developer Updates</h1>
-      <p>Site announcements, new features, fixes, and notes about what I am building next for the MegaHub.</p>
+      <div class="eyebrow">Developer Feed</div>
+      <h1>Bulletin</h1>
+      <p>Developer updates, new features, fixes, announcements, and notes about what is being built next for the MegaHub.</p>
     </div>
   </div>
 </header>
 <main>
-  <div class="intro"><strong>Updates from Mikkelle Peters · Class of 2030</strong><p>Newest posts appear first. This page is separate from study content, so site changes and announcements have one consistent home.</p></div>
+  <div class="intro"><strong>MegaHub Bulletin · Mikkelle Peters · Class of 2030</strong><p>Newest posts appear first. Opening the Bulletin marks the current developer updates as read for your account.</p></div>
   <section class="feed" id="developerFeed"><div class="empty">Loading updates…</div></section>
 </main>
 <footer>MCG Class of 2030 · MegaHub · Designed by Mikkelle Peters</footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="shared/developer-posts.js"></script>
 <script>
 const feed=document.getElementById('developerFeed');
@@ -59,6 +60,26 @@ if(!posts.length){
     const paragraphs=(post.body||[]).map(text=>`<p>${escapeHtml(text)}</p>`).join('');
     return `<article class="post" id="${escapeHtml(post.id)}"><div class="post-meta"><span class="category">${escapeHtml(post.category||'Update')}</span><span class="date">${escapeHtml(post.date||'')}</span></div><h2>${escapeHtml(post.title||'MegaHub Update')}</h2>${paragraphs}<div class="signature">Mikkelle Peters · MegaHub Developer</div></article>`;
   }).join('');
+}
+const BULLETIN_STORAGE_KEY='megahub-bulletin-last-read-id-v1';
+const latestBulletinId=posts[0]?.id||'';
+if(latestBulletinId){
+  try{localStorage.setItem(BULLETIN_STORAGE_KEY,latestBulletinId);}catch(_){}
+  if(window.supabase){
+    const bulletinClient=window.supabase.createClient(
+      'https://ofqfdnxpftifnvxnvppe.supabase.co',
+      'sb_publishable_06zYj2REZQMC8nXfhm7weQ_Nrotri7G'
+    );
+    (async()=>{
+      const {data:{session}}=await bulletinClient.auth.getSession();
+      if(!session?.user)return;
+      const {error}=await bulletinClient.from('profiles').upsert({
+        id:session.user.id,
+        last_bulletin_read_id:latestBulletinId
+      },{onConflict:'id'});
+      if(error)console.warn('Could not sync Bulletin read state:',error.message);
+    })();
+  }
 }
 </script>
 </body>
