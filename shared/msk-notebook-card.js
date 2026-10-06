@@ -23,11 +23,3 @@
   [100,300,700,1500,3000].forEach(ms=>setTimeout(addCard,ms));
 })();
 
-(()=>{
-  if(window.__MSK_EXAM_COUNTDOWN_LOADER__)return;
-  window.__MSK_EXAM_COUNTDOWN_LOADER__=true;
-  const script=document.createElement('script');
-  script.src='shared/msk-exam-countdown.js';
-  script.async=true;
-  document.head.appendChild(script);
-})();
