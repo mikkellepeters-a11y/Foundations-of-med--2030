@@ -16,7 +16,7 @@ main{padding:28px 20px 70px}.notice{display:none;border:1px solid var(--line);bo
 </style>
 </head>
 <body>
-<header><div class="inner"><div class="topbar"><div class="links"><a class="pill" href="../MSK.html">← MSK Hub</a><a class="pill" href="../review/msk-review-center.html">Review the Mod</a><a class="pill" href="../my-profile.html">My Profile</a></div><span class="pill" id="modeBadge">Live MSK Data</span></div><div class="hero"><div class="eyebrow">Musculoskeletal-Skin · Adaptive Learning</div><h1>Custom / Adaptive Quiz Builder</h1><p>Build a focused MSK review set from the questions your Smart Review system already knows need attention. When the full MSK question bank arrives, this page is ready to expand beyond review-derived questions.</p></div></div></header>
+<header><div class="inner"><div class="topbar"><div class="links"><a class="pill" href="../MSK.html">← MSK Hub</a><a class="pill" href="../review/msk-review-center.html">Review the Mod</a><a class="pill" href="msk-question-bank-validator.html">Question Bank QA</a><a class="pill" href="../my-profile.html">My Profile</a></div><span class="pill" id="modeBadge">Live MSK Data</span></div><div class="hero"><div class="eyebrow">Musculoskeletal-Skin · Adaptive Learning</div><h1>Custom / Adaptive Quiz Builder</h1><p>Build a focused MSK review set from the questions your Smart Review system already knows need attention. When the full MSK question bank arrives, this page is ready to expand beyond review-derived questions.</p></div></div></header>
 <main>
 <div class="notice" id="notice"></div>
 <div class="grid">
@@ -30,7 +30,7 @@ main{padding:28px 20px 70px}.notice{display:none;border:1px solid var(--line);bo
     <button class="source" data-source="confidently_wrong"><b>Confidently Wrong</b><span>Target confidence-calibration errors.</span></button>
     <button class="source" data-source="low_confidence"><b>Low Confidence</b><span>Questions answered while unsure or guessing.</span></button>
     <button class="source" data-source="all_active"><b>All Active Review</b><span>Everything currently active or improving.</span></button>
-    <button class="source disabled" disabled><b>Full MSK Question Bank</b><span>Unlocks once real MSK course questions exist.</span></button>
+    <button class="source disabled" id="fullBankSource" data-source="full_bank" disabled><b>Full MSK Question Bank</b><span id="fullBankSourceText">0 published questions · unlocks automatically when content is added.</span></button>
   </div>
 
   <div class="eyebrow" style="color:var(--mid);opacity:1;margin-top:19px">Step 2 · Filters</div>
@@ -43,7 +43,7 @@ main{padding:28px 20px 70px}.notice{display:none;border:1px solid var(--line);bo
   </div>
   <label class="check"><input id="randomize" type="checkbox"><span><b>Randomize question order</b><span>Adaptive mode still chooses the highest-priority questions first, then randomizes the selected set.</span></span></label>
   <div class="actions"><button class="btn soft" id="demoBtn" type="button">Preview with Mock Data</button><button class="btn" id="realBtn" type="button">Return to Real Data</button><button class="btn primary" id="startBtn" type="button" disabled>Start Quiz</button></div>
-  <div class="bank-note"><b>Right now:</b> this builder can create real sessions only from MSK questions that already exist in Smart Review with a complete stored question snapshot. It never invents questions and never writes fake attempt data.</div>
+  <div class="bank-note" id="bankNote"><b>Question Bank:</b> the central registry is connected. Published bank questions will automatically unlock the Full MSK Question Bank source. The bank is intentionally empty until source-supported MSK content exists.</div>
 </section>
 
 <aside class="card">
@@ -58,6 +58,8 @@ main{padding:28px 20px 70px}.notice{display:none;border:1px solid var(--line);bo
 <script src="../shared/msk-smart-review.js"></script>
 <script src="../shared/msk-review-demo-data.js"></script>
 <script src="../shared/msk-weakness-radar.js"></script>
+<script src="../shared/msk-question-bank.js"></script>
+<script src="../question-bank/msk-question-bank-data.js"></script>
 <script src="../shared/msk-adaptive-quiz.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
@@ -66,28 +68,38 @@ main{padding:28px 20px 70px}.notice{display:none;border:1px solid var(--line);bo
 const SUPABASE_URL='https://ofqfdnxpftifnvxnvppe.supabase.co';
 const SUPABASE_KEY='sb_publishable_06zYj2REZQMC8nXfhm7weQ_Nrotri7G';
 const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
-const adaptive=window.MSKAdaptiveQuiz,demoBuilder=window.MSKReviewDemoData;
+const adaptive=window.MSKAdaptiveQuiz,demoBuilder=window.MSKReviewDemoData,bankApi=window.MSKQuestionBank;
 const STORAGE_KEY='msk:adaptive-session:v1';
-const sourceNames={adaptive:'Adaptive · Weakest First',due:'Due Today',filed:'Filed for Review',repeatedly_missed:'Repeatedly Missed',confidently_wrong:'Confidently Wrong',low_confidence:'Low Confidence',all_active:'All Active Review'};
-let mode='real',source='adaptive',reviews=[],attempts=[],plan=null;
+const BANK_STORAGE_KEY='msk:bank-quiz-session:v1';
+const sourceNames={adaptive:'Adaptive · Weakest First',due:'Due Today',filed:'Filed for Review',repeatedly_missed:'Repeatedly Missed',confidently_wrong:'Confidently Wrong',low_confidence:'Low Confidence',all_active:'All Active Review',full_bank:'Full MSK Question Bank'};
+let mode='real',source='adaptive',reviews=[],attempts=[],bank=bankApi?bankApi.published():[],plan=null;
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function notice(msg,type){const n=$('notice');n.className='notice show'+(type?' '+type:'');n.textContent=msg}
 function clearNotice(){$('notice').className='notice';$('notice').textContent=''}
 function fill(id,values,label){const old=$(id).value;$(id).innerHTML='<option value="">All '+label+'</option>'+values.map(v=>'<option value="'+esc(v)+'">'+esc(v)+'</option>').join('');if(values.includes(old))$(id).value=old}
-function populate(){fill('difficulty',adaptive.options(reviews,'difficulty'),'difficulties');fill('week',adaptive.options(reviews,'week'),'weeks');fill('lecture',adaptive.options(reviews,'lecture'),'lectures');fill('topic',adaptive.options(reviews,'topic'),'topics')}
+function optionSource(){return source==='full_bank'?bank:reviews}
+function populate(){const pool=optionSource();fill('difficulty',adaptive.options(pool,'difficulty'),'difficulties');fill('week',adaptive.options(pool,'week'),'weeks');fill('lecture',adaptive.options(pool,'lecture'),'lectures');fill('topic',adaptive.options(pool,'topic'),'topics')}
+function syncBankSource(){
+  const btn=$('fullBankSource'),count=bank.length;
+  btn.disabled=count===0;btn.classList.toggle('disabled',count===0);
+  $('fullBankSourceText').textContent=count?count+' published question'+(count===1?'':'s')+' ready for custom builds.':'0 published questions · unlocks automatically when content is added.';
+  if(source==='full_bank'&&!count){source='adaptive';document.querySelectorAll('[data-source]').forEach(b=>b.classList.toggle('active',b.dataset.source==='adaptive'))}
+}
 function config(){return {source,count:Number($('count').value||0),difficulty:$('difficulty').value,week:$('week').value,lecture:$('lecture').value,topic:$('topic').value,randomize:$('randomize').checked}}
 function render(){
-  plan=adaptive.build(reviews,attempts,config());
+  plan=adaptive.build(reviews,attempts,config(),bank);
   const sum=adaptive.summary(plan);
   $('previewTitle').textContent=sourceNames[source]||'MSK Quiz';
   $('selectedCount').textContent=sum.count;
   $('availableCount').textContent=plan.usable;
   $('unavailableCount').textContent=plan.unavailable;
   $('priorityTopics').textContent=sum.topics.length;
-  $('previewSub').textContent=mode==='demo'?'Synthetic preview only · nothing will be written to your account.':(plan.total_source?plan.total_source+' review item'+(plan.total_source===1?'':'s')+' match this source before snapshot checks.':'No real MSK review items currently match this source.');
+  $('previewSub').textContent=source==='full_bank'
+    ?(plan.total_source?plan.total_source+' published bank question'+(plan.total_source===1?'':'s')+' match these filters.':'The published MSK question bank is currently empty or has no matches.')
+    :(mode==='demo'?'Synthetic preview only · nothing will be written to your account.':(plan.total_source?plan.total_source+' review item'+(plan.total_source===1?'':'s')+' match this source before snapshot checks.':'No real MSK review items currently match this source.'));
   $('breakdown').innerHTML=sum.topics.slice(0,5).map(x=>'<div class="break-row"><span>'+esc(x[0])+'</span><b>'+x[1]+'</b></div>').join('');
-  $('preview').innerHTML=plan.ranked.length?plan.ranked.slice(0,6).map((x,i)=>'<div class="preview-item"><b>'+(i+1)+'. '+esc(x.topic||'Untitled topic')+'</b><span>'+esc([x.week,x.lecture,x.difficulty].filter(Boolean).join(' · '))+' · priority '+x.priority+'</span></div>').join(''):'<div class="empty"><b>No review-ready questions match this build yet.</b><br>That is expected until real MSK quizzes begin feeding Smart Review.</div>';
+  $('preview').innerHTML=plan.ranked.length?plan.ranked.slice(0,6).map((x,i)=>'<div class="preview-item"><b>'+(i+1)+'. '+esc(x.topic||'Untitled topic')+'</b><span>'+esc([x.week,x.lecture,x.difficulty].filter(Boolean).join(' · '))+(source==='full_bank'?' · bank question':' · priority '+x.priority)+'</span></div>').join(''):'<div class="empty"><b>No questions match this build yet.</b><br>'+(source==='full_bank'?'The central bank is ready but does not contain published questions for these filters yet.':'That is expected until real MSK quizzes begin feeding Smart Review.')+'</div>';
   $('startBtn').disabled=!plan.selected_keys.length;
 }
 async function loadReal(){
@@ -105,16 +117,23 @@ async function loadReal(){
 function loadDemo(){mode='demo';$('modeBadge').textContent='Mock Preview · No Writes';reviews=demoBuilder.build();attempts=[];populate();render();notice('Preview mode uses synthetic review items only. Starting a preview session never writes to Supabase.','ok')}
 function start(){
   if(!plan?.selected_keys?.length)return;
+  if(source==='full_bank'){
+    const ids=plan.selected.map(q=>q.question_id).filter(Boolean);
+    const payload={version:1,module_key:'msk',created_at:new Date().toISOString(),source:'full_bank',title:'Custom MSK Question Bank Quiz',question_ids:ids,config:config()};
+    try{sessionStorage.setItem(BANK_STORAGE_KEY,JSON.stringify(payload))}catch(e){notice('Your browser blocked temporary session storage, so the bank quiz could not be launched.','error');return}
+    location.href='msk-quiz-template.html?bank=1';
+    return;
+  }
   const payload={version:1,module_key:'msk',created_at:new Date().toISOString(),mode,source,title:sourceNames[source]||'Adaptive Quiz',keys:plan.selected_keys,config:config()};
   try{sessionStorage.setItem(STORAGE_KEY,JSON.stringify(payload))}catch(e){notice('Your browser blocked temporary session storage, so the quiz could not be launched.','error');return}
   const p=new URLSearchParams({builder:'1',source:source});
   if(mode==='demo')p.set('demo','1');
   location.href='../review/msk-review-session.html?'+p.toString();
 }
-document.querySelectorAll('[data-source]').forEach(btn=>btn.addEventListener('click',()=>{source=btn.dataset.source;document.querySelectorAll('[data-source]').forEach(b=>b.classList.toggle('active',b===btn));render()}));
+document.querySelectorAll('[data-source]').forEach(btn=>btn.addEventListener('click',()=>{if(btn.disabled)return;source=btn.dataset.source;document.querySelectorAll('[data-source]').forEach(b=>b.classList.toggle('active',b===btn));populate();render()}));
 ['count','difficulty','week','lecture','topic','randomize'].forEach(id=>$(id).addEventListener('change',render));
 $('demoBtn').addEventListener('click',loadDemo);$('realBtn').addEventListener('click',loadReal);$('startBtn').addEventListener('click',start);
-loadReal();
+syncBankSource();populate();loadReal();
 })();
 </script>
 </body>
