@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MSK System QA Dashboard</title>
+<style>
+:root{--bg:#edf3ef;--paper:#fbfdfb;--ink:#21362b;--muted:#63736a;--accent:#28543d;--dark:#183b2a;--mid:#527761;--line:#ceddd3;--soft:#e3ece6;--soft2:#cdded3;--good:#e7f1e9;--warn:#f5efe2;--rose:#f5e8e4;--blue:#edf3f7;--shadow:0 16px 38px rgba(24,59,42,.10)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at top left,rgba(255,255,255,.78),transparent 34%),var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}a{color:inherit;text-decoration:none}button{font:inherit}
+header{background:linear-gradient(135deg,var(--dark),var(--accent),var(--mid));color:#fff;padding:24px 20px 40px}.inner,main,footer{max-width:1180px;margin:auto}.topbar{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}.links{display:flex;gap:7px;flex-wrap:wrap}.pill{display:inline-flex;padding:8px 11px;border-radius:999px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.10);font-size:10px;font-weight:850}.hero{margin-top:28px}.eyebrow{font-size:10px;text-transform:uppercase;letter-spacing:.11em;font-weight:900;opacity:.78}.hero h1{margin:5px 0 8px;font-size:clamp(36px,6vw,58px);letter-spacing:-.04em;line-height:1.02}.hero p{max-width:850px;margin:0;color:rgba(255,255,255,.84);font-size:12px;line-height:1.58}
+main{padding:28px 20px 72px}.status-banner{display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;border:1px solid var(--line);border-left:7px solid var(--accent);border-radius:18px;background:#fff;padding:16px 18px;box-shadow:var(--shadow);margin-bottom:16px}.status-banner.blocked{border-left-color:#99574d;background:var(--rose)}.status-banner.needs_attention{border-left-color:#9a7a45;background:var(--warn)}.status-banner.ready,.status-banner.ready_for_content{border-left-color:#4d775a;background:var(--good)}.status-mark{font-size:25px}.status-banner h2{margin:0;font-size:20px}.status-banner p{margin:3px 0 0;color:var(--muted);font-size:9.5px;line-height:1.45}.status-chip{padding:7px 9px;border-radius:999px;background:rgba(255,255,255,.7);border:1px solid var(--line);font-size:8px;font-weight:950;letter-spacing:.06em;white-space:nowrap}
+.metrics{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:9px;margin-bottom:16px}.metric{background:#fff;border:1px solid var(--line);border-radius:15px;padding:13px;box-shadow:var(--shadow)}.metric b{display:block;font-size:25px;letter-spacing:-.03em}.metric span{display:block;margin-top:2px;color:var(--muted);font-size:7.5px;text-transform:uppercase;letter-spacing:.055em;font-weight:900}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}.card{background:linear-gradient(180deg,#fff,var(--paper));border:1px solid var(--line);border-radius:20px;padding:17px;box-shadow:var(--shadow)}.card.full{grid-column:1/-1}.card h2{margin:3px 0 5px;font-size:20px;letter-spacing:-.02em}.card p{margin:0;color:var(--muted);font-size:9.5px;line-height:1.48}.section-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap}.mini-link{display:inline-flex;padding:6px 8px;border-radius:8px;border:1px solid var(--line);background:#fff;font-size:8px;font-weight:900;color:var(--accent)}
+.checks{display:grid;gap:8px;margin-top:12px}.check{display:grid;grid-template-columns:28px 1fr auto;gap:9px;align-items:center;border:1px solid var(--line);border-radius:12px;background:#fff;padding:10px}.check-icon{width:27px;height:27px;border-radius:9px;background:var(--good);display:grid;place-items:center;font-weight:900}.check.warn .check-icon{background:var(--warn)}.check.bad .check-icon{background:var(--rose)}.check b{font-size:10px}.check span{display:block;color:var(--muted);font-size:8.5px;margin-top:2px}.check-count{font-size:9px;font-weight:900}
+.rows{display:grid;gap:7px;margin-top:12px}.row{display:flex;justify-content:space-between;gap:10px;border:1px solid var(--line);border-radius:10px;background:#fff;padding:8px 9px;font-size:9px}.row b{font-size:9.5px}.empty{margin-top:12px;border:1px dashed #b9ccbe;border-radius:13px;background:#f9fcfa;padding:20px;text-align:center;color:var(--muted);font-size:10px;line-height:1.5}
+.quiz-list{display:grid;gap:10px;margin-top:13px}.quiz{border:1px solid var(--line);border-radius:15px;background:#fff;padding:13px}.quiz-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.quiz h3{margin:0;font-size:12px}.quiz-meta{margin-top:3px;color:var(--muted);font-size:8.5px}.qstatus{padding:5px 7px;border-radius:999px;font-size:7.5px;font-weight:950;text-transform:uppercase;letter-spacing:.055em;background:var(--soft);color:var(--accent)}.qstatus.blocked{background:var(--rose);color:#7b4d45}.qstatus.needs_attention{background:var(--warn);color:#6d5b36}.qstatus.ready{background:var(--good);color:#466149}.qstatus.draft{background:var(--blue);color:#4e6473}.quiz-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:10px}.qstat{border:1px solid var(--line);border-radius:9px;padding:7px}.qstat b{display:block;font-size:13px}.qstat span{display:block;color:var(--muted);font-size:7px;text-transform:uppercase;font-weight:900}.quiz-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}.issue-list{display:grid;gap:7px;margin-top:12px}.issue{border:1px solid var(--line);border-radius:11px;background:#fff;padding:10px}.issue.error{background:var(--rose);border-color:#dfc4bd}.issue.warning{background:var(--warn);border-color:#dfd2bc}.issue.info{background:var(--blue)}.issue b{font-size:9.5px}.issue span{display:block;margin-top:3px;color:var(--muted);font-size:8.5px;line-height:1.4}.answer-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:12px}.answer{border:1px solid var(--line);border-radius:11px;background:#fff;padding:10px;text-align:center}.answer b{display:block;font-size:20px}.answer span{font-size:8px;color:var(--muted);font-weight:900}.subtle{font-size:8.5px;color:var(--muted);margin-top:9px;line-height:1.45}footer{padding:0 20px 32px;color:#74847a;font-size:10px}
+@media(max-width:1000px){.metrics{grid-template-columns:repeat(3,1fr)}}@media(max-width:760px){.grid{grid-template-columns:1fr}.card.full{grid-column:auto}.status-banner{grid-template-columns:auto 1fr}.status-chip{grid-column:1/-1;justify-self:start}.quiz-stats{grid-template-columns:repeat(2,1fr)}}@media(max-width:480px){.metrics{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<header><div class="inner"><div class="topbar"><div class="links"><a class="pill" href="../MSK.html">← MSK Hub</a><a class="pill" href="../quiz/msk-question-bank-validator.html">Question Bank QA</a><a class="pill" href="../quiz/msk-quiz-definition-validator.html">Quiz Definitions QA</a><a class="pill" href="../quiz/msk-adaptive-quiz-builder.html">Adaptive Builder</a></div><a class="pill" href="../my-profile.html">My Profile</a></div><div class="hero"><div class="eyebrow">Development / Maintenance · Read Only</div><h1>MSK System QA</h1><p>One publication-readiness dashboard for the central question bank, production quiz definitions, tracking compatibility, content coverage, answer-position balance, unused questions, and cross-file references. This page never edits content or writes to Supabase.</p></div></div></header>
+<main>
+<section class="status-banner" id="statusBanner"><div class="status-mark" id="statusMark">✓</div><div><h2 id="statusTitle">Running MSK system checks…</h2><p id="statusText">Loading the central registries and publication gates.</p></div><span class="status-chip" id="statusChip">CHECKING</span></section>
+<section class="metrics" id="metrics"></section>
+<div class="grid">
+  <section class="card"><div class="section-head"><div><div class="eyebrow" style="color:var(--mid);opacity:1">Publication gates</div><h2>System Checks</h2><p>Hard errors block publication. Warnings deserve review but may be intentional.</p></div></div><div class="checks" id="checks"></div></section>
+  <section class="card"><div class="section-head"><div><div class="eyebrow" style="color:var(--mid);opacity:1">Question bank</div><h2>Content Coverage</h2><p>Published-question distribution by difficulty and answer position.</p></div></div><div class="rows" id="difficultyRows"></div><div class="answer-grid" id="answerGrid"></div><div class="subtle" id="coverageSummary"></div></section>
+  <section class="card full"><div class="section-head"><div><div class="eyebrow" style="color:var(--mid);opacity:1">Production quizzes</div><h2>Publication Readiness</h2><p>Every quiz definition is checked against its current bank questions, so corrections made in the bank are reflected here immediately.</p></div><a class="mini-link" href="../quiz/msk-quiz-definition-validator.html">Open Definition QA →</a></div><div class="quiz-list" id="quizList"></div></section>
+  <section class="card"><div class="section-head"><div><div class="eyebrow" style="color:var(--mid);opacity:1">Coverage</div><h2>Weeks & Lectures</h2><p>Helps identify underrepresented areas as the bank grows.</p></div></div><div class="rows" id="weekRows"></div><div class="rows" id="lectureRows"></div></section>
+  <section class="card"><div class="section-head"><div><div class="eyebrow" style="color:var(--mid);opacity:1">Bank utilization</div><h2>Unused Published Questions</h2><p>Useful for spotting questions that were written but never assigned to any active production definition.</p></div></div><div class="rows" id="unusedRows"></div><div class="subtle">Unused questions are informational, not automatically an error: some may exist intentionally for custom/adaptive bank quizzes.</div></section>
+  <section class="card full"><div class="section-head"><div><div class="eyebrow" style="color:var(--mid);opacity:1">Problems to resolve</div><h2>Errors</h2></div><span class="status-chip" id="errorCount">0</span></div><div class="issue-list" id="errors"></div></section>
+  <section class="card full"><div class="section-head"><div><div class="eyebrow" style="color:var(--mid);opacity:1">Quality review</div><h2>Warnings & Observations</h2></div><span class="status-chip" id="warningCount">0</span></div><div class="issue-list" id="warnings"></div></section>
+</div>
+</main>
+<footer>Musculoskeletal-Skin · System QA · Read-only development dashboard</footer>
+<script src="../shared/msk-smart-review.js"></script>
+<script src="../shared/msk-quiz-tracking.js"></script>
+<script src="../shared/msk-question-bank.js"></script>
+<script src="../question-bank/msk-question-bank-data.js"></script>
+<script src="../shared/msk-quiz-definitions.js"></script>
+<script src="../question-bank/msk-quiz-definitions-data.js"></script>
+<script src="../shared/msk-system-qa.js"></script>
+<script>
+(function(){
+'use strict';
+const qa=window.MSKSystemQA,bank=window.MSKQuestionBank,defs=window.MSKQuizDefinitions,tracking=window.MSKQuizTracking;
+const report=qa.build(bank,defs,tracking);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const entries=obj=>Object.entries(obj||{}).sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0],undefined,{numeric:true,sensitivity:'base'}));
+const banner=document.getElementById('statusBanner');
+banner.classList.add(report.status);
+document.getElementById('statusChip').textContent=report.label;
+document.getElementById('statusTitle').textContent=report.status==='blocked'?'MSK publication is blocked':report.status==='needs_attention'?'MSK system needs attention':report.status==='ready_for_content'?'MSK infrastructure is ready for content':'MSK system is ready';
+document.getElementById('statusText').textContent=report.status==='ready_for_content'
+  ?'All infrastructure checks pass. The bank and production definitions are intentionally empty until real MSK course content is approved.'
+  :report.errors.length
+    ?report.errors.length+' blocking error'+(report.errors.length===1?'':'s')+' must be resolved before publication.'
+    :report.warnings.length
+      ?report.warnings.length+' warning'+(report.warnings.length===1?'':'s')+' should be reviewed before publication.'
+      :'No blocking errors or quality warnings are active.';
+document.getElementById('statusMark').textContent=report.status==='blocked'?'!':report.status==='needs_attention'?'△':'✓';
+
+const m=report.metrics;
+document.getElementById('metrics').innerHTML=[
+  ['Bank Questions',m.total_questions],['Published',m.published_questions],['Quiz Definitions',m.total_definitions],['Published Quizzes',m.published_definitions],['Errors',m.errors],['Warnings',m.warnings],
+  ['Tracking Checked',m.tracking_questions_checked],['Unused Published',m.unused_published_questions],['Ready Quizzes',m.published_quizzes_ready],['Blocked Quizzes',m.published_quizzes_blocked],['Needs Attention',m.published_quizzes_attention],['Question References',m.questions_referenced]
+].map(x=>'<div class="metric"><b>'+x[1]+'</b><span>'+x[0]+'</span></div>').join('');
+
+const checks=[
+  {name:'Question Bank schema',bad:bank.validateAll().errors.length,warn:bank.validateAll().warnings.length,detail:'IDs, metadata, choices, answers, explanations, and publication status.'},
+  {name:'Quiz definitions',bad:defs.validateAll(bank).errors.length,warn:defs.validateAll(bank).warnings.length,detail:'Permanent quiz IDs and bank cross-references.'},
+  {name:'Tracking compatibility',bad:report.errors.filter(x=>x.area==='Tracking').length,warn:report.warnings.filter(x=>x.area==='Tracking').length,detail:m.tracking_questions_checked+' published bank question'+(m.tracking_questions_checked===1?'':'s')+' checked against MSK tracking.'},
+  {name:'Quiz quality gates',bad:report.errors.filter(x=>x.area==='Quiz QA').length,warn:report.warnings.filter(x=>x.area==='Quiz QA').length,detail:'Expected counts, answer-position balance, difficulty targets, and overlap.'}
+];
+document.getElementById('checks').innerHTML=checks.map(c=>{
+  const cls=c.bad?'bad':c.warn?'warn':'';
+  return '<div class="check '+cls+'"><div class="check-icon">'+(c.bad?'!':c.warn?'△':'✓')+'</div><div><b>'+esc(c.name)+'</b><span>'+esc(c.detail)+'</span></div><div class="check-count">'+(c.bad?c.bad+' errors':c.warn?c.warn+' warnings':'Pass')+'</div></div>';
+}).join('');
+
+document.getElementById('difficultyRows').innerHTML=entries(report.coverage.difficulties).length?entries(report.coverage.difficulties).map(x=>'<div class="row"><span>'+esc(x[0])+'</span><b>'+x[1]+'</b></div>').join(''):'<div class="empty">No published questions yet.</div>';
+document.getElementById('answerGrid').innerHTML=['A','B','C','D'].map(k=>'<div class="answer"><b>'+report.coverage.answers[k]+'</b><span>'+k+' correct</span></div>').join('');
+document.getElementById('coverageSummary').textContent=Object.keys(report.coverage.topics).length+' topics · '+Object.keys(report.coverage.lectures).length+' lectures · '+Object.keys(report.coverage.weeks).length+' weeks represented.';
+
+document.getElementById('quizList').innerHTML=report.quiz_reports.length?report.quiz_reports.map(q=>{
+  const launch=q.definition_status==='published'&&q.status!=='blocked'?'<a class="mini-link" href="../quiz/msk-quiz-template.html?quiz='+encodeURIComponent(q.quiz_id)+'">Launch Quiz →</a>':'';
+  const qaLink='<a class="mini-link" href="../quiz/msk-quiz-definition-validator.html">Definition QA</a>';
+  return '<article class="quiz"><div class="quiz-top"><div><h3>'+esc(q.quiz_name||q.quiz_id)+'</h3><div class="quiz-meta">'+esc([q.quiz_id,q.week,q.section].filter(Boolean).join(' · '))+'</div></div><span class="qstatus '+esc(q.status)+'">'+esc(q.status.replace('_',' '))+'</span></div><div class="quiz-stats"><div class="qstat"><b>'+q.question_count+'</b><span>Questions</span></div><div class="qstat"><b>'+q.errors.length+'</b><span>Errors</span></div><div class="qstat"><b>'+q.warnings.length+'</b><span>Warnings</span></div><div class="qstat"><b>'+Object.keys(q.topic_distribution).length+'</b><span>Topics</span></div></div><div class="quiz-actions">'+launch+qaLink+'</div></article>';
+}).join(''):'<div class="empty"><b>No production quiz definitions yet.</b><br>The definition pipeline is ready; quizzes will appear here as soon as approved MSK questions are assembled.</div>';
+
+document.getElementById('weekRows').innerHTML=entries(report.coverage.weeks).length?entries(report.coverage.weeks).slice(0,12).map(x=>'<div class="row"><span>'+esc(x[0])+'</span><b>'+x[1]+'</b></div>').join(''):'<div class="empty">No week coverage yet.</div>';
+document.getElementById('lectureRows').innerHTML=entries(report.coverage.lectures).length?entries(report.coverage.lectures).slice(0,15).map(x=>'<div class="row"><span>'+esc(x[0])+'</span><b>'+x[1]+'</b></div>').join(''):'';
+
+const unused=report.unused.not_in_any_active_definition;
+document.getElementById('unusedRows').innerHTML=unused.length?unused.slice(0,25).map(q=>'<div class="row"><span>'+esc(q.question_id)+' · '+esc(q.topic||'Uncategorized')+'</span><b>'+esc(q.week||'—')+'</b></div>').join(''):'<div class="empty">No unused published questions.</div>';
+
+function issueHtml(x,type){
+  const identity=[x.area,x.quiz_id,x.question_id].filter(Boolean).join(' · ');
+  return '<div class="issue '+type+'"><b>'+esc(x.code||type)+(identity?' · '+esc(identity):'')+'</b><span>'+esc(x.message||'')+'</span></div>';
+}
+document.getElementById('errorCount').textContent=report.errors.length;
+document.getElementById('errors').innerHTML=report.errors.length?report.errors.map(x=>issueHtml(x,'error')).join(''):'<div class="empty">No blocking errors.</div>';
+const observations=[...report.warnings,...report.info];
+document.getElementById('warningCount').textContent=report.warnings.length+' warnings · '+report.info.length+' info';
+document.getElementById('warnings').innerHTML=observations.length?observations.map(x=>issueHtml(x,x.severity==='info'?'info':'warning')).join(''):'<div class="empty">No warnings or observations.</div>';
+})();
+</script>
+</body>
+</html>
