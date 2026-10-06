@@ -335,7 +335,7 @@ async function submitAnswer(){
   syncing=true;updateSubmitState();$('syncText').textContent='Saving MSK attempt…';
   const raw=activeQuestions[index];const q=normalized(raw);
   try{
-    const saved=await tracker.recordAnswer(raw,{selectedAnswer:selectedIndex,confidence,metadata:{mode,source:definitionMode?'production-definition':bankMode?'central-question-bank':'canonical-quiz',definition_id:definitionId||null}});
+    const saved=await tracker.recordAnswer(raw,{selectedAnswer:selectedIndex,confidence,metadata:{mode,source:definitionMode?'production-definition':bankMode?'central-question-bank':'canonical-quiz',definition_id:definitionId||null,builder_config:bankMode?(bankSession?.config||null):null}});
     const correct=typeof saved.correct==='boolean'?saved.correct:window.MSKQuizTracking.isCorrectAnswer(selectedIndex,q.answer,q.choices);
     submitted=true;
     document.querySelectorAll('.choice').forEach((btn,i)=>{btn.disabled=true;btn.classList.remove('selected');if(i===correctIndex(q))btn.classList.add('correct');if(i===selectedIndex&&!correct)btn.classList.add('incorrect')});
@@ -357,7 +357,7 @@ async function nextQuestion(){
 async function finishQuiz(){
   syncing=true;$('nextBtn').disabled=true;$('syncText').textContent='Saving quiz completion…';
   const score=results.filter(r=>r.isCorrect).length;
-  try{await tracker.completeQuiz({score,totalQuestions:activeQuestions.length,mode,metadata:{difficulty_filter:$('difficultySelect').value||'all',source:definitionMode?'production-definition':bankMode?'central-question-bank':'canonical-quiz',definition_id:definitionId||null,builder_source:bankSession?.source||null}})}
+  try{await tracker.completeQuiz({score,totalQuestions:activeQuestions.length,mode,metadata:{difficulty_filter:$('difficultySelect').value||'all',source:definitionMode?'production-definition':bankMode?'central-question-bank':'canonical-quiz',definition_id:definitionId||null,builder_source:bankSession?.source||null,builder_config:bankMode?(bankSession?.config||null):null}})}
   catch(e){showNotice('Question attempts are saved, but quiz completion could not be saved: '+(e?.message||e),'error')}
   finally{syncing=false;$('player').style.display='none';$('progressShell').style.display='none';renderSummary();$('summary').style.display='block';window.scrollTo({top:0,behavior:'smooth'})}
 }
