@@ -73,10 +73,10 @@ if(latestBulletinId){
     (async()=>{
       const {data:{session}}=await bulletinClient.auth.getSession();
       if(!session?.user)return;
-      const {error}=await bulletinClient.from('profiles').upsert({
-        id:session.user.id,
-        last_bulletin_read_id:latestBulletinId
-      },{onConflict:'id'});
+      const {error}=await bulletinClient
+        .from('profiles')
+        .update({last_bulletin_read_id:latestBulletinId})
+        .eq('id',session.user.id);
       if(error)console.warn('Could not sync Bulletin read state:',error.message);
     })();
   }
