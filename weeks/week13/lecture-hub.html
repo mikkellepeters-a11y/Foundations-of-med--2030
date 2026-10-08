@@ -10,4 +10,16 @@ for(const [name,href] of links){
  let tag=t.slice(start,end+1).replace('href="#"','href="'+href+'"').replace(' placeholder"','"');
  t=t.slice(0,start)+tag+t.slice(end+1);
 }
+
+// Activate the finished Lecture 2 resources after the pinned layout is loaded.
+const card=[...new DOMParser().parseFromString(t,'text/html').querySelectorAll('.lecture-card')].find(x=>x.querySelector('.lecture-num')?.textContent.trim()==='02');
+if(!card)throw new Error('Lecture 2 card missing from Week 13 layout');
+const doc=new DOMParser().parseFromString(t,'text/html');
+const actual=[...doc.querySelectorAll('.lecture-card')].find(x=>x.querySelector('.lecture-num')?.textContent.trim()==='02');
+for(const [i,url] of ['lecture2-companion.html','lecture2-factoid.html'].entries()){
+ const a=actual.querySelectorAll('.resource-row a')[i];
+ if(!a)throw new Error('Lecture 2 resource button missing');
+ a.href=url;a.classList.remove('placeholder');a.removeAttribute('onclick');
+}
+t='<!doctype html>\\n'+doc.documentElement.outerHTML;
 document.open();document.write(t);document.close()})().catch(e=>{console.error(e);document.body.innerHTML='<p style="font-family:system-ui;padding:24px">Week 13 Lecture Hub failed to load. Please refresh.</p>'})</script></body>
