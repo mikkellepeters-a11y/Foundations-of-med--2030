@@ -18,7 +18,21 @@ footer{padding:0 22px 36px;color:#74847a;font-size:12px}.footer-inner{max-width:
 @media(max-width:950px){.controls{grid-template-columns:1fr 1fr}.studygrid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:620px){.hero{grid-template-columns:1fr}.icon{width:88px;height:88px}.lexi-photo{width:84px;height:84px}.hero-speech{left:64px;top:-10px}.controls{grid-template-columns:1fr}.grid{grid-template-columns:1fr}.studygrid{grid-template-columns:1fr}.sectionhead{align-items:flex-start;flex-direction:column}.mascot-card.show{grid-template-columns:102px 1fr}.mascot-dock{right:12px;bottom:14px;width:min(350px,calc(100vw - 20px))}}
 </style>
-<style id="mskPathologyDetailsStyle">.path-modal[hidden]{display:none}.path-modal{position:fixed;inset:0;z-index:50;background:rgba(14,35,23,.67);display:grid;place-items:center;padding:14px}.path-dialog{background:var(--paper);border-radius:20px;padding:22px;max-width:740px;width:100%;max-height:90vh;overflow:auto;box-shadow:var(--shadow)}.path-dialog h2{margin:8px 0}.path-dialog h3{margin:15px 0 5px;color:var(--accent);font-size:14px}.path-dialog p{margin:0;line-height:1.6;font-size:14px}.path-dialog .top{display:flex;align-items:center;justify-content:space-between;gap:12px}.path-dialog .close{border:1px solid var(--line);background:var(--soft);border-radius:10px;padding:7px 12px;color:var(--accent);font-weight:800;cursor:pointer}.detail{border:0;background:transparent;font:inherit}.path-dialog .clinical-tag{font-size:12px;color:var(--muted);font-weight:800}</style></head>
+<style id="mskPathologyDetailsStyle">.path-modal[hidden]{display:none}.path-modal{position:fixed;inset:0;z-index:50;background:rgba(14,35,23,.67);display:grid;place-items:center;padding:14px}.path-dialog{background:var(--paper);border-radius:20px;padding:22px;max-width:740px;width:100%;max-height:90vh;overflow:auto;box-shadow:var(--shadow)}.path-dialog h2{margin:8px 0}.path-dialog h3{margin:15px 0 5px;color:var(--accent);font-size:14px}.path-dialog p{margin:0;line-height:1.6;font-size:14px}.path-dialog .top{display:flex;align-items:center;justify-content:space-between;gap:12px}.path-dialog .close{border:1px solid var(--line);background:var(--soft);border-radius:10px;padding:7px 12px;color:var(--accent);font-weight:800;cursor:pointer}.detail{border:0;background:transparent;font:inherit}.path-dialog .clinical-tag{font-size:12px;color:var(--muted);font-weight:800}</style>
+<style id="mskFoundationsCardUpgrade">
+#pathGrid .card{min-height:248px}
+#pathGrid .cardtop .card-heading{min-width:0;flex:1}
+#pathGrid .cardtop .card-heading h3{margin:5px 0 4px;font-size:20px}
+#pathGrid .card .star{font-size:23px;line-height:1;padding:4px 6px;color:var(--accent);border-radius:8px}
+#pathGrid .card .star:focus-visible,#mascotCard:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+#pathGrid .card .source-tag{max-width:100%;white-space:normal;overflow-wrap:anywhere}
+#pathGrid .card .mechanism{flex:1}
+#pathGrid .card .cardfoot .detail{border:1px solid var(--line);border-radius:10px;background:var(--paper);padding:9px 12px}
+#mascotCard.show{cursor:pointer}
+#mascotCard .mascot-close{cursor:pointer}
+#mascotCard .mascot-open-hint{display:block;margin-top:7px;color:var(--accent);font-weight:900;font-size:12px}
+</style>
+</head>
 <body>
 <header class="header"><div class="wrap">
 <div class="brandline"><a class="brandlink" href="../../MSK.html">← MSK Hub</a><span class="badge">Module II · Musculoskeletal-Skin</span></div>
@@ -99,4 +113,100 @@ function filters(){let shown=0,q=els.search.value.trim().toLowerCase(),w=els.wee
 els.search.addEventListener('input',()=>{filters();clearTimeout(searchTimer);searchTimer=setTimeout(maybe,650)});[els.week,els.system,els.type].forEach(x=>x.addEventListener('change',()=>{filters();maybe()}));els.reset.addEventListener('click',()=>{els.search.value='';els.week.value='';els.system.value='';els.type.value='';filters();maybe()});document.querySelectorAll('.chip').forEach(ch=>ch.addEventListener('click',()=>{document.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));ch.classList.add('active');maybe()}));
 filters();setTimeout(()=>speech('Lexi is on pathology duty.'),700);setTimeout(maybe,1100);
 </script>
-<script id="mskPathologyEntriesLogic">(()=>{const items=[{"title":"Intervertebral Disc Herniation & Radiculopathy","type":"core","system":"Spinal nerve roots","mechanism":"Nucleus pulposus displacement can compress an adjacent spinal nerve root, producing segmental pain, paresthesia, weakness, or altered reflexes.","presentation":"Radiating back or neck pain, numbness or tingling, possible weakness and reduced reflexes following an affected root distribution.","pathogenesis":"Posterolateral lumbar disc herniations usually impinge the traversing nerve root: L4–L5 → L5; L5–S1 → S1. The handout also describes cervical C5–C6 → C6 and C6–C7 → C7.","morphology":"Intervertebral disc material protrudes beyond its usual location; sagittal T2-weighted lumbar MRI is illustrated in slide 28.","diagnosis":"Correlate neurologic examination, dermatomal symptoms, myotomal weakness, reflexes, and spine imaging where indicated.","pearl":"L4–L5 disc → L5 nerve root (typical posterolateral herniation).","source":"Slides 28; handout pp. 4–5"},{"title":"Cauda Equina Syndrome","type":"clinical","system":"Spinal nerve roots","mechanism":"Compression or injury of the descending lumbar and sacral nerve roots below the conus medullaris disrupts lower-extremity and pelvic neurologic function.","presentation":"Urinary retention, bladder or bowel incontinence, saddle anesthesia, back/leg pain, sexual dysfunction, and potentially multiroot weakness.","pathogenesis":"The cauda equina contains nerve roots traveling downward to exits below the L1–L2 spinal cord termination; compression can impair multiple roots simultaneously.","morphology":"Compression of the nerve-root bundle; distinguish from a focal single-root radiculopathy.","diagnosis":"Clinical emergency: new saddle anesthesia, urinary retention, or progressive neurologic deficits require urgent assessment, MRI, and surgical evaluation.","pearl":"Saddle anesthesia + urinary dysfunction = cauda equina red flag.","source":"Handout p. 4; slides 14, 16, 29"},{"title":"Herpes Zoster (Shingles)","type":"core","system":"Sensory nerves & skin","mechanism":"Latent varicella-zoster virus reactivates in a sensory ganglion and travels along sensory fibers to the skin.","presentation":"Unilateral dermatomal tingling, burning or sharp pain, followed by erythematous vesicles.","pathogenesis":"VZV persists in dorsal root or cranial sensory ganglia after prior varicella (chickenpox) infection.","morphology":"Vesicular eruption confined principally to the affected sensory dermatome; slide 33 shows the clinical morphology.","diagnosis":"Recognize the painful, typically unilateral dermatomal eruption and distinguish it from the cutaneous territory of an individual named peripheral nerve.","pearl":"Painful unilateral dermatomal vesicles → reactivated VZV in sensory ganglion.","source":"Slides 30–33; handout p. 7"},{"title":"Spinal Cord Injury","type":"clinical","system":"Spinal cord","mechanism":"Direct trauma or secondary bone, vascular, bleeding, edema, or inflammatory injury can interrupt ascending sensory and descending motor signaling.","presentation":"Movement and sensation below the injured level may be lost entirely or partially, depending on injury completeness.","pathogenesis":"Complete injury disrupts neural communication below the level; incomplete injury preserves some function.","morphology":"Traumatic injury to spinal cord or surrounding structures; the lecture primarily teaches functional consequences, not a microscopic pattern.","diagnosis":"Localize the neurological level and assess preserved motor and sensory function.","pearl":"Complete vs incomplete injury depends on residual neurologic function below the lesion.","source":"Handout p. 2; slides 14, 18–20"},{"title":"Spinal Cord Ischemia","type":"clinical","system":"Spinal vasculature","mechanism":"Loss of arterial perfusion injures spinal cord tissue, impairing neurologic signaling.","presentation":"Weakness or paralysis; compromise of the artery of Adamkiewicz may affect the lower limbs and bladder or bowel control.","pathogenesis":"The unpaired anterior spinal artery supplies anterior two-thirds of cord; paired posterior spinal arteries supply posterior third. Segmental medullary arteries, including Adamkiewicz, reinforce inferior cord perfusion.","morphology":"Ischemic neural tissue injury; no histologic image or specific infarct pattern is provided in these slides.","diagnosis":"Recognize vascular risk, new neurological dysfunction, and the relationship to spinal arterial territories.","pearl":"Adamkiewicz injury during aortic procedures may cause bilateral leg weakness/paralysis.","source":"Slides 41–43; handout p. 6"}];const modal=document.getElementById('pathologyModal'),title=document.getElementById('pathTitle'),body=document.getElementById('pathBody'),close=document.getElementById('pathClose');let previous=null;const safe=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));document.querySelectorAll('[data-open-path]').forEach(btn=>btn.addEventListener('click',()=>{const item=items[Number(btn.dataset.openPath)];if(!item)return;previous=btn;title.textContent=item.title;body.innerHTML=[['Presentation',item.presentation],['Mechanism / pathogenesis',item.pathogenesis],['Morphology / anatomy',item.morphology],['Recognition / diagnostic reasoning',item.diagnosis],['High-yield recognition pearl',item.pearl]].map(([a,b])=>'<h3>'+safe(a)+'</h3><p>'+safe(b)+'</p>').join('')+'<p style="margin-top:18px;color:var(--muted);font-size:12px">Course source: '+safe(item.source)+'. See Lecture 2 Companion for the full teaching context.</p>';modal.hidden=false;close.focus()}));function shut(){modal.hidden=true;previous?.focus()}close.addEventListener('click',shut);modal.addEventListener('click',e=>{if(e.target===modal)shut()});document.addEventListener('keydown',e=>{if(!modal.hidden&&e.key==='Escape')shut()});const categories=[...new Set(items.map(x=>x.system))];const sel=document.getElementById('systemFilter');categories.forEach(n=>{const o=document.createElement('option');o.value=n;o.textContent=n;sel.appendChild(o)});document.getElementById('totalCount').textContent=items.length;document.getElementById('visibleCount').textContent=items.length;})();</script></body></html>
+<script id="mskPathologyEntriesLogic">(()=>{const items=[{"title":"Intervertebral Disc Herniation & Radiculopathy","type":"core","system":"Spinal nerve roots","mechanism":"Nucleus pulposus displacement can compress an adjacent spinal nerve root, producing segmental pain, paresthesia, weakness, or altered reflexes.","presentation":"Radiating back or neck pain, numbness or tingling, possible weakness and reduced reflexes following an affected root distribution.","pathogenesis":"Posterolateral lumbar disc herniations usually impinge the traversing nerve root: L4–L5 → L5; L5–S1 → S1. The handout also describes cervical C5–C6 → C6 and C6–C7 → C7.","morphology":"Intervertebral disc material protrudes beyond its usual location; sagittal T2-weighted lumbar MRI is illustrated in slide 28.","diagnosis":"Correlate neurologic examination, dermatomal symptoms, myotomal weakness, reflexes, and spine imaging where indicated.","pearl":"L4–L5 disc → L5 nerve root (typical posterolateral herniation).","source":"Slides 28; handout pp. 4–5"},{"title":"Cauda Equina Syndrome","type":"clinical","system":"Spinal nerve roots","mechanism":"Compression or injury of the descending lumbar and sacral nerve roots below the conus medullaris disrupts lower-extremity and pelvic neurologic function.","presentation":"Urinary retention, bladder or bowel incontinence, saddle anesthesia, back/leg pain, sexual dysfunction, and potentially multiroot weakness.","pathogenesis":"The cauda equina contains nerve roots traveling downward to exits below the L1–L2 spinal cord termination; compression can impair multiple roots simultaneously.","morphology":"Compression of the nerve-root bundle; distinguish from a focal single-root radiculopathy.","diagnosis":"Clinical emergency: new saddle anesthesia, urinary retention, or progressive neurologic deficits require urgent assessment, MRI, and surgical evaluation.","pearl":"Saddle anesthesia + urinary dysfunction = cauda equina red flag.","source":"Handout p. 4; slides 14, 16, 29"},{"title":"Herpes Zoster (Shingles)","type":"core","system":"Sensory nerves & skin","mechanism":"Latent varicella-zoster virus reactivates in a sensory ganglion and travels along sensory fibers to the skin.","presentation":"Unilateral dermatomal tingling, burning or sharp pain, followed by erythematous vesicles.","pathogenesis":"VZV persists in dorsal root or cranial sensory ganglia after prior varicella (chickenpox) infection.","morphology":"Vesicular eruption confined principally to the affected sensory dermatome; slide 33 shows the clinical morphology.","diagnosis":"Recognize the painful, typically unilateral dermatomal eruption and distinguish it from the cutaneous territory of an individual named peripheral nerve.","pearl":"Painful unilateral dermatomal vesicles → reactivated VZV in sensory ganglion.","source":"Slides 30–33; handout p. 7"},{"title":"Spinal Cord Injury","type":"clinical","system":"Spinal cord","mechanism":"Direct trauma or secondary bone, vascular, bleeding, edema, or inflammatory injury can interrupt ascending sensory and descending motor signaling.","presentation":"Movement and sensation below the injured level may be lost entirely or partially, depending on injury completeness.","pathogenesis":"Complete injury disrupts neural communication below the level; incomplete injury preserves some function.","morphology":"Traumatic injury to spinal cord or surrounding structures; the lecture primarily teaches functional consequences, not a microscopic pattern.","diagnosis":"Localize the neurological level and assess preserved motor and sensory function.","pearl":"Complete vs incomplete injury depends on residual neurologic function below the lesion.","source":"Handout p. 2; slides 14, 18–20"},{"title":"Spinal Cord Ischemia","type":"clinical","system":"Spinal vasculature","mechanism":"Loss of arterial perfusion injures spinal cord tissue, impairing neurologic signaling.","presentation":"Weakness or paralysis; compromise of the artery of Adamkiewicz may affect the lower limbs and bladder or bowel control.","pathogenesis":"The unpaired anterior spinal artery supplies anterior two-thirds of cord; paired posterior spinal arteries supply posterior third. Segmental medullary arteries, including Adamkiewicz, reinforce inferior cord perfusion.","morphology":"Ischemic neural tissue injury; no histologic image or specific infarct pattern is provided in these slides.","diagnosis":"Recognize vascular risk, new neurological dysfunction, and the relationship to spinal arterial territories.","pearl":"Adamkiewicz injury during aortic procedures may cause bilateral leg weakness/paralysis.","source":"Slides 41–43; handout p. 6"}];const modal=document.getElementById('pathologyModal'),title=document.getElementById('pathTitle'),body=document.getElementById('pathBody'),close=document.getElementById('pathClose');let previous=null;const safe=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));document.querySelectorAll('[data-open-path]').forEach(btn=>btn.addEventListener('click',()=>{const item=items[Number(btn.dataset.openPath)];if(!item)return;previous=btn;title.textContent=item.title;body.innerHTML=[['Presentation',item.presentation],['Mechanism / pathogenesis',item.pathogenesis],['Morphology / anatomy',item.morphology],['Recognition / diagnostic reasoning',item.diagnosis],['High-yield recognition pearl',item.pearl]].map(([a,b])=>'<h3>'+safe(a)+'</h3><p>'+safe(b)+'</p>').join('')+'<p style="margin-top:18px;color:var(--muted);font-size:12px">Course source: '+safe(item.source)+'. See Lecture 2 Companion for the full teaching context.</p>';modal.hidden=false;close.focus()}));function shut(){modal.hidden=true;previous?.focus()}close.addEventListener('click',shut);modal.addEventListener('click',e=>{if(e.target===modal)shut()});document.addEventListener('keydown',e=>{if(!modal.hidden&&e.key==='Escape')shut()});const categories=[...new Set(items.map(x=>x.system))];const sel=document.getElementById('systemFilter');categories.forEach(n=>{const o=document.createElement('option');o.value=n;o.textContent=n;sel.appendChild(o)});document.getElementById('totalCount').textContent=items.length;document.getElementById('visibleCount').textContent=items.length;})();</script>
+<script id="mskFoundationsCardBehavior">
+(()=>{
+ const grid=document.getElementById('pathGrid');
+ const cards=[...grid.querySelectorAll('.card[data-pathology]')];
+ const favoriteKey='msk-pathology-hub:favorites:v1';
+ let favorites;
+ try{favorites=new Set(JSON.parse(localStorage.getItem(favoriteKey)||'[]'))}catch{favorites=new Set()}
+ let mode='all';
+ function syncStars(){
+  cards.forEach(card=>{const b=card.querySelector('.star');if(!b)return;
+   const saved=favorites.has(card.dataset.id);
+   b.textContent=saved?'★':'☆';b.setAttribute('aria-label',(saved?'Remove ':'Add ')+card.dataset.name+(saved?' from':' to')+' favorites');
+   b.setAttribute('aria-pressed',String(saved));
+  });
+ }
+ cards.forEach(card=>{
+  const top=card.querySelector('.cardtop'),heading=document.createElement('div');
+  heading.className='card-heading';
+  const title=card.querySelector('h3');
+  const small=top.querySelector('.small');
+  heading.append(small,title);
+  const classification=top.querySelector('.tag');
+  classification?.remove();
+  const star=document.createElement('button');
+  star.type='button';star.className='star';
+  top.replaceChildren(heading,star);
+  const tags=card.querySelector('.tagrow');
+  if(classification)tags.prepend(classification);
+  const source=card.querySelector('.cardfoot .small');
+  if(source){const sourceTag=document.createElement('span');sourceTag.className='tag source-tag';sourceTag.textContent=source.textContent;tags.append(sourceTag);
+    source.textContent='Pathogenesis';
+  }
+  card.querySelector('.mechanism')?.setAttribute('data-original',card.querySelector('.mechanism').textContent);
+  star.addEventListener('click',()=>{
+   if(favorites.has(card.dataset.id))favorites.delete(card.dataset.id);else favorites.add(card.dataset.id);
+   try{localStorage.setItem(favoriteKey,JSON.stringify([...favorites]))}catch{}
+   syncStars();applyView();
+  });
+ });
+ function applyView(){
+  let count=0;
+  cards.forEach(card=>{
+   const basic=(!document.getElementById('searchInput')?.value.trim()||card.textContent.toLowerCase().includes(document.getElementById('searchInput').value.trim().toLowerCase()));
+   const search=document.querySelector('#pathGrid'); // original filters remain authoritative for standard controls
+   const matchFavorites=mode!=='favorites'||favorites.has(card.dataset.id);
+   const isBasicVisible=card.getAttribute('data-filter-visible')!=='false';
+   card.style.display=(isBasicVisible&&matchFavorites)?'':'none';
+   if(card.style.display!=='none')count++;
+   const p=card.querySelector('.mechanism');
+   if(p)p.textContent=mode==='recognition'?(card.dataset.pearl||p.dataset.original):p.dataset.original;
+   const label=card.querySelector('.cardfoot .small');
+   if(label)label.textContent=mode==='recognition'?'Recognition clues':'Pathogenesis';
+  });
+  document.getElementById('visibleCount').textContent=count;
+ }
+ const search=document.querySelector('.controls input');
+ const week=document.getElementById('weekFilter'),system=document.getElementById('systemFilter'),type=document.getElementById('typeFilter'),reset=document.getElementById('resetBtn');
+ function updateBasic(){
+  const q=(search?.value||'').trim().toLowerCase();
+  cards.forEach(card=>{
+   const match=(!q||card.textContent.toLowerCase().includes(q))&&(!week?.value||card.dataset.week===week.value)&&(!system?.value||card.dataset.system===system.value)&&(!type?.value||card.dataset.type===type.value);
+   card.dataset.filterVisible=String(match);
+  });
+  applyView();
+ }
+ [search,week,system,type,reset].filter(Boolean).forEach(el=>el.addEventListener(el===search?'input':'change',updateBasic));
+ reset?.addEventListener('click',()=>setTimeout(updateBasic,0));
+ document.querySelectorAll('[data-quick]').forEach(ch=>ch.addEventListener('click',()=>{
+  mode=ch.dataset.quick==='favorites'?'favorites':ch.dataset.quick==='recognition'?'recognition':'all';
+  updateBasic();
+ }));
+ syncStars();updateBasic();
+ const mascot=document.getElementById('mascotCard'),close=document.getElementById('mascotClose');
+ let selected=null;
+ function recordSelection(){
+  const name=document.getElementById('mascotDisease')?.textContent?.trim();
+  selected=cards.find(c=>c.dataset.name===name)||null;
+  mascot.setAttribute('role',selected?'button':'status');
+  mascot.tabIndex=selected?0:-1;
+  let hint=mascot.querySelector('.mascot-open-hint');
+  if(!hint){hint=document.createElement('span');hint.className='mascot-open-hint';mascot.querySelector('.mascot-body')?.append(hint)}
+  hint.textContent=selected?'Click to open pathology details →':'';
+ }
+ const observer=new MutationObserver(recordSelection);
+ observer.observe(document.getElementById('mascotDisease'),{childList:true,characterData:true,subtree:true});
+ function openRecommendation(){
+  if(!selected)return;
+  const btn=selected.querySelector('[data-open-path]');
+  if(btn){mascot.classList.remove('show');btn.click()}
+ }
+ mascot.addEventListener('click',event=>{if(event.target.closest('.mascot-close'))return;openRecommendation()});
+ mascot.addEventListener('keydown',event=>{if(event.target.closest('.mascot-close'))return;if(event.key==='Enter'||event.key===' '){event.preventDefault();openRecommendation()}});
+ recordSelection();
+})();
+</script>
+</body></html>
