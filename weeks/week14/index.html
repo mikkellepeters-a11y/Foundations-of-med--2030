@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Week 14 · Admin Preview · Musculoskeletal-Skin</title>
+<style>
+:root{--ink:#21362b;--dark:#183b2a;--accent:#28543d;--muted:#63736a;--line:#ceddd3;--paper:#fbfdfb;--bg:#edf3ef}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+header{background:linear-gradient(130deg,var(--dark),var(--accent),#527761);color:white;padding:32px 22px 42px}
+.shell{max-width:1000px;margin:auto}.back{display:inline-flex;color:white;text-decoration:none;border:1px solid #ffffff55;background:#ffffff12;padding:8px 12px;border-radius:10px;font-size:12px;font-weight:800}
+header .label{font-size:10px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;margin-top:25px;color:#e8f2e9}
+h1{font-size:clamp(30px,5vw,49px);line-height:1.08;letter-spacing:-.04em;margin:10px 0}header p{margin:0;line-height:1.65;color:#eef8ef;max-width:650px}
+main{max-width:1000px;margin:-16px auto 52px;padding:0 22px;position:relative}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:26px;box-shadow:0 14px 34px #183b2a14;margin-bottom:16px}
+.card h2{font-size:23px;margin:4px 0 8px}.card p{font-size:14px;line-height:1.6;color:var(--muted);margin:0}
+.pill{display:inline-flex;font-weight:900;font-size:10px;letter-spacing:.06em;text-transform:uppercase;background:#e3ece6;color:var(--accent);padding:7px 10px;border-radius:99px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}.small{font-size:12px}
+#statusWrap{max-width:650px;margin:58px auto;padding:25px;text-align:center;background:var(--paper);border:1px solid var(--line);border-radius:18px}
+#statusWrap h2{margin:0 0 9px}#statusWrap p{color:var(--muted);line-height:1.65;font-size:13px}#statusWrap a{color:var(--accent);font-weight:800}
+[hidden]{display:none!important}
+@media(max-width:680px){.grid{grid-template-columns:1fr}.card{padding:20px}}
+</style>
+</head>
+<body>
+<div id="statusWrap" role="status" aria-live="polite"><h2>Checking admin access…</h2><p>Week 14 is currently available only to the site administrator.</p><a href="../../MSK.html">← Return to MSK Hub</a></div>
+<div id="adminShell" hidden>
+<header><div class="shell"><a class="back" href="../../MSK.html">← Musculoskeletal-Skin</a><div class="label">Module II · Week 14 · Admin Preview</div><h1>Dermatology &amp; Upper Extremity I</h1><p>Week 14 is available for the site administrator to develop before the week is released to other students.</p></div></header>
+<main>
+<section class="card"><span class="pill">Admin access · Draft</span><h2>Week 14 workspace</h2><p>The week page is ready to build. Course lecture materials, companions, factoids, and quizzes have not yet been published here. This preview is intentionally separate from the gross anatomy lab workspace.</p></section>
+<div class="grid">
+<section class="card"><span class="pill">Core lectures</span><h2>Lecture materials</h2><p>Companions and factoid sheets will be added as Week 14 content is prepared.</p></section>
+<section class="card"><span class="pill">Practice</span><h2>Quiz workspace</h2><p>Daily and comprehensive practice quizzes will appear when their question banks are ready.</p></section>
+</div>
+</main>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+(()=>{
+  const status=document.getElementById('statusWrap');
+  const shell=document.getElementById('adminShell');
+  const deny=(message)=>{
+    shell.hidden=true;status.hidden=false;
+    status.innerHTML='<h2>Week 14 is locked</h2><p></p><a href="../../MSK.html">← Return to MSK Hub</a>';
+    status.querySelector('p').textContent=message||'Only the site administrator can open this preview.';
+  };
+  if(!window.supabase){deny('Admin verification is unavailable right now. Please try again after reconnecting.');return;}
+  const sb=window.supabase.createClient('https://ofqfdnxpftifnvxnvppe.supabase.co','sb_publishable_06zYj2REZQMC8nXfhm7weQ_Nrotri7G');
+  let currentCheck=0;
+  const verify=async()=>{
+    const check=++currentCheck;
+    try{
+      const {data:{user},error:userError}=await sb.auth.getUser();
+      if(userError||!user){if(check===currentCheck)deny('Please sign in with the administrator account to preview Week 14.');return;}
+      const {data:isAdmin,error:roleError}=await sb.rpc('is_site_admin');
+      if(check!==currentCheck)return;
+      if(roleError||isAdmin!==true){deny('This preview is restricted to the site administrator.');return;}
+      status.hidden=true;shell.hidden=false;
+    }catch(e){if(check===currentCheck)deny('Could not verify admin access. Please try again.');}
+  };
+  sb.auth.onAuthStateChange((event)=>{
+    if(event==='SIGNED_OUT'){currentCheck++;deny('Please sign in with the administrator account to preview Week 14.');}
+    if(event==='SIGNED_IN')setTimeout(verify,0);
+  });
+  verify();
+})();
+</script>
+</body>
+</html>
