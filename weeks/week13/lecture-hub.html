@@ -7,7 +7,7 @@ for(const [name,href] of links){
  const pos=t.indexOf(marker);
  if(pos<0)throw new Error('Missing lecture resource: '+name);
  const start=t.lastIndexOf('<a ',pos),end=t.indexOf('>',pos);
- let tag=t.slice(start,end+1).replace('href="#"','href="'+href+'"').replace(/\\splaceholder(?=["\\s])/g,'');
+ let tag=t.slice(start,end+1).replace('href="#"','href="'+href+'"').replace(' placeholder"','"');
  t=t.slice(0,start)+tag+t.slice(end+1);
 }
 document.open();document.write(t);document.close()})().catch(e=>{console.error(e);document.body.innerHTML='<p style="font-family:system-ui;padding:24px">Week 13 Lecture Hub failed to load. Please refresh.</p>'})</script></body>
