@@ -66,3 +66,5 @@ for lecture in (1,2,3):
    assert db.execute('select count(*) from notes').fetchone()[0] >= len(valid)
    assert db.execute('select count(*) from cards').fetchone()[0] >= len(valid)
  print(lecture,len(valid),len(deck.notes),out)
+
+# trigger build
