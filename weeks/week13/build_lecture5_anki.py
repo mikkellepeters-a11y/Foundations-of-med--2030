@@ -89,3 +89,5 @@ for t,tag in C: deck.add_note(genanki.Note(model=cloze,fields=[t,''],tags=[tag])
 for q,a,tag in B: deck.add_note(genanki.Note(model=basic,fields=[q,a],tags=[tag]))
 genanki.Package(deck).write_to_file(str(out))
 print(f'BUILD COMPLETE: {len(C)} cloze + {len(B)} basic = {len(C)+len(B)} cards, {out}')
+
+# Rebuild triggered after workflow registration.
