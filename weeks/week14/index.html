@@ -3,38 +3,174 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Week 14 · Admin Preview · Musculoskeletal-Skin</title>
+<title>Week 14 · Dermatology & Upper Extremity I</title>
 <style>
-:root{--ink:#21362b;--dark:#183b2a;--accent:#28543d;--muted:#63736a;--line:#ceddd3;--paper:#fbfdfb;--bg:#edf3ef}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-header{background:linear-gradient(130deg,var(--dark),var(--accent),#527761);color:white;padding:32px 22px 42px}
-.shell{max-width:1000px;margin:auto}.back{display:inline-flex;color:white;text-decoration:none;border:1px solid #ffffff55;background:#ffffff12;padding:8px 12px;border-radius:10px;font-size:12px;font-weight:800}
-header .label{font-size:10px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;margin-top:25px;color:#e8f2e9}
-h1{font-size:clamp(30px,5vw,49px);line-height:1.08;letter-spacing:-.04em;margin:10px 0}header p{margin:0;line-height:1.65;color:#eef8ef;max-width:650px}
-main{max-width:1000px;margin:-16px auto 52px;padding:0 22px;position:relative}
-.card{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:26px;box-shadow:0 14px 34px #183b2a14;margin-bottom:16px}
-.card h2{font-size:23px;margin:4px 0 8px}.card p{font-size:14px;line-height:1.6;color:var(--muted);margin:0}
-.pill{display:inline-flex;font-weight:900;font-size:10px;letter-spacing:.06em;text-transform:uppercase;background:#e3ece6;color:var(--accent);padding:7px 10px;border-radius:99px}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}.small{font-size:12px}
-#statusWrap{max-width:650px;margin:58px auto;padding:25px;text-align:center;background:var(--paper);border:1px solid var(--line);border-radius:18px}
-#statusWrap h2{margin:0 0 9px}#statusWrap p{color:var(--muted);line-height:1.65;font-size:13px}#statusWrap a{color:var(--accent);font-weight:800}
-[hidden]{display:none!important}
-@media(max-width:680px){.grid{grid-template-columns:1fr}.card{padding:20px}}
+:root{
+  --bg:#edf3ef;--paper:#fbfdfb;--ink:#21362b;--muted:#63736a;--line:#ceddd3;
+  --accent:#28543d;--dark:#183b2a;--mid:#527761;--soft:#e3ece6;--soft2:#cdded3;
+  --tint:#f6faf7;--sage:#e7f0ea;--warn:#fff4dc;--warnline:#ead6a4;
+  --shadow:0 14px 34px rgba(24,59,42,.09)
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(circle at top left,rgba(255,255,255,.72),transparent 31%),var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+a{color:inherit}
+header{background:linear-gradient(135deg,var(--dark),var(--accent),var(--mid));color:#fff;padding:30px 22px 36px}
+.inner,main,footer{max-width:1120px;margin:auto}
+.topbar{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:24px;flex-wrap:wrap}
+.top-actions{display:flex;gap:8px;flex-wrap:wrap}
+.pill-link{text-decoration:none;font-size:11px;font-weight:850;padding:8px 11px;border-radius:999px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.10)}
+.hero{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center}
+.hero-icon{width:82px;height:82px;border-radius:24px;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.20);display:grid;place-items:center;box-shadow:inset 0 1px 0 rgba(255,255,255,.12)}
+.hero-icon span{font-size:24px;font-weight:950;letter-spacing:-.04em}
+.kicker{font-size:11px;text-transform:uppercase;letter-spacing:.12em;font-weight:850;opacity:.76}
+h1{font-size:clamp(34px,5vw,56px);margin:6px 0 8px;line-height:1.03;letter-spacing:-.035em}
+.lede{max-width:820px;margin:0;color:rgba(255,255,255,.84);line-height:1.55}
+.hero-pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}.hero-pills span{padding:7px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.09);font-size:11px;font-weight:800}
+main{padding:28px 22px 62px}
+.jump{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}.jump a{text-decoration:none;background:var(--paper);border:1px solid var(--line);padding:8px 11px;border-radius:999px;color:var(--accent);font-size:11px;font-weight:850}
+.notice{margin:0 0 22px;background:var(--paper);border:1px solid var(--line);border-left:5px solid var(--accent);border-radius:16px;padding:14px 16px;box-shadow:var(--shadow);display:flex;justify-content:space-between;gap:16px;align-items:center}
+.notice strong{display:block;font-size:12px}.notice p{margin:3px 0 0;color:var(--muted);font-size:11px;line-height:1.45}.notice a{text-decoration:none;padding:8px 10px;border-radius:10px;background:var(--accent);color:#fff;font-size:10px;font-weight:850;white-space:nowrap}
+.section{margin-top:30px}.section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:13px}.section-head h2{margin:0;font-size:26px;letter-spacing:-.02em}.section-head p{margin:0;color:var(--muted);font-size:12px}
+.day-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.day-card{background:linear-gradient(180deg,var(--paper),var(--tint));border:1px solid var(--line);border-radius:19px;padding:18px;box-shadow:var(--shadow)}
+.day-title{display:flex;justify-content:space-between;gap:12px;align-items:start;margin-bottom:11px}.day-title h3{margin:0;font-size:18px}.badge{font-size:9px;font-weight:850;padding:5px 7px;border-radius:999px;background:var(--sage);border:1px solid var(--soft2);color:var(--accent);white-space:nowrap}
+.lecture-list{display:grid;gap:8px}.lecture{display:grid;grid-template-columns:34px 1fr auto;gap:10px;align-items:center;border:1px solid #dce8df;background:#fff;border-radius:12px;padding:10px}.lnum{width:30px;height:30px;border-radius:9px;background:var(--soft);display:grid;place-items:center;color:var(--accent);font-size:10px;font-weight:900}.lecture strong{display:block;font-size:12px;line-height:1.35}.lecture small{display:block;margin-top:3px;color:var(--muted);font-size:9.5px;line-height:1.4}.lecture-actions{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}.mini{text-decoration:none;padding:6px 7px;border-radius:8px;background:var(--accent);color:#fff;font-size:9px;font-weight:850;border:1px solid var(--accent)}.mini.alt{background:var(--soft);color:var(--accent);border-color:var(--soft2)}
+.other-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.other-card{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:17px;box-shadow:var(--shadow)}.other-card h3{margin:5px 0 6px;font-size:17px}.other-card p{margin:0;color:var(--muted);font-size:11px;line-height:1.5}.meta-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:11px}.meta{font-size:9px;padding:5px 7px;border-radius:999px;background:var(--soft);border:1px solid var(--soft2);color:var(--accent);font-weight:800}
+.sal-card{background:linear-gradient(180deg,#fbfdfb,#f3f8f5);border:1px solid var(--line);border-radius:19px;padding:18px;box-shadow:var(--shadow);display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center}.sal-card h3{margin:4px 0 6px;font-size:18px}.sal-card p{margin:0;color:var(--muted);font-size:11px;line-height:1.55}.sal-actions{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}
+.quiz-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.quiz-card{background:linear-gradient(180deg,var(--paper),var(--tint));border:1px solid var(--line);border-radius:18px;padding:17px;box-shadow:var(--shadow)}.quiz-card h3{margin:5px 0 6px;font-size:17px}.quiz-card p{margin:0 0 13px;color:var(--muted);font-size:11px;line-height:1.5}.quiz-card a{display:flex;align-items:center;justify-content:space-between;gap:10px;text-decoration:none;border:1px solid #dce8df;border-radius:11px;padding:10px;margin-top:7px;background:#fff;font-size:11px;font-weight:850}.qtag{font-size:9px;padding:4px 6px;border-radius:999px;background:var(--soft);color:var(--accent)}
+.review-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:14px}.review-card{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:var(--shadow)}.review-card h3{margin:0 0 6px;font-size:17px}.review-card p{margin:0;color:var(--muted);font-size:11px;line-height:1.55}.review-action{display:inline-flex;margin-top:12px;text-decoration:none;padding:9px 11px;border-radius:10px;background:var(--accent);color:#fff;font-size:10px;font-weight:850}.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:12px}.stat{padding:10px;background:var(--soft);border-radius:11px;text-align:center}.stat strong{display:block;color:var(--accent);font-size:20px}.stat span{font-size:8px;color:var(--muted);font-weight:850;letter-spacing:.05em;text-transform:uppercase}
+footer{padding:0 22px 34px;color:#74847a;font-size:11px}.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,18px);opacity:0;pointer-events:none;background:var(--dark);color:#fff;padding:11px 14px;border-radius:12px;font-size:12px;font-weight:750;box-shadow:0 10px 30px rgba(20,48,34,.25);transition:.2s ease;z-index:20}.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:820px){.day-grid,.other-grid,.quiz-grid,.review-grid{grid-template-columns:1fr}.hero{grid-template-columns:1fr}.section-head{align-items:flex-start;flex-direction:column}.sal-card{grid-template-columns:1fr}.sal-actions{justify-content:flex-start}.notice{align-items:flex-start;flex-direction:column}.lecture{grid-template-columns:30px 1fr}.lecture-actions{grid-column:2;justify-content:flex-start}}
+
+.hero-icon img{display:block;width:72px;height:72px;object-fit:contain}
+#statusWrap{max-width:650px;margin:58px auto;padding:25px;text-align:center;background:var(--paper);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)}
+#statusWrap h2{margin:0 0 9px;color:var(--ink)}
+#statusWrap p{color:var(--muted);line-height:1.65;font-size:13px}
+#statusWrap a{color:var(--accent);font-weight:800}
+#adminShell[hidden],#statusWrap[hidden]{display:none!important}
+.draft-box{border-style:dashed!important}
+.draft-quiet{opacity:.68}
+.resource[aria-disabled="true"]{opacity:.58;cursor:not-allowed}
 </style>
 </head>
 <body>
 <div id="statusWrap" role="status" aria-live="polite"><h2>Checking admin access…</h2><p>Week 14 is currently available only to the site administrator.</p><a href="../../MSK.html">← Return to MSK Hub</a></div>
-<div id="adminShell" hidden>
-<header><div class="shell"><a class="back" href="../../MSK.html">← Musculoskeletal-Skin</a><div class="label">Module II · Week 14 · Admin Preview</div><h1>Dermatology &amp; Upper Extremity I</h1><p>Week 14 is available for the site administrator to develop before the week is released to other students.</p></div></header>
+<div id="adminShell" hidden><header><div class="inner">
+  <div class="topbar"><a class="pill-link" href="../../MSK.html">← All Weeks</a>
+    <div class="top-actions"><a class="pill-link" href="../gross-anatomy/index.html" data-name="Gross Anatomy Hub">Gross Anatomy Hub</a>
+      <a class="pill-link" href="lecture-hub.html" data-name="Week 14 Lecture Hub">Visit the Lecture Hub →</a></div>
+  </div>
+  <div class="hero"><div class="hero-icon" aria-hidden="true"><img src="../../assets/week14_arm_symbol.svg" alt=""></div>
+    <div><div class="kicker">Musculoskeletal-Skin · Week 14 · October 19–23, 2026</div>
+    <h1>Dermatology &amp; Upper Extremity I</h1>
+    <p class="lede">Week 14's lecture, curricular, lab, quiz, and review workspaces are ready for content. This is an admin-only draft; course items have not been imported yet.</p>
+    <div class="hero-pills"><span>Admin preview</span><span>Schedule pending</span><span>Companions &amp; Factoids planned</span><span>Quiz banks planned</span></div></div>
+  </div>
+</div></header>
 <main>
-<section class="card"><span class="pill">Admin access · Draft</span><h2>Week 14 workspace</h2><p>The week page is ready to build. Course lecture materials, companions, factoids, and quizzes have not yet been published here. This preview is intentionally separate from the gross anatomy lab workspace.</p></section>
-<div class="grid">
-<section class="card"><span class="pill">Core lectures</span><h2>Lecture materials</h2><p>Companions and factoid sheets will be added as Week 14 content is prepared.</p></section>
-<section class="card"><span class="pill">Practice</span><h2>Quiz workspace</h2><p>Daily and comprehensive practice quizzes will appear when their question banks are ready.</p></section>
-</div>
+  <nav class="jump" aria-label="Week 14 sections">
+    <a href="#core">Core Lectures</a><a href="#other">Other</a><a href="#sal">SAL / Lab</a><a href="#quizzes">Quizzes</a><a href="#review">Review &amp; Mastery</a>
+  </nav>
+  <div class="notice">
+    <div><strong>Gross anatomy stays in its own hub.</strong><p>The Week 14 core lecture stream will be listed here, but separately scheduled gross anatomy sessions and dissections belong in the module-level Gross Anatomy Hub.</p></div>
+    <a href="../gross-anatomy/index.html" data-name="Gross Anatomy Hub">Open Gross Anatomy →</a>
+  </div>
+  <section class="section" id="core">
+    <div class="section-head"><div><div class="kicker" style="color:var(--mid);opacity:1">Core Learning</div><h2>Week 14 lectures</h2></div><p>Week 13-style schedule layout · lecture entries pending</p></div>
+    <div class="day-grid">
+      <article class="day-card draft-box">
+        <div class="day-title"><div><div class="kicker" style="color:var(--mid);opacity:1">October 19</div><h3>Monday</h3></div><span class="badge">Schedule pending</span></div>
+        <div class="lecture-list">
+          <div class="lecture"><div class="lnum">—</div><div><strong>Lectures not added yet</strong><small>Lecture names, instructors and times will be filled in from the Week 14 schedule.</small></div>
+            <div class="lecture-actions"><a class="mini" href="lecture-hub.html">Lecture Hub →</a></div>
+          </div>
+        </div>
+      </article>
+      <article class="day-card draft-box">
+        <div class="day-title"><div><div class="kicker" style="color:var(--mid);opacity:1">October 20</div><h3>Tuesday</h3></div><span class="badge">Schedule pending</span></div>
+        <div class="lecture-list">
+          <div class="lecture"><div class="lnum">—</div><div><strong>Lectures not added yet</strong><small>Lecture names, instructors and times will be filled in from the Week 14 schedule.</small></div>
+            <div class="lecture-actions"><a class="mini" href="lecture-hub.html">Lecture Hub →</a></div>
+          </div>
+        </div>
+      </article>
+      <article class="day-card draft-box">
+        <div class="day-title"><div><div class="kicker" style="color:var(--mid);opacity:1">October 21</div><h3>Wednesday</h3></div><span class="badge">Schedule pending</span></div>
+        <div class="lecture-list">
+          <div class="lecture"><div class="lnum">—</div><div><strong>Lectures not added yet</strong><small>Lecture names, instructors and times will be filled in from the Week 14 schedule.</small></div>
+            <div class="lecture-actions"><a class="mini" href="lecture-hub.html">Lecture Hub →</a></div>
+          </div>
+        </div>
+      </article>
+      <article class="day-card draft-box">
+        <div class="day-title"><div><div class="kicker" style="color:var(--mid);opacity:1">October 22</div><h3>Thursday</h3></div><span class="badge">Schedule pending</span></div>
+        <div class="lecture-list">
+          <div class="lecture"><div class="lnum">—</div><div><strong>Lectures not added yet</strong><small>Lecture names, instructors and times will be filled in from the Week 14 schedule.</small></div>
+            <div class="lecture-actions"><a class="mini" href="lecture-hub.html">Lecture Hub →</a></div>
+          </div>
+        </div>
+      </article>
+      <article class="day-card draft-box">
+        <div class="day-title"><div><div class="kicker" style="color:var(--mid);opacity:1">October 23</div><h3>Friday</h3></div><span class="badge">Schedule pending</span></div>
+        <div class="lecture-list">
+          <div class="lecture"><div class="lnum">—</div><div><strong>Lectures not added yet</strong><small>Lecture names, instructors and times will be filled in from the Week 14 schedule.</small></div>
+            <div class="lecture-actions"><a class="mini" href="lecture-hub.html">Lecture Hub →</a></div>
+          </div>
+        </div>
+      </article>
+      <article class="day-card">
+        <div class="day-title"><div><div class="kicker" style="color:var(--mid);opacity:1">Deep workspace</div><h3>Week 14 Lecture Hub</h3></div><span class="badge">Ready to build</span></div>
+        <p style="color:var(--muted);font-size:11px;line-height:1.55;margin:0">The paired Companion and Factoid system, day filtering, and lecture cards are set up. Specific Week 14 lectures will be inserted once the schedule is provided.</p>
+        <a class="mini" style="display:inline-block;margin-top:12px;padding:9px 11px" href="lecture-hub.html" data-name="Week 14 Lecture Hub">Open Lecture Hub →</a>
+      </article>
+    </div>
+  </section>
+  <section class="section" id="other">
+    <div class="section-head"><div><div class="kicker" style="color:var(--mid);opacity:1">Curricular Sessions</div><h2>Other</h2></div><p>Kept separate from core lectures</p></div>
+    <div class="other-grid">
+      <article class="other-card draft-box"><div class="kicker" style="color:var(--mid);opacity:1">To be scheduled</div><h3>Other sessions</h3>
+        <p>HSS, You+, clinical sessions or other activities will be recorded here if they are on the Week 14 schedule.</p>
+        <div class="meta-row"><span class="meta">Other</span><span class="meta">Pending</span></div></article>
+    </div>
+  </section>
+  <section class="section" id="sal">
+    <div class="section-head"><div><div class="kicker" style="color:var(--mid);opacity:1">Structured Active Learning</div><h2>Week 14 SAL / Lab</h2></div><p>Session details not yet entered</p></div>
+    <article class="sal-card draft-box">
+      <div><div class="kicker" style="color:var(--mid);opacity:1">Awaiting schedule</div><h3>SAL / Lab workspace</h3>
+        <p>Any Week 14 SAL sessions will be added here with their own Companion and Factoid resources, separate from gross anatomy labs.</p></div>
+      <div class="sal-actions"><a href="#" class="mini placeholder" data-name="Week 14 SAL Companion">Companion · Planned</a><a href="#" class="mini alt placeholder" data-name="Week 14 SAL Factoid">Factoid · Planned</a></div>
+    </article>
+  </section>
+  <section class="section" id="quizzes">
+    <div class="section-head"><div><div class="kicker" style="color:var(--mid);opacity:1">Practice &amp; Assessment</div><h2>Week 14 quizzes</h2></div><p>Scaffold copied from Week 13 · banks not yet built</p></div>
+    <div class="quiz-grid">
+      <article class="quiz-card"><div class="kicker" style="color:var(--mid);opacity:1">Daily Practice</div><h3>Schedule-based dailies</h3><p>The daily banks will follow actual Week 14 lecture days once finalized.</p>
+        <a href="#" class="placeholder" data-name="Week 14 Daily Quizzes"><span>Daily quizzes</span><span class="qtag">Planned</span></a>
+      </article>
+      <article class="quiz-card"><div class="kicker" style="color:var(--mid);opacity:1">Core Assessments</div><h3>Week-level banks</h3><p>Separate Week 14 assessments with lecture-level topic coverage.</p>
+        <a href="#" class="placeholder" data-name="Week 14 Prequiz"><span>Week 14 Prequiz</span><span class="qtag">Planned</span></a>
+        <a href="#" class="placeholder" data-name="Week 14 Comprehensive A"><span>Comprehensive A</span><span class="qtag">Planned</span></a>
+        <a href="#" class="placeholder" data-name="Week 14 Comprehensive B"><span>Comprehensive B</span><span class="qtag">Planned</span></a>
+      </article>
+      <article class="quiz-card"><div class="kicker" style="color:var(--mid);opacity:1">SAL Practice</div><h3>SAL-specific quiz</h3><p>Independent SAL question banks can be added if scheduled; they are not mixed into the core banks by default.</p>
+        <a href="#" class="placeholder" data-name="Week 14 SAL Quiz"><span>SAL Quiz</span><span class="qtag">Planned if applicable</span></a>
+      </article>
+    </div>
+  </section>
+  <section class="section" id="review">
+    <div class="section-head"><div><div class="kicker" style="color:var(--mid);opacity:1">Longitudinal Learning</div><h2>Review &amp; Mastery</h2></div><p>Week 14-specific review, connected to the shared account system once built</p></div>
+    <div class="review-grid">
+      <article class="review-card"><h3>Highly Missed &amp; Filed for Review</h3><p>A Week 14 review bank can collect missed and saved concepts after the quiz banks are populated.</p>
+        <a href="#" class="review-action placeholder" data-name="Week 14 Review Bank">Open Review Bank →</a></article>
+      <article class="review-card"><h3>Week 14 snapshot</h3><p>Counts will populate after the official schedule and content banks are entered.</p>
+        <div class="stats"><div class="stat"><strong>—</strong><span>Core</span></div><div class="stat"><strong>—</strong><span>Other</span></div><div class="stat"><strong>—</strong><span>SAL</span></div><div class="stat"><strong>—</strong><span>Quiz Sets</span></div></div></article>
+    </div>
+  </section>
 </main>
-</div>
+<footer>Musculoskeletal-Skin · Module II · Week 14 · Admin Draft</footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>const toast=document.getElementById('toast');let timer;document.querySelectorAll('.placeholder').forEach(el=>el.addEventListener('click',e=>{e.preventDefault();toast.textContent=(el.dataset.name||'This resource')+' is planned for Week 14.';toast.classList.add('show');clearTimeout(timer);timer=setTimeout(()=>toast.classList.remove('show'),1800)}));</script>
 <script>
 (()=>{
   const status=document.getElementById('statusWrap');
