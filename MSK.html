@@ -53,6 +53,69 @@
       'Review the Module':'review/msk-review-center.html'
     };
 
+    // Week 14 is a single-account admin preview. Keep all other weeks unchanged.
+    const week14Name='MSK-Skin Week 14';
+    const week14Href='weeks/week14/index.html';
+    let week14Granted=false;
+    let week14Client=null;
+    let week14CheckSerial=0;
+    const setWeek14Access=(granted)=>{
+      const card=document.querySelector('[data-name="MSK-Skin Week 14"]');
+      if(!card)return;
+      week14Granted=granted===true;
+      const badge=card.querySelector('.locked-badge');
+      if(week14Granted){
+        card.classList.remove('locked-card','placeholder');
+        card.classList.add('active-card');
+        card.setAttribute('href',week14Href);
+        card.setAttribute('aria-label','Week 14 admin preview');
+        if(badge)badge.style.display='none';
+        if(!card.querySelector('.week-label')){
+          const label=document.createElement('span');
+          label.className='week-label';
+          label.textContent='Week 14';
+          card.querySelector('.card-top')?.appendChild(label);
+        }
+        if(!card.querySelector('.active-desc')){
+          card.querySelector('h3')?.insertAdjacentHTML('afterend','<p class="active-desc">Admin preview · Build Week 14 before publication.</p><div class="active-footer"><div class="active-tags"><span class="active-tag">Admin preview</span><span class="active-tag">Draft</span></div><div class="active-arrow">→</div></div>');
+        }
+      }else{
+        card.classList.remove('active-card');
+        card.classList.add('locked-card');
+        card.setAttribute('href','#');
+        card.removeAttribute('aria-label');
+        if(badge)badge.style.removeProperty('display');
+        card.querySelector('.week-label')?.remove();
+        card.querySelector('.active-desc')?.remove();
+        card.querySelector('.active-footer')?.remove();
+      }
+    };
+    const verifyWeek14=async()=>{
+      const serial=++week14CheckSerial;
+      if(!window.supabase){setWeek14Access(false);return;}
+      try{
+        if(!week14Client){
+          week14Client=window.supabase.createClient('https://ofqfdnxpftifnvxnvppe.supabase.co','sb_publishable_06zYj2REZQMC8nXfhm7weQ_Nrotri7G');
+          week14Client.auth.onAuthStateChange((event)=>{
+            if(event==='SIGNED_OUT'){
+              ++week14CheckSerial;
+              setWeek14Access(false);
+            }else if(event==='SIGNED_IN'){
+              setTimeout(verifyWeek14,0);
+            }
+          });
+        }
+        const {data:{user},error:userError}=await week14Client.auth.getUser();
+        if(serial!==week14CheckSerial)return;
+        if(userError||!user){setWeek14Access(false);return;}
+        const {data:isAdmin,error:roleError}=await week14Client.rpc('is_site_admin');
+        if(serial!==week14CheckSerial)return;
+        setWeek14Access(!roleError && isAdmin===true);
+      }catch(err){
+        if(serial===week14CheckSerial)setWeek14Access(false);
+      }
+    };
+
     const ensureModuleHubBack=()=>{
       if(document.getElementById('mskModuleHubBack'))return;
       const brandRow=document.querySelector('.brand-row');
@@ -162,6 +225,10 @@
     };
 
     document.addEventListener('click',e=>{
+      const week14=e.target.closest&&e.target.closest('[data-name="MSK-Skin Week 14"]');
+      if(week14&&week14Granted){
+        e.preventDefault();e.stopImmediatePropagation();location.href=week14Href;return;
+      }
       const review=e.target.closest&&e.target.closest('[data-msk-review-module="1"]');
       if(review){
         e.preventDefault();e.stopImmediatePropagation();location.href='review/msk-review-center.html';return;
@@ -174,6 +241,8 @@
     },true);
 
     activate();setTimeout(activate,100);setTimeout(activate,500);
+    verifyWeek14();
+    window.addEventListener('focus',verifyWeek14);
   })();<\/script>`;
 
   const patchMarkup=raw=>{
@@ -191,6 +260,7 @@
     if(isStandalone){
       if(!txt.includes('mskPublicFinalStyles'))txt=txt.includes('</head>')?txt.replace('</head>',publicCss+'</head>'):publicCss+txt;
       if(!txt.includes('id="mskFeedbackPanel"'))txt=txt.replace('</main>',feedbackHtml+'</main>');
+      if(!txt.includes('id="mskWeek14AuthSdk"'))txt=txt.replace('</body>','<script id="mskWeek14AuthSdk" src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"><\/script></body>');
       if(!txt.includes('mskPublicRuntime'))txt=txt.replace('</body>',runtime+'</body>');
       if(!txt.includes('shared/msk-tutorial.js'))txt=txt.replace('</body>','<script src="shared/msk-tutorial.js"><\/script></body>');
       if(!txt.includes('shared/msk-review-route-fix.js'))txt=txt.replace('</body>','<script src="shared/msk-review-route-fix.js"><\/script></body>');
