@@ -1,1 +1,13 @@
-<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Week 13 Lecture Hub · Musculoskeletal-Skin</title><body><script>(async()=>{const r=await fetch('https://raw.githubusercontent.com/mikkellepeters-a11y/Foundations-of-med--2030/07d6a87edb2682fdd1b0cd2fc904e2e2c08d28ba/weeks/week13/lecture-hub.html');if(!r.ok)throw new Error('Week 13 Lecture Hub base failed');let t=await r.text();t=t.replace('class="pill-link placeholder" href="#" data-name="Gross Anatomy Hub"','class="pill-link" href="../gross-anatomy/index.html" data-name="Gross Anatomy Hub"');document.open();document.write(t);document.close()})().catch(e=>{console.error(e);document.body.innerHTML='<p style="font-family:system-ui;padding:24px">Week 13 Lecture Hub failed to load. Please refresh.</p>'})</script></body>
+<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Week 13 Lecture Hub · Musculoskeletal-Skin</title><body><script>(async()=>{const r=await fetch('https://raw.githubusercontent.com/mikkellepeters-a11y/Foundations-of-med--2030/07d6a87edb2682fdd1b0cd2fc904e2e2c08d28ba/weeks/week13/lecture-hub.html');if(!r.ok)throw new Error('Week 13 Lecture Hub base failed');let t=await r.text();t=t.replace('class="pill-link placeholder" href="#" data-name="Gross Anatomy Hub"','class="pill-link" href="../gross-anatomy/index.html" data-name="Gross Anatomy Hub"');const links=[
+ ['Overview of the Nervous System &amp; Spinal Cord Companion','lecture2-companion.html'],
+ ['Overview of the Nervous System &amp; Spinal Cord Factoid Sheet','lecture2-factoid.html']
+];
+for(const [name,href] of links){
+ const marker='data-name="'+name+'"';
+ const pos=t.indexOf(marker);
+ if(pos<0)throw new Error('Missing lecture resource: '+name);
+ const start=t.lastIndexOf('<a ',pos),end=t.indexOf('>',pos);
+ let tag=t.slice(start,end+1).replace('href="#"','href="'+href+'"').replace(/\\splaceholder(?=["\\s])/g,'');
+ t=t.slice(0,start)+tag+t.slice(end+1);
+}
+document.open();document.write(t);document.close()})().catch(e=>{console.error(e);document.body.innerHTML='<p style="font-family:system-ui;padding:24px">Week 13 Lecture Hub failed to load. Please refresh.</p>'})</script></body>
