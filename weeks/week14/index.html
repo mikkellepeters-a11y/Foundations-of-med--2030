@@ -171,35 +171,6 @@ footer{padding:0 22px 34px;color:#74847a;font-size:11px}.toast{position:fixed;le
 <div class="toast" id="toast" role="status" aria-live="polite"></div></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>const toast=document.getElementById('toast');let timer;document.querySelectorAll('.placeholder').forEach(el=>el.addEventListener('click',e=>{e.preventDefault();toast.textContent=(el.dataset.name||'This resource')+' is planned for Week 14.';toast.classList.add('show');clearTimeout(timer);timer=setTimeout(()=>toast.classList.remove('show'),1800)}));</script>
-<script>
-(()=>{
-  const status=document.getElementById('statusWrap');
-  const shell=document.getElementById('adminShell');
-  const deny=(message)=>{
-    shell.hidden=true;status.hidden=false;
-    status.innerHTML='<h2>Week 14 is locked</h2><p></p><a href="../../MSK.html">← Return to MSK Hub</a>';
-    status.querySelector('p').textContent=message||'Only the site administrator can open this preview.';
-  };
-  if(!window.supabase){deny('Admin verification is unavailable right now. Please try again after reconnecting.');return;}
-  const sb=window.supabase.createClient('https://ofqfdnxpftifnvxnvppe.supabase.co','sb_publishable_06zYj2REZQMC8nXfhm7weQ_Nrotri7G');
-  let currentCheck=0;
-  const verify=async()=>{
-    const check=++currentCheck;
-    try{
-      const {data:{user},error:userError}=await sb.auth.getUser();
-      if(userError||!user){if(check===currentCheck)deny('Please sign in with the administrator account to preview Week 14.');return;}
-      const {data:isAdmin,error:roleError}=await sb.rpc('is_site_admin');
-      if(check!==currentCheck)return;
-      if(roleError||isAdmin!==true){deny('This preview is restricted to the site administrator.');return;}
-      status.hidden=true;shell.hidden=false;
-    }catch(e){if(check===currentCheck)deny('Could not verify admin access. Please try again.');}
-  };
-  sb.auth.onAuthStateChange((event)=>{
-    if(event==='SIGNED_OUT'){currentCheck++;deny('Please sign in with the administrator account to preview Week 14.');}
-    if(event==='SIGNED_IN')setTimeout(verify,0);
-  });
-  verify();
-})();
-</script>
+<script data-week="14" src="../../shared/msk-week-release-gate.js?v=20261009"></script>
 </body>
 </html>
