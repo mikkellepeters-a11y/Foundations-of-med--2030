@@ -69,7 +69,7 @@ async function ensureSupabase(){
 }
 async function refresh(){
   if(!(await ensureSupabase()))return;
-  sb=sb||window.supabase.createClient(URL,KEY);
+  if(!sb){sb=window.supabase.createClient(URL,KEY);sb.auth.onAuthStateChange(()=>setTimeout(refresh,80));}
   try{
     const [releaseRes,userRes]=await Promise.all([
       sb.from('module_release_states').select('module_key,week,title,status,release_at').eq('module_key','msk').order('week'),
