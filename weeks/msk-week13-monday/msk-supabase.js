@@ -65,7 +65,7 @@
   }
   async function syncFlag(q,on){
     try{
-      const auth=await session();if(!auth?.user)return;
+      const auth=await session();if(!auth?.user){msg('Sign in to save this question to Smart Review.');return;}
       if(on){
         const {error}=await client.from('review_items').upsert({
           user_id:auth.user.id,quiz_id:quizId,question_id:String(q.id),
@@ -74,12 +74,14 @@
           manually_filed:true,review_reasons:['filed'],status:'active',
           question_snapshot:{stem:q.stem,choices:q.options,answer:q.answer,explanation:q.expl['ABCDE'.indexOf(q.answer)]||'',optionExplanations:q.expl},
           reason:'Manual review',note:q.topic||null,updated_at:new Date().toISOString()
-        },{onConflict:'user_id,quiz_id,question_id'});
+        },{onConflict:'user_id,module_key,quiz_id,question_id'});
         if(error) throw error;
+        msg('Saved to MSK Smart Review ✓');
       }else{
         const {error}=await client.from('review_items').delete()
-          .eq('user_id',auth.user.id).eq('quiz_id',quizId).eq('question_id',String(q.id));
+          .eq('user_id',auth.user.id).eq('module_key','msk').eq('quiz_id',quizId).eq('question_id',String(q.id));
         if(error) throw error;
+        msg('Removed from MSK Filed for Review ✓');
       }
     }catch(e){console.error('MSK flag sync failed',e);msg('Filed for Review did not sync: '+(e?.message||'Unknown error'));}
   }
@@ -90,7 +92,7 @@
     try{
       const auth=await session();if(!auth?.user)return;
       const {data,error}=await client.from('review_items').select('question_id')
-        .eq('user_id',auth.user.id).eq('quiz_id',quizId);
+        .eq('user_id',auth.user.id).eq('module_key','msk').eq('quiz_id',quizId);
       if(error)throw error;
       for(const item of data||[])state.flag[String(item.question_id)]=true;
       persist();render();
