@@ -150,6 +150,7 @@ function render(root,d){
         <a class="mh-action" href="bulletin.html">Bulletin</a>
         <a class="mh-action" href="my-profile.html">My Profile</a>
         <a class="mh-action" href="msk-notebook.html">MSK Notebook</a>
+        ${d.isAdmin?'<a class="mh-action" href="admin-control.html">Admin Control Center</a>':''}
       </div>
       <div class="mh-continue">
         <div><div class="mh-kicker">Continue Studying</div><h3>${E(resumeTitle)}</h3><p>${E(resumeMeta)}</p></div>
@@ -191,16 +192,17 @@ async function load(){
     const user=sessionRes.data?.session?.user;
     if(!user){guest(root);return}
     const uid=user.id;
-    const [profileRes,progressRes,reviewRes,leaderRes,resumeRes]=await Promise.all([
+    const [profileRes,progressRes,reviewRes,leaderRes,resumeRes,adminRes]=await Promise.all([
       sb.from('profiles').select('display_name,cbl_group,class_year').eq('id',uid).maybeSingle(),
       sb.from('lecture_progress').select('content_type,completed,week,module').eq('user_id',uid).eq('module','msk').eq('week',13),
       sb.from('review_items').select('status,next_due_at,module_key').eq('user_id',uid).eq('module_key','msk'),
       sb.rpc('get_msk_individual_leaderboard'),
-      sb.from('module_resume_state').select('resource_title,resource_url,resource_type,week,lecture,updated_at').eq('user_id',uid).eq('module_key','msk').maybeSingle()
+      sb.from('module_resume_state').select('resource_title,resource_url,resource_type,week,lecture,updated_at').eq('user_id',uid).eq('module_key','msk').maybeSingle(),
+      sb.rpc('is_site_admin')
     ]);
     const leaders=Array.isArray(leaderRes.data)?leaderRes.data:[];
     const leader=leaders.find(x=>x.is_current_user)||null;
-    render(root,{email:user.email||'',profile:profileRes.data||null,progress:progressRes.data||[],reviews:reviewRes.data||[],leader,resume:resumeRes.data||null,post:latestStaticPost()});
+    render(root,{email:user.email||'',profile:profileRes.data||null,progress:progressRes.data||[],reviews:reviewRes.data||[],leader,resume:resumeRes.data||null,post:latestStaticPost(),isAdmin:!adminRes.error&&adminRes.data===true});
   }catch(e){
     console.error('MegaHub Home failed',e);
     guest(root);
