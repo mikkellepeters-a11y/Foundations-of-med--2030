@@ -82,7 +82,7 @@
       const {data,error}=await client.from('review_items').select('question_id')
         .eq('user_id',auth.user.id).eq('quiz_id',quizId);
       if(error)throw error;
-      for(const item of data||[])state.flag['w13mon_q'+String(item.question_id).replace(/\D/g,'').padStart(2,'0')]=true;
+      for(const item of data||[])state.flag[String(item.question_id)]=true;
       persist();render();
     }catch(error){console.warn('Could not load MSK Filed for Review flags',error);}
   }
