@@ -75,6 +75,7 @@
   }
   const previousResults=results;
   results=function(){previousResults();void syncResults();};
+  document.getElementById('resultOverlay')?.addEventListener('click',event=>{if(event.target.id==='resetQuiz'){delete state.syncedFingerprint;persist();}});
   document.getElementById('flagBtn')?.addEventListener('click',()=>{
     const q=current();if(q) void syncFlag(q,!!state.flag[q.id]);
   });
