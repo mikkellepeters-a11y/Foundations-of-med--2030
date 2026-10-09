@@ -72,7 +72,7 @@
           module_key:'msk',week:'13',lecture:String(q.lecture||''),
           topic:q.topic||'MSK',difficulty:q.difficulty||'',
           manually_filed:true,review_reasons:['filed'],status:'active',
-          question_snapshot:{stem:q.stem,options:q.options,answer:q.answer,explanations:q.expl},
+          question_snapshot:{stem:q.stem,choices:q.options,answer:q.answer,explanation:q.expl['ABCDE'.indexOf(q.answer)]||'',optionExplanations:q.expl},
           reason:'Manual review',note:q.topic||null,updated_at:new Date().toISOString()
         },{onConflict:'user_id,quiz_id,question_id'});
         if(error) throw error;
