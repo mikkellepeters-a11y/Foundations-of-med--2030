@@ -14,8 +14,9 @@
   const retry = document.createElement('button');
   retry.type='button'; retry.textContent='Retry My Profile Sync';
   retry.style.cssText='margin:0 0 0 12px;padding:7px 12px;border-radius:9px;border:1px solid #bcd1c3;background:#eef6ef;color:#205a3c;cursor:pointer;font:700 11px system-ui';
-  status.appendChild(retry);
-  function msg(value){status.firstChild ? status.firstChild.textContent=value+' ' : status.insertBefore(document.createTextNode(value+' '),retry); retry.hidden=state.syncedFingerprint && value.includes('✓');}
+  const statusText=document.createTextNode('My Profile sync is available when signed in. ');
+  status.replaceChildren(statusText,retry);
+  function msg(value){statusText.textContent=value+' ';retry.hidden=!!(state.syncedFingerprint && value.includes('✓'));}
   async function session(){
     const {data,error}=await client.auth.getSession();
     if(error) throw error;
