@@ -11,7 +11,11 @@
   status.style.cssText = 'margin:12px auto;max-width:980px;padding:10px 15px;font:700 12px system-ui;color:#286747';
   status.textContent = 'My Profile sync is available when signed in.';
   document.querySelector('main')?.appendChild(status);
-  function msg(value){status.textContent=value;}
+  const retry = document.createElement('button');
+  retry.type='button'; retry.textContent='Retry My Profile Sync';
+  retry.style.cssText='margin:0 0 0 12px;padding:7px 12px;border-radius:9px;border:1px solid #bcd1c3;background:#eef6ef;color:#205a3c;cursor:pointer;font:700 11px system-ui';
+  status.appendChild(retry);
+  function msg(value){status.firstChild ? status.firstChild.textContent=value+' ' : status.insertBefore(document.createTextNode(value+' '),retry); retry.hidden=state.syncedFingerprint && value.includes('✓');}
   async function session(){
     const {data,error}=await client.auth.getSession();
     if(error) throw error;
@@ -19,6 +23,7 @@
   }
   const txt=(q,l)=>q.options[letters.indexOf(l)] || null;
   let busy=false;
+  retry.onclick=()=>{void syncResults();};
   async function syncResults(){
     if(busy) return;
     const qs=list();
@@ -87,6 +92,7 @@
     }catch(error){console.warn('Could not load MSK Filed for Review flags',error);}
   }
   void hydrateFlags();
+  client.auth.onAuthStateChange((event)=>{if(event==='SIGNED_IN'){void hydrateFlags(); if(list().every(q=>state.answers[q.id]))void syncResults();}});
   document.getElementById('explainOverlay')?.addEventListener('click',event=>{
     if(event.target?.id==='reviewFlag'){
       const q=current();if(q)void syncFlag(q,!!state.flag[q.id]);
