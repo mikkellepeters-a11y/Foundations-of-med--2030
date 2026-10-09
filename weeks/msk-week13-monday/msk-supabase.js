@@ -69,6 +69,10 @@
       if(on){
         const {error}=await client.from('review_items').upsert({
           user_id:auth.user.id,quiz_id:quizId,question_id:String(q.id),
+          module_key:'msk',week:'13',lecture:String(q.lecture||''),
+          topic:q.topic||'MSK',difficulty:q.difficulty||'',
+          manually_filed:true,review_reasons:['filed'],status:'active',
+          question_snapshot:{stem:q.stem,options:q.options,answer:q.answer,explanations:q.expl},
           reason:'Manual review',note:q.topic||null,updated_at:new Date().toISOString()
         },{onConflict:'user_id,quiz_id,question_id'});
         if(error) throw error;
@@ -77,7 +81,7 @@
           .eq('user_id',auth.user.id).eq('quiz_id',quizId).eq('question_id',String(q.id));
         if(error) throw error;
       }
-    }catch(e){console.warn('MSK flag sync failed',e);}
+    }catch(e){console.error('MSK flag sync failed',e);msg('Filed for Review did not sync: '+(e?.message||'Unknown error'));}
   }
   const previousResults=results;
   results=function(){previousResults();void syncResults();};
