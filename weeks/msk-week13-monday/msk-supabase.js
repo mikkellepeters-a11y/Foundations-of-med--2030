@@ -76,6 +76,22 @@
   const previousResults=results;
   results=function(){previousResults();void syncResults();};
   document.getElementById('resultOverlay')?.addEventListener('click',event=>{if(event.target.id==='resetQuiz'){delete state.syncedFingerprint;persist();}});
+  async function hydrateFlags(){
+    try{
+      const auth=await session();if(!auth?.user)return;
+      const {data,error}=await client.from('review_items').select('question_id')
+        .eq('user_id',auth.user.id).eq('quiz_id',quizId);
+      if(error)throw error;
+      for(const item of data||[])state.flag['w13mon_q'+String(item.question_id).replace(/\D/g,'').padStart(2,'0')]=true;
+      persist();render();
+    }catch(error){console.warn('Could not load MSK Filed for Review flags',error);}
+  }
+  void hydrateFlags();
+  document.getElementById('explainOverlay')?.addEventListener('click',event=>{
+    if(event.target?.id==='reviewFlag'){
+      const q=current();if(q)void syncFlag(q,!!state.flag[q.id]);
+    }
+  });
   document.getElementById('flagBtn')?.addEventListener('click',()=>{
     const q=current();if(q) void syncFlag(q,!!state.flag[q.id]);
   });
