@@ -158,5 +158,6 @@ const toast=document.getElementById('toast');let timer;
 document.querySelectorAll('.placeholder').forEach(el=>el.addEventListener('click',e=>{e.preventDefault();toast.textContent=(el.dataset.name||'This resource')+' is planned for Week 13.';toast.classList.add('show');clearTimeout(timer);timer=setTimeout(()=>toast.classList.remove('show'),1800)}));
 const filters=[...document.querySelectorAll('.filter')];const cards=[...document.querySelectorAll('.lecture-card')];const count=document.getElementById('visibleCount');filters.forEach(btn=>btn.addEventListener('click',()=>{filters.forEach(b=>b.classList.remove('active'));btn.classList.add('active');const f=btn.dataset.filter;let visible=0;cards.forEach(card=>{const show=f==='all'||card.dataset.day===f;card.classList.toggle('hidden',!show);if(show)visible++});count.textContent=f==='all'?'Showing all 10 lectures':`Showing ${visible} ${f[0].toUpperCase()+f.slice(1)} lecture${visible===1?'':'s'}`}));
 </script>
+<script src="../../shared/msk-lecture-progress.js?v=20261008"></script>
 </body>
 </html>
