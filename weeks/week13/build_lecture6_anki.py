@@ -6,7 +6,7 @@ ba=genanki.Model(2961306102,'MSK Lecture 6 Basic',fields=[{'name':'Front'},{'nam
 deck=genanki.Deck(2961306199,'MSK · Week 13 · Lecture 6')
 for t,tag in D['cloze']:
  assert t.count('{{c1::')==1 and re.search(r'{{c[2-9]::',t) is None and t.count('}}')==1
- deck.add_note(genanki.Note(model=cl,fields=[t,''],tags=[re.sub(r'\\W+','_',tag)]))
+ deck.add_note(genanki.Note(model=cl,fields=[t,''],tags=[tag.replace(' ','_')]))
 for q,a in D['basic']:
  assert q and a
  deck.add_note(genanki.Note(model=ba,fields=[q,a]))
