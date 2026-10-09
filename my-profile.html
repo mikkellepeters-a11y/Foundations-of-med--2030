@@ -135,7 +135,7 @@ const vignetteSet=x=>{const m=String(x?.quiz_id||'').match(/^fom-vignette-practi
 const isVignette=x=>{const n=vignetteSet(x);return Number.isFinite(n)&&n>=1&&n<=50};
 const isAuxiliaryHub=x=>/^(?:drug|pathology)-practice-\d+$/i.test(String(x?.quiz_id||''));
 const isMSK=x=>String(x?.module_key||'').toLowerCase()==='msk'||/musculoskeletal(?:-skin)?|msk-skin/i.test(String(x?.metadata?.module||''));
-const isFoundationsTracked=x=>{const key=String(x?.module_key||'').toLowerCase();if(key)return key==='foundations';if(isMSK(x))return false;return String(x?.metadata?.module||'').toLowerCase()==='foundations of medicine'||(!x?.metadata?.module&&!isAuxiliaryHub(x))};
+const isFoundationsTracked=x=>{if(String(x?.quiz_id||'').startsWith('msk-'))return false;const key=String(x?.module_key||'').toLowerCase();if(key)return key==='foundations';if(isMSK(x))return false;return String(x?.metadata?.module||'').toLowerCase()==='foundations of medicine'||(!x?.metadata?.module&&!isAuxiliaryHub(x))};
 const reviewCats=x=>Array.isArray(x?.review_reasons)?x.review_reasons:[];
 const isReviewActive=x=>['active','improving'].includes(String(x?.status||'').toLowerCase());
 const isDue=x=>isReviewActive(x)&&x?.next_due_at&&new Date(x.next_due_at)<=new Date();
