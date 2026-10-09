@@ -21,3 +21,5 @@ with zipfile.ZipFile(out) as z:
   assert db.execute('select count(*) from notes').fetchone()[0]==70
   assert db.execute('select count(*) from cards').fetchone()[0]==70
 print('PASS: 40 Cloze + 30 Basic = 70 cards',out,out.stat().st_size)
+
+# Trigger approved Lecture 6 build.
