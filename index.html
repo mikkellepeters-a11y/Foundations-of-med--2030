@@ -206,6 +206,20 @@ footer{padding:0 22px 34px;color:#8a7b70;font-size:12px}
   .account-status{max-width:180px}
 }
 
+
+.support-modal{border:0;border-radius:20px;padding:0;width:min(440px,calc(100% - 32px));max-height:calc(100vh - 40px);overflow:auto;background:var(--paper);color:var(--ink);box-shadow:0 26px 75px rgba(33,21,15,.35)}
+.support-modal::backdrop{background:rgba(31,23,19,.55);backdrop-filter:blur(3px)}
+.support-modal-content{padding:28px;position:relative}
+.support-modal-close{position:absolute;right:14px;top:14px;border:1px solid var(--line);border-radius:50%;height:32px;width:32px;background:#fff;color:var(--ink);cursor:pointer;font-size:20px}
+.support-modal-kicker{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--brown-soft);font-weight:850}
+.support-modal h2{font-size:25px;color:var(--brown-dark);margin:10px 0}
+.support-modal p{font-size:14px;line-height:1.7;color:var(--muted)}
+.support-optional{margin:18px 0;padding:13px 15px;background:var(--tan);border:1px solid var(--line);border-radius:12px;color:var(--brown-dark);font-size:13px;line-height:1.65}
+.support-modal-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.support-modal-actions a,.support-modal-actions button{flex:1;text-align:center;min-width:130px;text-decoration:none;border-radius:11px;padding:12px 15px;font-size:13px;font-weight:800;cursor:pointer}
+.support-venmo{background:var(--brown);color:white;border:1px solid var(--brown)}
+.support-dismiss{background:transparent;color:var(--brown);border:1px solid var(--line)}
+
 </style>
 </head>
 <body>
@@ -229,7 +243,7 @@ footer{padding:0 22px 34px;color:#8a7b70;font-size:12px}
           <a class="bulletin-button" id="bulletinButton" href="bulletin.html" aria-label="Open Bulletin">
             <span>Bulletin</span><span class="bulletin-dot" id="bulletinDot" aria-hidden="true"></span>
           </a>
-          <a class="support-button" href="https://venmo.com/u/Mikkelle-Peters" target="_blank" rel="noopener noreferrer" aria-label="Support MegaHub on Venmo">Support MegaHub ♡</a>
+          <button class="support-button" id="supportButton" type="button" aria-haspopup="dialog" aria-controls="supportModal">Support MegaHub</button>
         </div>
       </div>
     </div>
@@ -654,5 +668,29 @@ window.addEventListener('focus',async()=>{
 </script>
 <script src="shared/megahub-home.js?v=20261009b"></script>
 <script src="shared/account-nudge.js"></script>
+<dialog class="support-modal" id="supportModal" aria-labelledby="supportTitle" aria-describedby="supportDescription">
+  <div class="support-modal-content">
+    <button class="support-modal-close" id="supportClose" type="button" aria-label="Close support popup">×</button>
+    <div class="support-modal-kicker">A little support goes a long way</div>
+    <h2 id="supportTitle">Support MegaHub ♡</h2>
+    <p id="supportDescription">MegaHub is a free, student-created study resource for the MCG Class of 2030. I build and maintain it to make studying more organized, accessible, and hopefully a little more enjoyable for everyone.</p>
+    <p>If you'd like to help support the time and effort that goes into keeping MegaHub updated and improving the site, you're welcome to leave a small tip through Venmo.</p>
+    <div class="support-optional"><strong>100% OPTIONAL.</strong> MegaHub is and will remain free to use. You do not need to contribute anything, and donating will never affect your access, study resources, or leaderboard standing. Your presence here is already appreciated!</div>
+    <div class="support-modal-actions">
+      <a class="support-venmo" href="https://venmo.com/u/Mikkelle-Peters" target="_blank" rel="noopener noreferrer">Continue to Venmo ↗</a>
+      <button class="support-dismiss" id="supportNoThanks" type="button">No thanks</button>
+    </div>
+  </div>
+</dialog>
+<script>
+(()=>{
+  const dialog=document.getElementById('supportModal'),trigger=document.getElementById('supportButton');
+  const close=()=>dialog.close();
+  trigger.addEventListener('click',()=>dialog.showModal());
+  document.getElementById('supportClose').addEventListener('click',close);
+  document.getElementById('supportNoThanks').addEventListener('click',close);
+  dialog.addEventListener('click',e=>{if(e.target===dialog)close()});
+})();
+</script>
 </body>
 </html>
