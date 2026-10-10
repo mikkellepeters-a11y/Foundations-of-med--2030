@@ -149,6 +149,9 @@ footer{padding:0 22px 34px;color:#8a7b70;font-size:12px}
 }
 .bulletin-button.unread .bulletin-dot{display:inline-block}
 .bulletin-button.unread{border-color:rgba(255,209,102,.48);background:rgba(255,255,255,.12)}
+.support-button{position:absolute;top:calc(100% + 27px);left:0;right:0;display:inline-flex;align-items:center;justify-content:center;gap:5px;width:100%;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.07);color:#fff;text-decoration:none;border-radius:8px;padding:4px 7px;font-size:9.5px;font-weight:850;line-height:1;transition:.16s ease;z-index:2}
+.support-button:hover{background:rgba(255,255,255,.14)}
+.support-button:focus-visible{outline:3px solid rgba(255,255,255,.3);outline-offset:3px}
 .account-button{
   appearance:none;border:1px solid rgba(255,255,255,.24);background:rgba(255,255,255,.12);
   color:#fff;border-radius:999px;padding:9px 13px;font:inherit;font-size:12px;font-weight:800;
@@ -226,6 +229,7 @@ footer{padding:0 22px 34px;color:#8a7b70;font-size:12px}
           <a class="bulletin-button" id="bulletinButton" href="bulletin.html" aria-label="Open Bulletin">
             <span>Bulletin</span><span class="bulletin-dot" id="bulletinDot" aria-hidden="true"></span>
           </a>
+          <a class="support-button" href="https://venmo.com/u/Mikkelle-Peters" target="_blank" rel="noopener noreferrer" aria-label="Support MegaHub on Venmo">Support MegaHub ♡</a>
         </div>
       </div>
     </div>
