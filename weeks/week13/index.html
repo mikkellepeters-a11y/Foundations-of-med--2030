@@ -149,7 +149,7 @@ footer{padding:0 22px 34px;color:#74847a;font-size:11px}.toast{position:fixed;le
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script>
 const toast=document.getElementById('toast');let timer;
-document.querySelectorAll('.placeholder').forEach(el=>el.addEventListener('click',e=>{e.preventDefault();toast.textContent=(el.dataset.name||'This resource')+' is planned for Week 13.';toast.classList.add('show');clearTimeout(timer);timer=setTimeout(()=>toast.classList.remove('show'),1800)}));
+document.querySelectorAll('.placeholder').forEach(el=>el.addEventListener('click',e=>{if(el.getAttribute('href')!=='#')return;e.preventDefault();toast.textContent=(el.dataset.name||'This resource')+' is planned for Week 13.';toast.classList.add('show');clearTimeout(timer);timer=setTimeout(()=>toast.classList.remove('show'),1800)}));
 </script>
 <script src="../../shared/msk-lecture-progress.js?v=20261008"></script>
 <script src="../../shared/msk-continue-studying.js?v=20261009"></script>
