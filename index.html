@@ -605,7 +605,7 @@ authForm.addEventListener('submit',async e=>{
       email,
       password,
       options:{
-        emailRedirectTo:'https://mikkellepeters-a11y.github.io/Foundations-of-med--2030/'
+        emailRedirectTo:new URL('./', window.location.href).href
       }
     });
 
