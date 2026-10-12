@@ -12,6 +12,10 @@
     if(status)status.textContent='Choose a dissection';
   }
 
+  const noticeScript=d.createElement('script');
+  noticeScript.src='../../shared/gross-anatomy-image-notice.js?v=20261012';
+  d.body.appendChild(noticeScript);
+
   const style=d.createElement('style');`;
   if(!source.includes(needle))throw new Error('Gross Anatomy route patch point missing');
   source=source.replace(needle,patch);
