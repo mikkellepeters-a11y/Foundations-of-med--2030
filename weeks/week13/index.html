@@ -41,6 +41,15 @@ main{padding:28px 22px 62px}
 .review-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:14px}.review-card{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:var(--shadow)}.review-card h3{margin:0 0 6px;font-size:17px}.review-card p{margin:0;color:var(--muted);font-size:11px;line-height:1.55}.review-action{display:inline-flex;margin-top:12px;text-decoration:none;padding:9px 11px;border-radius:10px;background:var(--accent);color:#fff;font-size:10px;font-weight:850}.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:12px}.stat{padding:10px;background:var(--soft);border-radius:11px;text-align:center}.stat strong{display:block;color:var(--accent);font-size:20px}.stat span{font-size:8px;color:var(--muted);font-weight:850;letter-spacing:.05em;text-transform:uppercase}
 footer{padding:0 22px 34px;color:#74847a;font-size:11px}.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,18px);opacity:0;pointer-events:none;background:var(--dark);color:#fff;padding:11px 14px;border-radius:12px;font-size:12px;font-weight:750;box-shadow:0 10px 30px rgba(20,48,34,.25);transition:.2s ease;z-index:20}.toast.show{opacity:1;transform:translate(-50%,0)}
 @media(max-width:820px){.day-grid,.other-grid,.quiz-grid,.review-grid{grid-template-columns:1fr}.hero{grid-template-columns:1fr}.section-head{align-items:flex-start;flex-direction:column}.sal-card{grid-template-columns:1fr}.sal-actions{justify-content:flex-start}.notice{align-items:flex-start;flex-direction:column}.lecture{grid-template-columns:30px 1fr}.lecture-actions{grid-column:2;justify-content:flex-start}}
+
+/* Week 13 Anki development notice */
+.anki-notice{position:fixed;right:18px;bottom:18px;z-index:1000;width:min(360px,calc(100vw - 36px));padding:17px 43px 17px 18px;background:#fbfdfb;color:#21362b;border:1px solid #b9d0c1;border-left:5px solid #28543d;border-radius:16px;box-shadow:0 16px 40px rgba(18,48,32,.18);font-size:12px;line-height:1.6}
+.anki-notice[hidden]{display:none}
+.anki-notice strong{display:block;font-size:13px;color:#28543d;margin-bottom:5px}
+.anki-notice p{margin:0;color:#4d6456}
+.anki-notice button{position:absolute;right:10px;top:9px;border:0;background:transparent;color:#46624e;border-radius:8px;cursor:pointer;font-size:20px;line-height:1;padding:5px 8px}
+.anki-notice button:hover,.anki-notice button:focus-visible{background:#e3ece6}
+@media(max-width:480px){.anki-notice{right:12px;bottom:12px;width:calc(100vw - 24px)}}
 </style>
 </head>
 <body>
@@ -157,6 +166,24 @@ document.querySelectorAll('.placeholder').forEach(el=>el.addEventListener('click
 </script>
 <script src="../../shared/msk-lecture-progress.js?v=20261008"></script>
 <script src="../../shared/msk-continue-studying.js?v=20261009"></script>
+
+<aside class="anki-notice" id="ankiQualityNotice" role="status" aria-label="Anki cards update" hidden>
+  <button type="button" id="ankiNoticeClose" aria-label="Dismiss Anki notice">×</button>
+  <strong>A quick note about Anki cards</strong>
+  <p>Our Anki cards are still a work in progress, so their quality and level of detail may vary as we continue refining them. Thank you for your patience and understanding while we improve these study resources!</p>
+</aside>
+<script>
+(() => {
+  const notice=document.getElementById('ankiQualityNotice');
+  const key='msk-week13-anki-notice-dismissed-v1';
+  try { if(sessionStorage.getItem(key)==='1') return; } catch(e) {}
+  notice.hidden=false;
+  document.getElementById('ankiNoticeClose').addEventListener('click',()=>{
+    notice.hidden=true;
+    try { sessionStorage.setItem(key,'1'); } catch(e) {}
+  });
+})();
+</script>
 </body>
 </html>
 
