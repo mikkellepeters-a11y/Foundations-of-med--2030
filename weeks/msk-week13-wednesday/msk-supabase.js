@@ -45,7 +45,7 @@
         return {
           user_id:session.user.id,quiz_id:quizId,question_id:String(x.id),module_key:'msk',
           topic:x.topic||'MSK',difficulty:x.difficulty,week:'13',
-          lecture:x.id<=25?'8':'9',
+          lecture:[1,2,3,6,7,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25].includes(x.id)?'8':'9',
           selected_answer:x.options[selected]?.label||'',correct_answer:x.options[x.answer]?.label||'',
           is_correct:selected===x.answer,
           confidence:confidence[state.conf?.[x.id]]||null,answered_at:now,attempt_token:token,
@@ -65,7 +65,7 @@
       if(on){
         const {error}=await client.from('review_items').upsert({
           user_id:session.user.id,quiz_id:quizId,question_id:String(x.id),
-          module_key:'msk',week:'13',lecture:x.id<=25?'8':'9',
+          module_key:'msk',week:'13',lecture:[1,2,3,6,7,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25].includes(x.id)?'8':'9',
           topic:x.topic||'MSK',difficulty:x.difficulty,
           manually_filed:true,review_reasons:['filed'],status:'active',
           question_snapshot:{stem:x.stem,choices:x.options.map(o=>o.label),answer:'ABCDE'[x.answer],explanation:x.options[x.answer]?.explanation||'',optionExplanations:x.options.map(o=>o.explanation)},
