@@ -13,7 +13,7 @@
 *{box-sizing:border-box}
 html,body{min-height:100%}
 body{margin:0;background:radial-gradient(circle at top left,rgba(255,255,255,.75),transparent 30%),var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-button,input,textarea{font:inherit}
+button,input,textarea,[contenteditable]{font:inherit}
 button{cursor:pointer}
 a{color:inherit}
 .site-header{background:linear-gradient(135deg,var(--forest),var(--forest-2),var(--forest-3));color:#fff;padding:22px 20px 26px}
@@ -47,6 +47,16 @@ main{padding:24px 20px 62px}.notice{max-width:720px;margin:0 auto;background:var
 footer{padding:0 20px 28px;color:#7c8c82;font-size:11px}
 @media(max-width:780px){.notebook-shell{grid-template-columns:1fr}.notes-sidebar{border-right:0;border-bottom:1px solid var(--line);max-height:310px}.note-list{max-height:210px}.editor-wrap{padding:20px 18px 24px}.note-editor{min-height:52vh}.editor-toolbar{align-items:flex-start;flex-direction:column}.toolbar-actions{width:100%}.tool-btn{flex:1}.topbar{align-items:flex-start}.back{white-space:nowrap}}
 @media(max-width:480px){.site-header{padding-left:16px;padding-right:16px}main{padding:16px 10px 50px}.brand span{display:none}.notebook-shell{border-radius:16px}.hero{margin-top:20px}.editor-foot{align-items:flex-start;flex-direction:column}}
+
+.format-toolbar{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:12px;padding-bottom:9px;border-bottom:1px solid var(--line)}
+.format-btn{min-height:34px;min-width:34px;padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--forest);font-size:12px;line-height:1.2}
+.format-btn:hover,.format-btn[aria-pressed="true"]{background:var(--sage);border-color:#87ac94}.format-btn[aria-pressed="true"]{box-shadow:inset 0 0 0 1px #87ac94}
+.highlight-btn span{background:#fff1a8;padding:0 2px}.format-hint{font-size:10px;color:var(--muted);margin-left:4px}
+.note-editor{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;white-space:pre-wrap;overflow-wrap:anywhere;word-break:normal}
+.note-editor p,.note-editor div{margin:0}.note-editor mark{background:#fff1a8;color:inherit}
+.note-editor[data-empty="true"]:before{content:attr(data-placeholder);color:#a4b0a8;pointer-events:none;position:absolute}
+.format-btn:focus-visible,.note-editor:focus-visible{outline:2px solid #87ac94;outline-offset:3px}
+@media(max-width:480px){.format-hint{width:100%;margin-left:0}.format-btn{min-height:38px}}
 </style>
 </head>
 <body>
@@ -85,7 +95,15 @@ footer{padding:0 20px 28px;color:#7c8c82;font-size:11px}
       </div>
       <div class="editor-wrap">
         <input class="note-title" id="noteTitle" maxlength="140" placeholder="Untitled Note" autocomplete="off"/>
-        <textarea class="note-editor" id="noteEditor" placeholder="Start typing…" spellcheck="true"></textarea>
+        <div class="format-toolbar" role="toolbar" aria-label="Note text formatting">
+          <button type="button" class="format-btn" data-format="bold" aria-label="Bold" aria-pressed="false" title="Bold (Ctrl or Command + B)"><b>B</b></button>
+          <button type="button" class="format-btn" data-format="italic" aria-label="Italic" aria-pressed="false" title="Italic (Ctrl or Command + I)"><i>I</i></button>
+          <button type="button" class="format-btn" data-format="underline" aria-label="Underline" aria-pressed="false" title="Underline (Ctrl or Command + U)"><u>U</u></button>
+          <button type="button" class="format-btn highlight-btn" data-format="highlight" aria-label="Highlight" aria-pressed="false" title="Toggle highlight (Ctrl or Command + Shift + H)"><span>Highlight</span></button>
+          <button type="button" class="format-btn" data-format="removeFormat" aria-label="Clear selected text formatting" title="Clear selected text formatting">Clear formatting</button>
+          <span class="format-hint">Select text to format</span>
+        </div>
+        <div class="note-editor" id="noteEditor" contenteditable="true" role="textbox" aria-label="Note content" aria-multiline="true" data-placeholder="Start typing…" data-empty="true" spellcheck="true"></div>
         <div class="editor-foot"><span id="wordCount">0 words · 0 characters</span><span><strong>Autosave is on.</strong> Changes are saved after you stop typing.</span></div>
       </div>
     </section>
@@ -93,6 +111,7 @@ footer{padding:0 20px 28px;color:#7c8c82;font-size:11px}
 </main>
 <footer>MCG Class of 2030 · MSK Notebook · Private to your MegaHub account</footer>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="shared/msk-note-formatting.js?v=20261012"></script>
 <script>
 const SUPABASE_URL='https://ofqfdnxpftifnvxnvppe.supabase.co';
 const SUPABASE_KEY='sb_publishable_06zYj2REZQMC8nXfhm7weQ_Nrotri7G';
@@ -103,9 +122,14 @@ let notes=[];
 let currentNoteId=null;
 let saveTimer=null;
 let saveInFlight=false;
-let queuedSave=false;
+let savePromise=null;
+let activeSavingId=null;
+const pendingSaves=new Map();
+const savedValues=new Map();
+let savedSelection=null;
 
 const $=id=>document.getElementById(id);
+const rich=window.MSKNoteFormatting;
 const noteList=$('noteList'), titleInput=$('noteTitle'), editor=$('noteEditor'), saveState=$('saveState'), saveStateText=$('saveStateText');
 
 function setSaveState(kind,text){
@@ -119,19 +143,23 @@ function fmtTime(value){
   return d.toLocaleDateString([], {month:'short',day:'numeric'});
 }
 function previewText(note){
-  const clean=(note.content||'').replace(/\s+/g,' ').trim();
+  const clean=rich.contentText(note.content).replace(/\s+/g,' ').trim();
   return clean||'No additional text';
 }
 function currentNote(){return notes.find(n=>n.id===currentNoteId)||null}
 function updateCounts(){
-  const text=editor.value||'';
+  const text=rich.plainTextFromHTML(editor.innerHTML);
+  editor.dataset.empty=text.length===0?'true':'false';
   const words=text.trim()?text.trim().split(/\s+/).length:0;
   $('wordCount').textContent=`${words} word${words===1?'':'s'} · ${text.length} character${text.length===1?'':'s'}`;
 }
 function localKey(noteId){return `mskNotebookDraft:${currentUser?.id||'guest'}:${noteId}`}
 function cacheDraft(){
   if(!currentUser||!currentNoteId)return;
-  localStorage.setItem(localKey(currentNoteId),JSON.stringify({title:titleInput.value,content:editor.value,ts:Date.now()}));
+  const content=rich.serialize(editor.innerHTML),title=(titleInput.value||'').trim()||'Untitled Note';
+  const saved=savedValues.get(currentNoteId);
+  if(saved&&saved.title===title&&saved.content===content){clearDraft(currentNoteId);return}
+  try{localStorage.setItem(localKey(currentNoteId),JSON.stringify({title:titleInput.value,content,ts:Date.now()}))}catch(e){}
 }
 function clearDraft(noteId){try{localStorage.removeItem(localKey(noteId))}catch(e){}}
 function getDraft(noteId){
@@ -140,7 +168,7 @@ function getDraft(noteId){
 function sortNotes(){notes.sort((a,b)=>new Date(b.updated_at||0)-new Date(a.updated_at||0))}
 function renderList(){
   const q=$('noteSearch').value.trim().toLowerCase();
-  const filtered=notes.filter(n=>!q||`${n.title||''} ${n.content||''}`.toLowerCase().includes(q));
+  const filtered=notes.filter(n=>!q||`${n.title||''} ${rich.contentText(n.content)}`.toLowerCase().includes(q));
   $('noteCount').textContent=`${notes.length} note${notes.length===1?'':'s'}`;
   noteList.innerHTML='';
   if(!filtered.length){const empty=document.createElement('div');empty.className='empty-list';empty.textContent=q?'No matching notes.':'No notes yet.';noteList.appendChild(empty);return}
@@ -154,19 +182,22 @@ function renderList(){
 }
 function loadNoteIntoEditor(note){
   if(!note)return;
+  if(!savedValues.has(note.id))savedValues.set(note.id,{title:(note.title||'').trim()||'Untitled Note',content:rich.serialize(rich.readContent(note.content))});
   const draft=getDraft(note.id);
   const serverTs=new Date(note.updated_at||0).getTime();
   const useDraft=draft&&Number(draft.ts)>serverTs;
   titleInput.value=useDraft?draft.title:(note.title||'');
-  editor.value=useDraft?draft.content:(note.content||'');
+  editor.innerHTML=rich.readContent(useDraft?draft.content:(note.content||''));
+  note.title=titleInput.value;note.content=rich.serialize(editor.innerHTML);
+  savedSelection=null;updateFormatButtons();
   updateCounts();
   setSaveState(useDraft?'local':'saved',useDraft?'Unsaved local draft restored':`Saved ${fmtTime(note.updated_at)}`);
   if(useDraft)scheduleSave(250);
 }
 function selectNote(id){
   if(currentNoteId===id)return;
-  if(currentNoteId)cacheDraft();
-  currentNoteId=id;renderList();loadNoteIntoEditor(currentNote());
+  if(currentNoteId){cacheDraft();saveCurrent()}
+  clearTimeout(saveTimer);currentNoteId=id;renderList();loadNoteIntoEditor(currentNote());
 }
 async function createNote(){
   setSaveState('saving','Creating note…');
@@ -181,26 +212,42 @@ function scheduleSave(delay=750){
 }
 async function saveCurrent(){
   const note=currentNote();if(!note||!currentUser)return;
-  if(saveInFlight){queuedSave=true;return}
-  saveInFlight=true;queuedSave=false;clearTimeout(saveTimer);
-  const title=(titleInput.value||'').trim()||'Untitled Note';
-  const content=editor.value||'';
-  setSaveState('saving','Saving…');
-  const updated_at=new Date().toISOString();
-  const {data,error}=await supabaseClient.from('module_notes').update({title,content,updated_at}).eq('id',note.id).eq('user_id',currentUser.id).select().single();
-  saveInFlight=false;
-  if(error){console.error(error);setSaveState('error','Save failed · your draft is still on this device');cacheDraft();return}
-  const idx=notes.findIndex(n=>n.id===data.id);if(idx>=0)notes[idx]=data;clearDraft(data.id);sortNotes();renderList();setSaveState('saved',`Saved ${fmtTime(data.updated_at)}`);
-  if(queuedSave)saveCurrent();
+  clearTimeout(saveTimer);
+  const saved=savedValues.get(note.id),content=rich.serialize(editor.innerHTML),title=(titleInput.value||'').trim()||'Untitled Note';
+  if(saved&&saved.title===title&&saved.content===content&&!pendingSaves.has(note.id)&&activeSavingId!==note.id){setSaveState('saved',`Saved ${fmtTime(note.updated_at)}`);return}
+  pendingSaves.set(note.id,{id:note.id,userId:currentUser.id,title:(titleInput.value||'').trim()||'Untitled Note',content:rich.serialize(editor.innerHTML)});
+  if(saveInFlight)return savePromise;
+  saveInFlight=true;
+  savePromise=(async()=>{
+    while(pendingSaves.size){
+      const [id,snapshot]=pendingSaves.entries().next().value;pendingSaves.delete(id);
+      activeSavingId=id;
+      if(currentNoteId===id)setSaveState('saving','Saving…');
+      const updated_at=new Date().toISOString();
+      let data,error;
+      try{({data,error}=await supabaseClient.from('module_notes').update({title:snapshot.title,content:snapshot.content,updated_at}).eq('id',id).eq('user_id',snapshot.userId).select().single())}catch(e){error=e}
+      activeSavingId=null;
+      if(error){console.error(error);if(currentNoteId===id)setSaveState('error','Save failed · your draft is still on this device');continue}
+      savedValues.set(id,{title:snapshot.title,content:snapshot.content});
+      const local=notes.find(n=>n.id===id);
+      const unchanged=local&&((local.title||'').trim()||'Untitled Note')===snapshot.title&&local.content===snapshot.content;
+      if(local){Object.assign(local,{updated_at:data.updated_at,created_at:data.created_at||local.created_at});if(unchanged)Object.assign(local,data)}
+      const draft=getDraft(id);
+      if(draft&&((draft.title||'').trim()||'Untitled Note')===snapshot.title&&draft.content===snapshot.content)clearDraft(id);
+      sortNotes();renderList();
+      if(currentNoteId===id&&((titleInput.value||'').trim()||'Untitled Note')===snapshot.title&&rich.serialize(editor.innerHTML)===snapshot.content)setSaveState('saved',`Saved ${fmtTime(data.updated_at)}`);
+    }
+  })();
+  try{await savePromise}finally{saveInFlight=false;savePromise=null;activeSavingId=null}
 }
 async function deleteCurrent(){
   const note=currentNote();if(!note)return;
   const label=(note.title||'').trim()||'Untitled Note';
   if(!confirm(`Delete “${label}”? This cannot be undone.`))return;
-  clearTimeout(saveTimer);setSaveState('saving','Deleting…');
+  clearTimeout(saveTimer);if(saveInFlight)await savePromise;pendingSaves.delete(note.id);setSaveState('saving','Deleting…');
   const {error}=await supabaseClient.from('module_notes').delete().eq('id',note.id).eq('user_id',currentUser.id);
   if(error){console.error(error);setSaveState('error','Could not delete note');return}
-  clearDraft(note.id);notes=notes.filter(n=>n.id!==note.id);currentNoteId=null;
+  clearDraft(note.id);savedValues.delete(note.id);notes=notes.filter(n=>n.id!==note.id);currentNoteId=null;
   if(!notes.length){await createNote();return}
   sortNotes();currentNoteId=notes[0].id;renderList();loadNoteIntoEditor(notes[0]);
 }
@@ -214,7 +261,59 @@ async function loadNotes(){
 }
 
 titleInput.addEventListener('input',()=>{const n=currentNote();if(n)n.title=titleInput.value;renderList();scheduleSave()});
-editor.addEventListener('input',()=>{const n=currentNote();if(n)n.content=editor.value;updateCounts();renderList();scheduleSave()});
+function onEditorChange(){const n=currentNote();if(n)n.content=rich.serialize(editor.innerHTML);updateCounts();renderList();scheduleSave();rememberSelection();updateFormatButtons()}
+editor.addEventListener('input',onEditorChange);
+function rememberSelection(){
+  const selection=window.getSelection();if(!selection||!selection.rangeCount)return;
+  const range=selection.getRangeAt(0);if(editor.contains(range.startContainer)&&editor.contains(range.endContainer))savedSelection=range.cloneRange();
+}
+function restoreSelection(){
+  editor.focus();const selection=window.getSelection();
+  if(savedSelection&&editor.contains(savedSelection.startContainer)&&editor.contains(savedSelection.endContainer)){selection.removeAllRanges();selection.addRange(savedSelection)}
+  else{const range=document.createRange();range.selectNodeContents(editor);range.collapse(false);selection.removeAllRanges();selection.addRange(range)}
+}
+function isHighlighted(){
+  try{const value=(document.queryCommandValue('hiliteColor')||document.queryCommandValue('backColor')||'').replace(/\s/g,'').toLowerCase();return !!value&&!['transparent','rgba(0,0,0,0)','rgb(255,255,255)','#ffffff'].includes(value)}catch(e){return false}
+}
+function updateFormatButtons(){
+  const selection=window.getSelection();const inEditor=selection&&selection.rangeCount&&editor.contains(selection.anchorNode)&&editor.contains(selection.focusNode);
+  document.querySelectorAll('[data-format]').forEach(btn=>{if(!btn.hasAttribute('aria-pressed'))return;let active=false;try{active=!!inEditor&&(btn.dataset.format==='highlight'?isHighlighted():document.queryCommandState(btn.dataset.format))}catch(e){}btn.setAttribute('aria-pressed',active?'true':'false')});
+}
+function applyFormat(command){
+  restoreSelection();
+  if(typeof document.execCommand!=='function'){setSaveState('error','Text formatting is unavailable in this browser');return}
+  try{
+    if(command==='highlight'){
+      const color=isHighlighted()?'transparent':rich.HIGHLIGHT;
+      const supported=typeof document.queryCommandSupported==='function'&&document.queryCommandSupported('hiliteColor');
+      document.execCommand(supported?'hiliteColor':'backColor',false,color);
+    }else document.execCommand(command,false,null);
+    onEditorChange();
+  }catch(e){console.error(e);setSaveState('error','Could not apply formatting')}
+}
+document.querySelectorAll('[data-format]').forEach(btn=>{
+  btn.addEventListener('mousedown',e=>e.preventDefault());
+  btn.addEventListener('click',()=>applyFormat(btn.dataset.format));
+});
+document.addEventListener('selectionchange',()=>{rememberSelection();updateFormatButtons()});
+editor.addEventListener('keyup',rememberSelection);editor.addEventListener('mouseup',rememberSelection);editor.addEventListener('touchend',rememberSelection);
+editor.addEventListener('keydown',e=>{
+  if(!(e.ctrlKey||e.metaKey)||e.altKey)return;
+  const key=e.key.toLowerCase();const command=e.shiftKey&&key==='h'?'highlight':!e.shiftKey?{b:'bold',i:'italic',u:'underline'}[key]:null;
+  if(command){e.preventDefault();rememberSelection();applyFormat(command)}
+});
+function insertClipboard(e){
+  const data=e.clipboardData||e.dataTransfer;if(!data)return;e.preventDefault();
+  const source=data.getData('text/html');const safe=source?rich.sanitizeHTML(source):rich.plainHTML(data.getData('text/plain'));
+  if(!safe)return;
+  // Restore the caret before inserting only the allowlisted clipboard content.
+  rememberSelection();restoreSelection();
+  if(typeof document.execCommand==='function')document.execCommand('insertHTML',false,safe);
+  else{const range=window.getSelection().getRangeAt(0);range.deleteContents();const fragment=range.createContextualFragment(safe);const last=fragment.lastChild;range.insertNode(fragment);if(last){range.setStartAfter(last);range.collapse(true)}}
+  onEditorChange();
+}
+editor.addEventListener('paste',insertClipboard);
+editor.addEventListener('drop',e=>e.preventDefault());
 $('saveBtn').addEventListener('click',saveCurrent);
 $('deleteBtn').addEventListener('click',deleteCurrent);
 $('newNoteBtn').addEventListener('click',async()=>{if(currentNoteId)await saveCurrent();await createNote()});
