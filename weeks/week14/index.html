@@ -172,5 +172,6 @@ footer{padding:0 22px 34px;color:#74847a;font-size:11px}.toast{position:fixed;le
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>const toast=document.getElementById('toast');let timer;document.querySelectorAll('.placeholder').forEach(el=>el.addEventListener('click',e=>{e.preventDefault();toast.textContent=(el.dataset.name||'This resource')+' is planned for Week 14.';toast.classList.add('show');clearTimeout(timer);timer=setTimeout(()=>toast.classList.remove('show'),1800)}));</script>
 <script data-week="14" src="../../shared/msk-week-release-gate.js?v=20261009"></script>
+<script src="../../shared/mikkelles-lecture-notes.js?v=20261013"></script>
 </body>
 </html>
