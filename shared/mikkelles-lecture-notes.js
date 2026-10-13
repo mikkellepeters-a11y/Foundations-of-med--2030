@@ -1,6 +1,6 @@
 (()=>{'use strict';
 const URL='https://ofqfdnxpftifnvxnvppe.supabase.co',KEY='sb_publishable_06zYj2REZQMC8nXfhm7weQ_Nrotri7G';
-const week=(document.title.match(/Week\\s+(\\d+)/i)||location.pathname.match(/week(\\d+)/i)||[])[1];
+const week=(document.title.match(/Week\s+(\d+)/i)||location.pathname.match(/week(\d+)/i)||[])[1];
 if(!week)return;
 const cards=[...document.querySelectorAll('.lecture')].filter(x=>x.querySelector('.lnum')&&x.querySelector('strong')&&!/not added yet/i.test(x.querySelector('strong').textContent));
 if(!cards.length)return;
@@ -19,7 +19,7 @@ const css=document.createElement('style');css.textContent=`
 `;document.head.append(css);
 const client=()=>window.supabase?.createClient(URL,KEY);
 let supa,admin=false,notes=new Map();
-const ids=cards.map((card,i)=>{const number=(card.querySelector('.lnum')?.textContent||'').trim();const key=/^\\d+$/.test(number)?'lecture-'+Number(number):'lecture-'+(i+1);card.dataset.mikkelleLectureKey=key;return key;});
+const ids=cards.map((card,i)=>{const number=(card.querySelector('.lnum')?.textContent||'').trim();const key=/^\d+$/.test(number)?'lecture-'+Number(number):'lecture-'+(i+1);card.dataset.mikkelleLectureKey=key;return key;});
 const place=(card,element)=>{const actions=card.querySelector('.lecture-actions');(actions||card).insertAdjacentElement('afterend',element);};
 const render=()=>cards.forEach(card=>{
 card.querySelectorAll('.mikkelle-note,.mikkelle-note-add').forEach(x=>x.remove());
