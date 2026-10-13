@@ -27,7 +27,44 @@ document.querySelectorAll('.conf').forEach(b=>{b.classList.toggle('active',state
 function explain(){let x=q(),a=ans(),correct=a?.selected===x.answer;$('explainModal').innerHTML=`<div class="modal-top"><div><div class="verdict ${correct?'good':'bad'}">${correct?'✓ Correct':'Review the reasoning'}</div><h2>Advanced Explanation</h2><div class="meta">Question ${x.id} · ${esc(x.topic)} · ${esc(x.difficulty)}</div></div><button class="secondary" id="closeExplanation">Close</button></div><p style="font-size:13px;line-height:1.65;margin:18px 0">${esc(x.stem)}</p><div class="explanation-list">${x.options.map((o,i)=>`<div class="explanation ${i===x.answer?'good':i===a.selected?'bad':''}"><strong>${'ABCDE'[i]}. ${esc(o.label)} ${i===x.answer?'· Correct answer':i===a.selected?'· Your answer':''}</strong><p>${esc(o.explanation)}</p></div>`).join('')}</div><div class="modal-actions"><button class="secondary" id="modalClose">Close</button><button class="primary" id="nextQuestion">${index===filtered.length-1?'Finish Quiz':'Continue to Next Question →'}</button></div>`;$('explainOverlay').classList.add('show');$('closeExplanation').onclick=$('modalClose').onclick=()=>$('explainOverlay').classList.remove('show');$('nextQuestion').onclick=()=>{$('explainOverlay').classList.remove('show');if(index===filtered.length-1)results();else{index++;showHint=false;save();render();window.scrollTo({top:0,behavior:'smooth'})}};}
 function results(){let submitted=filtered.filter(x=>state.answers[x.id]?.submitted),correct=submitted.filter(x=>state.answers[x.id].selected===x.answer),flags=filtered.filter(x=>state.flags[x.id]);$('resultModal').innerHTML=`<div class="modal-top"><div><span class="verdict good">Attempt Summary</span><h2>Wednesday Practice Complete</h2><p class="meta">MSK Week 13 · Lectures 8 & 9</p></div><button class="secondary" id="closeResults">Close</button></div><div class="result-stat"><div class="stat"><strong>${correct.length}/${submitted.length}</strong><span>Correct answered</span></div><div class="stat"><strong>${submitted.length}/${filtered.length}</strong><span>Questions submitted</span></div><div class="stat"><strong>${flags.length}</strong><span>Flagged for review</span></div></div><h3>Missed & flagged questions</h3>${filtered.filter(x=>state.flags[x.id]||(state.answers[x.id]?.submitted&&state.answers[x.id]?.selected!==x.answer)).map(x=>`<div class="review-item"><span>Q${x.id} · ${esc(x.topic)}</span><button data-review="${x.id}">Review →</button></div>`).join('')||'<p class="meta">No missed or flagged items.</p>'}<div class="modal-actions"><button class="secondary" id="restart">Start New Attempt</button><button class="primary" id="resultClose">Return to Questions</button></div>`;$('resultOverlay').classList.add('show');$('closeResults').onclick=$('resultClose').onclick=()=>$('resultOverlay').classList.remove('show');$('restart').onclick=()=>{if(!confirm('Clear this local quiz attempt and restart?'))return;state={answers:{},flags:{},strikes:{},conf:{},highlight:{}};index=0;save();$('resultOverlay').classList.remove('show');render()};$('resultModal').querySelectorAll('[data-review]').forEach(b=>b.onclick=()=>{index=filtered.findIndex(x=>x.id===Number(b.dataset.review));$('resultOverlay').classList.remove('show');render();if(ans()?.submitted)explain()})}
 $('submitBtn').onclick=()=>{let x=q(),a=ans();if(!a||a.selected===null||a.selected===undefined){$('validation').textContent='Select an answer before submitting.';return;}a.submitted=true;save();render();explain()};$('reopenBtn').onclick=explain;
-$('flagBtn').onclick=()=>{let key=q().id;state.flags[key]=!state.flags[key];save();render()};$('hintBtn').onclick=()=>{showHint=!showHint;render()};$('highlightBtn').onclick=()=>{highlightMode=!highlightMode;render()};$('clearHighlightBtn').onclick=()=>{delete state.highlight[q().id];save();render()};document.querySelectorAll('.conf').forEach(b=>b.onclick=()=>{state.conf[q().id]=b.dataset.conf;save();render()});
-$('difficulty').onchange=e=>{difficulty=e.target.value;index=0;save();refresh()};$('stem').addEventListener('mouseup',()=>{if(!highlightMode||ans()?.submitted)return;let s=window.getSelection();if(!s||s.isCollapsed)return;let r=s.getRangeAt(0);if(!$('stem').contains(r.commonAncestorContainer))return;try{let m=document.createElement('mark');m.appendChild(r.extractContents());r.insertNode(m);s.removeAllRanges();state.highlight[q().id]=$('stem').innerHTML;save()}catch(e){s.removeAllRanges()}});
+$('flagBtn').onclick=()=>{let key=q().id;state.flags[key]=!state.flags[key];save();render()};$('hintBtn').onclick=()=>{showHint=!showHint;render()};$('clearHighlightBtn').onclick=()=>{delete state.highlight[q().id];save();render()};document.querySelectorAll('.conf').forEach(b=>b.onclick=()=>{state.conf[q().id]=b.dataset.conf;save();render()});
+$('difficulty').onchange=e=>{difficulty=e.target.value;index=0;save();refresh()};(function(){
+ const stem=$('stem'),button=$('highlightBtn');
+ let pointerDown=false,timer;
+ function apply(){
+  if(!highlightMode)return;
+  const selection=window.getSelection();
+  if(!selection||selection.isCollapsed||!selection.rangeCount)return;
+  const range=selection.getRangeAt(0);
+  if(!stem.contains(range.startContainer)||!stem.contains(range.endContainer))return;
+  const walker=document.createTreeWalker(stem,NodeFilter.SHOW_TEXT),parts=[];
+  while(walker.nextNode()){
+   const node=walker.currentNode;
+   if(!range.intersectsNode(node)||node.parentElement.closest('mark'))continue;
+   const start=node===range.startContainer?range.startOffset:0;
+   const end=node===range.endContainer?range.endOffset:node.length;
+   if(end>start)parts.push({node,start,end});
+  }
+  for(const {node,start,end} of parts.reverse()){
+   const piece=node.splitText(start);piece.splitText(end-start);
+   const mark=document.createElement('mark');piece.replaceWith(mark);mark.appendChild(piece);
+  }
+  if(parts.length){selection.removeAllRanges();state.highlight[q().id]=stem.innerHTML;save();}
+ }
+ function update(){
+  button.classList.toggle('active',highlightMode);
+  button.setAttribute('aria-pressed',String(highlightMode));
+  button.textContent=highlightMode?'Highlight Mode: ON':'Highlight Mode';
+ }
+ button.addEventListener('pointerdown',e=>e.preventDefault());
+ button.onclick=()=>{highlightMode=!highlightMode;update();if(highlightMode)apply()};
+ document.addEventListener('pointerdown',()=>{pointerDown=true;clearTimeout(timer)});
+ document.addEventListener('pointerup',()=>{pointerDown=false;setTimeout(apply,0)});
+ document.addEventListener('mouseup',()=>{pointerDown=false;apply()});
+ document.addEventListener('touchend',()=>{pointerDown=false;clearTimeout(timer);timer=setTimeout(apply,350)},{passive:true});
+ document.addEventListener('keyup',e=>{if(e.key==='Shift'||e.key.startsWith('Arrow'))apply()});
+ document.addEventListener('selectionchange',()=>{clearTimeout(timer);if(!pointerDown)timer=setTimeout(apply,700)});
+ update();
+})();
 load();refresh();
 </script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="msk-supabase.js"></script></body></html>
