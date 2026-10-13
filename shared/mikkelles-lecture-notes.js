@@ -6,7 +6,12 @@ const cards=[...document.querySelectorAll('.lecture')].filter(x=>x.querySelector
 if(!cards.length)return;
 const css=document.createElement('style');css.textContent=`
 .mikkelle-note{margin:12px 0 0;padding:11px 13px;border:1px solid #bfd5c5;border-left:4px solid #28543d;border-radius:10px;background:#f1f8f2;color:#21362b;grid-column:1/-1;flex-basis:100%;min-width:0}
-.mikkelle-note-header{font-size:12px;font-weight:850;display:flex;gap:6px;align-items:center;margin-bottom:5px}
+.mikkelle-note-header{font-size:12px;font-weight:850;display:flex;gap:8px;align-items:center;justify-content:space-between;cursor:pointer;list-style:none}
+.mikkelle-note-header::-webkit-details-marker{display:none}
+.mikkelle-note-header::after{content:'▾';transition:transform .15s ease;font-size:14px}
+.mikkelle-note[open] .mikkelle-note-header::after{transform:rotate(180deg)}
+.mikkelle-note[open] .mikkelle-note-header{margin-bottom:9px}
+.mikkelle-note-header:focus-visible{outline:2px solid #28543d;outline-offset:4px;border-radius:3px}
 .mikkelle-note-body{white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px;line-height:1.55}
 .mikkelle-note-edit{margin-top:8px;background:transparent;border:1px solid #8aaf99;color:#28543d;border-radius:7px;font-size:11px;padding:4px 8px;cursor:pointer}
 .mikkelle-note-add{display:block;margin-top:9px;background:#e5f0e9;border:1px dashed #90b49e;border-radius:8px;color:#28543d;font-size:11px;font-weight:750;padding:7px 10px;cursor:pointer;grid-column:1/-1;flex-basis:100%}
@@ -24,7 +29,7 @@ const place=(card,element)=>{const actions=card.querySelector('.lecture-actions'
 const render=()=>cards.forEach(card=>{
 card.querySelectorAll('.mikkelle-note,.mikkelle-note-add').forEach(x=>x.remove());
 const key=card.dataset.mikkelleLectureKey,n=notes.get(key);
-if(n?.is_visible){const box=document.createElement('div');box.className='mikkelle-note';const head=document.createElement('div');head.className='mikkelle-note-header';head.textContent='✎ Mikkelle’s Note';const body=document.createElement('div');body.className='mikkelle-note-body';body.textContent=n.note_text;box.append(head,body);if(admin){const edit=document.createElement('button');edit.type='button';edit.className='mikkelle-note-edit';edit.textContent='Edit note';edit.onclick=()=>editNote(key,n);box.append(edit);}place(card,box);}
+if(n?.is_visible){const box=document.createElement('details');box.className='mikkelle-note';const head=document.createElement('summary');head.className='mikkelle-note-header';head.textContent='✎ Mikkelle’s Note';const body=document.createElement('div');body.className='mikkelle-note-body';body.textContent=n.note_text;box.append(head,body);if(admin){const edit=document.createElement('button');edit.type='button';edit.className='mikkelle-note-edit';edit.textContent='Edit note';edit.onclick=()=>editNote(key,n);box.append(edit);}place(card,box);}
 else if(admin){const b=document.createElement('button');b.type='button';b.className='mikkelle-note-add';b.textContent='+ Add Mikkelle’s Note';b.onclick=()=>editNote(key,n);place(card,b);}
 });
 const dialog=document.createElement('dialog');dialog.className='mikkelle-note-dialog';dialog.innerHTML='<form method="dialog"><strong>Mikkelle’s Note</strong><p style="font-size:12px">Shown directly on the selected lecture card.</p><textarea maxlength="2000" aria-label="Note text" placeholder="Add a short, helpful note for this lecture"></textarea><div role="status" class="status" style="font-size:12px"></div><menu><button type="button" class="remove">Delete</button><button type="button" class="cancel">Cancel</button><button type="button" class="primary save">Save note</button></menu></form>';document.body.append(dialog);
