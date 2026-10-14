@@ -82,11 +82,8 @@
       };
       // Existing database uniqueness is scoped to user/module/quiz/token/question.
       // Ignore an existing record for this exact attempt; never insert it twice.
-      const {error}=await client.from('question_attempts').upsert(row,{
-        onConflict:'user_id,module_key,quiz_id,attempt_token,question_id',
-        ignoreDuplicates:true
-      });
-      if(error)throw error;
+      const {error}=await client.from('question_attempts').insert(row);
+      if(error && error.code!=='23505')throw error;
       state.syncedQuestions=state.syncedQuestions||{};
       state.syncedQuestions[q.id]=token;
       persist();
