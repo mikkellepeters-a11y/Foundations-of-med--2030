@@ -90,6 +90,45 @@ document.getElementById('resume')?.addEventListener('click',()=>{queueMicrotask(
 document.getElementById('start')?.addEventListener('click',()=>{if(state){state.attemptToken=newToken();state.syncedQuestions={};state.syncedCompletion=false;save()}});
 document.getElementById('flag')?.addEventListener('click',()=>{if(state)void syncFlag(activeQ().id,state.flags.includes(activeQ().id))});
 client.auth.onAuthStateChange((event)=>{if(event==='SIGNED_IN')setTimeout(()=>{void syncAll();void hydrateFlags()},0)});
+
+async function restoreFromAccount(){
+ try{
+  if(state&&state.answers?.some(Boolean))return;
+  const user=await auth();if(!user)return;
+  const {data,error}=await client.from('question_attempts').select('question_id,selected_answer,attempt_token,answered_at,metadata,difficulty')
+   .eq('user_id',user.id).eq('module_key','msk').eq('quiz_id',quizId).order('answered_at',{ascending:false}).limit(100);
+  if(error)throw error;if(!data?.length)return;
+  const latest=data[0].attempt_token;if(!latest)return;
+  const matches=data.filter(r=>r.attempt_token===latest);
+  const filter=['All','In-House','Intermediate','Step 1'].includes(matches[0]?.metadata?.difficulty_filter)?matches[0].metadata.difficulty_filter:'All';
+  const mode=['advanced','practice'].includes(matches[0]?.metadata?.mode)?matches[0].metadata.mode:'advanced';
+  const ids=BANK.filter(q=>filter==='All'||q.difficulty===filter).map(q=>q.id);
+  const answers=[],syncedQuestions={};
+  for(const row of matches){
+   const id=Number(row.question_id),q=getQ(id),k=ids.indexOf(id);
+   if(!q||k<0)continue;
+   const selected=row.metadata?.answer_letter||q.options.find(o=>o.text===row.selected_answer)?.letter;
+   if(!selected)continue;
+   answers[k]={selected,isCorrect:selected===q.correct,confidence:null};
+   syncedQuestions[id]=latest;
+  }
+  if(!answers.some(Boolean))return;
+  // The quiz advances sequentially and restores the next unsubmitted question.
+  let index=0;while(index<ids.length&&answers[index])index++;
+  state={filter,mode,ids,index:Math.min(index,ids.length-1),answers,flags:[],done:index===ids.length,
+   attemptToken:latest,syncedQuestions,syncedCompletion:false};
+  if(state.done){
+   const {data:completed}=await client.from('quiz_attempts').select('attempt_token').eq('user_id',user.id).eq('quiz_id',quizId).eq('attempt_token',latest).limit(1);
+   state.syncedCompletion=!!completed?.length;
+  }
+  save();document.getElementById('resume')?.classList.remove('hidden');
+  status('Saved quiz progress restored from My Profile ✓');
+  void hydrateFlags();
+ }catch(e){console.warn('Cross-device restore unavailable',e)}
+}
 if(load()){state=load();void syncAll();void hydrateFlags();}
+else void restoreFromAccount();
+client.auth.onAuthStateChange((event)=>{if(event==='SIGNED_IN'&&!state)setTimeout(()=>void restoreFromAccount(),0)});
+
 })();
 </script></body></html>
