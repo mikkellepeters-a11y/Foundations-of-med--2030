@@ -14,4 +14,82 @@ $('choices').innerHTML=q.options.map(o=>`<div class="choiceRow" data-letter="${o
 $('confidence').innerHTML=['Low','Medium','High'].map(t=>`<button type="button" class="btn alt tiny ${confidence===t?'active':''}" data-confidence="${t}">${t}</button>`).join('');document.querySelectorAll('[data-confidence]').forEach(b=>b.onclick=()=>{if(a)return;confidence=b.dataset.confidence;document.querySelectorAll('[data-confidence]').forEach(el=>el.classList.toggle('active',el===b));});$('submit').classList.toggle('hidden',!!a);$('next').classList.toggle('hidden',!a);$('status').textContent='';$('feedback').classList.toggle('hidden',!(a&&state.mode==='advanced'));if(a&&state.mode==='advanced')explain(q,a);}
 function explain(q,a){$('feedback').innerHTML=`<b>${a.isCorrect?'Correct!':'Not quite.'}</b><p>Correct answer: ${q.correct} — ${safe(q.options.find(x=>x.letter===q.correct).text)}</p>${q.options.map(o=>`<div class="explain"><b>${o.letter} — ${safe(o.text)}</b><div>${safe(o.explanation)}</div></div>`).join('')}`;}
 $('start').onclick=()=>{let filter=$('difficulty').value,mode=$('mode').value;state={filter,mode,ids:BANK.filter(q=>filter==='All'||q.difficulty===filter).map(q=>q.id),index:0,answers:[],flags:[],done:false};save();render()};$('resume').onclick=()=>{state=load();if(state)render()};$('submit').onclick=()=>{if(!selected){$('status').textContent='Choose an answer before submitting.';return;}let q=activeQ();state.answers[state.index]={selected,isCorrect:selected===q.correct,confidence};save();render()};$('next').onclick=()=>{state.index++;if(state.index>=state.ids.length)finish();else{save();render();}window.scrollTo(0,0)};$('flag').onclick=()=>{let id=activeQ().id;if(state.flags.includes(id))state.flags=state.flags.filter(x=>x!==id);else state.flags.push(id);save();$('flag').textContent=state.flags.includes(id)?'★ Flagged':'☆ Flag';};$('showFlagged').onclick=()=>{let x=$('flaggedPanel');x.classList.toggle('hidden');$('flaggedList').textContent=state.flags.length?'Flagged: '+state.flags.map(id=>`${state.ids.indexOf(id)+1}`).join(', '):'No flagged questions yet.'};$('retake').onclick=()=>{localStorage.removeItem(KEY);state=null;$('results').classList.add('hidden');$('intro').classList.remove('hidden');$('resume').classList.add('hidden')};$('highlight').onclick=()=>{let sel=window.getSelection();if(sel&&sel.toString()&&$('stem').contains(sel.anchorNode)&&$('stem').contains(sel.focusNode)){let range=sel.getRangeAt(0);try{let mark=document.createElement('mark');range.surroundContents(mark);sel.removeAllRanges()}catch{}}else $('status').textContent='Select a phrase in the question, then click Highlight.'};window.addEventListener('storage',()=>{if(!state&&load())$('resume').classList.remove('hidden')});if(load()&&!load().done)$('resume').classList.remove('hidden');
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+/* MSK Week 13 SAL Vignettes — account sync using the existing MegaHub schema. */
+(()=>{
+if(window.__MSK_SAL_SYNC||!window.supabase)return;window.__MSK_SAL_SYNC=true;
+const client=window.supabase.createClient('https://ofqfdnxpftifnvxnvppe.supabase.co','sb_publishable_06zYj2REZQMC8nXfhm7weQ_Nrotri7G');
+const quizId='msk-week13-sal-histopathology-vignettes';
+const panel=document.createElement('div');panel.style.cssText='max-width:980px;margin:12px auto;padding:12px;border:1px solid #bcd1c3;border-radius:12px;background:#f4faf5;color:#205a3c;font:700 12px system-ui';
+const label=document.createElement('span');label.textContent='Sign in to MegaHub to sync answers, results, and flagged questions to My Profile. ';
+const retry=document.createElement('button');retry.textContent='Retry Sync';retry.type='button';retry.style.cssText='margin-left:8px;padding:6px 10px;border:1px solid #bcd1c3;border-radius:8px;background:white;cursor:pointer;color:#205a3c;font:700 11px system-ui';panel.append(label,retry);
+(document.querySelector('main')||document.body).appendChild(panel);
+const status=t=>{label.textContent=t+' ';};
+const auth=async()=>{const {data,error}=await client.auth.getSession();if(error)throw error;return data.session?.user||null};
+const newToken=()=>('msk-w13-sal-'+(crypto.randomUUID?.()||Date.now()+'-'+Math.random().toString(36).slice(2)));
+let processing=false;
+function ensure(){if(!state)return false;if(!state.attemptToken){state.attemptToken=newToken();save()}state.syncedQuestions??={};return true}
+const getQ=id=>BANK.find(q=>q.id===id);
+async function syncAll(){
+ if(processing||!ensure())return;processing=true;
+ try{
+  const user=await auth();if(!user){status('Saved on this device. Sign in to sync with My Profile.');return;}
+  const token=state.attemptToken;
+  for(let k=0;k<state.ids.length;k++){
+   const a=state.answers[k],q=getQ(state.ids[k]);if(!a||!q||state.syncedQuestions[q.id]===token)continue;
+   const chosen=q.options.find(o=>o.letter===a.selected),right=q.options.find(o=>o.letter===q.correct);
+   const row={user_id:user.id,quiz_id:quizId,question_id:String(q.id),topic:'SAL Histopathology',difficulty:q.difficulty,
+    selected_answer:chosen?.text||a.selected,correct_answer:right?.text||q.correct,is_correct:!!a.isCorrect,
+    confidence:a.confidence?.toLowerCase()==='high'?'confident':a.confidence?.toLowerCase()==='medium'?'unsure':a.confidence?'guessing':null,
+    answered_at:new Date().toISOString(),module_key:'msk',week:'13',lecture:'SAL',attempt_token:token,
+    metadata:{answer_letter:a.selected,correct_letter:q.correct,sal:true,difficulty_filter:state.filter,mode:state.mode}};
+   const {error}=await client.from('question_attempts').insert(row);if(error&&error.code!=='23505')throw error;
+   state.syncedQuestions[q.id]=token;save();
+  }
+  if(state.done&&!state.syncedCompletion){
+   const correct=state.answers.filter(a=>a&&a.isCorrect).length,total=state.ids.length;
+   const {error}=await client.from('quiz_attempts').insert({user_id:user.id,quiz_id:quizId,quiz_name:'SAL Histopathology Vignette Quiz',
+    score:correct,total_questions:total,percentage:total?100*correct/total:0,mode:state.mode,module_key:'msk',
+    attempt_token:token,completed_at:new Date().toISOString(),metadata:{module:'Musculoskeletal–Skin',week:'13',session:'SAL',difficulty_filter:state.filter}});
+   if(error&&error.code!=='23505')throw error;
+   state.syncedCompletion=true;save();
+  }
+  status(state.done?'Synced to My Profile and MSK leaderboard ✓':'Submitted questions synced to My Profile ✓');
+ }catch(e){console.error('SAL sync pending',e);status('Sync pending: '+(e?.message||'Retry when online'));}
+ finally{processing=false;}
+}
+async function syncFlag(id,isOn){
+ try{const user=await auth();if(!user)return;const q=getQ(id);if(!q)return;
+  if(isOn){
+   const {error}=await client.from('review_items').upsert({user_id:user.id,quiz_id:quizId,question_id:String(q.id),
+    module_key:'msk',week:'13',lecture:'SAL',topic:'SAL Histopathology',difficulty:q.difficulty,manually_filed:true,
+    review_reasons:['filed'],status:'active',question_snapshot:{stem:q.stem,choices:q.options.map(o=>o.text),answer:q.correct,
+    explanation:q.options.find(o=>o.letter===q.correct)?.explanation||'',optionExplanations:q.options.map(o=>o.explanation)},
+    reason:'Manual review',note:'SAL Histopathology',updated_at:new Date().toISOString()},
+    {onConflict:'user_id,module_key,quiz_id,question_id'});
+   if(error)throw error;
+  }else{
+   const {error}=await client.from('review_items').delete().eq('user_id',user.id).eq('module_key','msk').eq('quiz_id',quizId).eq('question_id',String(id));
+   if(error)throw error;
+  }
+ }catch(e){console.warn('Review flag sync pending',e);status('Flag sync pending: '+(e?.message||'Retry'))}
+}
+async function hydrateFlags(){
+ try{const user=await auth();if(!user||!state)return;const {data,error}=await client.from('review_items').select('question_id').eq('user_id',user.id).eq('module_key','msk').eq('quiz_id',quizId);
+  if(error)throw error;
+  for(const r of data||[]){const id=Number(r.question_id);if(state.ids.includes(id)&&!state.flags.includes(id))state.flags.push(id);}
+  save();if(!state.done)render();
+ }catch(e){console.warn('SAL flag hydration unavailable',e)}
+}
+retry.onclick=()=>{void syncAll();void hydrateFlags()};
+document.getElementById('submit')?.addEventListener('click',()=>{queueMicrotask(()=>void syncAll())});
+document.getElementById('next')?.addEventListener('click',()=>{queueMicrotask(()=>void syncAll())});
+document.getElementById('resume')?.addEventListener('click',()=>{queueMicrotask(()=>{void syncAll();void hydrateFlags()})});
+document.getElementById('start')?.addEventListener('click',()=>{if(state){state.attemptToken=newToken();state.syncedQuestions={};state.syncedCompletion=false;save()}});
+document.getElementById('flag')?.addEventListener('click',()=>{if(state)void syncFlag(activeQ().id,state.flags.includes(activeQ().id))});
+client.auth.onAuthStateChange((event)=>{if(event==='SIGNED_IN')setTimeout(()=>{void syncAll();void hydrateFlags()},0)});
+if(load()){state=load();void syncAll();void hydrateFlags();}
+})();
 </script></body></html>
