@@ -116,8 +116,8 @@
   }
   void hydrateFlags();
   syncPending();
-  syncPending();if(completed())void syncResults();
+  if(completed())void syncResults();
   client.auth.onAuthStateChange(event=>{
-    if(event==='SIGNED_IN')setTimeout(()=>{void hydrateFlags();if(completed())void syncResults();},0);
+    if(event==='SIGNED_IN')setTimeout(()=>{void hydrateFlags();syncPending();if(completed())void syncResults();},0);
   });
 })();
