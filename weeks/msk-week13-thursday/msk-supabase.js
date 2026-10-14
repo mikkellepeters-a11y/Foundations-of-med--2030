@@ -43,25 +43,63 @@
         user_id:auth.user.id,quiz_id:quizId,quiz_name:'MSK Week 13 Thursday',
         score:correct,total_questions:qs.length,percentage:correct*100/qs.length,
         mode:'advanced-review',module_key:'msk',attempt_token:token,completed_at:now,
-        metadata:{module:'Musculoskeletal–Skin',week:'13',day:'Monday',difficulty_filter:state.difficulty}
+        metadata:{module:'Musculoskeletal–Skin',week:'13',day:'Thursday',difficulty_filter:state.difficulty}
       });
       if(quizError) throw quizError;
-      const rows=qs.map(q=>({
-        user_id:auth.user.id,quiz_id:quizId,question_id:String(q.id),
-        topic:q.topic||'MSK',difficulty:q.difficulty,
-        selected_answer:txt(q,state.answers[q.id]),correct_answer:txt(q,q.answer),
-        is_correct:state.answers[q.id]===q.answer,
-        confidence:confidence[state.conf[q.id]]||null,answered_at:now,module_key:'msk',
-        week:'13',lecture:String(q.lecture),attempt_token:token,
-        metadata:{answer_letter:state.answers[q.id],correct_letter:q.answer,hint_used:!!state.hints[q.id]}
-      }));
-      const {error:questionError}=await client.from('question_attempts').insert(rows);
-      if(questionError) throw questionError;
       state.syncedFingerprint=fingerprint;
       persist();
       msg('Synced to My Profile ✓');
     }catch(e){console.error('MSK sync failed',e);msg('Sync failed: '+(e?.message||'Unknown error'));}
     finally{busy=false;}
+  }
+  // A question submission is an attempt, independently of quiz completion.
+  // Each attempt has a stable token, so reloading/retrying cannot award extra credit.
+  const pending=new Set();
+  function attemptToken(){
+    if(!state.questionAttemptToken){
+      state.questionAttemptToken='msk-w13-'+(crypto.randomUUID?.()||Date.now()+'-'+Math.random().toString(36).slice(2));
+      persist();
+    }
+    return state.questionAttemptToken;
+  }
+  async function syncQuestion(q){
+    if(!q || !state.answers[q.id])return;
+    const token=attemptToken(),key=token+':'+q.id;
+    if(pending.has(key) || state.syncedQuestions?.[q.id]===token)return;
+    pending.add(key);
+    try{
+      const auth=await session();
+      if(!auth?.user){msg('Answer saved on this device. Sign in to sync your submitted questions.');return;}
+      const now=new Date().toISOString();
+      const row={
+        user_id:auth.user.id,quiz_id:quizId,question_id:String(q.id),
+        topic:q.topic||'MSK',difficulty:q.difficulty,
+        selected_answer:txt(q,state.answers[q.id]),correct_answer:txt(q,q.answer),
+        is_correct:state.answers[q.id]===q.answer,
+        confidence:confidence[state.conf[q.id]]||null,answered_at:now,module_key:'msk',
+        week:'13',lecture:String(q.lecture||''),attempt_token:token,
+        metadata:{answer_letter:state.answers[q.id],correct_letter:q.answer,hint_used:!!state.hints[q.id]}
+      };
+      // Existing database uniqueness is scoped to user/module/quiz/token/question.
+      // Ignore an existing record for this exact attempt; never insert it twice.
+      const {error}=await client.from('question_attempts').insert(row);
+      if(error && error.code!=='23505')throw error;
+      state.syncedQuestions=state.syncedQuestions||{};
+      state.syncedQuestions[q.id]=token;
+      persist();
+      msg('Submitted question synced to My Profile ✓');
+    }catch(e){console.error('Question sync failed',e);msg('Question sync pending: '+(e?.message||'Unknown error'));}
+    finally{pending.delete(key);}
+  }
+  // Hook into the existing explicit Submit Answer handler, not answer selection.
+  const oldSubmit=submit;
+  submit=function(){
+    const q=current(),wasSubmitted=!!state.answers[q.id];
+    oldSubmit();
+    if(!wasSubmitted && state.answers[q.id])void syncQuestion(q);
+  };
+  function syncPendingQuestions(){
+    for(const q of BANK)if(state.answers[q.id])void syncQuestion(q);
   }
   async function syncFlag(q,on){
     try{
@@ -87,7 +125,7 @@
   }
   const previousResults=results;
   results=function(){previousResults();void syncResults();};
-  document.getElementById('resultOverlay')?.addEventListener('click',event=>{if(event.target.id==='resetQuiz'){delete state.syncedFingerprint;persist();}});
+  document.getElementById('resultOverlay')?.addEventListener('click',event=>{if(event.target.id==='resetQuiz'){delete state.syncedFingerprint;delete state.questionAttemptToken;state.syncedQuestions={};persist();}});
   async function hydrateFlags(){
     try{
       const auth=await session();if(!auth?.user)return;
@@ -99,7 +137,8 @@
     }catch(error){console.warn('Could not load MSK Filed for Review flags',error);}
   }
   void hydrateFlags();
-  client.auth.onAuthStateChange((event)=>{if(event==='SIGNED_IN'){void hydrateFlags(); if(list().every(q=>state.answers[q.id]))void syncResults();}});
+  void syncPendingQuestions();
+  client.auth.onAuthStateChange((event)=>{if(event==='SIGNED_IN'){void hydrateFlags(); syncPendingQuestions(); if(list().every(q=>state.answers[q.id]))void syncResults();}});
   document.getElementById('explainOverlay')?.addEventListener('click',event=>{
     if(event.target?.id==='reviewFlag'){
       const q=current();if(q)void syncFlag(q,!!state.flag[q.id]);
