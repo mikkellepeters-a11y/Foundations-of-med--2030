@@ -39,25 +39,46 @@
       };
       const {error:attemptError}=await client.from('quiz_attempts').insert(attempt);
       if(attemptError)throw attemptError;
-      const confidence={high:'confident',medium:'unsure',low:'guessing'};
-      const rows=qs.map(x=>{
-        const selected=state.answers[x.id].selected;
-        return {
-          user_id:session.user.id,quiz_id:quizId,question_id:String(x.id),module_key:'msk',
-          topic:x.topic||'MSK',difficulty:x.difficulty,week:'13',
-          lecture:[1,2,3,6,7,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25].includes(x.id)?'8':'9',
-          selected_answer:x.options[selected]?.label||'',correct_answer:x.options[x.answer]?.label||'',
-          is_correct:selected===x.answer,
-          confidence:confidence[state.conf?.[x.id]]||null,answered_at:now,attempt_token:token,
-          metadata:{answer_letter:'ABCDE'[selected],correct_letter:'ABCDE'[x.answer]}
-        };
-      });
-      const {error:questionError}=await client.from('question_attempts').insert(rows);
-      if(questionError)throw questionError;
       state.syncedFingerprint=fp;save();msg('Synced to My Profile ✓');
     }catch(e){console.error('Wednesday MSK sync failed',e);msg('My Profile sync failed: '+(e?.message||'Unknown error'));}
     finally{busy=false;}
   }
+  const pendingQuestions=new Set();
+  function token(){
+    if(!state.questionAttemptToken){state.questionAttemptToken='msk-w13-wed-'+(crypto.randomUUID?.()||Date.now()+'-'+Math.random().toString(36).slice(2));save();}
+    return state.questionAttemptToken;
+  }
+  async function syncQuestion(x){
+    const answer=state.answers?.[x.id];
+    if(!answer?.submitted)return;
+    const attempt=token(),key=attempt+':'+x.id;
+    if(pendingQuestions.has(key)||state.syncedQuestions?.[x.id]===attempt)return;
+    pendingQuestions.add(key);
+    try{
+      const ses=await auth();
+      if(!ses?.user){msg('Answer saved on this device. Sign in to sync submitted questions.');return;}
+      const selected=answer.selected,confidence={high:'confident',medium:'unsure',low:'guessing'};
+      const row={
+        user_id:ses.user.id,quiz_id:quizId,question_id:String(x.id),module_key:'msk',
+        topic:x.topic||'MSK',difficulty:x.difficulty,week:'13',
+        lecture:[1,2,3,6,7,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25].includes(x.id)?'8':'9',
+        selected_answer:x.options[selected]?.label||'',correct_answer:x.options[x.answer]?.label||'',
+        is_correct:selected===x.answer,confidence:confidence[state.conf?.[x.id]]||null,
+        answered_at:new Date().toISOString(),attempt_token:attempt,
+        metadata:{answer_letter:'ABCDE'[selected],correct_letter:'ABCDE'[x.answer]}
+      };
+      const {error}=await client.from('question_attempts').insert(row);
+      if(error&&error.code!=='23505')throw error;
+      state.syncedQuestions=state.syncedQuestions||{};
+      state.syncedQuestions[x.id]=attempt;save();
+      msg('Submitted question synced to My Profile ✓');
+    }catch(e){console.error('Wednesday question sync failed',e);msg('Question sync pending: '+(e?.message||'Unknown error'));}
+    finally{pendingQuestions.delete(key);}
+  }
+  function syncPending(){for(const x of BANK)if(state.answers?.[x.id]?.submitted)void syncQuestion(x);}
+  document.getElementById('submitBtn')?.addEventListener('click',()=>{
+    const x=filtered[index];if(x?.id&&state.answers?.[x.id]?.submitted)void syncQuestion(x);
+  });
   async function syncFlag(x,on){
     try{
       const session=await auth();
@@ -80,7 +101,7 @@
   }
   const priorResults=results;
   results=function(){priorResults();void syncResults();};
-  retry.onclick=()=>void syncResults();
+  retry.onclick=()=>{syncPending();void syncResults();};
   document.getElementById('flagBtn')?.addEventListener('click',()=>{
     const x=filtered[index];if(x)void syncFlag(x,!!state.flags[x.id]);
   });
@@ -94,7 +115,8 @@
     }catch(e){console.warn('Wednesday review hydrate failed',e);}
   }
   void hydrateFlags();
-  if(completed())void syncResults();
+  syncPending();
+  syncPending();if(completed())void syncResults();
   client.auth.onAuthStateChange(event=>{
     if(event==='SIGNED_IN')setTimeout(()=>{void hydrateFlags();if(completed())void syncResults();},0);
   });
