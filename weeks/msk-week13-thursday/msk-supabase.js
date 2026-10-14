@@ -98,6 +98,7 @@
     oldSubmit();
     if(!wasSubmitted && state.answers[q.id])void syncQuestion(q);
   };
+  document.getElementById('submitBtn').onclick=submit;
   function syncPendingQuestions(){
     for(const q of BANK)if(state.answers[q.id])void syncQuestion(q);
   }
