@@ -43,7 +43,7 @@
         user_id:auth.user.id,quiz_id:quizId,quiz_name:'MSK Week 13 Comprehensive A',
         score:correct,total_questions:qs.length,percentage:correct*100/qs.length,
         mode:'advanced-review',module_key:'msk',attempt_token:token,completed_at:now,
-        metadata:{module:'Musculoskeletal–Skin',week:'13',exam:'comprehensive-a',day:'Thursday',difficulty_filter:state.difficulty}
+        metadata:{module:'Musculoskeletal–Skin',week:'13',exam:'comprehensive-a',assessment:'Comprehensive A',difficulty_filter:state.difficulty}
       });
       if(quizError) throw quizError;
       state.syncedFingerprint=fingerprint;
