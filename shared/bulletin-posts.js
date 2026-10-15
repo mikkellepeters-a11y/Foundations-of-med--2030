@@ -1,5 +1,23 @@
 window.MEGAHUB_BULLETIN_POSTS = [
   {
+    id: '2026-10-15-msk-week14-and-leaderboards',
+    date: 'October 15, 2026',
+    createdAt: '2026-10-15T17:30:00-04:00',
+    category: 'Developer Update',
+    author: 'Mikkelle Peters',
+    role: 'MegaHub Developer',
+    title: 'MSK Update: Week 14 Preview + New Leaderboard Competitions',
+    body: [
+      '🏆 MORE WAYS TO COMPETE: The MSK-Skin leaderboard now has four views: Individual, CBL Team, House, and Anatomy Tables. Points are earned for answering questions, not for getting them right. Easy earns 1 point, Intermediate 2, and Challenge 3.',
+      '📊 HOUSE COMPETITION: Compare houses on a horizontal bar chart ranked by total MSK participation points. The house you selected in My Profile is highlighted.',
+      '🦴 ANATOMY TABLE COMPETITION: Anatomy tables have their own bar-chart rankings. Only questions identified as anatomy count toward these standings; questions without clear anatomy labels are excluded.',
+      '👥 GROUP MEMBERS: Group names now have member popups. Hover on desktop or tap/click to see available names. CBL team rosters use leaderboard names; house and anatomy-table rosters are limited to groups you belong to.',
+      '📚 WEEK 14 PREVIEW: October 19–23 is now organized by the course schedule, with upper-extremity anatomy, dermatology, skin histopathology, MSK imaging, and clinical sessions. The lecture hub lists nine core lectures with Companion, Factoid, and Anki resource slots.',
+      '📝 WEEK 14 QUIZ PLAN: The page lists daily practice, Comprehensive A, and a skin histopathology SAL quiz as planned resources. The Prequiz and Comprehensive B have been removed from this week. Week 14 remains an admin-only preview; its resource and quiz banks are not yet published.',
+      'To view the new competitions, open the MSK-Skin Leaderboard. To choose or update your House or Anatomy Table, visit My Profile. As always, keep sending feedback and reporting issues so we can keep improving MegaHub!'
+    ]
+  },
+  {
     id: '2026-10-10-welcome-to-msk-skin',
     date: 'October 10, 2026',
     createdAt: '2026-10-10T20:51:00-04:00',
