@@ -167,7 +167,7 @@ footer{padding:0 22px 34px;color:#8a7b70;font-size:12px}
 }
 .auth-overlay.show{display:flex}
 .auth-modal{
-  width:min(430px,100%);background:var(--paper);border:1px solid var(--line);border-radius:22px;
+  width:min(560px,100%);max-height:calc(100vh - 32px);overflow-y:auto;background:var(--paper);border:1px solid var(--line);border-radius:22px;
   box-shadow:0 24px 70px rgba(42,28,21,.28);padding:24px;position:relative
 }
 .auth-close{
@@ -185,10 +185,11 @@ footer{padding:0 22px 34px;color:#8a7b70;font-size:12px}
 .auth-form{display:grid;gap:12px}
 .auth-field{display:grid;gap:6px}
 .auth-field label{font-size:12px;font-weight:800;color:var(--ink)}
-.auth-field input{
+.auth-field input,.auth-field select{
   width:100%;border:1px solid var(--line);background:#fff;border-radius:12px;padding:12px 13px;
   font:inherit;color:var(--ink)
 }
+.signup-fields{display:none;border-top:1px solid var(--line);padding-top:14px;margin-top:2px}.signup-fields.show{display:block}.signup-fields h3{margin:0 0 4px;font-size:14px}.signup-fields p{margin:0 0 12px;font-size:11px;color:var(--muted);line-height:1.5}.signup-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.signup-hint{font-size:10px;color:var(--muted)}@media(max-width:480px){.signup-grid{grid-template-columns:1fr}}
 .auth-submit,.auth-secondary{
   border:0;border-radius:12px;padding:12px 14px;font:inherit;font-weight:850;cursor:pointer
 }
@@ -402,6 +403,22 @@ footer{padding:0 22px 34px;color:#8a7b70;font-size:12px}
           <label for="authPassword">Password</label>
           <input id="authPassword" type="password" autocomplete="current-password" minlength="6" required />
         </div>
+        <div class="signup-fields" id="signupFields" hidden>
+          <h3>Your MegaHub profile</h3>
+          <p>Set up your profile and join the right teams from day one. Your selections can be changed later in My Profile.</p>
+          <div class="auth-field">
+            <label for="signupScreenName">Screen name</label>
+            <input id="signupScreenName" maxlength="60" autocomplete="nickname" placeholder="Name shown on leaderboards" />
+          </div>
+          <div class="signup-grid">
+            <div class="auth-field"><label for="signupClassYear">Class year</label><select id="signupClassYear"><option value="">Choose class year</option></select></div>
+            <div class="auth-field"><label for="signupCblGroup">CBL Group</label><select id="signupCblGroup"><option value="">Choose CBL group</option></select></div>
+            <div class="auth-field"><label for="signupAnatomyTable">Anatomy Table</label><select id="signupAnatomyTable"><option value="">Choose table</option></select></div>
+            <div class="auth-field"><label for="signupPclGroup">PCL Group</label><select id="signupPclGroup"><option value="">Choose PCL group</option></select></div>
+            <div class="auth-field"><label for="signupHouse">House</label><select id="signupHouse"><option value="">Choose house</option></select></div>
+          </div>
+          <p class="signup-hint">Not assigned a group yet? Leave it blank and add it later under My Profile → Settings.</p>
+        </div>
         <button class="auth-submit" id="authSubmit" type="submit">Log In</button>
       </form>
       <div class="auth-message" id="authMessage" role="status" aria-live="polite"></div>
@@ -448,6 +465,26 @@ const authForm=document.getElementById('authForm');
 const authEmail=document.getElementById('authEmail');
 const authPassword=document.getElementById('authPassword');
 const authSubmit=document.getElementById('authSubmit');
+const signupFields=document.getElementById('signupFields');
+const signupInputs={
+ display_name:document.getElementById('signupScreenName'),
+ class_year:document.getElementById('signupClassYear'),
+ cbl_group:document.getElementById('signupCblGroup'),
+ anatomy_table:document.getElementById('signupAnatomyTable'),
+ pcl_group:document.getElementById('signupPclGroup'),
+ house:document.getElementById('signupHouse')
+};
+function addSignupOptions(select,values){
+ const fragment=document.createDocumentFragment();
+ values.forEach(value=>{const o=document.createElement('option');o.value=String(value);o.textContent=String(value);fragment.appendChild(o)});
+ select.appendChild(fragment);
+}
+addSignupOptions(signupInputs.class_year,Array.from({length:11},(_,i)=>2026+i));
+addSignupOptions(signupInputs.cbl_group,[...'ABCDEFGHIJKLMNOPQRSTUVWXYZ','AA','BB','CC','DD']);
+addSignupOptions(signupInputs.anatomy_table,Array.from({length:30},(_,i)=>i+1));
+addSignupOptions(signupInputs.pcl_group,Array.from({length:66},(_,i)=>i+1));
+addSignupOptions(signupInputs.house,[...'ABCDEFGHIJKLMN']);
+
 const authMessage=document.getElementById('authMessage');
 const loggedOutPanel=document.getElementById('loggedOutPanel');
 const loggedInPanel=document.getElementById('loggedInPanel');
@@ -549,6 +586,8 @@ function setAuthMode(mode){
   loginTab.classList.toggle('active',isLogin);
   signupTab.classList.toggle('active',!isLogin);
   authSubmit.textContent=isLogin?'Log In':'Create Account';
+  signupFields.hidden=isLogin;
+  signupFields.classList.toggle('show',!isLogin);
   authPassword.setAttribute('autocomplete',isLogin?'current-password':'new-password');
   authMessage.textContent='';
   authMessage.className='auth-message';
@@ -605,7 +644,15 @@ authForm.addEventListener('submit',async e=>{
       email,
       password,
       options:{
-        emailRedirectTo:new URL('./', window.location.href).href
+        emailRedirectTo:new URL('./', window.location.href).href,
+        data:{
+          display_name:signupInputs.display_name.value.trim()||null,
+          class_year:signupInputs.class_year.value||null,
+          cbl_group:signupInputs.cbl_group.value||null,
+          anatomy_table:signupInputs.anatomy_table.value||null,
+          pcl_group:signupInputs.pcl_group.value||null,
+          house:signupInputs.house.value||null
+        }
       }
     });
 
