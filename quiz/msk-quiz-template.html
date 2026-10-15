@@ -403,5 +403,5 @@ updateSetup();
 $('startBtn').textContent=`Start Quiz (${filteredPool().length})`;
 })();
 </script>
-</body>
+<script>(function(){const map=[[/\bIn-House\b/g,'Easy'],[/\bStep(?:\s|-)?(?:1|One)\b/gi,'Challenge']];function update(){const walk=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let n;while(n=walk.nextNode()){if(n.parentElement?.closest('script,style,textarea'))continue;let v=n.nodeValue;for(const [pattern,label] of map)v=v.replace(pattern,label);if(v!==n.nodeValue)n.nodeValue=v}}let busy=false;const go=()=>{if(busy||!document.body)return;busy=true;update();busy=false};new MutationObserver(go).observe(document.documentElement,{childList:true,subtree:true,characterData:true});if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',go);else go()})();</script></body>
 </html>
