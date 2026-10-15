@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Student Statistics · MegaHub Admin</title>
+<style>
+:root{--bg:#edf3ef;--paper:#fbfdfb;--ink:#21362b;--muted:#63736a;--line:#ceddd3;--green:#28543d;--dark:#183b2a;--soft:#e3ece6}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font:14px/1.55 system-ui,sans-serif;color:var(--ink)}
+header{background:linear-gradient(120deg,var(--dark),var(--green));color:white;padding:27px 20px 36px}header>div,main{max-width:1250px;margin:auto}
+a{color:inherit}.back{display:inline-block;color:#fff;text-decoration:none;border:1px solid #ffffff50;border-radius:100px;padding:7px 12px;font-weight:700;font-size:12px}
+h1{margin:18px 0 4px;font-size:clamp(30px,5vw,46px)}header p{margin:0;color:#e3ece6}
+main{padding:24px 18px 60px}.card{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:18px;margin-bottom:17px;box-shadow:0 10px 27px #17352210}
+#dashboard[hidden],#locked[hidden]{display:none}.summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.metric b{display:block;font-size:30px;color:var(--green)}.metric span{font-size:11px;font-weight:750;color:var(--muted)}
+.filters{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:15px}
+input,select{font:inherit;border:1px solid var(--line);background:white;border-radius:10px;padding:10px;min-width:130px}
+input{flex:2;min-width:200px}.filters select{flex:1}
+table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}
+th,td{padding:11px 12px;text-align:left;border-bottom:1px solid var(--line)}
+th{background:var(--soft);font-size:10px;text-transform:uppercase;letter-spacing:.04em;position:sticky;top:0;z-index:1}
+tbody tr:hover{background:#eff5f0}.num{font-variant-numeric:tabular-nums;text-align:right}
+td:first-child{font-weight:750}.table-scroll{overflow:auto;max-height:68vh}
+small{color:var(--muted)}.hint{font-size:11px;color:var(--muted)}
+@media(max-width:650px){.summary{grid-template-columns:repeat(2,1fr)}.filters>*{width:100%}}
+</style></head><body>
+<header><div><a class="back" href="admin-control.html">← Admin Control Center</a><h1>Student Statistics</h1><p>Private MegaHub administrator dashboard · participation, performance, achievements and groups</p></div></header>
+<main><div id="locked" class="card" role="status">Verifying administrator access…</div>
+<div id="dashboard" hidden>
+<div class="summary"><div class="card metric"><b id="students">—</b><span>Registered students</span></div><div class="card metric"><b id="questions">—</b><span>Questions answered</span></div><div class="card metric"><b id="quizzes">—</b><span>Quiz attempts</span></div><div class="card metric"><b id="achievements">—</b><span>Achievements unlocked</span></div></div>
+<section class="card"><div class="filters"><input id="search" type="search" aria-label="Search students" placeholder="Search screen name or group…"><select id="module" aria-label="Module"><option value="all">All modules</option><option value="foundations">Foundations</option><option value="msk">MSK-Skin</option></select><select id="sort" aria-label="Sort students"><option value="questions">Most questions</option><option value="achievements">Most achievements</option><option value="points">Most points</option><option value="recent">Most recently active</option><option value="name">Name A–Z</option></select></div>
+<p class="hint">Participation points are based on difficulty, not correctness. Accuracy reflects recorded correct answers; groups come from My Profile. Search and sorting update the table instantly.</p>
+<div class="table-scroll"><table><thead><tr><th>Student</th><th>Class</th><th>CBL</th><th>Anatomy</th><th>PCL</th><th>House</th><th class="num">Questions</th><th class="num">Accuracy</th><th class="num">Quizzes</th><th class="num">Points</th><th class="num">Achievements</th><th>Last active</th></tr></thead><tbody id="rows"></tbody></table></div><p class="hint" id="count"></p></section></div></main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script>
+const client=window.supabase.createClient('https://ofqfdnxpftifnvxnvppe.supabase.co','sb_publishable_06zYj2REZQMC8nXfhm7weQ_Nrotri7G');
+const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmt=v=>Number(v||0).toLocaleString();let data=[];
+const $=id=>document.getElementById(id);
+const n=(r,k)=>Number(r[k]||0);
+function render(){
+const mod=$('module').value,query=$('search').value.trim().toLowerCase(),sort=$('sort').value;
+let selected=data.filter(r=>[r.display_name,r.cbl_group,r.anatomy_table,r.pcl_group,r.house].some(v=>String(v??'').toLowerCase().includes(query)));
+const q=r=>mod==='foundations'?n(r,'foundations_questions'):mod==='msk'?n(r,'msk_questions'):n(r,'questions_answered');
+const pts=r=>mod==='foundations'?n(r,'foundations_points'):mod==='msk'?n(r,'msk_points'):n(r,'foundations_points')+n(r,'msk_points');
+selected.sort((a,b)=>sort==='name'?String(a.display_name).localeCompare(String(b.display_name)):sort==='recent'?new Date(b.last_activity||0)-new Date(a.last_activity||0):sort==='achievements'?n(b,'achievements')-n(a,'achievements'):sort==='points'?pts(b)-pts(a):q(b)-q(a));
+$('rows').innerHTML=selected.map(r=>'<tr><td>'+esc(r.display_name)+'</td><td>'+esc(r.class_year||'—')+'</td><td>'+esc(r.cbl_group||'—')+'</td><td>'+esc(r.anatomy_table||'—')+'</td><td>'+esc(r.pcl_group||'—')+'</td><td>'+esc(r.house||'—')+'</td><td class="num">'+fmt(q(r))+'</td><td class="num">'+(mod==='all'&&n(r,'questions_answered')?(100*n(r,'correct_answers')/n(r,'questions_answered')).toFixed(1)+'%':mod==='all'?'—':'—')+'</td><td class="num">'+fmt(r.quiz_attempts)+'</td><td class="num">'+fmt(pts(r))+'</td><td class="num">'+fmt(r.achievements)+'</td><td>'+ (r.last_activity?esc(new Date(r.last_activity).toLocaleDateString()):'—')+'</td></tr>').join('');
+$('count').textContent=selected.length+' of '+data.length+' profiles shown'+(mod==='all'?'':' · accuracy only available in All modules view');
+}
+['search','module','sort'].forEach(id=>$(id).addEventListener(id==='search'?'input':'change',render));
+async function init(){
+try{
+const {data:{user},error:ue}=await client.auth.getUser();if(ue||!user)throw Error('Please sign in with your administrator account first.');
+const {data:isAdmin,error:ae}=await client.rpc('is_site_admin');if(ae||isAdmin!==true)throw Error('Administrator access required.');
+const {data:rows,error}=await client.rpc('get_admin_student_statistics');if(error)throw Error('Unable to load student statistics: '+error.message);
+data=rows||[];$('locked').hidden=true;$('dashboard').hidden=false;
+$('students').textContent=fmt(data.length);$('questions').textContent=fmt(data.reduce((s,r)=>s+n(r,'questions_answered'),0));
+$('quizzes').textContent=fmt(data.reduce((s,r)=>s+n(r,'quiz_attempts'),0));$('achievements').textContent=fmt(data.reduce((s,r)=>s+n(r,'achievements'),0));render();
+}catch(e){$('locked').textContent=e.message;}
+}
+client.auth.onAuthStateChange((event)=>{if(event==='SIGNED_OUT'){data=[];$('dashboard').hidden=true;$('locked').hidden=false;$('locked').textContent='Administrator login required.';}});
+init();
+</script></body></html>
