@@ -1,0 +1,25 @@
+name: Publish Week 13 Lecture 6 Anki
+on:
+  push:
+    paths:
+      - 'weeks/week13/publish_lecture6_100.py'
+      - '.github/workflows/publish-week13-lecture6.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install genanki==0.13.1
+      - run: python weeks/week13/publish_lecture6_100.py
+      - name: Publish Anki deck
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add weeks/week13/MSK_Week13_Lecture6_Somatic_Autonomic_100_Text_Cards.apkg
+          git diff --cached --quiet || (git commit -m "Publish Lecture 6 100-card Anki deck" && git push)
