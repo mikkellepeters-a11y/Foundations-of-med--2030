@@ -25,6 +25,7 @@ small{color:var(--muted)}.hint{font-size:11px;color:var(--muted)}
 <main><div id="locked" class="card" role="status">Verifying administrator access…</div>
 <div id="dashboard" hidden>
 <div class="summary"><div class="card metric"><b id="students">—</b><span>Registered students</span></div><div class="card metric"><b id="questions">—</b><span>Questions answered</span></div><div class="card metric"><b id="quizzes">—</b><span>Quiz attempts</span></div><div class="card metric"><b id="achievements">—</b><span>Achievements unlocked</span></div></div>
+<section class="card"><h2 style="margin:0 0 5px">MSK Student Feedback Survey</h2><p class="hint">Anonymous survey · closes Tuesday, October 20, 2026</p><div id="surveySummary" class="summary" style="margin-top:15px"><div class="metric"><b id="surveyResponses">—</b><span>Responses</span></div><div class="metric"><b id="surveyPrepared">—</b><span>Average preparedness / 5</span></div><div class="metric"><b id="surveyImpact">—</b><span>Perceived quiz impact / 5</span></div></div><h3 style="font-size:14px">Most-used features</h3><div id="surveyFeatures" class="hint">Loading survey results…</div></section>
 <section class="card"><div class="filters"><input id="search" type="search" aria-label="Search students" placeholder="Search screen name or group…"><select id="module" aria-label="Module"><option value="all">All modules</option><option value="foundations">Foundations</option><option value="msk">MSK-Skin</option></select><select id="sort" aria-label="Sort students"><option value="questions">Most questions</option><option value="achievements">Most achievements</option><option value="points">Most points</option><option value="recent">Most recently active</option><option value="name">Name A–Z</option></select></div>
 <p class="hint">Participation points are based on difficulty, not correctness. Accuracy reflects recorded correct answers; groups come from My Profile. Search and sorting update the table instantly.</p>
 <div class="table-scroll"><table><thead><tr><th>Student</th><th>Class</th><th>CBL</th><th>Anatomy</th><th>PCL</th><th>House</th><th class="num">Questions</th><th class="num">Accuracy</th><th class="num">Quizzes</th><th class="num">Points</th><th class="num">Achievements</th><th>Last active</th></tr></thead><tbody id="rows"></tbody></table></div><p class="hint" id="count"></p></section></div></main>
@@ -49,7 +50,14 @@ try{
 const {data:{user},error:ue}=await client.auth.getUser();if(ue||!user)throw Error('Please sign in with your administrator account first.');
 const {data:isAdmin,error:ae}=await client.rpc('is_site_admin');if(ae||isAdmin!==true)throw Error('Administrator access required.');
 const {data:rows,error}=await client.rpc('get_admin_student_statistics');if(error)throw Error('Unable to load student statistics: '+error.message);
-data=rows||[];$('locked').hidden=true;$('dashboard').hidden=false;
+data=rows||[];client.rpc('get_admin_msk_survey_results').then(({data:survey,error:surveyError})=>{
+if(surveyError||!survey){$('surveyFeatures').textContent='Survey summary unavailable.';return}
+$('surveyResponses').textContent=fmt(survey.responses);
+$('surveyPrepared').textContent=survey.average_preparedness??'—';
+$('surveyImpact').textContent=survey.average_score_impact??'—';
+const names={lecture_companions:'Lecture Companions',factoids:'Factoid Sheets',anki:'Anki',practice_quizzes:'Practice Quizzes',gross_anatomy:'Gross Anatomy',drug_hub:'Drug Hub',pathology_hub:'Pathology Hub',smart_review:'Smart Review',notebook:'MSK Notebook',cbl_resources:'CBL',leaderboard:'Leaderboard',none:'None'};
+$('surveyFeatures').innerHTML=Object.entries(survey.feature_counts||{}).sort((a,b)=>b[1]-a[1]).map(([key,value])=>'<div style="padding:5px 0">'+esc(names[key]||key)+': <strong>'+fmt(value)+'</strong></div>').join('')||'No submissions yet.';
+});$('locked').hidden=true;$('dashboard').hidden=false;
 $('students').textContent=fmt(data.length);$('questions').textContent=fmt(data.reduce((s,r)=>s+n(r,'questions_answered'),0));
 $('quizzes').textContent=fmt(data.reduce((s,r)=>s+n(r,'quiz_attempts'),0));$('achievements').textContent=fmt(data.reduce((s,r)=>s+n(r,'achievements'),0));render();
 }catch(e){$('locked').textContent=e.message;}
